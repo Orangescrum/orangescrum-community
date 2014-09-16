@@ -1,5 +1,4 @@
 **Orangescrum** is a free, open source, flexible project management web application written using CakePHP.
-Stay on Top ! Get things done Efficiently, Increase Productivity.
 
 #### Requirements
     * Apache with `mod_rewrite`
