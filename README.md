@@ -7,8 +7,9 @@
   
 #### Installation
 
-    * Extract the archive. Upload the content to your server. (Required )
+    * Extract the archive. Upload the content to your server.
     * Create a new MySQL database (`utf8_unicode_ci` collation)
+    * Get the database.sql file from the root directory and import that to your database
     * Locate your `app` directory, do the changes on following files:
 	  * `app/Config/database.php` - update the database connection details
 	  * `app/Config/core-email-settings.php` - update the Email sending options, Email Ids and Email Contents
