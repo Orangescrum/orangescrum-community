@@ -11,9 +11,10 @@
     * Create a new MySQL database (`utf8_unicode_ci` collation) 
     * Get the database.sql file from the root directory and import that to your database.
     * Locate your `app` directory, do the changes on following files:
-	  * `app/Config/database.php` - update the database connection details
-	  * `app/Config/core-email-settings.php` - update the Email sending options, Email Ids and Email Contents
-	  * `app/Config/bootstrap.php` - check the comments on each Global values and change them as required
+	  * `app/Config/database.php` - Update the database connection details [Required]
+	  * `app/Config/constants.php` - Create a free account in Sendgrid and update the Email sending options [Required]
+	  * `app/Config/constants.php` - Change "www.my-orangescrum.com/" to your application domain name [Required]
+	  * `app/Config/core-email-settings.php` - Update the Email Contents
     * php.ini settings - change the value of 'post_max_size' and `upload_max_filesize` to 200Mb (OPTIONAL)
     * Run the application as http://your-site.com/ from your browser and start using Orangescrum
   
