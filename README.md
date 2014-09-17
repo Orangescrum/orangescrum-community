@@ -14,8 +14,8 @@
 	  * `app/Config/database.php` - Update the database connection details [Required]
 	  * `app/Config/constants.php` - Create a free account in Sendgrid and update the Email sending options [Required]
 	  * `app/Config/constants.php` - Change "www.my-orangescrum.com/" to your application domain name [Required]
-	  * `app/Config/core-email-settings.php` - Update the Email Contents
-    * php.ini settings - change the value of 'post_max_size' and `upload_max_filesize` to 200Mb (OPTIONAL)
+	  * `app/Config/core-email-settings.php` - Update the Email Contents (OPTIONAL)
+    * php.ini settings - change the value of 'post_max_size' and `upload_max_filesize` to 200Mb  (OPTIONAL)
     * Run the application as http://your-site.com/ from your browser and start using Orangescrum
   
 #### How to Git
