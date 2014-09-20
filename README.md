@@ -17,7 +17,6 @@
 	  * `app/Config/database.php` - Update the database connection details [Required]
 	  * `app/Config/constants.php` - Create a free account in Sendgrid and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)[Required]
 	  * `app/Config/constants.php` - Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL [Required]
-	  * `app/Config/core-email-settings.php` - Update the Email Contents (OPTIONAL)
     * Run the application as http://your-site.com/ from your browser and start using Orangescrum
   
 #### How to Git
