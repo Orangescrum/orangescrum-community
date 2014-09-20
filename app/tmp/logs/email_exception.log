@@ -1,0 +1,13 @@
+
+
+09-19-2014 11:47:47 
+	 Exception Message: Invalid email: "TO_DEV_EMAIL"  
+	 To Email:TO_DEV_EMAIL 	 Email Subject:-Error in uploading file to S3 bucket 	 For Company id=1 User id=1
+
+09-19-2014 11:51:35 
+	 Exception Message: Invalid email: "TO_DEV_EMAIL"  
+	 To Email:TO_DEV_EMAIL 	 Email Subject:-Error in uploading file to S3 bucket 	 For Company id=1 User id=1
+
+09-20-2014 07:25:54 
+	 Exception Message: SMTP Error: 535 Authentication failed: Bad username / password  
+	 To Email:prabhudas.2009@rediffmail.com 	 Email Subject:-Greate Indian Circus invited you to join Orangescrum 	 For Company id=1 User id=1

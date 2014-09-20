@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule    ^$    webroot/    [L]
+    RewriteRule    (.*) webroot/$1    [L]
+	
+	
+	# Insert filter
+	SetOutputFilter DEFLATE
+
+	# Netscape 4.x has some problems...
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+	# Netscape 4.06-4.08 have some more problems
+	BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+	# MSIE masquerades as Netscape, but it is fine
+	# BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+	# NOTE: Due to a bug in mod_setenvif up to Apache 2.0.48
+	# the above regex won't work. You can use the following
+	# workaround to get the desired effect:
+	BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+
+	# Don't compress images
+	SetEnvIfNoCase Request_URI \
+	\.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+	# Make sure proxies don't deliver the wrong content
+	Header append Vary User-Agent env=!dont-vary
+</IfModule>
+
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|txt|html|x-html|php|css|xml|js|woff|ttf|svg|eot)(\.gz)?$">
+    <IfModule mod_expires.c>
+        ExpiresActive On
+    </IfModule>
+    <IfModule mod_headers.c>
+        Header set Expires "access 12 month"
+        Header unset ETag
+    </IfModule>
+    FileETag None
+</FilesMatch>

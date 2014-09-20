@@ -1,0 +1,76 @@
+#container{
+	width:100%;
+	margin:0 auto;
+	border:0;
+}
+.login_box div.login_box div.extras {
+    border-top: 1px dashed #CCCCCC;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+.login_box div.login_box input.auto {
+    width: auto;
+}
+.login_box div.login_box label input {
+    margin-bottom: 0;
+}
+.login_box div.login_box input {
+    font-size: 14px;
+    padding: 3px;
+    width: 275px;
+}
+input{
+	border:1px inset #ccc;
+}
+input:focus{
+	outline:none;
+	border:1px inset #3D7BAD;
+}
+
+.login_box div.login_box input.button {
+    font-size: 14px;
+    margin: 10px 0 0;
+    padding: 3px;
+    width: auto;
+	cursor:pointer;
+}
+.login_box div.login_box div.extras ul li {
+    font-size: 12px;
+    list-style: none outside none;
+    padding-bottom: 3px;
+}
+input {
+    padding: 3px;
+}
+.login_box {
+    color: #000000;
+}
+.login_box div.login_box {
+    -moz-border-radius: 10px 10px 10px 10px;
+    -moz-box-shadow: 0 0 6px #999999;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 0 0 6px #999999;
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-family: lucida grande,verdana;
+    font-size: 12px;
+    margin: 10px auto;
+    padding: 10px 28px;
+    text-align: left;
+    width: 410px;
+}
+.login_box div.login_box h2 {
+    color: #000000;
+    font-size: 14px;
+    margin: 0 0 2px;
+    padding: 0;
+	font-family: "Lucida Grande",arial,sans-serif;
+}
+div#LogoBox.white img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 10px;
+}
+.footer_login{
+	position:absolute;
+	bottom:0px;	
+	width:100%;
+}

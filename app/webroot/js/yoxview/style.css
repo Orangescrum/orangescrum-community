@@ -1,0 +1,17 @@
+body
+{
+	font-family: Arial, Sans-Serif;
+	margin: 0;
+}
+#container{ width: 700px; margin: 40px auto; }
+h1{ font-size: 1.5em; font-weight: bold; }
+hr{ clear: both; }
+
+.thumbnails a
+{
+	display: block;
+	float: left;
+	margin: 4px;
+}
+.thumbnails a img{ border: solid 1px Black; }
+.thumbnails a:hover img{ border: solid 1px #aaa }

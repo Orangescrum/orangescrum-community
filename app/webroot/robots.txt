@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /js/
+Disallow: /css/
+Disallow: /files/
+Disallow: /jcrop/
+Disallow: /csv/

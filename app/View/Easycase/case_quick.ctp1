@@ -1,0 +1,393 @@
+<style type="text/css">
+<style type="text/css">
+.ui-state-highlight{
+	height:10px;
+}
+
+.dropdown ul { 
+	margin:0px;
+	padding:0px;
+	z-index:1000;
+	 }
+.frst_opt{
+	margin-top:0px;
+	padding-top:0px;	 
+	 }
+.dropdown dd,.dropdown .more_opt { position:relative;}
+.dropdown a, .dropdown a:visited,.dropdown .opt1{ 
+	color:#666666; 
+	text-decoration:none;
+	outline:none;
+	}
+.dropdown .opt1{
+	background:#fff;
+}
+.dropdown a:hover { color:#666666;background-color:#EBF0F4;}
+.dropdown .opt1 a{
+	background:url(<?php echo HTTP_IMAGES."images/arro.png";?>) no-repeat scroll right center;
+	display:block;
+	width:140px;
+	line-height:26px;
+	}
+.dropdown .opt1 a span{
+	cursor:pointer;
+	padding:5px 2px;
+}
+.dropdown .more_opt ul { 
+	background:#fff none repeat scroll 0 0;
+	border:1px solid #D3D3D3;
+	color:#C5C0B0;
+	display:none;
+	left:0px;
+	margin-top:-1px;
+	padding:0px 0px;
+	position:absolute;
+	top:0px;
+	width:140px;
+	list-style:none;
+}
+.dropdown .opt1:hover{
+ 	color:#5d4617;background-color:#EBF0F4;
+	border-radius:5px;
+}
+.dropdown span.value { display:none;}
+.opt1 ul li a,.more_opt ul li a { 
+	padding:3px 3px;
+	display:block;
+	z-index:3;
+}
+.opt1 ul li a:hover { background-color:#EBF0F4;display:block;}
+.dropdown img.flag {
+	border:none;
+	vertical-align:middle;
+	margin-left:5px;
+	position:relative;
+	top:-2px;
+ }
+.flagvisibility { display:none;}
+.arr_sep{
+	padding:0px;
+}
+.ui-datepicker-trigger
+{
+	background:#FFF;
+	border:0;
+	padding-top:0px;padding-bottom:0px;padding-right:0px;
+	margin-top:0px;margin-bottom:0px;margin-right:0px;
+	
+}
+.ui-datepicker-trigger:hover
+{
+	background:#FFF;
+	border:0;
+	padding-top:0px;padding-bottom:0px;padding-right:0px;
+	margin-top:0px;margin-bottom:0px;margin-right:0px;
+}
+button.ui-datepicker-trigger{
+	min-width:30px;	
+}
+</style>
+<?php
+$curdate = gmdate("Y-m-d H:i:s");
+$userDate = $this->Tmzone->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,$curdate,"datetime");
+
+$curDay = date('D',strtotime($userDate));
+$friday = date('Y-m-d',strtotime($userDate."next Friday"));
+$monday = date('Y-m-d',strtotime($userDate."next Monday"));
+$tomorrow = date('Y-m-d',strtotime($userDate."+1 day"));
+
+$titleValue = "Daily Update - ".date("m/d");
+?>
+<script type="text/javascript">
+	function hide_pri(val) {
+		document.getElementById("CS_title").value = val;
+	}
+	$(document).ready(function() {
+		
+		$(".more_opt ul li a").click(function() {
+			var text = $(this).html();
+			var path=$(this).parent("li").parent("ul").parent("div").prev("div").attr("id");
+			$("#"+path).children("a").children("span").html(text);
+			
+			if(path =="opt3")
+			{
+				var hidden_val=$("#" + path).find("a span.value").html();
+				$("#date_dd").html(hidden_val);
+				$("#CS_due_date").val(hidden_val);
+				
+			}
+			else if(path =="opt2"){
+				//alert("Hello");
+				$("#CS_priority").val(getSelectedValue("opt2"));
+			}
+			else
+			{
+				$("#CS_type_id").val(getSelectedValue("opt1"));
+				
+				$("#hd1").show();
+				$("#hd2").show();
+				
+				if($("#CS_type_id").val() == 10){
+					$("#hd1").hide();
+					$("#hd2").hide();
+					$("#CS_title").val('<?php echo $titleValue; ?>');
+					document.getElementById("CS_title").style.color='#000';
+				}
+				else if($("#CS_type_id").val() != 10 && $("#CS_title").val() == '<?php echo $titleValue; ?>')
+				{
+					document.getElementById("CS_title").value ="";
+				}
+			}
+			$("#"+path).next("div").children("ul").hide();
+		});
+		
+		function getSelectedValue(id) {
+            return $("#" + id).find("a span.value").html();
+	    }
+		
+		$(document).bind('click', function(e) {
+			var $clicked = $(e.target);
+			if (! $clicked.parents().hasClass("dropdown"))
+				$(".dropdown .more_opt ul").hide();
+		});
+	});
+	function open_more_opt(more_opt){
+		$("#"+more_opt).children("ul").toggle();
+	}
+
+
+$(function() {
+	$( "#due_date" ).datepicker({
+		altField: "#CS_due_date",
+		showOn: "button",
+		buttonImage: "<?php echo HTTP_IMAGES."images/calendar.png";?>",
+		buttonStyle: "background:#FFF;",
+		changeMonth: false,
+		changeYear: false,
+		minDate: 0,
+		hideIfNoPrevNext: true,
+		onSelect: function(dateText, inst) {
+			$("#date_dd").html(dateText);		
+		}
+		
+	});
+	
+});
+</script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>fileupload.js"></script>
+<input type="hidden" name="totfiles" id="totfiles" value="0" readonly="true">
+
+<input type="hidden" id="CS_type_id" value="2">
+<input type="hidden" id="CS_priority" value="1">
+<input type="hidden" id="CS_due_date" value="No Due Date">
+	
+<div class="case_field" style="padding:6px;">
+	<table cellpadding="0" cellspacing="0" style="padding-left:10px;">
+		 	<tr>
+				<td align="left">
+					Task Type:&nbsp;&nbsp;
+				</td>
+				<td>
+					<div id="sample" class="dropdown" style="float:left">
+						<div class="opt1" id="opt1">
+							<a href="javascript:jsVoid()" onclick="open_more_opt('more_opt');">
+								<span>
+									<img class="flag" src="<?php echo HTTP_IMAGES.'images/types/dev.png';?>" alt="type" style="padding-top:3px;"/>&nbsp;Development
+								</span> 
+							</a>
+					</div>
+					<div class="more_opt" id="more_opt">
+						<ul>
+							<?php
+							foreach($select as $k=>$v){
+								foreach($v as $key=>$value){
+									foreach($value as $key1=>$result){
+										if($key1=='name'&& $key1='short_name'){
+											//$im = $value['short_name'].".png";
+											$im1= $this->Format->todo_typ_src($value['short_name'],$value['name']);;
+											echo "<li>
+													<a href='javascript:jsVoid()'>
+														<img class='flag' src='".$im1."' alt='' />
+														<span class='value'>".$value['id']."
+														</span>".$value['name']."
+													</a>
+												</li>";
+			
+									 }
+								  }
+								}
+							}
+							?>
+						 </ul>
+					</div>
+				</div>
+			</td>
+			<td style="padding-left:60px;" align="right">
+				<span id="hd1">
+					Priority:&nbsp;&nbsp;
+				</span>
+			</td>
+			<td>
+				<span id="hd2">
+					<div class="dropdown" style="float:left;">
+						<div class="opt1" id="opt2">
+							<a href="javascript:jsVoid()" onclick="open_more_opt('more_opt2');" style="width:100px">
+								<span><font style='color:#28AF51;font-size:12px;'>&nbsp;MEDIUM</font></span>
+							</a>
+						</div>
+						<div class="more_opt" id="more_opt2">
+						   <ul style="width:100px">
+							  <li>
+								<a href="javascript:jsVoid()"><font style='color:#AD9227;font-size:12px;'>&nbsp;LOW</font>
+										<span class="value">2</span>
+								</a>
+								</li>
+							  <li>
+								<a href="javascript:jsVoid()"><font style='color:#28AF51;font-size:12px;'>&nbsp;MEDIUM</font>
+										<span class="value">1</span>
+								</a>
+								</li>
+							  <li>
+								<a href="javascript:jsVoid()"><font style='color:#AE432E;font-size:12px;'>&nbsp;HIGH</font>
+										<span class="value">0</span>
+								</a>
+							  </li>
+							</ul>
+						</div>
+					</div>
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="case_field">
+	<span style="display:table-cell;vertical-align:top;padding:5px 3px;">
+		<div>
+			<textarea name="data[Easycase][message]" id="CS_message" onfocus="openEditor()" rows="2" class="txtarea" style="width:580px;color:#666666;max-width:570px;">Enter Description...</textarea>
+		</div>
+	</span>
+</div>
+<div class="clear"></div>
+<div class="case_field" style="padding:6px;">
+	<table border="0" cellpadding="0" cellspacing="0" style="padding-left:10px;">
+		<tr>
+			<td align="right" valign="top" style="padding-top:5px;">
+				Attachment:&nbsp;&nbsp;
+			</td>
+			<td align="left" valign="top">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="250px">
+							<form id="file_upload" action="<?php echo HTTP_ROOT."easycases/fileupload/"; ?>" method="POST" enctype="multipart/form-data">
+								<div class="customfile" >
+									<span class="customfile-button button" aria-hidden="true">Browse</span>
+									<span class="customfile-feedback" aria-hidden="true">Select multiple files to upload...</span>
+									<input class="fileupload customfile-input" name="data[Easycase][case_files]" type="file" multiple=""/>
+								</div>
+							</form>
+						</td>
+						<td style="padding-left:10px;color:#999999" valign="top">
+							<img src="<?php echo HTTP_IMAGES;?>images/attach.png" width="20" height="20" style="position:relative;top:4px;"/> Max size <?php echo MAX_FILE_SIZE; ?> Mb
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<table id="up_files" style="font-weight:normal;"></table>
+						</td>	
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="clear"></div>
+</div>
+<div class="case_field" style="padding:6px;padding-left:15px;">
+	<?php
+	$today = $this->Tmzone->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,GMT_DATETIME,"date");
+	$curDate = date("m/d/Y",strtotime($today));
+	?>
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				Assign to:&nbsp;&nbsp;
+			</td>
+			<td>
+				<select name="data[Easycase][assign_to]" id="CS_assign_to" style="padding:2px;width:140px;" class="select">
+				<?php
+				if(count($quickMem))
+				{
+					foreach($quickMem as $asgnMem)
+					{
+						if(SES_ID==$asgnMem['User']['id'])
+						{
+						?>
+							<option value="0" selected>me</option>
+						<?php 
+						}
+						else
+						{ 
+						?>
+							<option value="<?php echo $asgnMem['User']['id'];?>"><?php echo $this->Format->formatText($asgnMem['User']['name']); ?></option>
+						<?php
+						}
+					}
+				}
+				else
+				{
+				?>
+					<option value="0" selected>me</option>
+				<?php
+				}
+				?>
+				</select>
+			</td>
+			<td style="padding-left:40px;">
+				Due Date:&nbsp;&nbsp;
+			</td>
+			<td>
+				<div class="dropdown" style="float:left;margin-left:0px;z-index: 9999999">
+					<div class="opt1" id="opt3"><a href="javascript:jsVoid()" onclick="open_more_opt('more_opt3');">&nbsp;&nbsp;<span id="date_dd">No Due Date</span></a></div>
+					<div class="more_opt" id="more_opt3">
+						<ul>
+							<li><a href="javascript:jsVoid()">&nbsp;&nbsp;No Due Date<span class="value">No Due Date</span></a></li>
+							<li><a href="javascript:jsVoid()">&nbsp;&nbsp;Today<span class="value"><?php echo date('m/d/Y',strtotime($userDate));?></span> </a></li> 	
+							<li><a href="javascript:jsVoid()">&nbsp;&nbsp;Next Monday <span class="value"><?php echo date('m/d/Y',strtotime($monday));?></span></a></li> 
+							<li><a href="javascript:jsVoid()">&nbsp;&nbsp;Tomorrow<span class="value"><?php echo date('m/d/Y',strtotime($tomorrow));?></span></a></li>
+							<li><a href="javascript:jsVoid()">&nbsp;&nbsp;This Friday<span class="value"><?php echo date('m/d/Y',strtotime($friday));?></span></a></li> 
+							<li style="color:#808080">
+								<input type="hidden" id="due_date" title="Custom Date" style="min-width:30px;"/>&nbsp;<span style="position:relative;top:-4px;">Custom Date</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<?php /*?><input type="text" name="data[Easycase][due_date]" id="CS_due_date" class="datepicker small" onchange="checkDate('CS_due_date','<?php echo $curDate; ?>')"/><?php */?>
+	
+</div>
+<script type="text/javascript">
+	function show_follower()
+	{
+		if(document.getElementById('ajxMem').style.display == 'none')
+		{
+			document.getElementById('ajxMem').style.display = 'block';
+		}
+		else
+		{
+			document.getElementById('ajxMem').style.display = 'none';
+		}
+	}
+	function validate_quick_case() 
+	{
+		if(document.getElementById("title_txt").value==''){
+			alert("Title Field Can Not Be Left Blank");
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
+
+		
