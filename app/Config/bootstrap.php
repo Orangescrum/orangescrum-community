@@ -107,6 +107,7 @@
  *		'persistent' => true, // [optional] set this to false for non-persistent connections
  *	));
  */
+ 
 Cache::config('default', array('engine' => 'File'));
 
 /**
