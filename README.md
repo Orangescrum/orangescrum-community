@@ -7,7 +7,7 @@
   
 #### Installation
 
-    * Extract the archive. Upload the content to your server. 
+    * Extract the archive. Upload the content to your server. Provide write permission(777) to app/tmp and app/webroot folders and their sub-folders.
     * Create a new MySQL database (`utf8_unicode_ci` collation) 
     * Get the database.sql file from the root directory and import that to your database.
     * Locate your `app` directory, do the changes on following files:
