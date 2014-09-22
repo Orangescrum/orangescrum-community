@@ -49,7 +49,7 @@ define('EMAIL_SUBJ', '[Orangescrum]');
 define('RELEASE',1); //Increase the release version on every CSS/JS changes to remove cache
 
 ##################### Domain and URL Constants ############################
-define('SUB_FOLDER', ''); //Define the folder name followed by a slash "/" (If the application URL is a /FOLDER)
+define('SUB_FOLDER', ''); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'
 
 if(php_sapi_name() === "cli") {
 	define('PROTOCOL', "http://");

@@ -53,7 +53,7 @@ input#txt_Password{font-family: Arial}
                         <li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#FFF;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)
 </li>
                         <li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
-                        <li>Update the folder name in SUB_FOLDER, If your application URL followed by a folder name. like:   http://www.my-orangescrum.com/<b>folder_name/</b> (e.g. define('SUB_FOLDER', <b>folder_name/'</b>)). Leave it blank If your application URL doesn't have an additional folder path.</li>
+                        <!--<li>Update the folder name in the SUB_FOLDER followed by a forward slash, If your application URL followed by the folder name.</li>-->
                         </ul>
                         </div>
                         <?php
