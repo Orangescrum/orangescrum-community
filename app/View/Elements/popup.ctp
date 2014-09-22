@@ -115,7 +115,26 @@
 	</div>
 	<div class="popup_form">
 	    <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
-	    <div id="inner_user" style="display: none;"><?php echo $this->element('new_user'); ?></div>
+	    <div id="inner_user" style="display: none;">
+			<?php 
+			if(SENDGRID_USERNAME) {
+				echo $this->element('new_user');
+			}
+			else {
+			?>
+				<div style="color:#666;background:#F0F0F0;font-size:16px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
+				Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
+				<ul>
+				<li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#333;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (<b>SENDGRID_USERNAME</b> & <b>SENDGRID_PASSWORD</b>)
+</li>
+				<li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
+				
+				</ul>
+				</div>
+			<?php
+			}
+			?>
+		</div>
 	</div>
     </div>
     <!-- New user popup ends -->

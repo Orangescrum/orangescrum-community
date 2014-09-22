@@ -1532,9 +1532,21 @@ class UsersController extends AppController {
 		$Company = ClassRegistry::init('Company');
 		$Company->recursive = -1;
 		$findCompany = $Company->find('first',array('conditions'=>array('Company.is_active'=>1),'fields'=>array('Company.id')));
-		//$findCompany= array();
 		$this->set("findCompany",$findCompany);
 		
+		$rightpath = 1;
+		if(!$findCompany['Company']['id']) {
+			$testdata = file_get_contents(HTTP_ROOT."test.php");
+			if(!$testdata) {
+				$rightpath = 0;
+				
+				$url = $_SERVER['REQUEST_URI'];
+				$arr = explode("/", $url);
+				$sub_folder = $arr[1];
+				$this->set("sub_folder",$sub_folder);
+			}
+		}
+		$this->set("rightpath",$rightpath);
 	}
 	function lunchuser(){
 		if(isset($_GET['sig']) && trim($_GET['sig'])) {

@@ -47,13 +47,13 @@ input#txt_Password{font-family: Arial}
 					if(!$findCompany['Company']['id']) {
 						?>
                         <h4>Welcome to Orangescrum Community Edition v1.0</h4>
-                        <div style="color:#F0F0F0;background:#666;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px solid #F00;">
-                        Make sure that you have done the below required changes in <b style="color:#FF0">`app/Config/constants.php`</b><br/>
+                        <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
+                        Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
                         <ul>
-                        <li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#FFF;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)
+                        <li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#333;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)
 </li>
                         <li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
-                        <!--<li>Update the folder name in the SUB_FOLDER followed by a forward slash, If your application URL followed by the folder name.</li>-->
+						
                         </ul>
                         </div>
                         <?php
@@ -73,9 +73,28 @@ input#txt_Password{font-family: Arial}
                     <div style="height:100%;display:table; width:100%;">
 
                         <div id="container" style="display:table-cell; vertical-align:middle">
-
+							
                             <div class="">
                                 <div class="fl" style="right:0px; left:-8px;">
+									<?php if(!$rightpath) { ?>
+										<style>
+										.cake-error {
+											display:none;
+										}
+										</style>
+										<div style="color:#FF0000;font-size:14px;text-align:center;">
+											Update <b>SUB_FOLDER</b> in <b>app/Config/constants.php</b> to <b>define('SUB_FOLDER', '<?php echo $sub_folder; ?>/');</b>
+											<br/>
+											<?php
+											if(SUB_FOLDER) {
+												echo "Make sure that, the '<b>.htaccess</b>' file is there in the root directory";
+											}
+											?>
+										</div>
+									<?php 
+									}
+									else {
+									?>
                                     <div class="login_box">
                                         <h2 style="font-size:22px;">
                                             <?php
@@ -92,7 +111,7 @@ input#txt_Password{font-family: Arial}
                                        <div><img src="<?php echo HTTP_ROOT; ?>img/images/login_header_shadow.png?v=<?php echo RELEASE; ?>" width="460" height="8"/></div>
                                         
                                         <?php echo $this->Form->create('User', array('id'=>'userLoginForm','action' => $action)); ?>
-				       <input type="hidden" name="data[User][timezone_id]" id="timezone_id" value="">
+										<input type="hidden" name="data[User][timezone_id]" id="timezone_id" value="">
                                        
                                         <div class="login_dialog top_inc_app_land_from" id="login_dialog" style="margin-top:0px;">
                                             
@@ -196,9 +215,11 @@ input#txt_Password{font-family: Arial}
                                         
                                     </div>
                                 </div>
-								
                             </div>
                             <div class="cb"></div>
+							<?php
+							}
+							?>
                         </div>
 
                     </div>
