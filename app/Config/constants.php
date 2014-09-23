@@ -1,39 +1,4 @@
 <?php
-/*********************************************************************************
- * Orangescrum Community Edition is a web based Project Management software developed by
- * Orangescrum. Copyright (C) 2013-2014
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License version 3 as published by the
- * Free Software Foundation with the addition of the following permission added
- * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
- * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
- * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, see http://www.gnu.org/licenses or write to the Free
- * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301 USA.
- *
- * You can contact Orangescrum, 2059 Camden Ave. #118, San Jose, CA - 95124, US. 
-   or at email address support@orangescrum.com.
- *
- * The interactive user interfaces in modified source and object code versions
- * of this program must display Appropriate Legal Notices, as required under
- * Section 5 of the GNU General Public License version 3.
- *
- * In accordance with Section 7(b) of the GNU General Public License version 3,
- * these Appropriate Legal Notices must retain the display of the "Powered by
- * Orangescrum" logo. If the display of the logo is not reasonably feasible for
- * technical reasons, the Appropriate Legal Notices must display the words
- * "Powered by Orangescrum".
- ********************************************************************************/
- 
 ##################### Email Sending Options ############################
 define('SENDGRID_USERNAME', ''); //xxxxxxxxxxxxxxx (REQUIRED)
 define("SENDGRID_PASSWORD", ''); //xxxxxxxx (REQUIRED)
@@ -69,19 +34,19 @@ define('HTTP_HOME', "http://".DOMAIN.SUB_FOLDER);
 /**Require socket.io and node.js for instance messaging.**/
 //define("NODEJS_HOST",'http://www.your-application.com:3002'); //enable this, if you have Node.js setup in the server
 
-##################### Google Keys ############################
+##################### Google Keys (Login, Drive, Contacts) ############################
 define("CLIENT_ID", "XXXXXXXXXXXX.apps.googleusercontent.com");
 define("CLIENT_ID_NUM", "XXXXXXXXXXXX");
 define("CLIENT_SECRET", "xXxXXxxxx_xXxXXxxxx");
 define("API_KEY", "xXxXXxxxxxXXXXXXXXXXXXXxXXxxxx");
 define("REDIRECT_URI", HTTP_ROOT."users/googleConnect");
 
-define("CLIENT_ID_SIGNUP", "XXXXXXXXXXXX-xXxXXxxxxxxXXxxxx.apps.googleusercontent.com");
-define("CLIENT_SECRET_SIGNUP", "xXxXXxxxx-xXxXXxxxx");
-define("REDIRECT_URI_SIGNUP", HTTP_ROOT."users/googleSignup");
+define("USE_GOOGLE", 0);
 
 ##################### Dropbox Key ############################
 define("DROPBOX_KEY", "xXxxXxxxXx");
+
+define("USE_DROPBOX", 0);
 
 ##################### AWS S3 Bucket ############################
 define('USE_S3',0); //Set this parameter to 1 to use AWS S3 Bucket

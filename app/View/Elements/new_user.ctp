@@ -3,6 +3,8 @@ echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myfo
 <center><div id="err_email_new" style="color:#FF0000;display:none;"></div></center>
 <div class="data-scroll user_pdt">
 <table cellpadding="0" cellspacing="0" class="col-lg-12 new_auto_tab">
+	<?php
+	if(USE_GOOGLE) { ?>
     <tr>
 	<td class="v-top">	    
 	</td>
@@ -10,6 +12,9 @@ echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myfo
 	    <a style="float:left;" href="javascript:void:used" onclick="contactListGoogle('<?php echo COMP_UID; ?>');"><img src="<?php echo HTTP_IMAGES; ?>google_contact.png" /></a>
 	</td>
     </tr>
+    <?php
+	}
+	?>
     <tr>
 	<td class="v-top">
 	    Email ID:

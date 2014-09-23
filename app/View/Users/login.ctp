@@ -50,9 +50,13 @@ input#txt_Password{font-family: Arial}
                         <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
                         Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
                         <ul>
+                        <?php
+						if(!SENDGRID_USERNAME) { ?>
                         <li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#333;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)
 </li>
-                        <li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
+<?php
+						}
+						?><li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
 						
                         </ul>
                         </div>

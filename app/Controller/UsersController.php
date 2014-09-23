@@ -1536,10 +1536,11 @@ class UsersController extends AppController {
 		
 		$rightpath = 1;
 		if(!$findCompany['Company']['id']) {
-			$testdata = file_get_contents(HTTP_ROOT."test.php");
-			if(!$testdata) {
+			if(trim($_SERVER['REQUEST_URI']) == "/" || trim($_SERVER['REQUEST_URI']) == "/" || trim($_SERVER['REQUEST_URI']) == "") {
+				$rightpath = 1;
+			}
+			else {
 				$rightpath = 0;
-				
 				$url = $_SERVER['REQUEST_URI'];
 				$arr = explode("/", $url);
 				$sub_folder = $arr[1];
