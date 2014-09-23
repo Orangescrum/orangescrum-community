@@ -825,15 +825,13 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
 	}
 	
 	function groupupdatealerts() {
-		if(isset($GLOBALS['Userlimitation']) && ($GLOBALS['Userlimitation']['is_free'] || $GLOBALS['Userlimitation']['subscription_id']>1)){
+		
 	    $this->loadModel('Project');
 		$this->loadModel('ProjectUser');
 	    $project = $this->Project->getAllProjects();
 		//$projectsForUser = $this->ProjectUser->getAllProjectsForUsers();
 	    $this->set('project',$project);
-		}else{
-			$this->Session->write('ERROR','Opps! You don\'t have access to this activity.');
-		}
+		
 	}
 	
 	function projectMembers() {

@@ -2,7 +2,7 @@
 <!--Tabs section starts -->
     <?php echo $this->element("company_settings");?>
 <div class="fl grpalert">
-	<?php if (($GLOBALS['FREE_SUBSCRIPTION'] == 0) || ($user_subscription['is_free'])) {   
+	<?php 
  echo $this->Form->create('Project', array('name' => 'dailyUpdateForm','id' => 'dailyUpdateForm','url'=>"/projects/dailyUpdate")); ?>
     <table cellspacing="0" cellpadding="0" class="col-lg-5 dailyTbl grp_tbl" style="text-align:left; width:100%;">
         <tbody>
@@ -50,14 +50,7 @@
     </tbody>
 </table>
 <?php echo $this->Form->end(); 
-}else{ ?>
-	<div class="premium_featurs" style="text-align:center;padding: 10px;">
-		<div><img src="<?php echo HTTP_ROOT;?>img/star_icon.png"/></div>
-		<div class="prem_subs" style="font-size: 20px;">Subscribe to get this Feature </div> 
-		 <div class="prem_subs" style="font-size: 15px;padding-bottom: 10px;"> Plan starts at $29/month </div> 
-		 <div class="prem_subs" > <a href="<?php echo HTTP_ROOT; ?>pricing" style="color: #2D678D;">Go to plans and billing</a></div>  
-	 </div>
-<?php } ?>
+?>
 </div>
 
 
