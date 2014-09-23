@@ -1,6 +1,7 @@
 <div class="user_profile_con">
 <!--Tabs section starts -->
     <?php echo $this->element("company_settings");?>
+    
 <div class="fl grpalert">
 	<?php 
  echo $this->Form->create('Project', array('name' => 'dailyUpdateForm','id' => 'dailyUpdateForm','url'=>"/projects/dailyUpdate")); ?>
