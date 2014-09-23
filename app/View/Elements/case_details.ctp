@@ -450,13 +450,17 @@ if(showQuickAct && taskTyp.id != 10){
 							$is_basic_or_free = 0;
 						}
 						?>
+                        <?php if(USE_DROPBOX == 1 && USE_GOOGLE == 1){?>
 						<div class="fr" style="width:248px">
+                        	<?php if(USE_DROPBOX == 1) { ?>
 							<div class="fr btn-al-mr">
 								<button type="button" class="customfile-button" onclick="connectDropbox(<%= csAtId %>,<?php echo $is_basic_or_free;?>);">
 									<span class="icon-drop-box"></span>
 									Dropbox
 								</button>
 							</div>
+                            <?php } ?>
+                            <?php if(USE_GOOGLE == 1) { ?>
 							<div class="btn-al-mr">
 								<button type="button" class="customfile-button" onclick="googleConnect(<%= csAtId %>,<?php echo $is_basic_or_free;?>);">
 									<span class="icon-google-drive"></span>
@@ -466,7 +470,9 @@ if(showQuickAct && taskTyp.id != 10){
 									<img src="<?php echo HTTP_IMAGES;?>images/del.gif" style="position: absolute;bottom: 95px;margin-left: 125px;"/>
 								</span>
 							</div>
+                            <?php } ?>
 						</div>
+                        <?php } ?>
 						<div class="cb"></div>
 					</form>
 					<div id="table1">

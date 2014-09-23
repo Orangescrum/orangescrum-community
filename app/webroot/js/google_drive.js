@@ -6,10 +6,6 @@ var gaccess_token;
 var pollTimer;
 var caseId, caseDpId;
 function googleConnect(arg,is_basic_or_free) {
-    if(parseInt(is_basic_or_free)) {
-	alert("Upgrade your plan to attach files from Google Drive\r\nPlan starts at $29/month");
-	return false;
-    } else {
 	caseId = arg;
 	createCookie("google_accessToken", '', -365, DOMAIN_COOKIE);
 	window.open(_url, "windowname1", 'width=600, height=600');
@@ -34,7 +30,6 @@ function googleConnect(arg,is_basic_or_free) {
 	    } catch (e) {
 	    }
 	}, 500);
-    }
 }
 
 function createPicker() {
@@ -160,14 +155,9 @@ function removeLink(id, title){
 
 
 //Dropbox starts.
-function connectDropbox(arg, is_basic_or_free){
-    if(parseInt(is_basic_or_free)) {
-	alert("Upgrade your plan to attach files from Dropbox\r\nPlan starts at $29/month");
-	return false;
-    } else {
+function connectDropbox(arg, is_dropbox){
 	caseDpId = arg;
 	Dropbox.choose(options);
-    }
 }
 var options = {
     success: function(files) {

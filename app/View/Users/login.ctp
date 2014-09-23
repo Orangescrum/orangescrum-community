@@ -120,11 +120,11 @@ input#txt_Password{font-family: Arial}
                                         <div class="login_dialog top_inc_app_land_from" id="login_dialog" style="margin-top:0px;">
                                             
 											
-											<div class="gap10"></div>
+										   <div class="gap10"></div>
                                            <div id="divide"></div>
-                                          
+                                          	
                                             <?php
-                                            if($findCompany['Company']['id']) {
+                                            if($findCompany['Company']['id'] && USE_GOOGLE == 1) {
                                              ?>
                                                 <div class="" style="text-align: center;">
 													<div class="gogle_log_sup" onclick="loginWithGoogle();"><span class="gogle_log_sup_icn"></span>Login with Google</div>

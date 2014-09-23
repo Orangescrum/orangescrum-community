@@ -4576,12 +4576,13 @@ function submitAddNewCase(postdata,CS_id,uniqid,cnt,dtls,status,prelegend,pid){
                 }
                 var total_size = parseFloat(storage_used) + parseFloat(file_size/1024);
                 total_size = total_size.toFixed('2');
-                if(parseFloat(total_size) <= parseFloat(storage_max)){
+				done = 1;
+                /*if(parseFloat(total_size) <= parseFloat(storage_max)){
                     done = 1;
                 }else{
                     done = 0;
                     alert("Storage limit exceeded!\nUpgrade your account to get more storage.\n\nOR, remove any of the attached file.");
-                }
+                }*/
             }
         }
     }

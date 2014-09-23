@@ -1540,11 +1540,13 @@ class UsersController extends AppController {
 				$rightpath = 1;
 			}
 			else {
-				$rightpath = 0;
 				$url = $_SERVER['REQUEST_URI'];
 				$arr = explode("/", $url);
 				$sub_folder = $arr[1];
 				$this->set("sub_folder",$sub_folder);
+				if(SUB_FOLDER != $sub_folder."/") {
+					$rightpath = 0;
+				}
 			}
 		}
 		$this->set("rightpath",$rightpath);
@@ -3314,6 +3316,7 @@ function done_cropimage(){
 			    $sub_usr['UserSubscription']['milestone_limit'] = $subScription['Subscription']['milestone_limit'];
 			    $sub_usr['UserSubscription']['free_trail_days'] = $subScription['Subscription']['free_trail_days'];
 			    $sub_usr['UserSubscription']['price'] = $price;
+				$sub_usr['UserSubscription']['is_free'] = 1;
 			    $sub_usr['UserSubscription']['month'] = $subScription['Subscription']['month'];
 			    $sub_usr['UserSubscription']['created'] = GMT_DATETIME;
 			    try {

@@ -259,16 +259,19 @@
 										<div style="margin-left:6px" class="fnt999">Max size <?php echo MAX_FILE_SIZE; ?> Mb</div>
 										</div>									
 									</div>
-									<?php //if(isset($user_subscription) && ($user_subscription['is_free'] || ($user_subscription['subscription_id']>1))){?>
+									<?php if(USE_DROPBOX == 1 && USE_GOOGLE == 1){?>
 									<div class="fr drive_con drive_con_ipad" style="width:360px;">
+                                    	<?php if(USE_DROPBOX == 1) { ?>
 										<div class="fr btn-al-mr drive_drop">
-											<button type="button" class="customfile-button" onclick="connectDropbox(0,<?php echo $is_basic_or_free;?>);">
+											<button type="button" class="customfile-button" onclick="connectDropbox(0,<?php echo USE_DROPBOX;?>);">
 												<span class="icon-drop-box"></span>
 												Dropbox
 											</button>
 										</div>
+                                        <?php } ?>
+                                        <?php if(USE_GOOGLE == 1) { ?>
 										<div class="btn-al-mr drive_mgl">
-											<button type="button" class="customfile-button" onclick="googleConnect(0,<?php echo $is_basic_or_free;?>);">
+											<button type="button" class="customfile-button" onclick="googleConnect(0,<?php echo USE_GOOGLE;?>);">
 												<span class="icon-google-drive"></span>
 												Google Drive
 											</button>
@@ -276,8 +279,9 @@
 												<img src="<?php echo HTTP_IMAGES;?>images/del.gif" style="position: absolute;bottom: 95px;margin-left: 125px;"/>
 											</span>
 										</div>
+                                        <?php } ?>
 									</div>
-									<?php //}?>
+									<?php }?>
 									<div class="cb"></div>
 								</form>     
 							</td>
