@@ -33,7 +33,7 @@
  * technical reasons, the Appropriate Legal Notices must display the words
  * "Powered by Orangescrum".
  ********************************************************************************/
- 
+
 App::uses('AppController', 'Controller');
 class ProjectsController extends AppController {
     public $name = 'Projects';
