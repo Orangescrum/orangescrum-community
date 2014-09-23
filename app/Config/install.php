@@ -67,14 +67,20 @@ if(trim($settings['database']) == "") {
 				<table cellpadding="8" cellspacing="8" style="border:1px solid #999999;color:#000000" align="center" width="520px">
 					<tr>
 						<td align="center" style="border-bottom:1px solid #999999">
-							<h3 style="color:#245271">Database Connection Problem</h3>
+							<h3 style="color:#245271">4 simple steps to get started with Orangescrum</h3>
 						</td>
 					</tr>
 					<tr>
 						<td align="left" style="padding-top:10px">
-							<h4><span style="font-weight:normal;">Create a new MySQL database (`utf8_unicode_ci` collation)</span></h4>
-							<h4><span style="font-weight:normal;">Get the `database.sql` file from the root directory and import that to your database.</span></h4>
-							<h4><span style="font-weight:normal;">Add your database connection details and the database name in `app/Config/database.php` file</span></h4>
+							<h4>Step1: <span style="font-weight:normal;">Create a new MySQL database (`utf8_unicode_ci` collation)</span></h4>
+							<h4>Step2: <span style="font-weight:normal;">Add your database connection details and the database name in `app/Config/database.php` page</span></h4>
+							<h4>Step3: <span style="font-weight:normal;">Get the `database.sql` file from the root directory and import that to your database.</span></h4>
+							<h4>Step4: <span style="font-weight:normal;">Create a free account in <a href="https://sendgrid.com/user/signup" target="_blank">Sendgrid</a> and update the Email sending options in `app/Config/constants.php`</span></h4>
+						</td>
+					</tr>
+                    <tr>
+						<td align="center">
+							<h4 style="color:#FF0000">Make sure that you have write permission (777) to `app/tmp` and `app/webroot` folders</h4>
 						</td>
 					</tr>
 				</table>

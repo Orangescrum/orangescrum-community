@@ -48,15 +48,18 @@ input#txt_Password{font-family: Arial}
 						?>
                         <h4>Welcome to Orangescrum Community Edition v1.0</h4>
                         <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
-                        Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
+                        Make sure that, <br/>
                         <ul>
+                       	<li>You have write permission (777) to `app/tmp` and `app/webroot` folders</li>
+                        
                         <?php
 						if(!SENDGRID_USERNAME) { ?>
-                        <li>Create a free account in <a href="https://sendgrid.com/user/signup" style="color:#333;font-weight:bold;" target="_blank">Sendgrid</a> and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)
+                        <li>You have updated the Sendgrid credentials in SENDGRID_USERNAME & SENDGRID_PASSWORD in `app/Config/constants.php`<br/>
+                        Free Signup:<a href="https://sendgrid.com/user/signup" style="color:#333;" target="_blank" style="margin:0;padding:0;">https://sendgrid.com/user/signup</a>
 </li>
 <?php
 						}
-						?><li>Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL</li>
+						?><li>You have updated FROM_EMAIL_NOTIFY and SUPPORT_EMAIL in `app/Config/constants.php`</li>
 						
                         </ul>
                         </div>
