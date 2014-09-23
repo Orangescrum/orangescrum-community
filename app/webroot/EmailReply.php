@@ -1,4 +1,5 @@
 <?php
+//error_reporting(0);
 date_default_timezone_set('UTC');
 ini_set("max_execution_time", 360);
 
@@ -23,7 +24,7 @@ $cfg["db_name"] = $settings['database'];
 
 /* Email server connection */
 $username = FROM_EMAIL_NOTIFY;
-$password = 'XXXXXXXX';
+$password = 'XXXXXXXXXXXXX';
 $hostname = '{imap.gmail.com:993/ssl}INBOX';
 
 $smtpConfig = array(
@@ -33,9 +34,8 @@ $smtpConfig = array(
     'secure' => 'ssl',
     'username' => $username,
     'password' => $password,
-    'client' => 'Orangescrum'
+    'client' => 'Gmail'
 );
-
 
 /* try to connect */
 $inbox = imap_open($hostname, $username, $password) or die('Cannot connect to domain:' . imap_last_error());
@@ -81,7 +81,7 @@ if ($emails) {
             $message = $base64_msg;
         }
         $message = convert_ascii($message);
-
+		
         $savedirpath = "/tmp/";
         $message1 = array();
         $message1["attachment"]["type"][0] = "text";
@@ -831,7 +831,7 @@ function chnageUploadedFileName($filename) {
 function send_email($to, $name, $subject, $message) {
     global $smtpConfig;
 
-    require '/var/www/html/orangescrum/mailer/class.phpmailer.php';
+    require '../../mailer/class.phpmailer.php';
 
     $mail = new PHPMailer;
 
