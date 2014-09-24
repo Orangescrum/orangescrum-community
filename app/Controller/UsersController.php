@@ -504,6 +504,7 @@ class UsersController extends AppController {
 			else {
 				$isValid = 0;
 			}
+			$this->set('AuthId',$this->Auth->User("id"));
 			$this->set('email',$email);
 			$this->set('qstr',$qstr);
 			$this->set('company_name',$getComp['Company']['name']);

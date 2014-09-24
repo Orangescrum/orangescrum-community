@@ -5,13 +5,16 @@ define("SENDGRID_PASSWORD", ''); //xxxxxxxx (REQUIRED)
 // Sendgrid mail sending through both API and SMPT. (Controller/Component/SendgridComponent.php)
 
 define('FROM_EMAIL_NOTIFY', 'notify@mycompany.com'); //(REQUIRED)
-define('SUPPORT_EMAIL', 'support@mycompany.com'); //(REQUIRED)
+define('SUPPORT_EMAIL', 'support@mycompany.com'); //(REQUIRED) From Email
+define('FROM_EMAIL',  'Orangescrum<'.SUPPORT_EMAIL.'>');
 
 define("DEV_EMAIL", 'developer@mycompany.com'); // Developer Email ID to report the application error
-define('FROM_EMAIL',  'Orangescrum<'.SUPPORT_EMAIL.'>');
 define('EMAIL_SUBJ', '[Orangescrum]');
 
-define('RELEASE',1); //Increase the release version on every CSS/JS changes to remove cache
+// If you have not yet set up the Nohup cronjob, leave it blank
+define('EMAIL_REPLY', "<div style='font-family:Arial;font-size:14px;color:#787878;margin-bottom:5px;'>Just REPLY to this Email the same will be added under the Task. <br/><span style='font-size:11px;'><b>NOTE:</b> Do not remove this original message.</span></div>");
+
+define('RELEASE',1); //Increase the release version on every CSS/JS changes to remove the browser cache
 
 ##################### Domain and URL Constants ############################
 define('SUB_FOLDER', ''); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'

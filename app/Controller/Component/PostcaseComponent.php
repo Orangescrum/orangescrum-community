@@ -687,8 +687,7 @@ class PostcaseComponent extends CookieComponent {
         }
         $subject = EMAIL_SUBJ . ":" . $projNameInSh . ":#" . $projShortNcaseNumber . "-" . stripslashes(html_entity_decode($case_title, ENT_QUOTES));
 
-        $message = "<div style='font-family:Arial;font-size:14px;color:#787878;margin-bottom:5px;'>Just REPLY to this Email the same will be added under the Task. <br/><span style='font-size:11px;'><b>NOTE:</b> Do not remove this original message.</span></div>
-        <body style='width:100%; margin:0; padding:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; background-color:#ffffff;'>
+        $message = EMAIL_REPLY."<body style='width:100%; margin:0; padding:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; background-color:#ffffff;'>
         <table cellpadding='0' cellspacing='0' border='0' id='backgroundTable' style='height:auto !important; margin:0; padding:0; width:100% !important; background-color:#F0F0F0;color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:19px; margin-top:0; padding:0; font-weight:normal;'>
         <tr>
         <td>
