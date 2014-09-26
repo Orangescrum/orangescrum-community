@@ -1,5 +1,5 @@
 <style>
-    #holder { border: 1px dashed #d3d3d3;padding: 8px;height:77px;}
+    #holder { border: 4px dashed #F8F81E;padding: 8px;height:85px;background: #F0F0F0;}
     #holder.hover { border: 4px dashed #0c0; }
 </style>
 <input type="hidden" name="totfiles" id="totfiles" value="0" readonly="true">

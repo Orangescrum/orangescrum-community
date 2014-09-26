@@ -882,33 +882,16 @@ function resetAllFilters(type) {
 
 //Filter Buckets on task listing ends
 
-function bindYoxview() {
-	var yoxviewDownloadButton = $("<a>", {
-		title: "Download image",
-		target: "yoxviewDownloadImage"
-	});
-	yoxviewDownloadButton.append($("<img>", {
-		 src: "../img/images/download_tr_icon.png",
-		alt: "Download",
-		css: { width: 18, height: 18 }
-	}));
-	$(".yoxview").unbind();
-	$(".yoxview").yoxview({
-		autoHideMenu:true,
-		autoHideInfo:true,
-		backgroundColor: '#282C57',
-		infoButtons: {
-			download: yoxviewDownloadButton
-		},
-		onSelect: function(i, image) {
-			var urls=(image.media.src).split('/');
-			var img_name=urls[urls.length-1];
-			var path=HTTP_ROOT+'easycases/download/'+img_name;
-			$.yoxview.infoButtons.download.attr("href", path);
-			$.yoxview.infoButtons.download.attr("target", "_parent");
-		}
-	});
+function bindPrettyview(id) {
+    $(".gallery a[rel^='"+id+"']").prettyPhoto({
+	animation_speed:'normal',
+	autoplay_slideshow: false, 
+	social_tools: false,
+	overlay_gallery: false,
+	deeplinking: false
+    });
 }
+
 function fuploadUI(csAtId) {
 	var isExceed = 0;
 	reply_total_files = new Array();reply_indx = 0;

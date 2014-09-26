@@ -3,14 +3,14 @@
 date_default_timezone_set('UTC');
 ini_set("max_execution_time", 360);
 
-include("../Config/constants.php");
-include("../Config/database.php");
+include_once("../Config/constants.php");
+include_once("../Config/database.php");
 
 use ElephantIO\Client as ElephantIOClient;
 
-include('../Vendor/s3/S3.php');
-include('../../mailer/ImapMailbox.php');
-include('../Vendor/ElephantIO/Client.php');
+include_once('../Vendor/s3/S3.php');
+include_once('../../mailer/ImapMailbox.php');
+include_once('../Vendor/ElephantIO/Client.php');
 
 define('LOG_PATH', '../tmp/logs/os-email.log');
 
@@ -24,7 +24,7 @@ $cfg["db_name"] = $settings['database'];
 
 /* Email server connection */
 $username = FROM_EMAIL_NOTIFY;
-$password = 'XXXXXXXXXXXXX';
+$password = '**************';
 $hostname = '{imap.gmail.com:993/ssl}INBOX';
 
 $smtpConfig = array(
@@ -38,12 +38,11 @@ $smtpConfig = array(
 );
 
 /* try to connect */
-$inbox = imap_open($hostname, $username, $password) or die('Cannot connect to domain:' . imap_last_error());
+$inbox = imap_open($hostname, $username, $password) or die("Couldn't get your Emails: " . imap_last_error());
 $mailbox = new ImapMailbox($hostname, $username, $password);
 
 /* grab emails */
 $emails = imap_search($inbox, 'UNSEEN');
-
 /* if emails are returned, cycle through each… */
 if ($emails) {
 
@@ -56,12 +55,13 @@ if ($emails) {
     
     $mysql_pconnect = mysql_pconnect($cfg["db_host"], $cfg["db_user"], $cfg["db_pass"]);
     if (!$mysql_pconnect) {
-        echo "Connection Failed";
+        echo "Database Connection Failed";
         exit;
     }
+    
     $db = mysql_select_db($cfg["db_name"], $mysql_pconnect);
     if (!$db) {
-        echo"DB Select Failed";
+        echo "Database '".$cfg["db_name"]."' doesn't exist.";
         exit;
     }
     /* for every email… */
@@ -73,7 +73,7 @@ if ($emails) {
         /* echo '<pre>';print_r($overview);
           print_r($header);die; */
 
-        $imapMsgParts = $mailbox->getMail($overview[0]->uid); //print_r($imapMsgParts);die;
+        $imapMsgParts = $mailbox->getMail($overview[0]->uid); //echo '<pre>';print_r($imapMsgParts);die;
         $message = $imapMsgParts->textPlain; //textHtmlOriginal//textHtml;//imap_fetchbody($inbox,$email_number,1);
         $only_reply = $message;
 
@@ -92,8 +92,8 @@ if ($emails) {
         $message1["attachment"]["type"][5] = "image";
         $message1["attachment"]["type"][6] = "video";
         $message1["attachment"]["type"][7] = "other";
-        $mail = $header->sender['0']->mailbox;
-        $hostid = $header->sender['0']->host;
+        $mail = @$header->sender['0']->mailbox;
+        $hostid = @$header->sender['0']->host;
         $mail_id = $mail . "@" . $hostid; //mail id of sender
         $sender_name = isset($header->sender['0']->personal) ? $header->sender['0']->personal : $mail; //name of sender
         if (strpos($header->message_id, "blackberry") || $mail == "pgetty") {
@@ -114,13 +114,13 @@ if ($emails) {
             $length = strpos($header->subject, ")") - $position;
             $pj_sname = strtolower(substr($header->subject, $position, $length));
 
-            $query_pid = "SELECT * FROM projects WHERE short_name = '" . $pj_sname . "' AND projects.isactive='1'"; //details of the project
+            $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "' AND projects.isactive='1'"; //details of the project
             $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
             $row_pid = mysql_fetch_assoc($result_pid);
 
             if (mysql_num_rows($result_pid)) {
 //Getting parent task.
-                $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . $case_title . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
+                $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . addslashes($case_title) . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
                 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
                 $query1 = "SELECT User.id,User.name,User.uniq_id,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id . "' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
@@ -204,7 +204,7 @@ if ($emails) {
                             }
                         }
 
-                        $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . $case_title . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
+                        $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . addslashes($case_title) . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
                         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
                         if (mysql_num_rows($result)) {//update
@@ -294,14 +294,13 @@ if ($emails) {
             $carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
             $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $pj_sname = str_replace($carimap, $carhtml, $pj_sname);
-            $cs_no = $pj_ex['1'];
+            $cs_no = @$pj_ex['1'];
             $carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
             $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $cs_no = str_replace($carimap, $carhtml, $cs_no);
             $pj_sname = strip_tags(str_replace(" ", "", $pj_sname));
-            $query_pid = "SELECT * FROM projects WHERE short_name = '" . $pj_sname . "'"; //details of the project
-            $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
-               
+            $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "'"; //details of the project
+	    $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
             $foundshortname = 1;
             if (!mysql_num_rows($result_pid)) {
                 $foundshortname = 0;
@@ -310,7 +309,7 @@ if ($emails) {
                 $pj_sname = "";
                 if ($subject) {
                     $getunq = explode(":#", $subject);
-                    $nowunq = explode("(", $getunq[1]);
+                    $nowunq = explode("(", @$getunq[1]);
                     $cs_no = $nowunq[0];
 
                     preg_match_all('/\(([^)]+)\)/', $subject, $match);
@@ -322,9 +321,10 @@ if ($emails) {
                         }
                     }
                 }
+		
                 if ($pj_sname) {
-                    $query_pid = "SELECT * FROM projects WHERE short_name = '" . $pj_sname . "'"; //details of the project
-                    $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
+                    $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "'"; //details of the project
+		    $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
                     if (!mysql_num_rows($result_pid)) {
                         $gotit = 0;
                     } else {
@@ -333,11 +333,16 @@ if ($emails) {
                 }
                 if ($gotit == 0) {
                     $Failedmessage = "Couldn't identify the Project Short name - " . $pj_sname . "<br/> Sbject: " . $subject;
-                    send_email(INFO_MAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
+		    if(php_sapi_name() === "cli") {
+			
+		    } else {
+				echo "Sbject: ".$subject."<br/>Couldn't identify the Project Short name - " . $pj_sname . "<br/><br/>";
+		    }
+		    send_email(DEV_EMAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
                     continue;
                 }
             } //if there is not project with this $pj_sname
-
+	    
             $row_pid = mysql_fetch_assoc($result_pid);
             $cs_no = strip_tags($cs_no);
             $query = "SELECT * FROM easycases WHERE case_no = '" . $cs_no . "' AND project_id = '" . $row_pid['id'] . "' AND title != ''"; //details of the case
@@ -369,13 +374,10 @@ if ($emails) {
                     $msg = $formatted;
                 }
                  
-            }
-            else {
+            } else {
                $msg = getEmailMsg($header, $message);
             }
-
             $query1 = "SELECT User.id,User.name,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id . "' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
-
             $result1 = mysql_query($query1) or die('Query failed: ' . mysql_error());
             $row1 = mysql_fetch_assoc($result1);
             $user_id = $row1['id']; //user id of the sender
@@ -725,11 +727,18 @@ You are receiving this email notification because you have subscribed to oranges
                     $checkOSReg_row = mysql_fetch_assoc($checkOSReg_res);
                     if ($checkOSReg_row['total'] > 0) {
                         $userMsg = '<span>You do not have access to this Project on orangescrum.</span><br /><br />';
+			$userMsg1 = "";
                     } else {
                         $userMsg = '<span>This email: &quot;' . $mail_id . '&quot; is not registered with Orangescrum.</span><br /><br />';
                         $userMsg1 = '<span>Note: <b>To post a reply to this task, please use your Orangescrum login Email ID</b>.</span><br /><br />';
                     }
-
+		    
+		    if(php_sapi_name() === "cli") {
+			    
+		    } else {
+			echo $userMsg.$userMsg1;
+		    }
+			
                     $subject = "Failed to add a reply on Task# " . $row['case_no'] . " - " . stripslashes(html_entity_decode($row['title'], ENT_QUOTES));
 
                     $fMessage = '<table cellspacing="1" cellpadding="1" border="0" align="left" width="100%" bgcolor="#FFFFFF">
@@ -796,7 +805,9 @@ You are receiving this email notification because you have subscribed to Oranges
             }
         }
     } //end of for loop
-} //end of if statement
+} else {//end of if statement
+    print 'No unread mail found!';
+}
 
 /* close the connection */
 imap_close($inbox);
@@ -829,35 +840,33 @@ function chnageUploadedFileName($filename) {
 }
 
 function send_email($to, $name, $subject, $message) {
-    global $smtpConfig;
+	
+	if(SENDGRID_USERNAME == "" || SENDGRID_PASSWORD == "") {
+		return true;
+	}
+	$url = 'http://sendgrid.com/';
 
-    require '../../mailer/class.phpmailer.php';
+	$params = array(
+			'api_user'  => SENDGRID_USERNAME,
+			'api_key'   => SENDGRID_PASSWORD,
+			'to'        => $to,
+			'subject'   => $subject,
+			'html'      => $message,
+			'text'      => '',
+			'from'      => SUPPORT_EMAIL
+	  );
+	  // From email is not valid with space.
 
-    $mail = new PHPMailer;
-
-    $mail->IsSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = $smtpConfig['host'];  // Specify main and backup server
-    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = $smtpConfig['username'];                            // SMTP username
-    $mail->Password = $smtpConfig['password'];                           // SMTP password
-    $mail->Port = $smtpConfig['port'];                           // SMTP password
-    $mail->SMTPSecure = $smtpConfig['secure'];                            // Enable encryption, 'ssl' also accepted
-
-    $mail->From = $smtpConfig['username'];
-    $mail->FromName = $smtpConfig['client'];
-    $mail->AddAddress($to, $name);  // Add a recipient
-    $mail->AddReplyTo($smtpConfig['username'], $smtpConfig['client']);
-
-    $mail->AddBCC(DEV_EMAIL);
-
-//$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
-    $mail->IsHTML(true);                                  // Set email format to HTML
-
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-    return $mail->Send();
+	$request =  $url.'api/mail.send.json';
+	$session = curl_init($request);
+	curl_setopt ($session, CURLOPT_POST, true);
+	curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+	curl_setopt($session, CURLOPT_HEADER, false);
+	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+	//curl_setopt($session, CURLOPT_TIMEOUT, 1);
+	$response = curl_exec($session);
+	curl_close($session);
+	return true;
 }
 
 function curlPostData($url, $data) {
@@ -1087,7 +1096,12 @@ function write2log($why, $message, $mail_id, $subject, $date) {
     fwrite($flog, $log);
     fclose($flog);
     $message = "Subject: " . $subject . "<br />Sent Date: " . $date . "<br />" . $why . "<br />" . "-----------------------------------------------------------------------<br /><br />" . nl2br($message);
-    send_email(INFO_MAIL, '', "Failed to save Email reply in Orangescrum", $message);
+    if(php_sapi_name() === "cli") {
+
+    } else {
+	echo $message . "<br/>";
+    }
+    send_email(DEV_EMAIL, '', "Failed to save Email reply in Orangescrum", $message);
 }
 
 //socket.io implement start

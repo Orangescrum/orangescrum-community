@@ -113,7 +113,9 @@ for(var repKey in sqlcasedata){
 							<div class="fnt999">
 							<% if(getFiles.CaseFile.is_ImgFileExt){ %>
 								(<%= getFiles.CaseFile.file_size %>)&nbsp;&nbsp;
-								<a class="yoxviewLink" href="<%= getFiles.CaseFile.fileurl %>" target="_blank" alt="<%= caseFileName %>" title="<%= caseFileName %>">View</a>
+								<span class="gallery">
+								    <a href="<%= getFiles.CaseFile.fileurl %>" target="_blank" alt="<%= caseFileName %>" title="<%= caseFileName %>" rel="prettyPhoto[]">View</a>
+								</span>
 								&nbsp;&nbsp;
 								<a href="<?php echo HTTP_ROOT; ?>easycases/download/<%= caseFileName %>" alt="<%= caseFileName %>" title="<%= caseFileName %>">Download</a>
 							<% } else{ %>

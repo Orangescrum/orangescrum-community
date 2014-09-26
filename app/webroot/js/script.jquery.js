@@ -590,34 +590,6 @@ function valforlegend(id,leg){
 	document.getElementById(leg).value=id;	
 }
 
-function bindYoxview() {
-	var yoxviewDownloadButton = $("<a>", {
-		title: "Download image",
-		target: "yoxviewDownloadImage"
-	});
-	yoxviewDownloadButton.append($("<img>", {
-		 src: "./img/images/download_tr_icon.png",
-		alt: "Download",
-		css: { width: 18, height: 18 }
-	}));
-	$(".yoxview").unbind();
-	$(".yoxview").yoxview({
-		autoHideMenu:true,
-		autoHideInfo:true,
-		backgroundColor: '#282C57',
-		infoButtons: {
-			download: yoxviewDownloadButton
-		},
-		onSelect: function(i, image) {
-			var urls=(image.media.src).split('/');
-			var img_name=urls[urls.length-1];
-			var url=HTTP_ROOT;
-			var path=url+'easycases/download/'+img_name;
-			$.yoxview.infoButtons.download.attr("href", path);
-			$.yoxview.infoButtons.download.attr("target", "_parent");
-		}
-	});
-}
 // Sorting reply text and reply box 
 function sortreply(id,uniqid){
 	tinymce.execCommand('mceRemoveControl',true,'#txa_comments'+uniqid);
@@ -659,7 +631,7 @@ function sortreply(id,uniqid){
 			
 			var results = document.getElementById(showhidemorereply);
 			results.innerHTML = tmpl("case_replies_tmpl", data);
-			bindYoxview(); //added on script.jquery.js
+			bindPrettyview("prettyPhoto");
 			
 			if(type == "more") {
 				$('#'+morereply).hide();

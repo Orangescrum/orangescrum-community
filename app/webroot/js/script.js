@@ -3190,7 +3190,7 @@ function searchFile(file_id,uniq_id, file_srch) {
 
             var result = document.getElementById('caseFileDv');
             result.innerHTML = tmpl("case_files_tmpl", res);
-            bindYoxview();
+            bindPrettyview("prettyImage");
             scrollPageTop($("#caseFileDv"));
         }
         loadCaseMenu(strURL+"ajax_case_menu", {
@@ -3261,7 +3261,6 @@ function searchMilestone(file_id,uniq_id, file_srch,isActive) {
         }
     }
     $('#srch_load1').hide();
-//            bindYoxview();
 //            scrollPageTop($("#caseFileDv"));
         
 //        loadCaseMenu(strURL+"ajax_case_menu", {

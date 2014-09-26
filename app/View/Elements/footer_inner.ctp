@@ -211,7 +211,7 @@ if(CONTROLLER == "templates" && (PAGE_NAME == "tasks" || PAGE_NAME == "projects"
 }
 if(PAGE_NAME == "dashboard" || PAGE_NAME=='milestone' || (CONTROLLER == "archives" && PAGE_NAME == "listall") || PAGE_NAME=='milestonelist') {?>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>dashboard.js"></script>
-<script type="text/javascript" src="<?php echo JS_PATH; ?>yoxview/yoxview-init.js"></script>
+<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.prettyPhoto.js"></script>
 <?php }
 if(PAGE_NAME == "mydashboard" || PAGE_NAME=='milestone' || PAGE_NAME=='dashboard' || PAGE_NAME=='milestonelist') {?>
 	<script type="text/javascript" src="<?php echo HTTP_ROOT;?>js/jquery/jquery.mousewheel.js"></script>
@@ -300,6 +300,6 @@ function showhelp(){
 <script type="text/javascript" src="<?php echo JS_PATH; ?>highcharts.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>exporting.js"></script>
 <style>
-    #holder_detl { border: 1px dashed #d3d3d3;padding: 8px;height:76px;}
+    #holder_detl { border: 4px dashed #F8F81E;padding: 8px;height:85px;background: #F0F0F0;}
     #holder_detl.hover { border: 4px dashed #0c0; }
 </style>

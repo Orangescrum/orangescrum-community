@@ -7,7 +7,7 @@ if(file_srch.trim()) {
     </div>
 	<div class="cb"></div>
 <% } %>
-<table width="98%" class="tsk_tbl arc_tbl files_tbl yoxview other_links" id="task">
+<table width="98%" class="tsk_tbl arc_tbl files_tbl other_links" id="task">
 	<% if(file_srch.trim() || parseInt(caseCount)) { %><?php /*?>Showing header on searching or when data >0 <?php */?>
 	<tr style="" class="tab_tr">
         <td width="1%">&nbsp;</td>
@@ -63,16 +63,16 @@ if(file_srch.trim()) {
 		    </td>
 		    <td class="file_pdr">
 			<div class="<%= easycase.imageTypeIcon(obj.file_type) %>_file cmn_fl fl"></div>
-			<div class="fl fl_wd_ipad">
+			<div class="fl fl_wd_ipad gallery">
 			    <% if(obj.download_url != '') { %>
 				<div class="fl fl_nm_ipad">
-				<a href='<%= obj.download_url %>' target="_blank" title="<%= obj.file_name %>" class="file_name_ipad<% if(obj.is_image) { %>yoxviewLink <% } %>">
+				<a href='<%= obj.download_url %>' target="_blank" title="<%= obj.file_name %>" class="file_name_ipad">
 				    <%= obj.file_name %>
 				</a>
                 </div>
 			    <% } else { %>
                 <div class="fl fl_nm_ipad">
-				<a href='<%= obj.fileurl%>' target="_blank" title=" <%= obj.file_name %>" class="file_name_ipad <% if(obj.is_image) { %>yoxviewLink <% } %> fl">
+				<a href='<%= obj.fileurl%>' target="_blank" title=" <%= obj.file_name %>" class="file_name_ipad fl" <% if(obj.is_image) { %>rel="prettyImage[]" <% } %>>
 				    <%= obj.file_name %>
 				</a>
                 </div>

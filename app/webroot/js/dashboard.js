@@ -783,7 +783,9 @@ easycase.ajaxCaseDetails = function(caseUniqId,type,dtls){
 			}
 			
 			easycase.detailPageinate();
-			bindYoxview();
+			bindPrettyview("prettyPhoto");//This calls for images on task post and reply of case details
+			bindPrettyview("prettyImg");//This calls for file list showing in right side bar of case details
+			
 			fuploadUI(data.csAtId);
 			
 			/*if(!getCookie("crtdtsk_less") || getCookie("crtdtsk_less")!=1){
@@ -1102,7 +1104,7 @@ function showHideMoreReply(id,type) {
 			{
 				document.getElementById(loadreply).style.visibility='hidden';
 				$("#"+showhidemorereply).html(tmpl("case_replies_tmpl", data));
-				bindYoxview();
+				bindPrettyview("prettyPhoto");
 				
 				if(type == "post") {alert('This is an error! Please refresh the page'); //Comment added, remove later by coml testing.
 					/*loadcomments = "loadcomments"+id;
@@ -1172,7 +1174,7 @@ function sortreply(id,uniqid) {
 			
 			var results = document.getElementById(showhidemorereply);
 			results.innerHTML = tmpl("case_replies_tmpl", data);
-			bindYoxview();
+			bindPrettyview("prettyPhoto");
 			
 			if($('#thread_sortorder'+id).val()=='DESC'){
 				$('#repsort_asc_'+id).show();
@@ -2430,7 +2432,8 @@ easycase.showFiles = function(type){
 		
 		var result = document.getElementById('caseFileDv');
 		result.innerHTML = tmpl("case_files_tmpl", res);
-		bindYoxview();
+		bindPrettyview("prettyImage");
+		
 		scrollPageTop($("#caseFileDv"));
 	    }
 		loadCaseMenu(strURL+"ajax_case_menu", {"projUniq":projFil,"pageload":0,"page":"dashboard"})
