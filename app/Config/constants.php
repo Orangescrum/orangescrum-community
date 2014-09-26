@@ -44,12 +44,12 @@ define("CLIENT_SECRET", "xXxXXxxxx_xXxXXxxxx");
 define("API_KEY", "xXxXXxxxxxXXXXXXXXXXXXXxXXxxxx");
 define("REDIRECT_URI", HTTP_ROOT."users/googleConnect");
 
-define("USE_GOOGLE", 0);
+define("USE_GOOGLE", 0); //Set this parameter to 1, to use Google Login, Drive and Contacts
 
 ##################### Dropbox Key ############################
 define("DROPBOX_KEY", "xXxxXxxxXx");
 
-define("USE_DROPBOX", 0);
+define("USE_DROPBOX", 0); //Set this parameter to 1, to use Dropbox file sharing
 
 ##################### AWS S3 Bucket ############################
 define('USE_S3',0); //Set this parameter to 1 to use AWS S3 Bucket
