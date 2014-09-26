@@ -59,8 +59,6 @@ define('awsAccessKey', 'XXXXXXXXXXXXXX');
 define('awsSecretKey', 'XXXX/XXXXXXXXXXXXXX/+XXXXXXXXXXXXXX');
 define('DOWNLOAD_S3_TASK_PATH', 'DownloadTask/zipTask/');
 
-define('USE_LOCAL',1); //Set this parameter to 0, to load the 3rd party JavaScript from CDN
-
 define('DIR_CASE_FILES_S3','https://s3.amazonaws.com/'.BUCKET_NAME.'/files/case_files/');
 define('DIR_USER_PHOTOS_S3','https://s3.amazonaws.com/'.BUCKET_NAME.'/files/photos/');
 define('DIR_USER_PHOTOS_S3_TEMP','https://s3.amazonaws.com/'.BUCKET_NAME.'/files/temp/');
@@ -93,6 +91,8 @@ define('ONBORDING_DATE','2014-01-01');
 define('GMT_DATETIME', gmdate('Y-m-d H:i:s'));
 define('GMT_DATE', gmdate('Y-m-d'));
 define('GMT_TIME', gmdate('H:i:s'));
+
+define('USE_LOCAL',0);
 
 ########## Cookie Settings ############
 if(isset($_COOKIE['REMEMBER']) && $_COOKIE['REMEMBER']) {
