@@ -44,7 +44,7 @@ class UsersController extends AppController {
 	}
 	function beforeRender() {
 	    if($this->Auth->User("id")) {
-		$withOutLoginPage = array('login','license','validate_emailurl','forgotpassword','session_maintain','googleConnect', 'googleSignup', 'setGoogleInfo');
+		$withOutLoginPage = array('login','license','validate_emailurl','forgotpassword','session_maintain');
 		if(in_array($this->action,$withOutLoginPage)){
 		    $file = ""; $caseid = "";
 		    if(isset($_GET['case'])) {
