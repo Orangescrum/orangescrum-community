@@ -1388,25 +1388,23 @@ class UsersController extends AppController {
 	}
     public function login($demo = NULL,$email= NULL,$pass= NULL,$first_login=0) {
 		$gdata = '';
+
+		
 		if (isset($_COOKIE['GOOGLE_INFO_SIGIN']) && !empty($_COOKIE['GOOGLE_INFO_SIGIN'])) {
 		    $gdata = (array)json_decode($_COOKIE['GOOGLE_INFO_SIGIN']);
 		    $this->request->data['User']['email'] = $gdata['email'];
 		}else if(isset($_COOKIE['user_info']) && !empty($_COOKIE['user_info'])){
-                    $gdata['email'] = $_COOKIE['user_info'];
-                    $this->request->data['User']['email'] = $gdata['email'];
-                    unset($_COOKIE['user_info']);
-                    setcookie('user_info', '', time() - 60000,'/',DOMAIN_COOKIE,false,false);
+			$gdata['email'] = $_COOKIE['user_info'];
+			$this->request->data['User']['email'] = $gdata['email'];
+			unset($_COOKIE['user_info']);
+			setcookie('user_info', '', time() - 60000,'/',DOMAIN_COOKIE,false,false);
 		} else if (isset($_COOKIE['GOOGLE_USER_INFOS']) && !empty($_COOKIE['GOOGLE_USER_INFOS'])) {
 		    $google_user_infos =  json_decode($_COOKIE['GOOGLE_USER_INFOS'], true);
 		    $_SESSION['GOOGLE_USER_INFO'] = $google_user_infos['GOOGLE_USER_INFO'];
 		    setcookie('GOOGLE_USER_INFOS', '', time() - 60000,'/',DOMAIN_COOKIE,false,false);
 		}
-		
 		if (isset($_SESSION['GOOGLE_USER_INFO']) && !empty($_SESSION['GOOGLE_USER_INFO'])) {
-		    $hk = fopen('gltk.txt','a');
-		    fwrite($hk, print_r($_SESSION['GOOGLE_USER_INFO'],true));
 		    $this->request->data['User']['email'] = $_SESSION['GOOGLE_USER_INFO']['email'];	
-		    fwrite($hk, print_r($this->request->data['User'],true));    
 		}
 		
 		if(isset($this->request->data['User']['email'])) {
@@ -1524,7 +1522,9 @@ class UsersController extends AppController {
 				//$this->Session->write("LOGIN_ERROR","Email or Password is invalid!");
 				$this->Session->setFlash("Email or Password is invalid!", 'default', array('class'=>'error'));
 				$_SESSION['GOOGLE_USER_INFO']=$google_user_info;
-				
+				unset($_COOKIE['user_info']);
+				setcookie('GOOGLE_USER_INFOS', '', time() - 60000,'/',DOMAIN_COOKIE,false,false);
+				unset($_SESSION['GOOGLE_USER_INFO']);
 				$this->redirect(HTTP_APP."users/login");
 				
 			}
