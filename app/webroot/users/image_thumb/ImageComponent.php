@@ -1,6 +1,7 @@
 <?php
 include("../../../Vendor/s3/S3.php");
 
+
 class ImageComponent {
 
     var $save_to_file = true;
