@@ -24,7 +24,7 @@
     }
 </style>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo HTTP_ROOT; ?>css/style_new_v3.css"></link>
+<link rel="stylesheet" type="text/css" href="<?php echo HTTP_ROOT; ?>css/style_new_v2.css"></link>
 <script type="text/javascript"> 
    function SetName(name) {
        var emails = '';
@@ -127,7 +127,7 @@
     <input type="text" id="search" placeholder="Search Contact" style="height: 36px;padding: 3px;width: 100%;margin-right: 5px;" autocomplete="off"/>
 </div>
 <div style="clear:both;"></div>
-<div style="height:430px;width:95%;overflow: auto;text-align: center;margin-bottom: 10px;padding: 10px;float:left;" class="col-lg-9 rht-con rht_bg">
+<div style="height:400px;width:95%;overflow: auto;text-align: center;margin-bottom: 10px;padding: 10px;float:left;" class="col-lg-9 rht-con rht_bg">
     <table id="email-table" class="col-lg-12 new_auto_tab g_table" cellspacing="0" cellpadding="0">
     <?php
         if($emails != ''){
@@ -203,6 +203,6 @@
 <div style="clear:both;"></div>
 <?php if(count($contacts['feed']['entry'])){ ?>
 <div style="margin: 0px auto; text-align: center;">
-    <button class="btn btn_blue" onclick="SetName();">Import</button> or <a class="eml_hover_lnk" href="javascript:void(0);" onclick="cancel();">Cancel</a>
+    <button class="btn btn_blue" onclick="SetName();" style="padding:7px 15px;">Import</button> or <a class="eml_hover_lnk" href="javascript:void(0);" onclick="cancel();">Cancel</a>
 </div>
 <?php } ?>

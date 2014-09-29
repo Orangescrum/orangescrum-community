@@ -1,0 +1,8 @@
+Title,Description,Due Date,Status,Type,Assigned To
+User login with email and password,Validate the login form. Redirect to dashboard after login.,01/01/14,NEW,Development,john@gmail.com
+Send mail and then allow user to reset password,Send an confirmation email with a link to reset the password.,01/02/14,WIP,Bug,
+Logout and redirects,Redirect the page to login page after logout. Not to the home page.,01/03/13,RESOLVED,Development,
+Admin listing should have access to edit & delete,,01/06/14,NEW,Development,
+Registration with pricing plan details and subscription,Choose plan and complete registration process with braintree implementation,05/04/13,CLOSED,Enhancement,smith@your-orangescrum.com
+Manage Project with enable/disable and delete product,,01/09/14,NEW,Development,
+Edit profile email validation issue,Issue on email validation on edit profile. Allowing two dot on email ID,01/05/14,NEW,Bug,

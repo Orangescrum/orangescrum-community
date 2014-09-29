@@ -49,7 +49,8 @@
 				$fileurl = $this->Format->generateTemporaryURL(DIR_USER_PHOTOS_S3 . $userdata['User']['photo']);
 			} else {
 				$fileurl = HTTP_ROOT.'users/files/photos/'.$userdata['User']['photo'];
-			} ?>
+			} 
+			?>
     		    <div>
     			<a href="<?php echo $fileurl; ?>" target="_blank">
     			    <img src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<?php echo $userdata['User']['photo']; ?>&sizex=100&sizey=100&quality=100" border="0" id="profphoto"/>

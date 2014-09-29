@@ -452,7 +452,7 @@ if(showQuickAct && taskTyp.id != 10){
 							$is_basic_or_free = 0;
 						}
 						?>
-                        <?php if(USE_DROPBOX == 1 && USE_GOOGLE == 1){?>
+                        <?php if(USE_DROPBOX == 1 || USE_GOOGLE == 1){?>
 						<div class="fr" style="width:248px">
                         	<?php if(USE_DROPBOX == 1) { ?>
 							<div class="fr btn-al-mr">

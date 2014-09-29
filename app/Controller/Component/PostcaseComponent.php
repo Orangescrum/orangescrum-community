@@ -68,7 +68,7 @@ class PostcaseComponent extends CookieComponent {
                         $filesize = number_format(($fl[1] / 1024), 2, '.', '');
                         if (strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited' || ($usedspace <= $GLOBALS['Userlimitation']['storage'])) {
                             $usedspace +=$filesize;
-			    if(USE_LOCAL){
+			    if(USE_S3 == 0){
 				if(file_exists(DIR_CASE_FILES.$file)) {
 					$chk++;
 				}

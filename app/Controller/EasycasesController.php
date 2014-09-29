@@ -594,7 +594,7 @@ class EasycasesController extends AppController {
 						}
 
 						$file = $file_path.$newFileName;
-						if(USE_LOCAL){
+						if(USE_S3 == 0){
 						    copy($tmp_name,$file);
 						}else{
 							try{
@@ -2030,7 +2030,7 @@ class EasycasesController extends AppController {
                         $filesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1); //str_replace(array('"','\''), array('\'','"'), $frmt->imageType($caseFileName,25,10,1));
                         $filesArr[$fkey]['CaseFile']['is_ImgFileExt'] = $frmt->validateImgFileExt($caseFileName);
                         if($filesArr[$fkey]['CaseFile']['is_ImgFileExt']) {
-			    if(USE_LOCAL){
+			    if(USE_S3 == 0){
 				$filesArr[$fkey]['CaseFile']['fileurl'] = HTTP_CASE_FILES.$caseFileName;
 			    }else{
 				$filesArr[$fkey]['CaseFile']['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$caseFileName);
@@ -6346,7 +6346,14 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
      * @author GDR<support@Orangescrum.com>
      */
     function taskDownload() {
-		$s3 = new S3(awsAccessKey, awsSecretKey);
+		
+		if(!is_dir(DOWNLOAD_TASK_PATH)) {
+			mkdir(DOWNLOAD_TASK_PATH, 0777, true);
+		}
+		if(!is_dir(DOWNLOAD_TASK_PATH."zipTask")) {
+			mkdir(DOWNLOAD_TASK_PATH."zipTask", 0777, true);
+		}
+		
         $caseUniqId = $this->data['caseUid'];
         //$caseUniqId = '8d082f712782302aafe8a62129f7cc24';
         $this->layout='ajax';
@@ -6411,7 +6418,9 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
             @array_map('unlink', glob(DOWNLOAD_TASK_PATH.$folder_name."/*"));
             $isdel = rmdir(DOWNLOAD_TASK_PATH.$folder_name);
         }
+		
         mkdir(DOWNLOAD_TASK_PATH.$folder_name, 0777, true);
+		
         $file = fopen(DOWNLOAD_TASK_PATH.$folder_name.'/'.$filename,"w");
         $csv_output = "Title, Description, Status, Priority, Task Type, Assigned To, Created By, Last Updated By, Created On, Estimated Hours, Hours Spent";
         fputcsv($file,explode(',',$csv_output));
@@ -6509,14 +6518,20 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
                     @array_map('unlink', glob(DOWNLOAD_TASK_PATH.$folder_name."/*"));
                     $isdel = rmdir(DOWNLOAD_TASK_PATH.$folder_name);
                 }
-				$s3->putBucket(DOWNLOAD_BUCKET_NAME, S3::ACL_PRIVATE);
-				$download_url = DOWNLOAD_S3_TASK_PATH. $zipfile_name;
-				$s3_download_url = "https://s3.amazonaws.com/".DOWNLOAD_BUCKET_NAME.'/'.DOWNLOAD_S3_TASK_PATH. $zipfile_name;		
-				$returnvalue = $s3->putObjectFile(DOWNLOAD_S3_TASK_PATH. $zipfile_name,DOWNLOAD_BUCKET_NAME ,$download_url ,S3::ACL_PUBLIC_READ);
-				if($returnvalue){
-					unlink(DOWNLOAD_S3_TASK_PATH. $zipfile_name);
+				if(USE_S3 == 0){
+					$download_url = HTTP_ROOT.DOWNLOAD_S3_TASK_PATH.$zipfile_name;
+					$this->set('downloadurl',$download_url);
+				}else{
+					$s3 = new S3(awsAccessKey, awsSecretKey);
+					$s3->putBucket(DOWNLOAD_BUCKET_NAME, S3::ACL_PRIVATE);
+					$download_url = DOWNLOAD_S3_TASK_PATH. $zipfile_name;
+					$s3_download_url = "https://s3.amazonaws.com/".DOWNLOAD_BUCKET_NAME.'/'.DOWNLOAD_S3_TASK_PATH. $zipfile_name;		
+					$returnvalue = $s3->putObjectFile(DOWNLOAD_S3_TASK_PATH. $zipfile_name,DOWNLOAD_BUCKET_NAME ,$download_url ,S3::ACL_PUBLIC_READ);
+					if($returnvalue){
+						unlink(DOWNLOAD_S3_TASK_PATH. $zipfile_name);
+					}
+					$this->set('downloadurl',$s3_download_url);
 				}
-				$this->set('downloadurl',$s3_download_url);
                 $this->set('projName',$ProjName);
                 $this->set('projId',$ProjId);
                 $this->set('caseUid',$caseUniqId);

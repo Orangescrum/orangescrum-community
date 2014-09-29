@@ -259,7 +259,7 @@
 										<div style="margin-left:6px" class="fnt999">Max size <?php echo MAX_FILE_SIZE; ?> Mb</div>
 										</div>									
 									</div>
-									<?php if(USE_DROPBOX == 1 && USE_GOOGLE == 1){?>
+									<?php if(USE_DROPBOX == 1 || USE_GOOGLE == 1){?>
 									<div class="fr drive_con drive_con_ipad" style="width:360px;">
                                     	<?php if(USE_DROPBOX == 1) { ?>
 										<div class="fr btn-al-mr drive_drop">
