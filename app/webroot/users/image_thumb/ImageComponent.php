@@ -1,6 +1,5 @@
 <?php
-
-include(ROOT . DS . 'app' . DS . 'Vendor' . DS . 's3' . DS . 'S3.php');
+include("../../../Vendor/s3/S3.php");
 
 class ImageComponent {
 
