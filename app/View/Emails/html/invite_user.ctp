@@ -6,7 +6,6 @@
 		      <table id="contenttable" width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFFFFF; margin:0 auto; text-align:center; border:none; width: 100% !important; max-width:600px !important;border-top:8px solid #5191BD">
             <tr>
                 <td width="100%">
-                   <?php echo NEW_EMAIL_HEADER; ?>
                    <table bgcolor="#FFF" border="0" cellspacing="0" cellpadding="20" width="100%">
                         <tr>
                             <td width="100%" bgcolor="#FFF" style="text-align:left;">
@@ -51,8 +50,7 @@
                         <tr>
                             <td width="100%" bgcolor="#ffffff" style="text-align:center;">
                             	<p style="color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; margin-top:0; padding:0; font-weight:normal;padding-top:5px;">
-									<?php echo NEW_EMAIL_FOOTER;
-									
+									<?php
 									if($existing_user)
 									{
 									?>

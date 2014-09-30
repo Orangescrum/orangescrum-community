@@ -1800,7 +1800,6 @@ class EasycasesController extends AppController {
             //$ProjId and $curCaseNo not found. This step should not, b'cos it handeled previously.
             die;
         }
-	$hjk = fopen('ttyu.txt','a');
         $this->loadModel('CaseRecent');
         $getCurCase = $this->CaseRecent->find('first', array('conditions'=>array('CaseRecent.easycase_id'=>$curCaseId,'CaseRecent.user_id'=>SES_ID,'CaseRecent.project_id'=>$ProjId),'fields'=>array('CaseRecent.id')));
         if(isset($getCurCase['CaseRecent']) && count($getCurCase['CaseRecent'])) {
@@ -4356,9 +4355,6 @@ class EasycasesController extends AppController {
                     }
                     $content .= "\n";
                 }
-                $content .= "\n"."Export Date,".$this->Format->dateFormatReverse(GMT_DATETIME);
-                fwrite($fp,$content);
-                fclose($fp);
                 header('Content-type: text/csv');
                 header('Content-Disposition: attachment; filename='.$name);
                 @ob_clean();

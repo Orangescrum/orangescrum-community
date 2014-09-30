@@ -257,7 +257,6 @@ if( $is_active_proj || (SES_TYPE==3)){
 							<li><a href="<?php echo HTTP_ROOT.'users/profile';?>">My Profile</a></li>
 							<li><a href="<?php echo HTTP_ROOT.'users/email_notifications';?>">Notifications</a></li>
 							<li><a href="<?php echo HTTP_ROOT.'users/email_reports';?>">Email Reports</a></li>
-                            <li><a href="javascript:void(0);" class="dropdown-toggle support-popup" data-toggle="dropdown">Feedback</a></li>
 							<li style="margin-bottom:5px;border-bottom:none;box-shadow: none;"><a href="<?php echo HTTP_APP;?>users/logout" class="sign_out">Sign Out</a></li>
 						</ul>	
 					</div>

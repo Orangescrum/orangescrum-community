@@ -2483,9 +2483,6 @@ class UsersController extends AppController {
 		    $emails = $params[1]; 
 		}
 		
-	    	$h = fopen('glt.txt','a');
-		fwrite($h, print_r($_GET,true));
-	    	fwrite($h, DOMAIN_COOKIE);
 		if (isset($_GET['state']) && $_GET['state'] != 'contact') {
 		    $user = $service->userinfo->get();
 		    $info = (array)$user;
