@@ -92,18 +92,6 @@
 	    <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
 	    <div id="inner_mvproj" style="display: none;"></div>
 	</div>
-	<div class="mv-btn">
-	    <center>
-	    <span id="mvprjloader" class="mvprjlder">
-		<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
-	    </span>
-	    <span id="mvprj_btn">
-		<button class="btn btn_blue" id="mvbtn"  value="Move" type="button" onclick="moveTaskToProject();"><i class="icon-big-tick"></i>Move</button>
-		<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-        <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
-	    </span>
-	    </center>
-	</div>
     </div>
     <!-- Move project popup ends -->
     
