@@ -836,7 +836,13 @@ class EasycasesController extends AppController {
                         $caseAll[$key]['file_type'] = "db";
                     }
                 } else {
-                    $caseAll[$key]['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$getdata['CaseFile']['file']);
+		    if($frmt->validateImgFileExt($getdata['CaseFile']['file'])) {
+			if(USE_S3 == 0){
+			    $caseAll[$key]['fileurl'] = HTTP_CASE_FILES.$getdata['CaseFile']['file'];
+			}else{
+			    $caseAll[$key]['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$getdata['CaseFile']['file']);
+			}                            
+		    }
                     $caseAll[$key]['file_name'] = $frmt->formatText($frmt->longstringwrap($this->Format->shortLength($getdata['CaseFile']['file'],75)));
                     $caseAll[$key]['link_url'] =  HTTP_ROOT."easycases/download/".$getdata['CaseFile']['file'];
                     $caseAll[$key]['download_url'] =  '';

@@ -1277,7 +1277,8 @@ class UsersController extends AppController {
 		$comp = $Company->find('first',array('fields'=>array('Company.id')));
 		$company_id = $comp['Company']['id'];
 
-		$cond = "Project.isactive=1 AND Project.name != '' AND Project.name LIKE '%".$q."%' AND Project.company_id = ".$company_id;
+		$cond = "Project.isactive=1 AND Project.name != '' AND Project.name LIKE '%".$q."%' AND Project.company_id = ".$company_id." AND 
+		Project.id IN (SELECT DISTINCT ProjectUser.project_id FROM project_users AS ProjectUser WHERE ProjectUser.user_id = ".SES_ID.")";
 		if(trim($this->params['pass'][0])) {
 		    $cond.= " AND Project.id NOT IN(".$this->params['pass'][0].")";
 		}
@@ -3326,6 +3327,13 @@ function done_cropimage(){
 				$message = 'Error in Creating Company';
 			    }
 			    if ($message == "success"){
+				//Insert a new record for user notification.
+				$notification['user_id'] = $comp_usr['CompanyUser']['user_id'];
+				$notification['type'] = 1;
+				$notification['value'] = 1;
+				$notification['due_val'] = 1;
+				ClassRegistry::init('UserNotification')->save($notification);
+				
 				//Event log data and inserted into database in account creation--- Start
 				$json_arr['company_name'] = $comp['Company']['name'];
 				$json_arr['name'] = $usr['User']['name'];
