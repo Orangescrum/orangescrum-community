@@ -33,7 +33,7 @@
 		
    * **Official website**: [http://www.orangescrum.com](http://www.orangescrum.com)
    * **Blog**: [http://blog.orangescrum.com](http://blog.orangescrum.com)
-   * **Downloads**: [http://www.orangescrum.com/downloads](http://www.orangescrum.com/downloads)
+   * **Downloads**: [http://www.orangescrum.org/free-download](http://www.orangescrum.org/free-download)
    * **Issue Tracker**: [https://github.com/Orangescrum/orangescrum/issues](https://github.com/Orangescrum/orangescrum/issues)
    * **Google Group**: [https://groups.google.com/group/orangescrum-community-support](https://groups.google.com/group/orangescrum-community-support)
    * **Youtube**: [https://www.youtube.com/watch?v=4qCaP0TZuxU](https://www.youtube.com/watch?v=4qCaP0TZuxU)
