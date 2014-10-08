@@ -6203,7 +6203,7 @@ function loadDashboardPage(projid) {
     }
 
     var orderStr = Array();
-    if(getCookie('DASHBOARD_ORDER') && $.inArray('7', getCookie('DASHBOARD_ORDER').split('::')[1].split(','))==-1){
+    if(getCookie('DASHBOARD_ORDER') && $.inArray('7', getCookie('DASHBOARD_ORDER').split('::')[1].split(',')) === -1){
         var orderCookie = getCookie('DASHBOARD_ORDER').split('::')[1].split(',');
         for(var i in orderCookie){
             if(DASHBOARD_ORDER[orderCookie[i]]) {
@@ -6215,7 +6215,7 @@ function loadDashboardPage(projid) {
             orderStr.push(DASHBOARD_ORDER[i].name.toLowerCase().replace(' ','_'));
         }
     }
-
+    
     var sequency = orderStr;
 
     for(var i in sequency) {
@@ -6242,18 +6242,39 @@ function loadDashboardPage(projid) {
     loadSeqDashboardAjax(sequency, projid);
 }
 
+function showTaskStatus(obj, projid) {
+    if($("#task_type").html() !== '') {
+	$("#task_type").html('');
+	$("#task_type_msg").html('');
+    }
+    $("#task_type_ldr").show();
+    var url = HTTP_ROOT + "easycases/task_type";
+    var task_type_id = $(obj).val();
+    createCookie("TASK_TYPE_IN_DASHBOARD", task_type_id, 365, DOMAIN_COOKIE);
+    
+    $.post(url, {"projid":projid,"task_type_id":task_type_id}, function(res) {
+        if (res) {
+            cmnDashboard("task_type", res);
+        }
+    });
+}
+
 function loadSeqDashboardAjax(sequency, projid){
     //Remove recent_projects from array to prevent ajax call when a project is switched
-
     (sequency[sequency.length-1] == 'recent_projects' && projid !== 'all')?sequency.pop():'';
-
     var url = HTTP_ROOT + "easycases/";
-    $.post(url + sequency[sequency.length-1], {
-        "projid":projid
+    var action = sequency[sequency.length-1];
+    var task_type_id = 0;
+    if (sequency[sequency.length-1] === 'task_type') {
+	task_type_id = $("#sel_task_type").val();
+    }
+    
+    $.post(url + action, {
+        "projid":projid,
+        "task_type_id":task_type_id
     }, function(res) {
         if (res) {
-            //            alert(url+ sequency[sequency.length-1]);
-            cmnDashboard(sequency[sequency.length-1], res);
+            cmnDashboard(action, res);
             sequency.pop();
             if(sequency.length>=1) {
                 loadSeqDashboardAjax(sequency, projid);
@@ -6263,7 +6284,7 @@ function loadSeqDashboardAjax(sequency, projid){
 }
 
 function cmnDashboard(id, res) {
-    if(id == 'bug_status'){
+    if(id == 'task_type'){
         iniChartTskProgress(id, res);
     } else if(id == 'task_status'){
         iniChartTskProgress(id, res);
@@ -6292,8 +6313,8 @@ function iniChartTskProgress(id, res){
     }
 
     if(!res.task_prog){
-        if(id == 'bug_status'){
-            $("#"+id).html('<div class="mytask"></div><div class="mytask_txt">No Bugs</div>');
+        if(id == 'task_type'){
+            $("#"+id).html('<div class="mytask"></div><div class="mytask_txt">No Task Type</div>');
         } else {
             $("#"+id).html('<div class="mytask"></div><div class="mytask_txt">No Tasks</div>');
         }

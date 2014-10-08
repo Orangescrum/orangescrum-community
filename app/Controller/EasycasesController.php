@@ -5560,7 +5560,9 @@ class EasycasesController extends AppController {
                 }
             }
         }
-        $this->set('dashboard_order',$dashboard_order);
+	
+        $task_type = $GLOBALS['TYPE'];
+	$this->set(compact('dashboard_order', 'task_type'));
         setcookie('DEFAULT_PAGE','mydashboard',COOKIE_REM,'/',DOMAIN_COOKIE,false,false);
     }
 
@@ -5791,19 +5793,30 @@ class EasycasesController extends AppController {
         $this->loadModel('ProjectUser');
         $rec=$this->ProjectUser->findByUserId($id);
         if(!empty($rec)) {
+	    $task_type = $GLOBALS['TYPE'];
+	    $type_id = (isset($GLOBALS['TYPE'][0]['Type']['id']) && trim($GLOBALS['TYPE'][0]['Type']['id'])) ? $GLOBALS['TYPE'][0]['Type']['id'] : $GLOBALS['TYPE'][1]['Type']['id'];
+	    $task_type_id = (isset($_COOKIE['TASK_TYPE_IN_DASHBOARD']) && trim($_COOKIE['TASK_TYPE_IN_DASHBOARD'])) ? $_COOKIE['TASK_TYPE_IN_DASHBOARD'] : $type_id;
 
             $task_without_due_date = "SELECT  DISTINCT COUNT(Easycase.id) AS task_without_due_date FROM easycases AS Easycase LEFT JOIN projects AS Project
 			ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date IS NULL";
 
             $hours_spent = "SELECT SUM(hours) AS hours_spent FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0";
 
-            $bug_hours = "SELECT SUM(hours) as bug_hours FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0 AND type_id = '1'";
+	    $task_hours = "SELECT SUM(hours) as task_hours FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0 AND type_id = '".$task_type_id."'";
 
             //$sql = "SELECT * FROM ($task_without_due_date) AS task_without_due_date,($task_have_no_hours) AS task_have_no_hours,($hours_spent) AS hours_spent,($bug_hours) AS bug_hours";
-            $sql = "SELECT * FROM ($task_without_due_date) AS task_without_due_date,($hours_spent) AS hours_spent,($bug_hours) AS bug_hours";
+            $sql = "SELECT * FROM ($task_without_due_date) AS task_without_due_date,($hours_spent) AS hours_spent,($task_hours) AS task_hours";
 
             $statistics = $this->Easycase->query($sql);
-            $this->set('statistics',$statistics);
+	    $task_type_name = "";
+	    if (isset($task_type) && !empty($task_type)) {
+		foreach ($task_type as $key => $value) {
+		    if ($task_type_id == $value['Type']['id']) {
+			$task_type_name = strtolower($value['Type']['name']);
+		    }
+		}
+	    }
+            $this->set(compact('statistics', 'task_type_name'));
         }
 
     }
@@ -5907,13 +5920,16 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
     }
 
     /**
-     * @method bug_status
-     * @author MAV
+     * 
+     * @method task_type
+     * @author SNL
      * @return json
      */
-    function bug_status() {
-        $this->layout = 'ajax';
+    
+    function task_type() {
+	$this->layout = 'ajax';
         $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
+        $task_type_id = (isset($this->params['data']['task_type_id']) && trim($this->params['data']['task_type_id'])) ? $this->params['data']['task_type_id'] : 0;
         $cond = '';
         if ($project_uid != 'all') {
             $cond = "Project.uniq_id = '" . $project_uid . "' AND";
@@ -5927,15 +5943,13 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $stsMsgTtl = '';
         $taskProg = "";
 
-        $query_All1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.type_id='1' AND  Easycase.isactive='1' AND Easycase.project_id!=0 ".$projQry);
+        $query_All1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.type_id='".$task_type_id."' AND  Easycase.isactive='1' AND Easycase.project_id!=0 ".$projQry);
         $query_All=$query_All1['0']['0']['count'];
 
-
-
-        $query_Close1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='3' AND Easycase.type_id='1' AND Easycase.project_id!=0 ".$projQry);
+        $query_Close1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='3' AND Easycase.type_id='".$task_type_id."' AND Easycase.project_id!=0 ".$projQry);
         $query_Close=$query_Close1['0']['0']['count'];
 
-        $query_Resolve1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='5' AND Easycase.type_id='1' AND Easycase.project_id!=0 ".$projQry);
+        $query_Resolve1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='5' AND Easycase.type_id='".$task_type_id."' AND Easycase.project_id!=0 ".$projQry);
         $query_Resolve=$query_Resolve1['0']['0']['count'];
 
         //echo $query_Resolve.' / '.$query_Close.' / '.$query_All."<br />";
@@ -5950,13 +5964,13 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
 
             if(!$resRate || $resRate!=0.00) {
                 $resolvedRate = $resRate.'%';
-                $stsMsg = ' - '.$resolvedRate.' Fixed';
-                $stsMsgTtl = $resolvedRate .' ('. ($query_Close+$query_Resolve) . ' of '. $query_All .' Bug Fixed)';
+                $stsMsg = ' - '.$resolvedRate.' Completed';
+                $stsMsgTtl = $resolvedRate .' ('. ($query_Close+$query_Resolve) . ' of '. $query_All .' Completed)';
             }
 
             if(!$newWipRate || $newWipRate==0.00) {
                 $taskProg = array(
-                        array( 'name'=>'Fixed','color'=>'#9FBD4B', 'y'=> $resRate),
+                        array( 'name'=>'Completed','color'=>'#9FBD4B', 'y'=> $resRate),
                 );
             } elseif(!$resRate || $resRate==0.00) {
                 $taskProg = array(
@@ -5964,13 +5978,13 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
                 );
             } else {
                 $taskProg = array(
-                        array( 'name'=>'Fixed','color'=>'#9FBD4B', 'y'=> $resRate),
+                        array( 'name'=>'Completed','color'=>'#9FBD4B', 'y'=> $resRate),
                         array( 'name'=>'New & In Progress','color'=>'#E1857A', 'y'=> $newWipRate),
                 );
             }
         }
 
-        $this->set('bug_report', json_encode(array('sts_msg'=>$stsMsg, 'sts_msg_ttl'=>$stsMsgTtl, 'task_prog'=>$taskProg)));
+        $this->set('task_report', json_encode(array('sts_msg'=>$stsMsg, 'sts_msg_ttl'=>$stsMsgTtl, 'task_prog'=>$taskProg)));
     }
 
     /**

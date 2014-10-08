@@ -775,7 +775,15 @@ easycase.ajaxCaseDetails = function(caseUniqId,type,dtls){
 			if($('#holder_detl').length){
 			    if (tests.dnd_detl) {
 			      holder_detal.ondragover = function () { $('#holder_detl').addClass('hover'); return false; };
-			      holder_detal.ondrop = function () { $('#holder_detl').removeClass('hover'); return false; };
+			      holder_detal.ondrop = function (e) {
+							$('#holder_detl').removeClass('hover');
+							if($.trim(e.dataTransfer.files[0].type) === "" || e.dataTransfer.files[0].size === 0) {
+							    alert('File "'+e.dataTransfer.files[0].name+'" has no extension!\nPlease upload files with extension.');
+							    e.stopPropagation();
+							    e.preventDefault();
+							}
+							return false;
+						    };
 			    }
 				$('#holder_detl').mouseout(function(){
 				    $('#holder_detl').removeClass('hover');

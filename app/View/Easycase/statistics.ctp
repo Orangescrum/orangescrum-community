@@ -17,8 +17,8 @@
 </div>
 <div class="lstbtndv"></div>
 <div class="listdv">
-    <div class="fl stas_icn stas_green"><?php if(isset($statistics['0']['bug_hours']['bug_hours']) && !empty($statistics['0']['bug_hours']['bug_hours'])){ echo $statistics['0']['bug_hours']['bug_hours'];} else { echo 0;}?></div>
-    <div class="fl stas_cnt_db">Hours spent on bug</div>
+    <div class="fl stas_icn stas_green"><?php if(isset($statistics['0']['task_hours']['task_hours']) && !empty($statistics['0']['task_hours']['task_hours'])){ echo $statistics['0']['task_hours']['task_hours'];} else { echo 0;}?></div>
+    <div class="fl stas_cnt_db">Hours spent on <?php echo $task_type_name;?></div>
     <div class="cb"></div>
 </div>
 <!--

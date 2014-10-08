@@ -131,20 +131,27 @@
             <div class="loader_dv_db" id="task_progress_ldr" style="display: none;margin-top: 90px;"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
         </div>
     </li>
-    <?php } elseif($value['name']=="Bug Status") { ?>    
-    <li class="sortable-li" id="list_<?php echo $value['id'];?>">
-        <div class="sort_li_inner">
-            <div class="dshbd-hed">
-                <div class="fl"><?php echo $value['name'];?></div>
-				<div class="fl pichart_msg" id="bug_status_msg"></div>
-                <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
-                </div>
-                <div class="cb"></div>
-            </div> 
-			<div id="bug_status" class="dboard_cont"></div>
-            <div class="loader_dv_db" id="bug_status_ldr" style="display: none;margin-top: 90px;"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
-        </div>
+    <?php } elseif($value['name']=="Task Type") { ?>    
+    <li class="sortable-li" id="list_<?php echo $value['id']; ?>">
+	<div class="sort_li_inner">
+	    <div class="dshbd-hed">
+		<div class="fl">
+		    <?php //echo $value['name']; ?>
+		    <select id="sel_task_type" style="color: #5191BD;background: #FFF;width: 140px;border: 1px solid #999;" onchange="showTaskStatus(this, '<?php echo PROJ_UNIQ_ID;?>');">
+		    <?php foreach ($task_type as $key => $value) { ?>
+			<option value="<?php echo $value['Type']['id']; ?>" <?php if (isset($_COOKIE['TASK_TYPE_IN_DASHBOARD']) && $_COOKIE['TASK_TYPE_IN_DASHBOARD']==$value['Type']['id']){echo "selected='selected'";}?>><?php echo $value['Type']['name']; ?></option>
+		    <?php }?>
+		    </select>
+		</div>
+		<div class="fl pichart_msg" id="task_type_msg" style="font-size: 15px;"></div>
+		<div class="fr active_icn portlet-header">
+		    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+		</div>
+		<div class="cb"></div>
+	    </div> 
+	    <div id="task_type" class="dboard_cont"></div>
+	    <div class="loader_dv_db" id="task_type_ldr" style="display: none;margin-top: 90px;"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
+	</div>
     </li>
     <?php } elseif($value['name']=="Task Status") { ?>    
     <li class="sortable-li" id="list_<?php echo $value['id'];?>">
@@ -168,7 +175,7 @@
 <div class="cb"></div>
 
 <script type="text/javascript">
-	var DASHBOARD_ORDER = <?php echo json_encode($GLOBALS['DASHBOARD_ORDER']); ?>;
+    var DASHBOARD_ORDER = <?php echo json_encode($GLOBALS['DASHBOARD_ORDER']); ?>;
     $(document).ready(function() {
 	loadDashboardPage('<?php echo PROJ_UNIQ_ID;?>');
     });

@@ -315,7 +315,15 @@ var holder = document.getElementById('holder'),
 
 if (tests.dnd) {
   holder.ondragover = function () { this.className = 'hover'; return false; };
-  holder.ondrop = function () { $('#holder').removeClass('hover'); return false; };
+  holder.ondrop = function (e) {
+	$('#holder').removeClass('hover');
+	if($.trim(e.dataTransfer.files[0].type) === "" || e.dataTransfer.files[0].size === 0) {
+	    alert('File "'+e.dataTransfer.files[0].name+'" has no extension!\nPlease upload files with extension.');
+	    e.stopPropagation();
+	    e.preventDefault();
+	}
+	return false;
+  };
 }
 $(function(){
     $('#holder').mouseout(function(){
