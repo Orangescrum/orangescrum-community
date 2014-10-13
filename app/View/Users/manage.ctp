@@ -177,14 +177,7 @@
 				<span id="rmv_prj_<?php echo $user['User']['id'];?>" <?php if($user['User']['all_project'] == ''){ ?> style="display:none;"<?php } ?>>
 					<br />
 				    <a class="icon-remprj-usr" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>" data-total-project="<?php echo $user['User']['total_project'];?>">Remove Project</a>
-				</span>	
-				<?php if(USER_TYPE ==1){ ?>
-			    <?php if($user['User']['is_moderator']){ ?>
-				<br /><a class="icon-moderator icon-remove-modrt" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>" data-type="0" onclick="grantOrRemoveModerator(this);">Revoke Moderator</a>
-			    <?php } else { ?>
-				<br /><a class="icon-moderator icon-add-modrt" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>" data-type="1" onclick="grantOrRemoveModerator(this);">Grant Moderator</a>
-			    <?php } ?>
-			    <?php } ?>
+				</span>
 			</div>
 			<div class="fr">
 			    <a class="icon-disable-usr" href="<?php echo HTTP_ROOT; ?>users/manage/?deact=<?php echo urlencode($user['User']['uniq_id']); ?>" Onclick="return confirm('Are you sure you want to disable \'<?php echo $user['User']['name']; ?>\' ?')">Disable</a><br />

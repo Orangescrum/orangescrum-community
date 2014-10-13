@@ -1007,7 +1007,7 @@ Team Orangescrum
                             $comp_user_id = $CompanyUser->getLastInsertID();
 
                             if ($is_sub_upgrade) {
-                                $userscontroller->update_bt_subscription($comp_user_id, SES_COMP, 1);
+                                //$userscontroller->update_bt_subscription($comp_user_id, SES_COMP, 1);
                             }
 //end 
                             $to = $val;

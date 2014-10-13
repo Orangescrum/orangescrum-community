@@ -166,7 +166,7 @@
 				elseif($tabvalue["fkeyword"] == "assigntome") { $tab_spn_id = "tskTabMyCnt"; }
 				elseif($tabvalue["fkeyword"] == "delegateto") { $tab_spn_id = "tskTabDegCnt"; }
 				elseif($tabvalue["fkeyword"] == "highpriority") { $tab_spn_id = "tskTabHPriCnt"; }
-				elseif($tabvalue["fkeyword"] == "bugcase") { $tab_spn_id = "tskTabBugCnt"; }
+				elseif($tabvalue["fkeyword"] == "overdue") { $tab_spn_id = "tskTabOverdueCnt"; }
 			    ?>
 			<li class="<?php echo $default_actv;?>">
 				<a class="cattab"  id="<?php echo $tabvalue["fkeyword"]; ?>_id" onclick="caseMenuFileter('<?php echo $tabvalue["fkeyword"]; ?>', 'dashboard', 'cases', '');" data-toggle="tab">

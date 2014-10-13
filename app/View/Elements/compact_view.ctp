@@ -299,8 +299,8 @@ var case_type = $("#caseMenuFilters").val(); %>
 				No tasks
 			<% }else if(case_type == 'assigntome'){ %>
 				No tasks for me
-			<% }else if(case_type == 'bugcase'){ %>
-				No tasks as bugs
+			<% }else if(case_type == 'overdue'){ %>
+				No tasks as overdue
 			<% }else if(case_type == 'delegateto'){ %>
 				No tasks delegated
 			<% }else if(case_type == 'highpriority'){ %>

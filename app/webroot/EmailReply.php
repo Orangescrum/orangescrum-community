@@ -383,6 +383,12 @@ if ($emails) {
             $user_id = $row1['id']; //user id of the sender
             $unq = md5(uniqid()); //uniq id in md5 format
             $gmt_dttime = gmdate('Y-m-d H:i:s');
+			
+			$checkExists = mysql_num_rows(mysql_query("select id from easycases where message='".addslashes($msg)."' and user_id='".$user_id."' and project_id = '" . $row_pid['id'] . "' and title='' and case_no = '".$cs_no."'"));
+			if($checkExists >= 1) {
+				echo "Same Post Postign Again...";
+				continue;
+			}
             
             if ($msg != "" && $user_id && mysql_num_rows($result)) {
                 //checking company is not cancel

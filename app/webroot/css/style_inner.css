@@ -1138,6 +1138,7 @@ a{outline:none;}
 #myTab4.nav-tabs li a.active_tab{border-radius:0px;border-top:2px solid #ff9600; border-bottom:0px; padding-bottom:9px; background:#f3f3f3;margin-top:-1px;color: #333;}
 .nav-tabs li{list-style:none;padding:7px 28px 0 12px; height: 37px; border-right:1px solid #ccc; border-top:1px solid #ccc; width:164px; background:#fff;}
 #myTab4.nav-tabs li a#bug_task:hover .bugcase{background:url(../img/sprite_osv2.png) no-repeat 1px -96px;}
+#myTab4.nav-tabs li a#overdue:hover .overdue{background:url(../img/sprite_osv2.png) no-repeat 1px -96px;}
 #myTab4.nav-tabs li a#hpr_task:hover .highpriority{background:url(../img/sprite_osv2.png) no-repeat -73px -117px;}
 #myTab4.nav-tabs li a#delg_task:hover .delegateto{background:url(../img/sprite_osv2.png) no-repeat -160px -129px;}
 #myTab4.nav-tabs li a#my_task_task:hover .assigntome{background:url(../img/sprite_osv2.png) no-repeat -90px -121px;}
@@ -1152,6 +1153,7 @@ a{outline:none;}
 .delegateto{background:url(../img/sprite_osv2.png) no-repeat -153px -32px; height:18px; width:15px;margin-right:6px;margin-top:5px;}
 .highpriority{background:url(../img/sprite_osv2.png) no-repeat -168px -32px; height:17px; width:15px;margin-right:6px;margin-top:2px;}
 .bugcase{background:url(../img/sprite_osv2.png) no-repeat -55px -117px; height:17px; width:17px; margin-right:6px;margin-top:3px;}
+.overdue{background:url(../img/sprite_osv2.png) no-repeat -302px -412px; height:17px; width:13px; margin-right:6px;margin-top:1px;}
 .tab_pop{font-size:20px;margin-left:-6px;margin-top:-6px;}
 li.pop_li{padding:0; width:20px;}
 .tab_tr{background:#f3f3f3;border: 1px solid #CCCCCC;}

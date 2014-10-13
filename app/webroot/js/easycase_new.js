@@ -116,8 +116,8 @@ function loadCaseMenu(strURL, params, ispageload){
 			if(parseInt(data.highPri) >= 0)
 			    $('#tskTabHPriCnt').html(" ("+data.highPri+")");
 			
-			if(parseInt(data.bugCase) >= 0)
-			    $('#tskTabBugCnt').html(" ("+data.bugCase+")");
+			if(parseInt(data.overdue) >= 0)
+			    $('#tskTabOverdueCnt').html(" ("+data.overdue+")");
 			
 			/*if(parseInt(data.total_milestone) > 0){
 			    $('#mlstn_fltr').show();
@@ -541,16 +541,17 @@ function checkboxTypes(id, typ) {
 	    }
 	}
     }
-    for (var j = 1; j <= totid; j++) {
-	var checkboxid = "types_" + j;
-	if (document.getElementById(checkboxid).checked == true)
-	{
-	    var typeid = "typeids_" + j;
-	    var typevalue = document.getElementById(typeid).value;
+    
+    $('.cst_type_cls').each(function() {
+	var dt_id = $(this).attr('data-id');
+	if($("#"+this.id).is(':checked')){
+	    var typeid = "typeids_" + dt_id;
+	    var typevalue = $("#"+typeid).val();
 	    x = typevalue + "-" + x;
 	}
-    }
-    if (x == "") {
+    });
+    
+    if (x === "") {
 		document.getElementById('types_all').checked = true;
 		var types = "all";
     } else {

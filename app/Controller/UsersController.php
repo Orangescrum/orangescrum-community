@@ -514,8 +514,7 @@ class UsersController extends AppController {
 		}
 	}
     function manage() {
-//                pr($this->Auth->user('istype'));exit;
-                $this->set('istype',$this->Auth->user('istype'));
+                $this->set('istype',SES_TYPE);
                 $search_key=$this->request->query['user_srch'];
                 $search_query="User.name LIKE '%$search_key%' OR User.last_name LIKE '%$search_key%' OR User.email  LIKE '%$search_key%' OR User.short_name  LIKE '%$search_key%'";
 		$page_limit = CASE_PAGE_LIMIT;
@@ -555,7 +554,7 @@ class UsersController extends AppController {
 			$comp_user = $CompanyUser->find('first', array('conditions' => array('user_id' => $getUsr['User']['id'], 'company_id' => SES_COMP)));
 			if ($GLOBALS['Userlimitation']['btsubscription_id']) {
 			if (strtotime($comp_user['CompanyUser']['billing_end_date']) < strtotime($GLOBALS['Userlimitation']['next_billing_date'])) {
-				$this->update_bt_subscription($comp_user['CompanyUser']['id'], $comp_user['CompanyUser']['company_id'], 2);
+				//$this->update_bt_subscription($comp_user['CompanyUser']['id'], $comp_user['CompanyUser']['company_id'], 2);
 			}
 			}
 			$CompanyUser->query("UPDATE company_users as CompanyUser SET CompanyUser.is_active='1' WHERE CompanyUser.user_id='" . $getUsr['User']['id'] . "' AND CompanyUser.company_id='" . SES_COMP . "' AND CompanyUser.user_type!='1'");

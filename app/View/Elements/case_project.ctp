@@ -3,7 +3,7 @@
 .pr_medium{background:none !important;}
 .pr_high{background:none !important;}
 .label{font-weight:normal;}
-.tsk_tbl td {border:0px solid #FFF !important;}
+.tsk_tbl td {border-right: 0px solid #FFF !important;border-bottom: 0px solid #FFF !important;}
 </style>
 <?php ?>
 <table width="100%" class="tsk_tbl compactview_tbl">
@@ -358,11 +358,11 @@
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'assigntome')); ?>
             <% } %>
-            <% }else if(case_type == 'bugcase'){
+            <% }else if(case_type == 'overdue'){
 				if(filterenabled){ %>
-					No tasks as bugs
+					No tasks as overdue
             <% }else{ %>
-            <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'bug')); ?>
+            <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'overdue')); ?>
             <% } %>
             <% }else if(case_type == 'delegateto'){
 				if(filterenabled){ %>

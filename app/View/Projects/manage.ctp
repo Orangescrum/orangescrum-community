@@ -67,7 +67,7 @@
     <div class="col-lg-4">
 		<div class="col-lg-12 text-centre">
 		    <div style="display: block !important;margin-top: 123px;width:103%;">
-			<div class="fnt_clr_rd">No projects found.</div>
+			<div class="fnt_clr_rd"><?php if (@SES_TYPE ==3){ ?>You have not created any project yet.<?php } else { ?>No projects found.<?php } ?></div>
 			</div>
 		</div>
 	</div>

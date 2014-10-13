@@ -34,9 +34,17 @@ class Project extends AppModel{
 	
 	function getAllProjects(){
 	    $this->recursive = -1;
+
+if(PAGE_NAME == "groupupdatealerts") {
+	$orderby = "ORDER BY Project.name ASC";
+}
+else {
+	$orderby = "ORDER BY ProjectUser.dt_visited DESC";
+}
+
 	    $sql = "SELECT DISTINCT Project.name,Project.uniq_id FROM projects AS Project,
 		project_users AS ProjectUser WHERE Project.id = ProjectUser.project_id AND ProjectUser.user_id='".SES_ID."'
-		    and ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1' AND Project.name !='' ORDER BY ProjectUser.dt_visited DESC";
+		    and ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1' AND Project.name !='' ".$orderby;
 	    $projects = $this->query($sql);
 	    $allProject = array();
 	    if(isset($projects) && !empty($projects)) {

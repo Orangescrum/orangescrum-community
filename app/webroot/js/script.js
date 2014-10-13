@@ -2018,7 +2018,7 @@ function caseMenuFileter(value, page, filters, caseid) {
 		document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Closed';
 	    }
 	}*/
-        else if (value == "bugcase") {
+        else if (value == "overdue") {
             //resetAllFilters('filters');
             if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
                 window.location = url + "dashboard?filters=" + value;
@@ -2105,13 +2105,13 @@ function savecategorytab() {
             total_tab_value += parseInt($(this).val());
         }
     });
-    $("#btn_addmem").hide();
+    $("#btn_cattype").hide();
     $("#tab_ldr").show();
     $.post(HTTP_ROOT + "users/ajax_savecategorytab", {
         'tabvalue': total_tab_value,
         'is_ajaxflag': 1
     }, function(res) {
-        if (res == 1) {
+        if (parseInt(res) === 1) {
             window.location.href = HTTP_ROOT + 'dashboard?filters=cases';
         }
     });

@@ -27,8 +27,8 @@ if ($nodata_name == 'caselist') {
     $msgDesc = '';
 }else if ($nodata_name == 'tasklist') {
 	$imageClass = 'icon-no-task';
-	if($case_type=='bug'){
-		$msgHead = 'No Task as Bug have been created on this project';
+	if($case_type=='overdue'){
+		$msgHead = 'No Overdue Task on this project';
 	}elseif($case_type=='highpriority'){
 		$msgHead = 'No High Priority Task have been created on this project';
 	}elseif($case_type=='assigntome'){
