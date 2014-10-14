@@ -194,6 +194,6 @@ CakeLog::config('error', array(
 	'mask' => 0777,
 ));
 
-Configure::write('DTAB', array( 1=>array('ftext'=>'All Tasks','fkeyword'=>'cases'),2 => array('ftext'=>'My Tasks','fkeyword'=>'assigntome'),4 =>array('ftext'=>'Bug','fkeyword'=>'bugcase'),8=>array('ftext'=>'Delegated','fkeyword'=>'delegateto'),16 =>array('ftext'=> 'High Priority','fkeyword'=>'highpriority')));
+Configure::write('DTAB', array( 1=>array('ftext'=>'All Tasks','fkeyword'=>'cases'),2 => array('ftext'=>'My Tasks','fkeyword'=>'assigntome'),4 =>array('ftext'=>'Overdue','fkeyword'=>'overdue'),8=>array('ftext'=>'Delegated','fkeyword'=>'delegateto'),16 =>array('ftext'=> 'High Priority','fkeyword'=>'highpriority')));
 
 Configure::write('default_action','mydashboard');
