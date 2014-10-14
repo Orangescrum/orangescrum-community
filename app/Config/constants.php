@@ -34,9 +34,6 @@ define('HTTP_APP', PROTOCOL.DOMAIN.SUB_FOLDER);
 define('HTTPS_HOME', PROTOCOL.DOMAIN.SUB_FOLDER);
 define('HTTP_HOME', "http://".DOMAIN.SUB_FOLDER);
 
-/**Require socket.io and node.js for instance messaging.**/
-//define("NODEJS_HOST",'http://www.your-application.com:3002'); //enable this, if you have Node.js setup in the server
-
 ##################### Google Keys (Login, Drive, Contacts) ############################
 define("CLIENT_ID", "XXXXXXXXXXXX.apps.googleusercontent.com");
 define("CLIENT_ID_NUM", "XXXXXXXXXXXX");
@@ -131,3 +128,9 @@ define('HTTP_IMAGES', HTTP_ROOT.'img/');
 define('HTTP_FILES', HTTP_ROOT.'files/');
 define('HTTP_CASE_FILES', HTTP_FILES.'case_files/');
 define('HTTP_USER_PHOTOS', HTTP_FILES.'photos/');
+
+/**Require socket.io and node.js for instance messaging.**/
+//define("NODEJS_HOST",'http://www.your-application.com:3002'); //enable this, if you have Node.js setup in the server
+// If you are enabling NODEJS_HOST, make sure you have PHP version >5.3.0
+// Also, remove comment on "use ElephantIO\Client as ElephantIOClient" from the following files
+// app/Controller/EasycasesController.php, app/Controller/Component/PostcaseComponent.php, app/webroot/EmailReply.php

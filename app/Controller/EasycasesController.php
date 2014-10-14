@@ -43,7 +43,7 @@ App::uses('AppController', 'Controller');
 App::import('Vendor', 's3', array('file' => 's3'.DS.'S3.php'));
 
 App::import('Vendor', 'ElephantIO', array('file' => 'ElephantIO'.DS.'Client.php'));
-use ElephantIO\Client as ElephantIOClient;
+//use ElephantIO\Client as ElephantIOClient;
 
 class EasycasesController extends AppController {
     public $name = 'Easycase';
@@ -1228,8 +1228,8 @@ class EasycasesController extends AppController {
         }elseif($caseMenuFilters == "overdue") { 
             //$qry.= " AND Easycase.type_id ='1'";
 	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-            $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."'";
-        }elseif($caseMenuFilters == "highpriority") {
+            $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
+	}elseif($caseMenuFilters == "highpriority") {
             $qry.= " AND Easycase.priority ='0' ";
         }elseif($caseMenuFilters == "newwip") {
             $qry.= " AND (Easycase.legend='1' OR Easycase.legend='2')  AND Easycase.type_id !='10'";
@@ -2573,10 +2573,9 @@ class EasycasesController extends AppController {
 
             //$closeCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.legend' => 3,'Easycase.type_id !=' => 10,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id),'fields' => 'DISTINCT Easycase.id'));
             //$bugCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.type_id' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id),'fields' => 'DISTINCT Easycase.id'));
-            
-	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
-
+            $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
+	    
             //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
             $caseHighPri = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as hpcount FROM easycases Easycase WHERE Easycase.isactive = 1 AND Easycase.istype= 1 AND Easycase.project_id ='. $proj_id.' AND Easycase.priority = 0 AND Easycase.type_id != 10 '.$qry.$searchcase);
 
@@ -2599,8 +2598,8 @@ class EasycasesController extends AppController {
                 array_push($ids,$csid['Project']['id']);
             }
             $idlist = trim($idlist,',');
-			$cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-            $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1  AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'"  AND Easycase.project_id IN('.$idlist.') AND (Easycase.assign_to='.SES_ID.' OR ( Easycase.assign_to=0 AND Easycase.user_id='.SES_ID.')) '.$qry.' '.$searchcase);
+	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+            $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2)  AND Easycase.project_id IN('.$idlist.') AND (Easycase.assign_to='.SES_ID.' OR ( Easycase.assign_to=0 AND Easycase.user_id='.SES_ID.')) '.$qry.' '.$searchcase);
 //			$assignToMe = $this->Easycase->find('count', array('conditions' => array(
 //			"OR" => array(
 //			'AND' => array(
@@ -2637,10 +2636,10 @@ class EasycasesController extends AppController {
 
             //$closeCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.legend' => 3,'Easycase.type_id !=' => 10,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
             //$bugCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.type_id' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
-            
-	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.type_id = 1 AND Easycase.istype= 1 AND Easycase.project_id IN('.$idlist.") ".$qry.$searchcase);
-            //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
+            $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
+	    
+	    //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
             $caseHighPri = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as hpcount FROM easycases Easycase WHERE Easycase.isactive = 1 AND Easycase.istype= 1 AND Easycase.project_id IN('. $idlist.') AND Easycase.priority = 0 AND Easycase.type_id != 10 '.$qry.$searchcase);
         }
         $resCaseMenu = array();
@@ -2823,8 +2822,8 @@ class EasycasesController extends AppController {
         ######### Filter by Bug case ##########
         elseif($caseMenuFilters == "overdue") { /* By OSDEV 0201*/
 	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-            $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."'";
-            $qry1.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."'";
+            $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
+            $qry1.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
         }
         ######### Filter by Latest ##########
         elseif($caseMenuFilters == "latest") {

@@ -2,7 +2,7 @@
 App::import('Component', 'Cookie');
 App::import('Vendor', 's3', array('file' => 's3' . DS . 'S3.php'));
 
-use ElephantIO\Client as ElephantIOClient;
+//use ElephantIO\Client as ElephantIOClient;
 
 class PostcaseComponent extends CookieComponent {
 

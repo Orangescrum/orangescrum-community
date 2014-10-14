@@ -1,12 +1,11 @@
 <?php
-//error_reporting(0);
 date_default_timezone_set('UTC');
 ini_set("max_execution_time", 360);
 
 include_once("../Config/constants.php");
 include_once("../Config/database.php");
 
-use ElephantIO\Client as ElephantIOClient;
+//use ElephantIO\Client as ElephantIOClient;
 
 include_once('../Vendor/s3/S3.php');
 include_once('../../mailer/ImapMailbox.php');

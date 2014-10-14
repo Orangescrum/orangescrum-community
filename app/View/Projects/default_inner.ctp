@@ -41,7 +41,8 @@
         <div class="fl oly_wc">Welcome to <img src="img/images/logo_outer_sml.png" style="margin-top: -4px; margin-left: 4px;" /> !</div>
         <div class="oly_text fr">
             <div>Take a moment to note the main action links.</div>
-            <a href="#" onClick="close_test()">Ok, I got it.</a></div>
+            <button class="btn btn_blue" type="button" onClick="close_test();">Ok, I got it.</button>
+         </div>
         <div class="cb"></div>
     </div>
 </div>
