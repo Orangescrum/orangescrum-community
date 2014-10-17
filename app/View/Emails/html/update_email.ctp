@@ -31,7 +31,6 @@
 					<td width="100%" bgcolor="#ffffff" style="text-align:center;">
 					    <p style="color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; margin-top:0; padding:0; font-weight:normal;padding-top:5px;">
 					    <?php
-						echo NEW_EMAIL_FOOTER;
 						if ($existing_user) {
 						?>
     						You are receiving this email notification because you have subscribed to Orangescrum, to unsubscribe, please email with subject 'Unsubscribe' to <a href='mailto:support@orangescrum.com'>support@orangescrum.com</a>
