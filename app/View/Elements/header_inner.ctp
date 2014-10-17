@@ -71,7 +71,7 @@ if( $is_active_proj || (SES_TYPE==3)){
 			?>
 			
 
-			<li <?php if((CONTROLLER == "archives" && (PAGE_NAME == "listall")) || CONTROLLER == "templates") { echo 'style="display:block;"'; }?><?php if(CONTROLLER == "reports" && (PAGE_NAME == "glide_chart" || PAGE_NAME == "hours_report" || PAGE_NAME == "chart" || PAGE_NAME == "weeklyusage_report")) { echo "class='active more_menu_li'"; echo ' style="display:block;"'; } else { if(SES_TYPE != 3) { echo " class='more_menu_li'"; } } ?>><a href="<?php echo HTTP_ROOT.'bug-report/';?>"><i class="menu_sprite_ico menu_sprite_ico_anltc"></i> Analytics</a></li>
+			<li <?php if((CONTROLLER == "archives" && (PAGE_NAME == "listall")) || CONTROLLER == "templates") { echo 'style="display:block;"'; }?><?php if(CONTROLLER == "reports" && (PAGE_NAME == "glide_chart" || PAGE_NAME == "hours_report" || PAGE_NAME == "chart" || PAGE_NAME == "weeklyusage_report")) { echo "class='active more_menu_li'"; echo ' style="display:block;"'; } else { if(SES_TYPE != 3) { echo " class='more_menu_li'"; } } ?>><a href="<?php echo HTTP_ROOT.'task-report/';?>"><i class="menu_sprite_ico menu_sprite_ico_anltc"></i> Analytics</a></li>
 			
 			<li <?php if((CONTROLLER == "reports" && (PAGE_NAME == "glide_chart" || PAGE_NAME == "hours_report" || PAGE_NAME == "chart" || PAGE_NAME == "weeklyusage_report")) || CONTROLLER == "templates") { echo 'style="display:block;"'; }?> <?php if(CONTROLLER == "archives" && (PAGE_NAME == "listall")) { echo "class='active more_menu_li'"; echo ' style="display:block;"'; } else { if(SES_TYPE != 3) { echo " class='more_menu_li'"; } } ?>><a href="<?php echo HTTP_ROOT.'archives/listall#caselist';?>"><i class="menu_sprite_ico menu_sprite_ico_arch"></i> Archive</a></li>
 			

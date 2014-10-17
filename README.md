@@ -15,7 +15,7 @@
     * Get the database.sql file from the root directory and import that to your database.
     * Locate your `app` directory, do the changes on following files:
 	  * `app/Config/database.php` - Update the database connection details [Required]
-	  * `app/Config/constants.php` - Create a free account in Sendgrid and update the Email sending options (SENDGRID_USERNAME & SENDGRID_PASSWORD)[Required]
+	  * `app/Config/constants.php` - Provide your valid Gmail ID and Password for SMTP email sending Or, you can use Sendgrid or Mandrill.
 	  * `app/Config/constants.php` - Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL [Required]
 	  * `app/Config/constants.php` - If your application URL followed by a folder name. like: http://your-site.com/folder_name, Update the folder name "define('SUB_FOLDER', 'folder_name/')",
     * Run the application as http://your-site.com/ from your browser and start using Orangescrum

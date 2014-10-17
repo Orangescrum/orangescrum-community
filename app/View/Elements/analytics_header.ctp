@@ -1,9 +1,16 @@
 <div class="tab tab_comon">
 	<ul class="nav-tabs mod_wide">
-		<li <?php if(CONTROLLER == "reports" && (PAGE_NAME == "glide_chart")) { ?>class="active"<?php } ?>>
+		<?php /*?><li <?php if(CONTROLLER == "reports" && (PAGE_NAME == "glide_chart")) { ?>class="active"<?php } ?>>
 			<a href="<?php echo HTTP_ROOT."bug-report/" ?>">
             <div class="an_bug fl"></div>			
 			<div class="fl">Bug Reports</div>
+			<div class="cbt"></div>
+			</a>
+		</li><?php */?>
+        <li <?php if(CONTROLLER == "reports" && (PAGE_NAME == "chart")) { ?>class="active"<?php } ?>>
+			<a href="<?php echo HTTP_ROOT."task-report/" ?>">
+            <div class="an_tsk fl"></div>
+			<div class="fl">Task Reports</div>
 			<div class="cbt"></div>
 			</a>
 		</li>
@@ -11,13 +18,6 @@
 			<a href="<?php echo HTTP_ROOT."hours-report/" ?>">
             <div class="an_hrs fl"></div>
 			<div class="fl">Hour Spent</div>
-			<div class="cbt"></div>
-			</a>
-		</li>
-		<li <?php if(CONTROLLER == "reports" && (PAGE_NAME == "chart")) { ?>class="active"<?php } ?>>
-			<a href="<?php echo HTTP_ROOT."task-report/" ?>">
-            <div class="an_tsk fl"></div>
-			<div class="fl">Task Reports</div>
 			<div class="cbt"></div>
 			</a>
 		</li>

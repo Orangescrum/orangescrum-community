@@ -50,16 +50,14 @@ input#txt_Password{font-family: Arial}
                         <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
                         Make sure that, <br/>
                         <ul>
-                       	<li>You have write permission (777) to `app/tmp` and `app/webroot` folders</li>
+                       	<li>You have write permission (777) to <b>`app/tmp`</b> and <b>`app/webroot`</b> folders</li>
                         
                         <?php
-						if(!SENDGRID_USERNAME) { ?>
-                        <li>You have updated the Sendgrid credentials in SENDGRID_USERNAME & SENDGRID_PASSWORD in `app/Config/constants.php`<br/>
-                        Free Signup:<a href="https://sendgrid.com/user/signup" style="color:#333;" target="_blank" style="margin:0;padding:0;">https://sendgrid.com/user/signup</a>
-</li>
+						if(!defined('SMTP_PWORD') || SMTP_PWORD == "******") { ?>
+                        <li>You have provided the details of <b>SMTP</b> email sending options in <b>`app/Config/constants.php`</b></li>
 <?php
 						}
-						?><li>You have updated FROM_EMAIL_NOTIFY and SUPPORT_EMAIL in `app/Config/constants.php`</li>
+						?><li>You have updated FROM_EMAIL_NOTIFY and SUPPORT_EMAIL in <b>`app/Config/constants.php`</b></li>
 						
                         </ul>
                         </div>
@@ -138,9 +136,15 @@ input#txt_Password{font-family: Arial}
                                             }
                                             ?>
 											
-											<div class="gap10"></div>
-											<div style="text-align:center;">
-                                                <?php echo $this->Session->flash(); ?>
+					   <div class="gap10"></div>
+					   <div style="text-align:center;">
+                                                <?php 
+						    if(isset($update_email_message)){
+							echo $update_email_message;
+						     }else{
+							echo $this->Session->flash(); 
+						     }
+						?>
                                             </div>
 
 											 <?php

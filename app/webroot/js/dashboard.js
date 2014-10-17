@@ -235,7 +235,7 @@ function ajaxCaseView(page) {
 			}*/
 			var projIsChange = document.getElementById('projIsChange').value;	
 			var caseMenuFilters = $('#caseMenuFilters').val(); // Assign To
-			if(projIsChange != projFil) {
+			if((projIsChange != projFil) || (caseMenuFilters==="overdue")) {
 				//$("#new_case_more_div").html(""); //not impl
 				
 				loadCaseMenu(strURL+"ajax_case_menu", {"projUniq":projFil,"pageload":0,"page":"dashboard","filters":caseMenuFilters,'case_date':case_date,'case_due_date':case_due_date,'caseStatus':caseStatus,'caseTypes':caseTypes,'priFil':priFil,'caseMember':caseMember,'caseAssignTo':caseAssignTo,'caseSearch':caseSearch,'milestoneIds':milestoneIds,'checktype':checktype})

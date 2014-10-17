@@ -612,7 +612,7 @@ class EasycasesController extends AppController {
 									$this->loadModel('User');
 									$userdetails = $this->User->query('SELECT User.*,Company.name FROM users User,company_users AS CompanyUser,companies AS Company WHERE User.id=CompanyUser.user_id AND CompanyUser.company_id=Company.id AND CompanyUser.company_id='.SES_COMP.' AND User.id='.SES_ID);
 									$this->Email->delivery = 'smtp';
-									$this->Email->to = TO_DEV_EMAIL;
+									$this->Email->to = DEV_EMAIL;
 									$this->Email->subject = $subject;
 									$this->Email->from = FROM_EMAIL;
 									$this->Email->template = 'fileupload_error';

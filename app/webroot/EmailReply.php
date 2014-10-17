@@ -9,6 +9,7 @@ include_once("../Config/database.php");
 
 include_once('../Vendor/s3/S3.php');
 include_once('../../mailer/ImapMailbox.php');
+include_once('PHPMailer/PHPMailerAutoload.php');
 include_once('../Vendor/ElephantIO/Client.php');
 
 define('LOG_PATH', '../tmp/logs/os-email.log');
@@ -25,16 +26,6 @@ $cfg["db_name"] = $settings['database'];
 $username = FROM_EMAIL_NOTIFY;
 $password = '**************';
 $hostname = '{imap.gmail.com:993/ssl}INBOX';
-
-$smtpConfig = array(
-    'port' => 465,
-    'timeout' => 30,
-    'host' => 'smtp.gmail.com',
-    'secure' => 'ssl',
-    'username' => $username,
-    'password' => $password,
-    'client' => 'Gmail'
-);
 
 /* try to connect */
 $inbox = imap_open($hostname, $username, $password) or die("Couldn't get your Emails: " . imap_last_error());
@@ -846,32 +837,25 @@ function chnageUploadedFileName($filename) {
 
 function send_email($to, $name, $subject, $message) {
 	
-	if(SENDGRID_USERNAME == "" || SENDGRID_PASSWORD == "") {
-		return true;
+	if(define(SMTP_PWORD) && SMTP_PWORD != "******") {
+		$mail = new PHPMailer;
+		$mail->isSMTP();
+		$mail->Host = SMTP_HOST;
+		$mail->Port = SMTP_PORT;
+		$mail->SMTPSecure = 'tls';
+		$mail->SMTPAuth = true;
+		$mail->Username = SMTP_UNAME;
+		$mail->Password = SMTP_PWORD;
+		
+		$mail->setFrom(SUPPORT_EMAIL, '');
+		$mail->addAddress($to, '');
+		$mail->isHTML(true);
+
+		$mail->Subject = $subject;
+		$mail->Body    = $message;
+		
+		$res = $mail->send();
 	}
-	$url = 'http://sendgrid.com/';
-
-	$params = array(
-			'api_user'  => SENDGRID_USERNAME,
-			'api_key'   => SENDGRID_PASSWORD,
-			'to'        => $to,
-			'subject'   => $subject,
-			'html'      => $message,
-			'text'      => '',
-			'from'      => SUPPORT_EMAIL
-	  );
-	  // From email is not valid with space.
-
-	$request =  $url.'api/mail.send.json';
-	$session = curl_init($request);
-	curl_setopt ($session, CURLOPT_POST, true);
-	curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-	curl_setopt($session, CURLOPT_HEADER, false);
-	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-	//curl_setopt($session, CURLOPT_TIMEOUT, 1);
-	$response = curl_exec($session);
-	curl_close($session);
-	return true;
 }
 
 function curlPostData($url, $data) {

@@ -283,5 +283,5 @@
 <input type="hidden" id="totalcount" name="totalcount" value="<?php echo $count; ?>"/>
 </div>
 <div id="projectLoader">
-    <div class="loadingdata">Invitation resend...</div>
+    <div class="loadingdata">Sending invitation again...</div>
 </div>

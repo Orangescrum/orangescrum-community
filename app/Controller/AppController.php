@@ -674,7 +674,7 @@ class AppController extends Controller {
             Security::setHash('md5');
 			
             $this->Auth->authenticate = array('Form' => array('fields' => array('username' => 'email', 'password' => 'password')));
-            $this->Auth->allow('license','login','validate_emailurl','forgotpassword','session_maintain','googleConnect', 'googleSignup', 'setGoogleInfo','ajaxpostcase','ajaxemail','register_user','invitation');
+            $this->Auth->allow('license','login','validate_emailurl','forgotpassword','session_maintain','googleConnect', 'googleSignup', 'setGoogleInfo','ajaxpostcase','ajaxemail','register_user','invitation','emailUpdate');
             
             $this->Session->write("SUCCESS","");
             $this->Session->write("ERROR","");

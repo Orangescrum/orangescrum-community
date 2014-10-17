@@ -21,6 +21,12 @@
 		<input type="text" name="data[User][short_name]" placeholder="JD" id="short_name" class="form-control"  value="<?php echo $userdata['User']['short_name']; ?>"/>
 	    </td>
         </tr>
+		<tr>
+            <th>Email:</th>
+        <td>
+		<input type="text" name="data[User][email]" placeholder="Email" id="email" class="form-control"  value="<?php echo $userdata['User']['email']; ?>"/>
+	    </td>
+        </tr
         <tr>
             <th>Time Zone:</th>
             <td class="v-top">
@@ -49,8 +55,7 @@
 				$fileurl = $this->Format->generateTemporaryURL(DIR_USER_PHOTOS_S3 . $userdata['User']['photo']);
 			} else {
 				$fileurl = HTTP_ROOT.'users/files/photos/'.$userdata['User']['photo'];
-			} 
-			?>
+			} ?>
     		    <div>
     			<a href="<?php echo $fileurl; ?>" target="_blank">
     			    <img src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<?php echo $userdata['User']['photo']; ?>&sizex=100&sizey=100&quality=100" border="0" id="profphoto"/>

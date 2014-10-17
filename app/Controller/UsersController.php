@@ -1513,6 +1513,8 @@ class UsersController extends AppController {
 					$fext = strtolower(substr(strrchr($files,"."),1));
 					$extList = array("jpg","jpeg","png","tif","gif","bmp","thm");
 					$this->redirect($redirect."easycases/download/".$this->request->data['User']['file']);
+				}elseif($update_email_redirect){
+						$this->redirect(HTTP_APP."users/profile");
 				}
 				$this->redirect($redirect);
 			}
@@ -1530,6 +1532,23 @@ class UsersController extends AppController {
 			}
 			
 		}
+        	if(isset($demo) && $demo != "demo"){
+			if(strstr($demo, '___')){
+				$t_demo = explode('___',$demo);
+				$upd_user = $this->User->find('first',array('conditions'=>array('User.update_random'=>$t_demo[0])));
+				if($upd_user){
+					$t_emal = $upd_user['User']['email'];
+					if($t_demo[1] == "NOT_UPDATE"){
+						$this->set("update_email_message",'<span style="color:red">"'.$t_emal.'" email already exists!.</span>');
+					}else{				
+						$upd_user['User']['update_random'] = ''; 
+						$this->User->save($upd_user);
+						$this->set("update_email_message",'<span style="color:green">Now you can login using "'.$t_emal.'"</span>');
+					}
+		
+				}
+			}
+		 }
 		$Company = ClassRegistry::init('Company');
 		$Company->recursive = -1;
 		$findCompany = $Company->find('first',array('conditions'=>array('Company.is_active'=>1),'fields'=>array('Company.id')));
@@ -1576,10 +1595,9 @@ class UsersController extends AppController {
 	function profile($img = null) 
 	{
 		$photo = urldecode($img);
-		
 		if(defined('USE_S3') && USE_S3) {
 			$s3 = new S3(awsAccessKey, awsSecretKey);
-        	$info = $s3->getObjectInfo(BUCKET_NAME, DIR_USER_PHOTOS_S3_FOLDER.$photo);
+        		$info = $s3->getObjectInfo(BUCKET_NAME, DIR_USER_PHOTOS_S3_FOLDER.$photo);
 		} else if($photo && file_exists(DIR_USER_PHOTOS.$photo)){
 			$info = 1;
 		}
@@ -1608,9 +1626,29 @@ class UsersController extends AppController {
 		$this->loadModel('TimezoneName');
 		$timezones = $this->TimezoneName->find('all');
 		$this->set('timezones', $timezones);
-		
+		$email_update = 0;
 		if(isset($this->request->data['User']))
 		{
+		        if(trim($this->request->data['User']['email']) == ""){
+				$this->Session->write("ERROR","Email cannot be left blank");
+				$this->redirect(HTTP_ROOT."users/profile");
+			}else if(trim($this->request->data['User']['email']) != $userdata['User']['email']){
+			    $is_exist = $this->User->find('first',array('conditions' => array('User.email' => trim($this->request->data['User']['email']))));
+		            $this->loadmodel('CompanyUser'); 
+                            $is_cmpinfo = $this->CompanyUser->find('count',array('conditions' => array('CompanyUser.user_id' => $is_exist['User']['id'])));
+			    if(!$is_cmpinfo){
+				    $this->User->id = $userdata['User']['id'];
+				    $userdata['User']['update_email'] = trim($this->request->data['User']['email']);
+				    $userdata['User']['update_random'] = $this->Format->generateUniqNumber();
+				    $this->User->save($userdata);
+				    $email_update = trim($this->request->data['User']['email']);
+				    $this->send_update_email_noti($userdata,trim($this->request->data['User']['email']));
+				    $this->request->data['User']['email'] = $userdata['User']['email'];
+		           }else{
+				$this->Session->write("ERROR","Opps! Email address already exists.");
+				$this->redirect(HTTP_ROOT."users/profile");
+			   }
+			}		    
 			$photo_name = '';
 			if(isset($this->request->data['User']['photo']))
 			{
@@ -1675,8 +1713,11 @@ class UsersController extends AppController {
 					$auth_user['timezone_id'] = $this->request->data['User']['timezone_id'];
 					$this->Session->write('Auth.User',$auth_user);
 				}
-				
-				$this->Session->write("SUCCESS","Profile updated successfully");
+				if($email_update){
+				    $this->Session->write("SUCCESS","Profile updated successfully.<br />A confirmation link has been sent to '{$email_update}'.");
+				}else{
+				    $this->Session->write("SUCCESS","Profile updated successfully");
+				}
 				$this->redirect(HTTP_ROOT."users/profile");
 			}
 		}
@@ -1684,6 +1725,47 @@ class UsersController extends AppController {
 		$Company->recursive = -1;
 		$getCompany = $Company->find('first',array('conditions'=>array('Company.id'=>SES_COMP)));
 		$this->set('getCompany',$getCompany);
+	}
+	function emailUpdate($qstr = null){
+		if(isset($qstr) && $qstr){				
+			$UserData = $this->User->find('first',array('conditions'=>array('User.update_random'=>$qstr)));
+			if($UserData && $UserData['User']['update_email']){
+				 $user_email = $this->User->find('first', array('conditions' => array('User.email' => $UserData['User']['update_email'])));
+				 if($user_email){
+					$this->logout('emailUpdate',$qstr.'___NOT_UPDATE');
+					$this->redirect(HTTP_APP.'users/login/'.$qstr.'___NOT_UPDATE');
+				 }else{
+					$this->logout('emailUpdate',$qstr.'___UPDATE');
+					$UserData['User']['email'] = $UserData['User']['update_email'];
+					$UserData['User']['update_email'] = '';
+					$this->User->save($UserData);
+					$this->redirect(HTTP_APP.'users/login/'.$qstr.'___UPDATE');
+				}				
+			}else{
+				$this->redirect(HTTP_APP.'users/login/');	
+			}
+		}
+		$this->redirect(HTTP_APP.'users/login/');	
+	}
+	function send_update_email_noti($user = null,$upd_email){
+		if($user){
+		    $qstr = $user['User']['update_random'];
+		    $to = $upd_email;
+		    $Name = $user['User']['name'];						
+		    $subject = "Orangescrum Login Email ID Confirmation";
+		    $this->Email->delivery = 'smtp';
+		    $this->Email->to = $to;  
+		    $this->Email->subject = $subject;
+		    $this->Email->from = FROM_EMAIL;
+		    $this->Email->template = 'update_email';
+		    $this->Email->sendAs = 'html';
+		    $this->set('Name', ucfirst($Name));
+		    $this->set('qstr', $qstr);
+		    try{
+		       $this->Sendgrid->sendgridsmtp($this->Email);
+		    }Catch(Exception $e){ 
+		    }
+		}
 	}
     function changepassword($img = null) {
         if(isset($this->request->data['User']) && $this->request->data['User']['changepass'] == 1) {
@@ -1737,7 +1819,7 @@ class UsersController extends AppController {
          }
         
 	}
-	function logout($id='') {
+	function logout($id='',$qsrt = null) {
 		$this->Session->write('Auth.User.id','');
 		
 		setcookie('USER_UNIQ','',-1,'/',DOMAIN_COOKIE,false,false);
@@ -1755,7 +1837,7 @@ class UsersController extends AppController {
 		$cookie = array();
 		$this->Cookie->write('Auth.User', $cookie, '-2 weeks');
 		
-		if(SES_ID) {
+		if(SES_ID && !$qsrt) {
 			$this->User->id = SES_ID;
 			$this->User->saveField('dt_last_logout', GMT_DATETIME);
 			if($this->isiPad() && HTTP_ROOT!=HTTP_APP){
@@ -1766,7 +1848,11 @@ class UsersController extends AppController {
 		$retval = $this->Auth->logout();
 		if($retval){
 			if($id){
-				$this->redirect(HTTP_ROOT.'users/login');exit;
+				if($id == 'emailUpdate'){
+					return true;
+				}else{
+					$this->redirect(HTTP_ROOT.'users/login');exit;
+				}
 			}else{
 				$this->redirect(HTTP_HOME);exit;
 			}
@@ -3237,6 +3323,7 @@ function done_cropimage(){
 	$getTmz = $this->Timezone->find('first', array('conditions' => array('Timezone.gmt_offset' => urldecode($this->request->data['timezone_id']))));
 	$timezone_id = $getTmz['Timezone']['id'];
 	//Choose the subscritpion plan as selected by the user 
+
 	$plan_id = (isset($this->data['plan_id']) && $this->data['plan_id']) ? $this->data['plan_id'] : 1;
 	$this->loadModel('Subscription');
 	$subScription = $this->Subscription->find('first', array('conditions' => array('Subscription.plan' => $plan_id)));

@@ -1,19 +1,17 @@
--- MySql version: 5.5.36
+-- phpMyAdmin SQL Dump
+-- version 4.1.12
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Oct 17, 2014 at 06:50 AM
+-- Server version: 5.5.36
 -- PHP Version: 5.4.27
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
--- Database: `orangescrum`
---
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `archives`
 --
 
+DROP TABLE IF EXISTS `archives`;
 CREATE TABLE IF NOT EXISTS `archives` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(250) NOT NULL,
@@ -36,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `archives` (
 -- Table structure for table `case_actions`
 --
 
+DROP TABLE IF EXISTS `case_actions`;
 CREATE TABLE IF NOT EXISTS `case_actions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
@@ -54,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `case_actions` (
 -- Table structure for table `case_activities`
 --
 
+DROP TABLE IF EXISTS `case_activities`;
 CREATE TABLE IF NOT EXISTS `case_activities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `case_activities` (
 -- Table structure for table `case_files`
 --
 
+DROP TABLE IF EXISTS `case_files`;
 CREATE TABLE IF NOT EXISTS `case_files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -105,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `case_files` (
 -- Table structure for table `case_file_drives`
 --
 
+DROP TABLE IF EXISTS `case_file_drives`;
 CREATE TABLE IF NOT EXISTS `case_file_drives` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
@@ -119,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `case_file_drives` (
 -- Table structure for table `case_filters`
 --
 
+DROP TABLE IF EXISTS `case_filters`;
 CREATE TABLE IF NOT EXISTS `case_filters` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL COMMENT 'Foreign Key of "Users"',
@@ -132,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `case_filters` (
 -- Table structure for table `case_recents`
 --
 
+DROP TABLE IF EXISTS `case_recents`;
 CREATE TABLE IF NOT EXISTS `case_recents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
@@ -148,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `case_recents` (
 -- Table structure for table `case_settings`
 --
 
+DROP TABLE IF EXISTS `case_settings`;
 CREATE TABLE IF NOT EXISTS `case_settings` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `project_id` int(250) NOT NULL,
@@ -167,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `case_settings` (
 -- Table structure for table `case_templates`
 --
 
+DROP TABLE IF EXISTS `case_templates`;
 CREATE TABLE IF NOT EXISTS `case_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -185,6 +191,7 @@ CREATE TABLE IF NOT EXISTS `case_templates` (
 -- Table structure for table `case_user_emails`
 --
 
+DROP TABLE IF EXISTS `case_user_emails`;
 CREATE TABLE IF NOT EXISTS `case_user_emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
@@ -200,6 +207,7 @@ CREATE TABLE IF NOT EXISTS `case_user_emails` (
 -- Table structure for table `case_user_views`
 --
 
+DROP TABLE IF EXISTS `case_user_views`;
 CREATE TABLE IF NOT EXISTS `case_user_views` (
   `id` int(11) NOT NULL,
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
@@ -217,6 +225,7 @@ CREATE TABLE IF NOT EXISTS `case_user_views` (
 -- Table structure for table `companies`
 --
 
+DROP TABLE IF EXISTS `companies`;
 CREATE TABLE IF NOT EXISTS `companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` text,
@@ -243,6 +252,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
 -- Table structure for table `company_users`
 --
 
+DROP TABLE IF EXISTS `company_users`;
 CREATE TABLE IF NOT EXISTS `company_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
@@ -270,6 +280,7 @@ CREATE TABLE IF NOT EXISTS `company_users` (
 -- Table structure for table `custom_filters`
 --
 
+DROP TABLE IF EXISTS `custom_filters`;
 CREATE TABLE IF NOT EXISTS `custom_filters` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `project_uniq_id` varchar(64) NOT NULL,
@@ -294,6 +305,7 @@ CREATE TABLE IF NOT EXISTS `custom_filters` (
 -- Table structure for table `dailyupdate_notifications`
 --
 
+DROP TABLE IF EXISTS `dailyupdate_notifications`;
 CREATE TABLE IF NOT EXISTS `dailyupdate_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -313,6 +325,7 @@ CREATE TABLE IF NOT EXISTS `dailyupdate_notifications` (
 -- Table structure for table `daily_updates`
 --
 
+DROP TABLE IF EXISTS `daily_updates`;
 CREATE TABLE IF NOT EXISTS `daily_updates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
@@ -332,6 +345,7 @@ CREATE TABLE IF NOT EXISTS `daily_updates` (
 -- Table structure for table `default_project_templates`
 --
 
+DROP TABLE IF EXISTS `default_project_templates`;
 CREATE TABLE IF NOT EXISTS `default_project_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(250) NOT NULL,
@@ -348,6 +362,7 @@ CREATE TABLE IF NOT EXISTS `default_project_templates` (
 -- Table structure for table `default_project_template_cases`
 --
 
+DROP TABLE IF EXISTS `default_project_template_cases`;
 CREATE TABLE IF NOT EXISTS `default_project_template_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -366,6 +381,7 @@ CREATE TABLE IF NOT EXISTS `default_project_template_cases` (
 -- Table structure for table `default_templates`
 --
 
+DROP TABLE IF EXISTS `default_templates`;
 CREATE TABLE IF NOT EXISTS `default_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -391,6 +407,7 @@ INSERT INTO `default_templates` (`id`, `name`, `description`, `created`, `modifi
 -- Table structure for table `easycases`
 --
 
+DROP TABLE IF EXISTS `easycases`;
 CREATE TABLE IF NOT EXISTS `easycases` (
   `id` mediumint(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
@@ -439,6 +456,7 @@ CREATE TABLE IF NOT EXISTS `easycases` (
 -- Table structure for table `easycase_milestones`
 --
 
+DROP TABLE IF EXISTS `easycase_milestones`;
 CREATE TABLE IF NOT EXISTS `easycase_milestones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL,
@@ -460,6 +478,7 @@ CREATE TABLE IF NOT EXISTS `easycase_milestones` (
 -- Table structure for table `email_reminders`
 --
 
+DROP TABLE IF EXISTS `email_reminders`;
 CREATE TABLE IF NOT EXISTS `email_reminders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -474,6 +493,7 @@ CREATE TABLE IF NOT EXISTS `email_reminders` (
 -- Table structure for table `log_activities`
 --
 
+DROP TABLE IF EXISTS `log_activities`;
 CREATE TABLE IF NOT EXISTS `log_activities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) DEFAULT NULL,
@@ -491,6 +511,7 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
 -- Table structure for table `log_types`
 --
 
+DROP TABLE IF EXISTS `log_types`;
 CREATE TABLE IF NOT EXISTS `log_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -542,6 +563,7 @@ INSERT INTO `log_types` (`id`, `name`, `created`) VALUES
 -- Table structure for table `mail_tbls`
 --
 
+DROP TABLE IF EXISTS `mail_tbls`;
 CREATE TABLE IF NOT EXISTS `mail_tbls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mail` varchar(250) NOT NULL,
@@ -554,6 +576,7 @@ CREATE TABLE IF NOT EXISTS `mail_tbls` (
 -- Table structure for table `milestones`
 --
 
+DROP TABLE IF EXISTS `milestones`;
 CREATE TABLE IF NOT EXISTS `milestones` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(250) NOT NULL,
@@ -581,6 +604,7 @@ CREATE TABLE IF NOT EXISTS `milestones` (
 -- Table structure for table `projects`
 --
 
+DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
@@ -609,6 +633,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
 -- Table structure for table `project_technologies`
 --
 
+DROP TABLE IF EXISTS `project_technologies`;
 CREATE TABLE IF NOT EXISTS `project_technologies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
@@ -624,6 +649,7 @@ CREATE TABLE IF NOT EXISTS `project_technologies` (
 -- Table structure for table `project_templates`
 --
 
+DROP TABLE IF EXISTS `project_templates`;
 CREATE TABLE IF NOT EXISTS `project_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(250) NOT NULL,
@@ -642,6 +668,7 @@ CREATE TABLE IF NOT EXISTS `project_templates` (
 -- Table structure for table `project_template_cases`
 --
 
+DROP TABLE IF EXISTS `project_template_cases`;
 CREATE TABLE IF NOT EXISTS `project_template_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -661,6 +688,7 @@ CREATE TABLE IF NOT EXISTS `project_template_cases` (
 -- Table structure for table `project_users`
 --
 
+DROP TABLE IF EXISTS `project_users`;
 CREATE TABLE IF NOT EXISTS `project_users` (
   `id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
@@ -682,6 +710,7 @@ CREATE TABLE IF NOT EXISTS `project_users` (
 -- Table structure for table `save_reports`
 --
 
+DROP TABLE IF EXISTS `save_reports`;
 CREATE TABLE IF NOT EXISTS `save_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -699,6 +728,7 @@ CREATE TABLE IF NOT EXISTS `save_reports` (
 -- Table structure for table `subscriptions`
 --
 
+DROP TABLE IF EXISTS `subscriptions`;
 CREATE TABLE IF NOT EXISTS `subscriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plan` int(11) NOT NULL COMMENT '1-Demo, 2-PRO, 3-LITE, 4-PREMIUM',
@@ -728,6 +758,7 @@ INSERT INTO `subscriptions` (`id`, `plan`, `storage`, `project_limit`, `user_lim
 -- Table structure for table `template_module_cases`
 --
 
+DROP TABLE IF EXISTS `template_module_cases`;
 CREATE TABLE IF NOT EXISTS `template_module_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -745,6 +776,7 @@ CREATE TABLE IF NOT EXISTS `template_module_cases` (
 -- Table structure for table `timezones`
 --
 
+DROP TABLE IF EXISTS `timezones`;
 CREATE TABLE IF NOT EXISTS `timezones` (
   `id` int(11) NOT NULL DEFAULT '0',
   `gmt_offset` double DEFAULT '0',
@@ -840,6 +872,7 @@ INSERT INTO `timezones` (`id`, `gmt_offset`, `dst_offset`, `code`) VALUES
 -- Table structure for table `timezone_names`
 --
 
+DROP TABLE IF EXISTS `timezone_names`;
 CREATE TABLE IF NOT EXISTS `timezone_names` (
   `id` int(11) NOT NULL,
   `gmt` varchar(15) NOT NULL,
@@ -934,6 +967,7 @@ INSERT INTO `timezone_names` (`id`, `gmt`, `zone`) VALUES
 -- Table structure for table `transactions`
 --
 
+DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE IF NOT EXISTS `transactions` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `btsubscription_id` varchar(10) NOT NULL,
@@ -960,6 +994,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 -- Table structure for table `types`
 --
 
+DROP TABLE IF EXISTS `types`;
 CREATE TABLE IF NOT EXISTS `types` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL DEFAULT '0',
@@ -993,6 +1028,7 @@ INSERT INTO `types` (`id`, `company_id`, `short_name`, `name`, `seq_order`) VALU
 -- Table structure for table `type_companies`
 --
 
+DROP TABLE IF EXISTS `type_companies`;
 CREATE TABLE IF NOT EXISTS `type_companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
@@ -1006,6 +1042,7 @@ CREATE TABLE IF NOT EXISTS `type_companies` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
@@ -1034,6 +1071,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `dt_last_login` datetime DEFAULT NULL,
   `dt_last_logout` datetime DEFAULT NULL,
   `query_string` varchar(100) DEFAULT NULL,
+  `update_email` varchar(150) NOT NULL,
+  `update_random` varchar(150) NOT NULL,
   `gaccess_token` text,
   `ip` varchar(15) DEFAULT NULL,
   `sig` varchar(100) NOT NULL,
@@ -1056,6 +1095,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Table structure for table `user_infos`
 --
 
+DROP TABLE IF EXISTS `user_infos`;
 CREATE TABLE IF NOT EXISTS `user_infos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -1070,6 +1110,7 @@ CREATE TABLE IF NOT EXISTS `user_infos` (
 -- Table structure for table `user_invitations`
 --
 
+DROP TABLE IF EXISTS `user_invitations`;
 CREATE TABLE IF NOT EXISTS `user_invitations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invitor_id` int(11) NOT NULL,
@@ -1091,6 +1132,7 @@ CREATE TABLE IF NOT EXISTS `user_invitations` (
 -- Table structure for table `user_logins`
 --
 
+DROP TABLE IF EXISTS `user_logins`;
 CREATE TABLE IF NOT EXISTS `user_logins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -1115,6 +1157,7 @@ INSERT INTO `user_logins` (`id`, `user_id`, `created`) VALUES
 -- Table structure for table `user_notifications`
 --
 
+DROP TABLE IF EXISTS `user_notifications`;
 CREATE TABLE IF NOT EXISTS `user_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -1134,6 +1177,7 @@ CREATE TABLE IF NOT EXISTS `user_notifications` (
 -- Table structure for table `user_subscriptions`
 --
 
+DROP TABLE IF EXISTS `user_subscriptions`;
 CREATE TABLE IF NOT EXISTS `user_subscriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -1168,3 +1212,4 @@ CREATE TABLE IF NOT EXISTS `user_subscriptions` (
   KEY `company_id` (`company_id`),
   KEY `subscription_id` (`subscription_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+

@@ -1,8 +1,40 @@
 <?php
+########################################################################
 ##################### Email Sending Options ############################
-define('SENDGRID_USERNAME', ''); //xxxxxxxxxxxxxxx (REQUIRED)
-define("SENDGRID_PASSWORD", ''); //xxxxxxxx (REQUIRED)
-// Sendgrid mail sending through both API and SMPT. (Controller/Component/SendgridComponent.php)
+########################################################################
+
+//Make sure to enable "php_openssl" in PHP. In WAMP, you need to enable extension=php_openssl.dll on php.ini file 
+
+//Gmail SMTP
+define("SMTP_HOST", "ssl://smtp.gmail.com");
+define("SMTP_PORT", "465");
+define("SMTP_UNAME", "youremail@gmail.com");
+define("SMTP_PWORD", "******");
+//https://www.arclab.com/en/amlc/list-of-smtp-and-imap-servers-mailserver-list.html (Get the list of Host names)
+
+### OR ###
+
+/*
+//Mandrill smtp
+define("SMTP_HOST", "smtp.mandrillapp.com");
+define("SMTP_PORT", "587");
+define("SMTP_UNAME", "youremail@domain.com");
+define("SMTP_PWORD", "******"); //Mandrill API Key
+//https://www.mandrill.com/signup/ (free signup to mandrill)
+*/
+
+### OR ###
+
+/*
+//Sendgrid smtp
+define("SMTP_HOST", "smtp.sendgrid.net");
+define("SMTP_PORT", "587");
+define("SMTP_UNAME", "youremail@domain.com");
+define("SMTP_PWORD", "******");
+//https://sendgrid.com/user/signup (free signup to sendgrid)
+*/
+
+########################################################################
 
 define('FROM_EMAIL_NOTIFY', 'notify@mycompany.com'); //(REQUIRED)
 define('SUPPORT_EMAIL', 'support@mycompany.com'); //(REQUIRED) From Email

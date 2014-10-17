@@ -1063,14 +1063,11 @@ function glide_chart(){
 		$open_arr=array();
 		$res_arr=array();
 		$s="";$r="";
-		$bug_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='1' AND  Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
-		$bug_report = $this->convertinto_array($bug_report);
+		$new_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='1' AND  Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
+		$new_report = $this->convertinto_array($new_report);
 		
-		$enh_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='3' AND  Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
-		$enh_report = $this->convertinto_array($enh_report);
-		
-		$dev_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='2' AND Easycase.legend!='5' AND Easycase.legend!='3' AND Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
-		$dev_report = $this->convertinto_array($dev_report);
+		$wip_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND (Easycase.legend='2' || Easycase.legend='4') AND Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
+		$wip_report = $this->convertinto_array($wip_report);
 		
 		
 		$resolved_report = $this->Easycase->query("SELECT ROUND(type_id) AS tid ,DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='5'  AND Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY Easycase.type_id,DATE(Easycase.actual_dt_created) ");
@@ -1083,13 +1080,13 @@ function glide_chart(){
 		$cls_type_arr = $resolved_type_arr;
 		
 		foreach($dt_arr as $key =>$date){
-			if(array_key_exists($date,$bug_report)){
-				$bugs[]=(int)$bug_report[$date];
+			if(array_key_exists($date,$new_report)){
+				$bugs[]=(int)$new_report[$date];
 			}else{
 				$bugs[] = (int)0;
 			}
-			if(array_key_exists($date,$enh_report)){
-				$enh[]=(int)$enh_report[$date];
+			if(array_key_exists($date,$wip_report)){
+				$enh[]=(int)$wip_report[$date];
 			}else{
 				$enh[] = (int)0;
 			}
@@ -1109,7 +1106,7 @@ function glide_chart(){
 				$closed[] = (int)0;
 			}
 		}
-			$typ = array(1=>'Bug','4'=>'Enhancement',2=>'Development',5=>'Resolved',3=>'Closed');
+			$typ = array(1=>'New','2'=>'In Progress',5=>'Resolved',3=>'Closed');
 			array_unshift($typ,'All');
 			$this->set('typ',$typ);
 			$this->set('type',$type_id);
@@ -1125,13 +1122,11 @@ function glide_chart(){
 				
 					
 			if(!$type_id){
-				$carr =array(array('name'=>'Bug','color'=>'#F90F0F', 'connectNulls'=> 'true','data'=>$bugs),array('name'=>'Enhancement','color'=>'#4C2DD6', 'connectNulls'=> 'true','data'=>$enh),array('name'=>'Development','color'=>'#0066FF','connectNulls'=> 'true','data'=>$dev),array('name'=>'Resolved','color'=>'#DF6625','connectNulls'=> 'true','data'=>$resolved),array('name'=>'Closed','color'=>'#77AB13','connectNulls'=> 'true','data'=>$closed));
+				$carr =array(array('name'=>'New','color'=>'#F90F0F', 'connectNulls'=> 'true','data'=>$bugs),array('name'=>'In Progress','color'=>'#0066FF','connectNulls'=> 'true','data'=>$dev),array('name'=>'Resolved','color'=>'#DF6625','connectNulls'=> 'true','data'=>$resolved),array('name'=>'Closed','color'=>'#77AB13','connectNulls'=> 'true','data'=>$closed));
 			}elseif($type_id==1){
-				$carr =array(array('name'=>'Bug','color'=>'#F90F0F', 'connectNulls'=> 'true','data'=>$bugs));
+				$carr =array(array('name'=>'New','color'=>'#F90F0F', 'connectNulls'=> 'true','data'=>$bugs));
 			}elseif($type_id==2){
-				$carr =array(array('name'=>'Enhancement','color'=>'#4C2DD6','connectNulls'=> 'true','data'=>$enh));
-			}elseif($type_id==3){
-				$carr =array(array('name'=>'Development','d'=>'M 4 7 L 12 7 12 15 4 15 Z','color'=>'#0066FF','connectNulls'=> 'true','data'=>$dev));
+				$carr =array(array('name'=>'In Progress','d'=>'M 4 7 L 12 7 12 15 4 15 Z','color'=>'#0066FF','connectNulls'=> 'true','data'=>$dev));
 			}elseif($type_id==5){
 				$carr =array(array('name'=>'Closed','color'=>'#77AB13','connectNulls'=> 'true','data'=>$closed));
 			}elseif($type_id==4){

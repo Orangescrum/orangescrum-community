@@ -75,7 +75,7 @@ if(trim($settings['database']) == "") {
 							<h4>Step1: <span style="font-weight:normal;">Create a new MySQL database (`utf8_unicode_ci` collation)</span></h4>
 							<h4>Step2: <span style="font-weight:normal;">Add your database connection details and the database name in `app/Config/database.php` page</span></h4>
 							<h4>Step3: <span style="font-weight:normal;">Get the `database.sql` file from the root directory and import that to your database.</span></h4>
-							<h4>Step4: <span style="font-weight:normal;">Create a free account in <a href="https://sendgrid.com/user/signup" target="_blank">Sendgrid</a> and update the Email sending options in `app/Config/constants.php`</span></h4>
+							<h4>Step4: <span style="font-weight:normal;">Provide the details of SMTP email sending options in `app/Config/constants.php`</span></h4>
 						</td>
 					</tr>
                     <tr>
