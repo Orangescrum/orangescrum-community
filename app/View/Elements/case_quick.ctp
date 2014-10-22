@@ -75,6 +75,7 @@
 															if (trim($value['short_name']) && file_exists(WWW_ROOT."img/images/types/".$value['short_name'].".png")) {
 															    $im1= $this->Format->todo_typ_src($value['short_name'],$value['name']);
 															} else {
+															    $im1 = '';
 															    //$im1 = HTTP_IMAGES.'images/types/default.png';
 															}
 															if (trim($im1)) {
@@ -88,7 +89,7 @@
 															} else {
 															    echo "<li>
 																	<a href='javascript:jsVoid()'>
-																		<span style='padding-left: 5px;'></span>
+																		<span style='padding-left: 27px;'></span>
 																		<span class='value'>".$value['id']."
 																		</span>".$value['name']."
 																	</a>

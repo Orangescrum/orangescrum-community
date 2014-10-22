@@ -2099,30 +2099,35 @@ function project_thumb_view(){
 	    $data['seq_order'] = 0;
 	    
 	    $this->loadModel("Type");
-	    $this->Type->id = '';
+	    if(isset($data['id']) && $data['id']){		
+	    }else{
+		$this->Type->id = '';
+	    }
 	    $this->Type->save($data);
 	    $id = $this->Type->getLastInsertID();
-	    
-	    $this->loadModel("TypeCompany");
-	    //Check record exists or not while added 1st time. If not then added all default type with new one.
-	    $isRes = $this->TypeCompany->getTypes();
-	    $cnt = 0;
-	    
-	    if (isset($isRes) && empty($isRes)) {
-		//Getting default task type
-		$types = $this->Type->getDefaultTypes();
-		foreach ($types as $key => $values) {
-		    $data1[$key]['type_id'] = $values['Type']['id'];
-		    $data1[$key]['company_id'] = SES_COMP;
-		    $cnt++;
+	    if(isset($data['id']) && $data['id']){		
+		$this->Session->write("SUCCESS","Task type '".trim($data['name'])."' updated successfully.");
+	    }else{
+		$this->loadModel("TypeCompany");
+		//Check record exists or not while added 1st time. If not then added all default type with new one.
+		$isRes = $this->TypeCompany->getTypes();
+		$cnt = 0;
+
+		if (isset($isRes) && empty($isRes)) {
+		    //Getting default task type
+		    $types = $this->Type->getDefaultTypes();
+		    foreach ($types as $key => $values) {
+			$data1[$key]['type_id'] = $values['Type']['id'];
+			$data1[$key]['company_id'] = SES_COMP;
+			$cnt++;
+		    }
 		}
+
+		$data1[$cnt]['type_id'] = $id;
+		$data1[$cnt]['company_id'] = SES_COMP;
+		$this->TypeCompany->saveAll($data1);
+		$this->Session->write("SUCCESS","Task type '".trim($data['name'])."' added successfully.");
 	    }
-		
-	    $data1[$cnt]['type_id'] = $id;
-	    $data1[$cnt]['company_id'] = SES_COMP;
-	    $this->TypeCompany->saveAll($data1);
-	    
-	    $this->Session->write("SUCCESS","Task type '".trim($data['name'])."' added successfully.");
 	} else {
 	    $this->Session->write("ERROR","Error in addition of task type.");
 	}
@@ -2180,6 +2185,24 @@ function project_thumb_view(){
 	    echo 0;
 	}
 	exit;
+    }
+    function validateTaskType(){
+	$jsonArr = array('status'=>'error');
+	if(!empty($this->request['data']['name'])){
+	    $this->loadModel("Type");
+	    $count_type = $this->Type->find('first',array('conditions' => array('OR'=>array('Type.short_name' => trim($this->request['data']['sort_name']),'Type.name' => trim($this->request['data']['name'])),'Type.id !=' => trim($this->request['data']['id'])),'fields' => array("Type.name","Type.short_name")));
+	    if(!$count_type){
+		$jsonArr['status'] = 'success';
+	    }else{
+		if(strtolower($count_type['Type']['short_name']) == strtolower(trim($this->request['data']['sort_name']))){
+		    $jsonArr['msg'] = 'sort_name';
+		}
+		if(strtolower($count_type['Type']['name']) == strtolower(trim($this->request['data']['name']))){
+		    $jsonArr['msg'] = 'name';
+		}
+	    }
+	}
+	echo json_encode($jsonArr);exit;
     }
 }
 ?>

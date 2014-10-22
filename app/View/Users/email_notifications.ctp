@@ -34,20 +34,36 @@
     </tbody>
 </table>
 <div class="cbt"></div>
+<?php
+if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
+?>
 <div class="email_hd">
 	<h2>Show me Notification</h2>	
 </div>
+
 <table cellspacing="0" cellpadding="0" class="col-lg-5 email_mgt">
     <tbody>
         <tr>
-            <th class="dsk_not"><div class="icon-chrome-enable"></div>Enable Desktop Notification:</th>
+            <th class="dsk_not">Enable Desktop Notification:</th>
             <td>
-		<input type="radio" name="data[User][desk_notify]"  id="desknotifyyes" value="1" <?php if((int)DESK_NOTIFY == 1) { echo 'checked="checked"'; } ?> onclick="allowChromeDskNotify(this.checked);" />Yes
-		<input type="radio" name="data[User][desk_notify]"  id="desknotifyno" value="0" <?php if((int)DESK_NOTIFY == 0) { echo 'checked="checked"'; } ?> />No
-	    </td>
+            <input type="radio" name="data[User][desk_notify]"  id="desknotifyyes" value="1" <?php if((int)DESK_NOTIFY == 1) { echo 'checked="checked"'; } ?> onclick="allowChromeDskNotify(this.checked);" />Yes
+            <input type="radio" name="data[User][desk_notify]"  id="desknotifyno" value="0" <?php if((int)DESK_NOTIFY == 0) { echo 'checked="checked"'; } ?> />No
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="left" style="font-size:11px;font-color:#666;border:1px solid #F0F0F0;">
+				<ul style="padding:0;margin:0">Browser version supporting Desktop Notification,
+                   <li style="margin-left:20px;"> Firefox 22 and above</li>
+                   <li style="margin-left:20px;">Chrome 32 and above</li>
+                   <li style="margin-left:20px;">Above Safari 6 on Mac OSX 10.8+</li>
+                </ul>
+	    	</td>
         </tr>
     </tbody>
 </table>
+<?php
+}
+?>
 <div class="cbt"></div>
 <table cellspacing="0" cellpadding="0" class="col-lg-5 email_tbl">
 <tbody>

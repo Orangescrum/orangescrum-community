@@ -907,7 +907,7 @@ function setMenuClass(value) {
 		$("#latest").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
 	else if(value == "delegateto") {
 		$("#delegatetomenu").addClass("current");
@@ -918,7 +918,7 @@ function setMenuClass(value) {
 		$("#latest").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
 	else if(value == "latest") {
 		$("#latest").addClass("current");
@@ -929,7 +929,7 @@ function setMenuClass(value) {
 		$("#delegatetomenu").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
 	else if(value == "closecase") {
 		$("#closecasemenu").addClass("current");
@@ -940,10 +940,10 @@ function setMenuClass(value) {
 		$("#delegatetomenu").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#latest").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
-	else if(value == "bugcase") {
-		$("#bugcasemenu").addClass("current");
+	else if(value == "overdue") {
+		$("#overduemenu").addClass("current");
 		$('#casesmenu').addClass('current');
 		$('#filesmenu').removeClass('current');
 		$("#assigntomenu").removeClass("current");
@@ -962,7 +962,7 @@ function setMenuClass(value) {
 		$("#latest").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
 	else if(value == "milestone") {
 		$("#milestonemenu").addClass("current");
@@ -973,7 +973,7 @@ function setMenuClass(value) {
 		$("#latest").removeClass("current");
 		$("#all_case").removeClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 		
 	}
 	else {
@@ -985,7 +985,7 @@ function setMenuClass(value) {
 		$("#latest").removeClass("current");
 		$("#all_case").addClass("current");
 		$("#closecasemenu").removeClass("current");
-		$("#bugcasemenu").removeClass("current");
+		$("#overduemenu").removeClass("current");
 	}
 	/*if(value == "milestone") {
 		document.getElementById('mView').style.fontWeight='bold';
@@ -1035,7 +1035,7 @@ function caseMenuFileter(value,page,filters,caseid) {
 				document.getElementById('pageheading').innerHTML='Tasks'+img+'Closed';
 			}
 		}
-		else if(value == "bugcase"){
+		else if(value == "overdue"){
 			
 			resetAllFilters('filters');
 			

@@ -28,7 +28,8 @@
 	    <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
 	    <div id="inner_tasktype" style="display: none;">
 		<center><div id="tterr_msg" style="color:#FF0000;display:none;"></div></center>
-		<form name="task_type" method="post" action="<?php echo HTTP_ROOT."projects/addNewTaskType"; ?>" onsubmit="return validateTaskType();" autocomplete="off">
+		<form name="task_type" id="customTaskTypeForm" method="post" action="<?php echo HTTP_ROOT."projects/addNewTaskType"; ?>" autocomplete="off">
+			<input type="hidden" class="form-control" name="data[Type][id]" id="new-typeid"/>
 		    <div class="data-scroll">
 			<table cellpadding="0" cellspacing="0" class="col-lg-12">
 			    <tr>
@@ -50,7 +51,7 @@
 			    <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loader"/>
 			</span>
 			<span id="ttbtn">
-			    <button type="submit" value="Add" name="crttasktype" class="btn btn_blue"><i class="icon-big-tick"></i>Add</button>
+			    <button id="newtask_btn" type="button" value="Add" onclick="return validateTaskType();" name="crttasktype" class="btn btn_blue"><i class="icon-big-tick"></i>Add</button>
 			    <span class="or_cancel">or
 			       <a onclick="closePopup();">Cancel</a>
 			   </span>

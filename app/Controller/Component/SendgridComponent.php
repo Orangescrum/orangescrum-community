@@ -29,7 +29,12 @@ class SendgridComponent extends EmailComponent
 		$this->Email->to = $to;
 		$this->Email->replyTo = $from;
 		$this->Email->subject = $subject;
-		$this->Email->from = $fromname."<".$from.">";
+		if(trim($fromname)) {
+			$this->Email->from = $fromname."<".$from.">";
+		}
+		else {
+			$this->Email->from = $from;
+		}
 		$this->Email->sendAs = 'html';
 		
 		$this->Email->smtpOptions = array(

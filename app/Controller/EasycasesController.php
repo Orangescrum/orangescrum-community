@@ -345,6 +345,16 @@ class EasycasesController extends AppController {
             if($this->data['CS_type_id']==10) {
                 $arr['CS_legend'] = 1 ;
             }
+			
+			if($this->params['data']['user_auth_key'])
+			{
+				$this->loadModel('User');
+				$getuser = $this->User->find('first',array('copnditions'=>array('User.uniq_id'=>$this->params['data']['user_auth_key'])));
+				if($getuser['User']['id']) {
+					$arr['CS_user_id'] = $getuser['User']['id'];
+				}
+			}
+			
             $arr['CS_message'] = $msg;
 
             //By Orangescrum

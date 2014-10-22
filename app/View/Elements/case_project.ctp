@@ -227,7 +227,7 @@
                     <% } %>
                 </ul>
             </div>
-            <div class="dropdown fl">
+            <div class="dropdown fl" style="width:32px;">
                 <div id="showUpdStatus<%= caseAutoId %>" class="type_<%= getdata.Easycase.csTdTyp[0] %> <% if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && getdata.Easycase.isactive == 1){ %>clsptr<% } %> <% if($.inArray(getdata.Easycase.csTdTyp[0], ['dev', 'bug', 'upd']) == -1) { %>opcty4<% } %>" title="<%= getdata.Easycase.csTdTyp[1] %>" data-toggle="dropdown"><% if(getdata.Easycase.csTdTyp[2]==0){ %><span style="margin-left: 9px;"><%= getdata.Easycase.csTdTyp[0]%></span><% } %></div>
                 <span id="typlod<%= caseAutoId %>" class="type_loader">
                     <img src="<?php echo HTTP_IMAGES; ?>images/del.gif" alt="Loading..." title="Loading..."/>
@@ -243,7 +243,7 @@
 						var t2 = v.Type.name;
 					%>
                     <li onclick="changeCaseType(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>); changestatus(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + t + '\'' %>, <%= '\'' + t1 + '\'' %>, <%= '\'' + t2 + '\'' %>, <%= '\'' + caseUniqId + '\'' %>)">
-                        <a href="javascript:void(0);"><div class="task_types_<%= t1 %> fl"></div><%= t2 %></a>
+                        <a href="javascript:void(0);" <% if(t > 12){ %> style="margin-left:27px;" <% } %>><div class="task_types_<%= t1 %> fl"></div><%= t2 %></a>
                     </li>
                     <% } %>
                 </ul>

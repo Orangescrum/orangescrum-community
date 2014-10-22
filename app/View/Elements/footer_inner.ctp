@@ -153,9 +153,9 @@ function subscribeClient(){
 				$("#pub_counter").val(counter);
 				$('#pubnub_notf').html(counter+' '+ tsk +' '+msg);
 				$("#pubnub_notf").slideDown("1000");
-				if (window.webkitNotifications) {
+				//if (window.webkitNotifications) {
 					notify(getImNotifyMsg(projShName, caseNum, caseTtl, caseTyp),'Orangescrum.com');
-				}
+				//}
 			}
 			
 		});

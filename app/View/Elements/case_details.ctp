@@ -44,7 +44,7 @@ if(showQuickAct && taskTyp.id != 10){
 											var t2 = v.Type.name;
 										%>
 										<li>
-											<a href="javascript:void(0);" onclick="changetype(<%= '\'' + csAtId + '\'' %>, <%= '\'' + t + '\'' %>, <%= '\'' + t1 + '\'' %>, <%= '\'' + t2 + '\'' %>, <%= '\'' + csUniqId + '\'' %>, <%= '\'' + csNoRep + '\'' %>)"><div class="task_types_<%= t1 %> fl"></div><%= t2 %></a>
+											<a href="javascript:void(0);" <% if(t > 12){ %> style="margin-left:27px;" <% } %> onclick="changetype(<%= '\'' + csAtId + '\'' %>, <%= '\'' + t + '\'' %>, <%= '\'' + t1 + '\'' %>, <%= '\'' + t2 + '\'' %>, <%= '\'' + csUniqId + '\'' %>, <%= '\'' + csNoRep + '\'' %>)"><div class="task_types_<%= t1 %> fl"></div><%= t2 %></a>
 										</li>
 										<% } %>
 									</ul>

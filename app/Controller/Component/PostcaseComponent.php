@@ -285,6 +285,11 @@ class PostcaseComponent extends CookieComponent {
         $postParam['Easycase']['title'] = $this->Format->convert_ascii(trim($postParam['Easycase']['title']));
         $postParam['Easycase']['message'] = $this->Format->convert_ascii(trim($postParam['Easycase']['message']));
 
+		if($formdata['user_auth_key']) {
+		 	$postParam['Easycase']['user_id'] = $formdata['CS_user_id'];
+			$postParam['Easycase']['estimated_hours'] = 0;
+		}
+		
 //return pr($postParam);
         if ($Easycase->save($postParam)) {
             $Project = ClassRegistry::init('Project');

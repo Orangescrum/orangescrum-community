@@ -53,9 +53,79 @@ class CronController extends AppController{
 		$this->Auth->allow('removePreviousZips');
 		$this->Auth->allow('removeTempFilesFromS3');		
 		$this->Auth->allow('test_cron');
+		$this->Auth->allow('test_email');
 	}
 	function test_cron(){
 		exit('Executed');
+	}
+	function test_email(){
+		$everythingisfine = 0;
+		
+		echo "<pre>";
+		
+		if(defined('SMTP_PWORD') && SMTP_PWORD != "******") {
+			
+			if(!in_array('openssl',get_loaded_extensions())){
+				die('<div style="color:red">you have to enable php_openssl in php.ini to use this service</div><br />');       
+			} else {
+				echo "php_openssl in php.ini is enabled <br /><br />";
+				$everythingisfine = 1;
+			}
+			
+			$host = SMTP_HOST;
+			$ports[] = SMTP_PORT;
+			
+			foreach ($ports as $port)
+			{
+				$connection = @fsockopen($host, $port);
+				if (is_resource($connection))
+				{
+					echo '<b>'.$host . ':' . $port . '</b> ' . '(' . getservbyport($port, 'ssl') . ') is open.<br /><br />' . "\n";
+					fclose($connection);
+					$everythingisfine = 1;
+				} else {
+					echo '<div style="color:red"><b>'.$host . ':' . $port . '</b> is not responding.</div><br /><br />' . "\n";
+				}
+			}
+			if($everythingisfine && $_GET['to']) {
+				$emailDetails = SMTP_HOST.":".SMTP_PORT." Username: ".SMTP_UNAME;
+				
+				try {
+					$response1 = $this->Sendgrid->sendGridEmail(SUPPORT_EMAIL,urldecode($_GET['to']),"Testing SMTP Simple Email -".time(),$emailDetails,'');
+					
+					echo "SMTP Simple Email Respond: ";
+					print_r($response1);
+					echo "<br/><br/>";
+				} 
+				Catch (Exception $e) {
+					echo 'Simple Email Caught exception: ',  $e->getMessage(), "\n<br/>";
+				}
+				
+				$this->Email->delivery = 'smtp';
+				$this->Email->to = urldecode($_GET['to']);
+				$this->Email->subject = "Testing SMTP Template Email -".time();
+				$this->Email->from = FROM_EMAIL;
+				$this->Email->template = 'test_email_template';
+				$this->Email->sendAs = 'html';
+				$this->set('message', $emailDetails);
+				
+				try {
+					$response2 = $this->Sendgrid->sendgridsmtp($this->Email);
+					echo "<br/>SMTP Template Email Respond: ";
+					print_r($response2);
+					exit;
+				} 
+				Catch (Exception $e) {
+					echo 'Template Email Caught exception: ',  $e->getMessage(), "\n";
+				}
+				
+			}
+		}
+		else {
+			echo "Provide the details of SMTP email sending options in `app/Config/constants.php`";
+		}
+		exit;
+		
 	}
 	function email_notification(){
 		$this->layout='ajax';

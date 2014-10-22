@@ -5311,6 +5311,10 @@ function removePubnubMsg(){
 }
 //chrome desktop notification function
 function notify(title, desc) {
+	if(DESK_NOTIFY) {
+		notifyMe(title, desc, HTTP_IMAGES+'transparent_logo.png');
+		return true;
+	}
     if(DESK_NOTIFY && window.webkitNotifications) {
         var havePermission = window.webkitNotifications.checkPermission();
         if (havePermission == 0) {
@@ -5362,6 +5366,40 @@ function getImNotifyMsg(projShName, caseNum, caseTtl, caseTyp){
             action = "New Notification";
     }
     return action+': '+projShName+'# '+caseNum+' - '+caseTtl;
+}
+function notifyMe(title, desc, icon) {
+ //https://developer.mozilla.org/en/docs/Web/API/notification
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    //alert("This browser does not support desktop notification");
+  }
+
+  // Let's check if the user is okay to get some notification
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification(title, {body: desc,icon: icon});
+  }
+
+  // Otherwise, we need to ask the user for permission
+  // Note, Chrome does not implement the permission static property
+  // So we have to check for NOT 'denied' instead of 'default'
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+	  //alert(permission);
+      // Whatever the user answers, we make sure we store the information
+      if(!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+
+      // If the user is okay, let's create a notification
+      if (permission === "granted") {
+		var notification = new Notification(title, {body: desc,icon: icon});
+      }
+    });
+  }
+
+  // At last, if the user already denied any notification, and you 
+  // want to be respectful there is no need to bother him any more.
 }
 //end chrome desktop notification function
 
@@ -6184,6 +6222,11 @@ $(function() {
 });
 
 function CaseDashboard(pjid, pname) {
+    $('#curr_active_project').val(pjid);
+    $('#CS_project_id').val(pjid);
+    $('#projUpdateTop').html(decodeURIComponent(pname));
+    //PRB
+    
     $('#pname_dashboard').html(shortLength(decodeURIComponent(pname),20));
     $('#projpopup').hide();
     $("#find_prj_dv").hide();
@@ -6268,7 +6311,6 @@ function loadSeqDashboardAjax(sequency, projid){
     if (sequency[sequency.length-1] === 'task_type') {
 	task_type_id = $("#sel_task_type").val();
     }
-    
     $.post(url + action, {
         "projid":projid,
         "task_type_id":task_type_id
@@ -6855,6 +6897,7 @@ function saveMilesatoneTitle(mid){
 
 function addNewTaskType() {
     openPopup();
+    $('#newtask_btn').text('Add');
     $(".new_tasktype").show();
     $(".loader_dv").hide();
     //setting default form field value
@@ -6873,6 +6916,7 @@ function validateTaskType() {
     var msg = "";
     var nm = $.trim($("#task_type_nm").val());
     var shnm = $.trim($("#task_type_shnm").val());
+    var id = $.trim($("#new-typeid").val());
     $("#tterr_msg").html("");
     
     if (nm === "") {
@@ -6902,14 +6946,26 @@ function validateTaskType() {
 	    $("#task_type_shnm").focus();
             return false;
         }
-	
-	$("#tterr_msg").hide();
-	$("#ttbtn").hide();
-	$("#ttloader").show();
-	
-	return true;
+	 $.post(HTTP_ROOT+"projects/validateTaskType",{'id':id,'name':nm,'sort_name':shnm},function(data) {
+	     if(data.status == 'success'){
+		 $("#tterr_msg").hide();
+		 $("#ttbtn").hide();
+		 $("#ttloader").show();
+		 $('#customTaskTypeForm').submit();
+	     }else{		 
+		 $("#ttbtn").show();
+		 $("#ttloader").hide();
+		 if(data.msg == 'name'){
+		     $("#tterr_msg").show().html('Name already esists!. Please enter another name.');
+		 }else if(data.msg == 'sort_name'){
+		     $("#tterr_msg").show().html('Short Name already esists!. Please enter another short name.');
+		 }else{
+		     $("#tterr_msg").show().html('Oops! Missing input parameters.');
+		 }		 
+		 return false;
+	     }
+	 },'json');
     }
-    return false;
 }
 
 function saveTaskType() {
@@ -6952,4 +7008,21 @@ function deleteTaskType(obj) {
 	    }
 	});
    }
+}
+function editTaskType(obj) {
+   var nm = $(obj).attr("data-name");
+   var id = $(obj).attr("data-id");
+   var srt_name = $(obj).attr("data-sortname");
+   $('#newtask_btn').text('Update');
+    openPopup();
+    $(".new_tasktype").show();
+    $(".loader_dv").hide();
+    $('#inner_tasktype').show();
+    $("#task_type_nm").val(nm);
+    $("#task_type_shnm").val(srt_name);
+    $("#new-typeid").val(id);    
+    $("#task_type_shnm").on("keyup", function(){
+	$(this).val($(this).val().toLowerCase());
+    });    
+    $("#task_type_nm").focus();   
 }

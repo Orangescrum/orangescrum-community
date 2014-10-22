@@ -94,17 +94,21 @@
         </div>
         <div class="cb"></div>
     </div>
-    <div class="get_hd_bg">Chrome Desktop Notification</div>
+    <?php
+	if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
+	?>
+   	<div class="get_hd_bg">Desktop Notification</div>
     <div class="get_det">
         <div class="fl get_img get_not_bg">
-            <div class="get_not" style="background:url('<?php echo HTTP_ROOT; ?>img/chrome.png');height:25px;width:27px;"></div>
-            <div class="get_img_txt" >Chrome</div>
+            <div class="get_not" style="background:url('<?php echo HTTP_ROOT; ?>img/bell.png');height:25px;width:27px;"></div>
+            <div class="get_img_txt">Notification</div>
         </div>
         <div class="get_text fl">
             <div class="get_title"></div>
             <ul style="padding:5px 15px;margin-top:0px;">
                 <li>
-                   The Desktop Notification works with Google Chrome browser.
+                   The Desktop Notification works on heigher versions of most of the browsers.
+                   Firefox 22 and above, Chrome 32 and above, Safari 6 on Mac OSX 10.8+
                 </li>
                 <li>
                    You'll see a pop-up when a new task or reply arrives so you can keep track of your Tasks even when you're not looking at Orangescrum.
@@ -116,6 +120,9 @@
         </div>
         <div class="cb"></div>
     </div>
+    <?php
+	}
+	?>
     <div class="get_hd_bg">Settings</div>
     <div class="get_det">
         <div class="fl get_img get_tm_bg">

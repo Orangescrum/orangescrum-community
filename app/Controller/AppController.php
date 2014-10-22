@@ -98,7 +98,7 @@ class AppController extends Controller {
             $pagesName = $this->params['pass']['0'];
         }
 		
-		$ajaxPageArray = array('project_menu','remember_filters','case_project','session_maintain','add_user','add_project','case_details','archive_case','archive_file','ajaxpostcase','check_email_reg','check_short_name_reg','check_url_reg','update_notification','feedback','check_short_name','new_user','notification','caseview_remove','project_all','jquery_multi_autocomplete_data','search_project_menu','project_listing','assign_prj','contactnow','ajax_totalcase','case_list','file_list','move_list','case_remove','move_file','file_remove','comment_edit','comment','fileremove','fileupload','case_update','case_files','case_project','case_reply','case_quick','case_message','update_assignto','exportcase','assign_userall','image_thumb','to_dos','recent_projects','recent_activities','recent_milestones','statistics','usage_details','task_progress','task_type','leader_board','post_support_inner');
+		$ajaxPageArray = array('project_menu','remember_filters','case_project','session_maintain','add_user','add_project','case_details','archive_case','archive_file','ajaxpostcase','check_email_reg','check_short_name_reg','check_url_reg','update_notification','feedback','check_short_name','new_user','notification','caseview_remove','project_all','jquery_multi_autocomplete_data','search_project_menu','project_listing','assign_prj','contactnow','ajax_totalcase','case_list','file_list','move_list','case_remove','move_file','file_remove','comment_edit','comment','fileremove','fileupload','case_update','case_files','case_project','case_reply','case_quick','case_message','update_assignto','exportcase','assign_userall','image_thumb','to_dos','recent_projects','recent_activities','recent_milestones','statistics','usage_details','task_progress','leader_board','post_support_inner');
 		if(isset($_SERVER['HTTP_REFERER'])) {
 			$this->set('referer',$_SERVER['HTTP_REFERER']);
 		}
@@ -298,7 +298,7 @@ class AppController extends Controller {
             }
 
             ##### Set Timezone Variables
-            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('recent_projects','recent_milestones','statistics','usage_details','task_progress','task_type','leader_board'))) {
+            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('recent_projects','recent_milestones','statistics','usage_details','task_progress','leader_board'))) {
                 $this->loadModel('Timezone');
                 $timezn = $this->Timezone->find('first', array('conditions'=>array('Timezone.id' => SES_TIMEZONE), 'fields' => array('Timezone.gmt_offset','Timezone.dst_offset','Timezone.code')));
 
@@ -567,7 +567,7 @@ class AppController extends Controller {
                 }
             }
 
-            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('to_dos','recent_projects','recent_activities','recent_milestones','statistics','task_progress','task_type','leader_board','ajax_activity'))) {
+            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('to_dos','recent_projects','recent_activities','recent_milestones','statistics','task_progress','leader_board','ajax_activity'))) {
                 
                 if(!stristr(PAGE_NAME,"ajax_") && !in_array(PAGE_NAME,$ajaxPageArray)) {
                     $this->loadModel('Easycase');
@@ -607,7 +607,7 @@ class AppController extends Controller {
 
                 }
             }
-			if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('to_dos','recent_projects','recent_activities','recent_milestones','statistics','task_progress','task_type','leader_board','ajax_activity'))) {
+			if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('to_dos','recent_projects','recent_activities','recent_milestones','statistics','task_progress','leader_board','ajax_activity'))) {
                 //Checking if the company status is active or not
                 if($this->params['action'] == 'upgrade_member' || $this->params['action'] == 'logout') {
                    
@@ -712,15 +712,15 @@ class AppController extends Controller {
 	
 		if(@$_COOKIE['SES_COMP']) {
 			$this->loadModel("TypeCompany");
-			$sql = "SELECT Type.* FROM type_companies AS TypeCompany LEFT JOIN types AS Type ON (TypeCompany.type_id=Type.id)
-			WHERE TypeCompany.company_id=".@$_COOKIE['SES_COMP']." ORDER BY Type.company_id DESC, Type.seq_order ASC";
+			//$sql = "SELECT Type.* FROM type_companies AS TypeCompany LEFT JOIN types AS Type ON (TypeCompany.type_id=Type.id) WHERE TypeCompany.company_id=".@$_COOKIE['SES_COMP']." ORDER BY Type.company_id DESC, Type.seq_order ASC";
+			$sql = "SELECT Type.* FROM type_companies AS TypeCompany LEFT JOIN types AS Type ON (TypeCompany.type_id=Type.id) WHERE TypeCompany.company_id=".@$_COOKIE['SES_COMP']." ORDER BY Type.name ASC";			
 			$TypeCompany = $this->TypeCompany->query($sql);
 		}
 	
 
 		if (isset($TypeCompany) && !empty($TypeCompany)) {
 			$typeArr = $TypeCompany;
-			$typeDflt = 0;
+			$typeDflt = 1;
 		} else {
 			$typeDflt = 1;
 			$typeArr = array(

@@ -22,9 +22,9 @@
 			</a>
 			<span title="<%= delegateTo %> tasks" class="sub_badge"><%= delegateTo %></span>
 		</li>
-		<li id="bugcasemenu" <% if(filters == "bugcase" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>
-			<a href="javascript:jsVoid();" onclick="caseMenuFileter(<%= '\'bugcase\', \'' + page + '\', \'' + filters + '\', \'' + cs + '\'' %>);"<% if(filters == "bugcase" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>Bug<div class="bug_cs"></div></a>
-			<span title="<%= bugCase %> tasks" class="sub_badge"><%= bugCase %></span>
+		<li id="overduemenu" <% if(filters == "overdue" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>
+			<a href="javascript:jsVoid();" onclick="caseMenuFileter(<%= '\'overdue\', \'' + page + '\', \'' + filters + '\', \'' + cs + '\'' %>);"<% if(filters == "overdue" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>Bug<div class="bug_cs"></div></a>
+			<span title="<%= overdue %> tasks" class="sub_badge"><%= overdue %></span>
 		</li>
 		<li id="closecasemenu" <% if(filters == "closecase" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>
 			<a href="javascript:jsVoid();" onclick="caseMenuFileter(<%= '\'closecase\', \'' + page + '\', \'' + filters + '\', \'' + cs + '\'' %>);"<% if(filters == "closecase" && page == "dashboard")  { %><%= 'style="font-weight:bold"' %><% } %>>Closed<div class="close_cs"></div></a>

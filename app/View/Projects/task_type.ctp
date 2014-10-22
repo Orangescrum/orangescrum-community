@@ -14,7 +14,7 @@
     <?php 
     $cnt = 1;
     foreach ($task_types as $key => $value) {
-	if ($cnt%4 == 0) {
+	if ($cnt%3 == 0) {
 	    $cb = '<div class="cb"></div>';
 	} else {
 	    $cb = "";
@@ -36,7 +36,7 @@
 	    //$disabled = '';
 	}
 	?>
-	<div class="fl" style="width: 25%;" id="dv_tsk_<?php echo $value['Type']['id'];?>">
+	<div class="fl" style="width: 32%;" id="dv_tsk_<?php echo $value['Type']['id'];?>">
 	    <div class="fl dv_tsktyp" style="min-width: 10%;width: auto;" data-id="<?php echo $value['Type']['id'];?>">
 		<div class="fl">
 		    <label style="cursor: pointer;">
@@ -55,8 +55,20 @@
 		<?php if (intval($value['Total']['cnt'])) {?>
 		<div class="fl task-type-cnt" title="<?php echo $value['Total']['cnt']." Task(s)";?>"><?php echo $value['Total']['cnt'];?></div>
 		<?php }?>
+		<?php if (intval($value['Type']['company_id'])){ ?>
+		<div class="fl" id="edit_dvtsk_<?php echo $value['Type']['id'];?>" style="padding: 3px 3px 3px 6px;display: none;">
+		    <span id="edit_lding_tsk_<?php echo $value['Type']['id'];?>" style="display: none;">
+			<img src="<?php echo HTTP_IMAGES; ?>images/del.gif" alt="Loading..." title="Loading..." />
+		    </span>
+		    <span id="edit_tsk_<?php echo $value['Type']['id'];?>">
+			<a href="javascript:void(0);" onclick="editTaskType(this);" data-name="<?php echo $value['Type']['name'];?>" data-id="<?php echo $value['Type']['id'];?>" data-sortname="<?php echo $value['Type']['short_name'];?>">
+			    <img src="<?php echo HTTP_IMAGES; ?>images/type_edit.png" alt="Edit" title="Edit" />
+			</a>
+		    </span>
+		</div>
+		<?php } ?>
 		<?php if (intval($value['Type']['company_id']) && $isDelete){ ?>
-		<div class="fl" id="del_dvtsk_<?php echo $value['Type']['id'];?>" style="padding: 3px;display: none;">
+		<div class="fl" id="del_dvtsk_<?php echo $value['Type']['id'];?>" style="padding: 3px 3px 3px 4px;display: none;">
 		    <span id="lding_tsk_<?php echo $value['Type']['id'];?>" style="display: none;">
 			<img src="<?php echo HTTP_IMAGES; ?>images/del.gif" alt="Loading..." title="Loading..." />
 		    </span>
@@ -90,13 +102,15 @@
     $(document).ready(function(){
 	$('.dv_tsktyp').hover(function(){
 	    var tid = $(this).attr('data-id');
-	    if ($(this).find("#del_dvtsk_"+tid).length) {
+	    if ($(this).find("#del_dvtsk_"+tid).length || $(this).find("#edit_dvtsk_"+tid).length) {
 		$(this).find("#del_dvtsk_"+tid).show();
+		$(this).find("#edit_dvtsk_"+tid).show();		
 	    }
 	}, function(){
 	    var tid = $(this).attr('data-id');
-	    if ($(this).find("#del_dvtsk_"+tid).length) {
+	    if ($(this).find("#del_dvtsk_"+tid).length || $(this).find("#edit_dvtsk_"+tid).length) {
 		$(this).find("#del_dvtsk_"+tid).hide();
+		$(this).find("#edit_dvtsk_"+tid).hide();
 	    }
 	});
     });
