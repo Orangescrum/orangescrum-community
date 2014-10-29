@@ -6,7 +6,7 @@
     <?php if(SES_TYPE<3) { ?>
     <div class="get_hd_bg">Getting Started with Orangescrum</div>
     <div class="get_det">
-        <div class="fl get_img get_prj_bg">
+        <div class="fl get_img get_prj_bg" onclick="newProject();" style="cursor: pointer;">
             <div class="get_prj"></div>
             <div class="get_img_txt">Projects</div>
         </div>
@@ -27,7 +27,7 @@
         <div class="cb"></div>
     </div>
     <div class="get_det">
-        <div class="fl get_img get_usr_bg">
+        <div class="fl get_img get_usr_bg" onclick="newUser();" style="cursor: pointer;">
             <div class="get_user"></div>
             <div class="get_img_txt">User</div>
         </div>
@@ -51,7 +51,7 @@
         <div class="cb"></div>
     </div>
     <div class="get_det">
-        <div class="fl get_img get_tsk_bg">
+        <div class="fl get_img get_tsk_bg"  onclick="creatask();" style="cursor: pointer;">
             <div class="get_task"></div>
             <div class="get_img_txt">Tasks</div>
         </div>
@@ -71,10 +71,35 @@
         </div>
         <div class="cb"></div>
     </div>
-        <?php } ?>
-    <div class="get_hd_bg">Respond via Email</div>
+    
+     <div class="get_hd_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>task-type'">Custom Task Type</div>
     <div class="get_det">
-        <div class="fl get_img get_eml_bg">
+        <div class="fl get_img get_tsk_bg" style="cursor:pointer;background:#FFAAD4" onclick="window.location='<?php echo HTTP_ROOT; ?>task-type'">
+            <div class="get_email" style="background:none;color:#FFF;width:auto;font-weight:bold;font-size:15px;height:55px;">
+            	Custom<br/>Task Type
+            </div>
+        </div>
+        <div class="get_text fl">
+            <div class="get_title"></div>
+            <ul style="padding:5px 15px;margin-top:0px;">
+            	<li>
+                    You can categorize your Task usign the Task Types.
+                </li>
+                <li>
+                    It's doesn't matter whether your business is Education or Health Services or Construction, you can define your own Task Type and add Tasks under them
+                </li>
+                <li>
+                   You can remove the default Task Type by unchecking the checkbox and save the changes.
+                </li>
+            </ul>
+        </div>
+        <div class="cb"></div>
+    </div>
+    
+    <?php } ?>
+    <div class="get_hd_bg" >Respond via Email</div>
+    <div class="get_det">
+        <div class="fl get_img get_eml_bg" >
             <div class="get_email"></div>
             <div class="get_img_txt">Email</div>
         </div>
@@ -97,9 +122,9 @@
     <?php
 	if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
 	?>
-   	<div class="get_hd_bg">Desktop Notification</div>
+   	<div class="get_hd_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>email_notifications'">Desktop Notification</div>
     <div class="get_det">
-        <div class="fl get_img get_not_bg">
+        <div class="fl get_img get_not_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>email_notifications'">
             <div class="get_not" style="background:url('<?php echo HTTP_ROOT; ?>img/bell.png');height:25px;width:27px;"></div>
             <div class="get_img_txt">Notification</div>
         </div>
@@ -125,10 +150,12 @@
 	?>
     <div class="get_hd_bg">Settings</div>
     <div class="get_det">
+	<a class="get_title" href="/users/profile" style="font-size: 14px;">
         <div class="fl get_img get_tm_bg">
             <div class="get_time"></div>
             <div class="get_img_txt">Setting</div>
         </div>
+	</a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Timezone & Profile','/users/profile',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">
@@ -143,10 +170,12 @@
         <div class="cb"></div>
     </div>
     <div class="get_det">
+	<a class="get_title" href="/users/email_notifications" style="font-size: 14px;">
         <div class="fl get_img get_not_bg">
             <div class="get_not"></div>
             <div class="get_img_txt">Notification</div>
         </div>
+	</a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Notifications','/users/email_notifications',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">
@@ -164,10 +193,12 @@
         <div class="cb"></div>
     </div>
     <div class="get_det" style="border-bottom:none">
+	<a class="get_title" href="/users/email_reports" style="font-size: 14px;">
         <div class="fl get_img get_emlrpt_bg">
             <div class="get_emlrpt"></div>
             <div class="get_img_txt">Reports</div>
         </div>
+	</a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Email Reports','/users/email_reports',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">

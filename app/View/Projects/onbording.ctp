@@ -135,14 +135,14 @@ $autorefreshflag =0;
 				<div style="padding-top:0px;text-align:center">
 				<?php if(!$is_active_proj){?>					
 				<h4 style="text-shadow:none; font-size: 26px;text-align:center">Create your first project, and get started<br/></h4>
-					<div class="on_brd_blue" style="margin-top:20px" <?php if(ACCOUNT_STATUS!=2){?> onclick="newProject('menupj','loaderpj');" <?php }?>>
+					<div class="on_brd_blue" <?php if(ACCOUNT_STATUS!=2){?> onclick="newProject('menupj','loaderpj');" <?php }?>>
 						<img src="<?php echo HTTP_ROOT;?>img/wright_icon.png" />
 						<a href="javascript:void(0);"  style="text-decoration: none;color: #fff; font-weight: bold;" >Create Project</a> 			
 					</div>
 				<?php }elseif($totalusers<=1){?>
 					<h4 style="text-shadow:none; font-size: 26px;text-align:center">Looks like it's just you in here<br/>
 					Orangescrum works best when you add your Co-workers.</h4>
-				<div class="on_brd_blue" style="margin-top:20px" <?php if(ACCOUNT_STATUS!=2){?> onclick="newUser('menuid1','loaderid1');" <?php }?>>					
+				<div class="on_brd_blue" <?php if(ACCOUNT_STATUS!=2){?> onclick="newUser('menuid1','loaderid1');" <?php }?>>					
 					<img src="<?php echo HTTP_ROOT;?>img/wright_icon.png" />
 					<a href="javascript:void(0);"  style="text-decoration: none;color: #fff; font-weight: bold;" > Invite User</a>
 				</div>
@@ -159,7 +159,7 @@ $autorefreshflag =0;
 						</div>
 				<?php }*/elseif((!isset($task_crted)) || ($task_crted==0)){ ?>
 						<h4 style="text-shadow:none; font-size: 26px;text-align:center">Final step, Create Task and assign, Boom!</h4>
-						<div class="on_brd_blue" style="margin-top:20px" onclick="creatask();">
+						<div class="on_brd_blue" onclick="creatask();">
 							<img src="<?php echo HTTP_ROOT;?>img/wright_icon.png" />
 							<a href="javascript:void(0);"  style="text-decoration: none;color: #fff; font-weight: bold;" >Create Task</a>
 						</div>
@@ -172,6 +172,11 @@ $autorefreshflag =0;
 						</h3>
 				<?php }?>
 				</div>
+                
+                 <div style="clear:both;height:60px;"></div>
+                <div style="text-align:center;width:100%">
+                	<a href="<?php echo HTTP_ROOT."task-type"; ?>" style="color:#00F;text-decoration:underline" target="_blank">Create your Custom Task Type >></a>
+                </div>
 			</td>
 		</tr>
 	</table>

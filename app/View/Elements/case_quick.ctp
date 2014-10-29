@@ -102,6 +102,14 @@
 										 </ul>
 									</div>
 								</div>
+                                <?php
+								if(SES_TYPE == 1 || SES_TYPE == 2 || IS_MODERATOR == 1)
+								{
+								?>
+                                <span style="position:relative;top:4px;"><a href="<?php echo HTTP_ROOT."task-type"; ?>" style="color:#06C;text-decoration:underline;font-size:12px;padding-left:5px;" target="_blank">Add New</a></span>
+                                <?php
+								}
+								?>
 							</td>
 						</tr>
 					</table>
