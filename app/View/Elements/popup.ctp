@@ -177,7 +177,8 @@
 				<span id="profLoader" style="display:none">
 				    <img src="<?php echo HTTP_IMAGES; ?>images/del.gif" alt="Loading..." width="16" height="16"/>
 				</span>
-				<div id="up_files1" class="up_files"></div>
+				<div id="up_files_usr" class="up_files"></div>
+                                <!--<div id="up_files1" class="up_files"></div>-->
 				<input type="hidden" id="imgName" name="data[User][photo]" />
 			    </td>
 			</tr>
@@ -471,8 +472,8 @@
 		    <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
 		</span>
 		<span id="confirmbtntsk" style="display:block;">
-		    <button class="btn btn_blue" id="addtsk" value="Add" type="button" onclick="assignCaseToMilestone(this)"><i class="icon-big-tick"></i>Add</button>
-		    <button class="btn btn_blue" id="addtskncont" value="Add" type="button" onclick="assignCaseToMilestone(this)"><i class="icon-big-tick"></i>Add & Continue</button>
+		    <button class="btn btn_blue showhidebtn" id="addtsk" value="Add" type="button" onclick="assignCaseToMilestone(this)"><i class="icon-big-tick"></i>Add</button>
+		    <button class="btn btn_blue showhidebtn" id="addtskncont" value="Add" type="button" onclick="assignCaseToMilestone(this)"><i class="icon-big-tick"></i>Add & Continue</button>
 		    <!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
             <span class="or_cancel">
                 or

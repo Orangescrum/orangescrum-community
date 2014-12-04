@@ -86,7 +86,7 @@
         </div>
         <div class="oly_container oly_cont_mt7">
             <div class="fl oly_cont_fbdr"></div>
-            <div class="fl oly_cont_txt">Just schedule it and get Daily Progress Update from your</div>
+            <div class="fl oly_cont_txt">Just schedule it and get Daily Progress Update from your Team</div>
             <div class="cb"></div>
         </div>
     </div>

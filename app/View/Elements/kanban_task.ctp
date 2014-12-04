@@ -14,22 +14,29 @@ var days = mlstdays_diff;
 			<div class="sett" data-toggle="dropdown"></div>
 			<ul class="dropdown-menu sett_dropdown-caret" style="margin-top:5px;padding:5px 0;">
 				<li class="pop_arrow_new"></li>
+				<li  onClick="creatask(<%= mlstId %>)" >
+					<a href="javascript:void(0);">
+						<div class="ct_icon act_create_task fl"></div>
+						<div class="fl">Create New Task</div>
+						<div class="cb"></div>
+					</a>
+				</li>
 				<li  onClick="addTaskToMilestone(<%= '\'\',\''+ mlstId + '\'' %>,<%= '\'' + mlstProjId+ '\'' %>,<%= '\'' + count + '\'' %>)" >
-					<a href="javascript:void(0);"><div class="ct_icon icon-add-task-milston fl"></div>&nbsp;Add Task</a>
+					<a href="javascript:void(0);"><div class="ct_icon icon-add-task-milston fl"></div><div class="fl mntxt">Add Task</div></a>
 				</li>
 				<li onclick="addEditMilestone(<%= '\'\',\'' + mlstUid + '\'' %>,<%= '\'' + mlstId + '\'' %>,<%= '\'' + mlstTitle + '\',1' %>)" class="makeHover">
-					<a href="javascript:void(0)"><div class="ct_icon act_edit_task fl"></div>&nbsp;Edit </a>
+					<a href="javascript:void(0)"><div class="ct_icon act_edit_task fl"></div>Edit </a>
 				</li>
 				<li onClick="delMilestone(<%= '\'\',\'' + mlstTitle + '\'' %>,<%= '\'' + mlstUid + '\'' %>);" class="makeHover" >
-					<a href="javascript:void(0);" ><div class="act_icon act_del_task fl"></div>&nbsp;Delete</a>
+					<a href="javascript:void(0);" ><div class="act_icon act_del_task fl"></div><div class="fl mntxt" style="margin-left:-6px">Delete</div></a>
 				</li>
 				<% if(mlsttype=='0'){ %>
 					<li onclick="milestoneRestore(<%= '\'\',\'' + mlstUid + '\'' %>, <%= '\'' + mlstTitle + '\'' %>);"  >
-						<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> &nbsp;Restore</a>
+						<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> <div class="fl mntxt" style="margin-left:-6px">Restore</div></a>
 					</li>
 				<% }else{ %>
 					<li onclick="milestoneArchive(<%= '\'\',\'' + mlstUid + '\'' %>, <%= '\'' + mlstTitle + '\'' %>);"  >
-						<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> &nbsp;Complete</a>
+						<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> <div class="fl mntxt" style="margin-left:-6px">Complete</div></a>
 					</li>
 				<% } %>
 				
@@ -87,7 +94,7 @@ var days = mlstdays_diff;
 		<div class="kbhead kbhead_<%= taskallkey %>">
 			<div class=" fl"><%= tasktype %></div>	
 			<div class="fl" id="cnter_<%= taskallkey %>" style="margin-left:7px;color:#aaaaaa"></div>
-			<div class="fr adding-task-<%= taskallkey %>"><a href="javascript:void(0);" onclick="creatask();"></a></div>
+			<div class="fr adding-task-<%= taskallkey %>"><a href="javascript:void(0);" onClick="creatask(<%= mlstId %>)"></a></div>
 
 			<div class="cb"></div>
 		</div>

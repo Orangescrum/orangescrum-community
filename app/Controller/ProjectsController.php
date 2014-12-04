@@ -2068,6 +2068,7 @@ function project_thumb_view(){
 
 	$this->loadModel("TypeCompany");
 	$sel_types = $this->TypeCompany->getSelTypes();
+	$is_projects = 0;
 	if (isset($sel_types) && !empty($sel_types) && isset($task_types) && !empty($task_types)) {
 	    foreach ($task_types as $key => $value) {
 		//if (array_search($value['Type']['id'], $sel_types) || intval($value['Total']['cnt'])) {
@@ -2077,9 +2078,10 @@ function project_thumb_view(){
 		    $task_types[$key]['Type']['is_exist'] = 0;
 		}
 	    }
+		$is_projects = 1;
 	}
 	
-	$this->set(compact('task_types', 'sel_types'));
+	$this->set(compact('task_types', 'sel_types', 'is_projects'));
     }
     
     /**

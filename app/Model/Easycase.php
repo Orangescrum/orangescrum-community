@@ -1074,16 +1074,21 @@ class Easycase extends AppModel {
         }
         // 3 Milestone wrt Sequence
         $milestone_cls = ClassRegistry::init('Milestone');
-        if($projUniq!='all') {
+        if($projUniq!='all' && trim($projUniq)) {
 		$milestones = $milestone_cls->query("SELECT SQL_CALC_FOUND_ROWS `Milestone`.`id`,`Milestone`.`title`,`Milestone`.`project_id`,`Milestone`.`end_date`,`Milestone`.`uniq_id`,`Milestone`.`isactive`,`Milestone`.`user_id`,COUNT(c.easycase_id) AS totalcases,GROUP_CONCAT(c.easycase_id) AS `caseids`  FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id WHERE `Milestone`.`isactive` =".$isActive." AND `Milestone`.`project_id` =".$curProjId." AND `Milestone`.`company_id` = ".SES_COMP." $milestone_search GROUP BY Milestone.id ORDER BY Milestone.end_date ASC LIMIT ".$mlimit.','.MILESTONE_PER_PAGE);
+		if(!$milestones) {
+			$milestones_all = $milestone_cls->query("SELECT SQL_CALC_FOUND_ROWS `Milestone`.`id`,`Milestone`.`isactive` FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id WHERE `Milestone`.`project_id` =".$curProjId." AND `Milestone`.`company_id` = ".SES_COMP." GROUP BY Milestone.id ORDER BY Milestone.end_date ASC");
+		}
 
 //            $milestones = $milestone_cls->find('all',array('conditions'=>array('isactive' =>$isActive,'project_id' =>$curProjId,'company_id' => SES_COMP)));
 //        pr($milestones);die;
 
         }elseif($projUniq=='all') {
             $milestones = $milestone_cls->query("SELECT SQL_CALC_FOUND_ROWS `Milestone`.`id`,`Milestone`.`title`,`Milestone`.`project_id`,`Milestone`.`end_date`,`Milestone`.`uniq_id`,`Milestone`.`isactive`,`Milestone`.`user_id`,COUNT(c.easycase_id) AS totalcases,GROUP_CONCAT(c.easycase_id) AS `caseids`  FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id LEFT JOIN projects Project on Project.id=Milestone.project_id  WHERE `Milestone`.`isactive` =".$isActive." AND c.project_id IN (SELECT ProjectUser.project_id FROM project_users AS ProjectUser WHERE ProjectUser.user_id=".SES_ID." AND ProjectUser.project_id=Project.id AND Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."') AND Project.isactive=$isActive AND Milestone.isactive=$isActive AND `Milestone`.`company_id` = ".SES_COMP."  $milestone_search GROUP BY Milestone.id ORDER BY Milestone.end_date ASC LIMIT ".$mlimit.','.MILESTONE_PER_PAGE);
-        }
-        
+			if(!$milestones) {
+				$milestones_all = $milestone_cls->query("SELECT SQL_CALC_FOUND_ROWS `Milestone`.`id`,`Milestone`.`isactive` FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id WHERE `Milestone`.`company_id` = ".SES_COMP." GROUP BY Milestone.id ORDER BY Milestone.end_date ASC");
+			}
+        }        
         $totmlst = $milestone_cls->query("SELECT FOUND_ROWS() as mtotal");
         $resCaseProj['totalMlstCnt'] = $totmlst[0][0]['mtotal'];
         $resCaseProj['mlimit'] = $mlimit + MILESTONE_PER_PAGE;
@@ -1209,6 +1214,23 @@ class Easycase extends AppModel {
                 return $resCaseProj;
             }
         }else {
+			$total_exist = 0;
+			$total_active = 0;
+			$total_inactive = 0;
+			if($milestones_all){
+				$total_exist = count($milestones_all);
+				foreach($milestones_all as $k => $v){
+					if($v['Milestone']['isactive']){
+						$total_active++;
+					}else{
+						$total_inactive++;
+					}
+				}
+			}
+			$arr['total_exist']= $total_exist;
+			$arr['total_active']= $total_active;
+			$arr['total_inactive']= $total_inactive;
+			$arr['mile_type']= $isActive;
             $arr['error']= "No milestone";
 
             return $arr;

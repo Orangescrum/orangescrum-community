@@ -2,18 +2,23 @@
 <!--Tabs section starts -->
 <?php echo $this->element("company_settings");?>
 </div>
-<div class="impexp_div">
-    <h2 class="fl">Task Type</h2>
-    <div class="fr"><button class="btn btn_blue" onclick="addNewTaskType();" style="padding: 5px;margin-right: 3px !important;">+ New Task Type</button></div>
+<?php if (isset($task_types) && !empty($task_types)) {?>
+<div class="impexp_div" style="border:0;margin-top:0;margin-bottom:5px;">
+    <div style="width:600px;margin:25px auto 5px;border:1px solid #BCE8F1;text-align:left;background:#D9EDF7;color:#31708F;font-size:13px;padding:5px 5px" class="fl">
+        12 default Task Types listed and the #of Tasks associated with them. You can remove any of them by unchecking the checkbox and save the changes.<br/>Click on the "<b>+ New Task Type</b>" and add your new Task Types.
+    </div>
+    <div class="fr"><button class="btn btn_blue" onclick="addNewTaskType();" style="padding: 5px;margin-right: 3px !important;margin-top:60px">+ New Task Type</button></div>
     <div class="cb"></div>
 </div>
-
-<?php if (isset($task_types) && !empty($task_types)) {?>
 <div class="fl import-csv-file" style="border:1px solid #ccc;width: 95%;">
     <form name="task_types" id="task_types" method="post" action="javascript:void(0);">
     <?php 
     $cnt = 1;
+    $custom = 0;
+    $default = 0;
+    $t_key = 0;
     foreach ($task_types as $key => $value) {
+	$t_key = $key+1;
 	if ($cnt%3 == 0) {
 	    $cb = '<div class="cb"></div>';
 	} else {
@@ -36,7 +41,19 @@
 	    //$disabled = '';
 	}
 	?>
-	<div class="fl" style="width: 32%;" id="dv_tsk_<?php echo $value['Type']['id'];?>">
+	
+	<?php 
+		if($value['Type']['company_id'] != 0 && !$custom){  
+		    $custom = 1;		    
+	?>
+	<div style="padding: 5px 0;">
+	    <div style="padding-bottom: 3px;margin-bottom: 10px;font-weight: bold;color:#38B1E2;font-size:15px;border-bottom:1px dotted #CCCCCC">Custom Task Type</div>	
+	<?php }else if($value['Type']['company_id'] == 0 && !$default){ $default = 1;?>  
+	   <div style="padding: 5px 0;">
+	       <div style="padding-bottom: 3px;margin-bottom: 10px;font-weight: bold;color:#38B1E2;font-size:15px;border-bottom:1px dotted #CCCCCC">Default Task Type</div>
+	<?php }?>
+	
+	<div class="fl" style="width: 32%;padding-left:2px;" id="dv_tsk_<?php echo $value['Type']['id'];?>">
 	    <div class="fl dv_tsktyp" style="min-width: 10%;width: auto;" data-id="<?php echo $value['Type']['id'];?>">
 		<div class="fl">
 		    <label style="cursor: pointer;">
@@ -52,6 +69,7 @@
 			<div class="cb"></div>
 		    </label>
 		</div>
+        
 		<?php if (intval($value['Total']['cnt'])) {?>
 		<div class="fl task-type-cnt" title="<?php echo $value['Total']['cnt']." Task(s)";?>"><?php echo $value['Total']['cnt'];?></div>
 		<?php }?>
@@ -82,7 +100,13 @@
 	    </div>
 	    <div class="cb"></div>
 	</div>
-	<?php echo $cb;?>
+	<?php echo $cb;?>	
+	<?php if((intval($task_types[$t_key]['Type']['company_id']) == 0) && ($default == 0)){ $cnt = 0; ?>
+         </div>	  
+	 <div class="cb"></div>
+	<?php } else if($key == (count($task_types)-1)){ ?>
+	</div>		
+	<?php } ?>
     <?php 
 	$cnt++;
     }?>
@@ -96,7 +120,19 @@
     </form>
 </div>
 <div class="cb"></div>
-<?php }?>
+<?php }
+else {
+?>
+<div class="impexp_div" style="border:none">
+	<span style="font-size:13px;">Task Types are independent of Projects, but please create a Project to get started.</span>
+    <br/><br/>
+   	<button onclick="newProject();" type="button" class="btn btn_blue">Create Project</button>
+    
+</div>
+
+<?php	
+}
+?>
 
 <script type="text/javascript">
     $(document).ready(function(){

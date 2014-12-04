@@ -361,7 +361,8 @@ function closePopup() {
         $('#profilephoto').imgAreaSelect({
             hide:true
         });
-        $('#up_files1').html('');
+        //$('#up_files1').html('');
+        $('#up_files_usr').html('');
     }
     $(".popup_overlay").css({
         display:"none"
@@ -898,7 +899,11 @@ function creatask() {
 		  $('#ajxQuickMem').html(data);
 		}
 	});*/
-    showProjectName($('#projUpdateTop').html().trim(),$('#CS_project_id').val());
+	var mid = '';
+    if(arguments[0] && $('#main-title-holder_'+arguments[0]+ ' a').text()  != ''){
+      mid = arguments[0];
+    }
+    showProjectName($('#projUpdateTop').html().trim(),$('#CS_project_id').val(), mid);
     if(CONTROLLER == 'easycases' && PAGE_NAME == 'dashboard') {
         $(".menu-files").removeClass('active');
         $(".menu-milestone").removeClass('active');
@@ -2249,7 +2254,8 @@ function loadprofilePopup() {
     });
     $(".prof_img").show();
 
-    $('#up_files1').html('');
+    //$('#up_files1').html('');
+     $('#up_files_usr').html('');
     $("#actConfirmbtn").hide();
     $("#inactConfirmbtn").show();
 }
@@ -2264,7 +2270,8 @@ function profilePopupCancel() {
     $('#profilephoto').imgAreaSelect({
         hide:true
     });
-    $('#up_files1').html('');
+    //$('#up_files1').html('');
+     $('#up_files_usr').html('');
     closePopup();
 }
 
@@ -2283,8 +2290,10 @@ $(function() {
         }
     });
     $('#file_upload1').fileUploadUI({
-        uploadTable: $('#up_files1'),
-        downloadTable: $('#up_files1'),
+        //uploadTable: $('#up_files1'),
+        //downloadTable: $('#up_files1'),
+        uploadTable: $('#up_files_usr'),
+        downloadTable: $('#up_files_usr'),
         buildUploadRow: function(files, index) {
             var filename = files[index].name;
             if (filename.length > 35) {
@@ -2305,7 +2314,8 @@ $(function() {
                     }
 
                     var imgNm = HTTP_ROOT + "files/profile/orig/" + file.filename;
-                    $('#up_files1').html('<img src="' + imgNm + '" id="profilephoto">');
+                    //$('#up_files1').html('<img src="' + imgNm + '" id="profilephoto">');
+                    $(' #up_files_usr').html('<img src="' + imgNm + '" id="profilephoto">');                   
                     $("#imgName1").val(file.filename);
                     $("#profLoader").hide();
                     $('#profilephoto').imgAreaSelect({
@@ -2373,7 +2383,8 @@ function profilePopupClose() {
     $('#profilephoto').imgAreaSelect({
         hide:true
     });
-    $('#up_files1').html('');
+    //$('#up_files1').html('');
+    $('#up_files_usr').html('');     
     closePopup();
 }
 
@@ -5172,7 +5183,7 @@ $(document).ready(function(event){
         event.stopPropagation();
     });
 });
-function showProjectName(name,id) {
+function showProjectName(name,id,mid) {
     $('#prjchange_loader').show();
     $('#ctask_popup a').css({
         'border-color':'#CCCCCC'
@@ -5223,7 +5234,11 @@ function showProjectName(name,id) {
             }
         });
     }
-    milstoneonTask();
+	if(mid != ''){         
+        milstoneonTask($('#main-title-holder_'+mid+ ' a').text(),mid);
+    }else{
+        milstoneonTask();
+    }
 // Quick case User Listing
 /*var url = HTTP_ROOT+"easycases/ajax_default_email";
 		$.post(url,{"projUniq":id,"pageload":0}, function(data){
@@ -5514,6 +5529,8 @@ function addEditMilestone(obj,mileuniqid,mid,name,cnt,mlstfrom) {
     }
     if(mlstfrom=='createTask'){
         var projUid = $('#curr_active_project').val();
+	}else if(mlstfrom=='dashboard'){
+		var projUid = $('#curr_active_project').val();
     }else{
         var projUid = $('#projFil').val();
     }
@@ -5654,6 +5671,8 @@ function milestoneRestore(obj,uniqid,title) {
 }
 
 function addTaskToMilestone(obj,mstid,projid,cnt) {
+	$('.showhidebtn').addClass('btn_blue_inactive');
+    $('.showhidebtn').attr('disabled',true);
     if(obj){
         var mstid = $(obj).attr("data-id");
         var projid = $(obj).attr("data-prj-id");
@@ -5738,6 +5757,8 @@ function selectMilestones(arg, i,chkall) {
     });
     if (parseInt(arg)) {
         if ($('#'+chkall).is(":checked")) {
+			$('.showhidebtn').removeClass('btn_blue_inactive');
+            $('.showhidebtn').attr('disabled',false);
             $(".ad-mlstn").attr("checked", "checked");
             $('.rw-cls').css({
                 'background-color': '#FFFFCC'
@@ -5749,6 +5770,8 @@ function selectMilestones(arg, i,chkall) {
                 'cursor': 'pointer'
             });
         } else {
+			$('.showhidebtn').addClass('btn_blue_inactive');
+            $('.showhidebtn').attr('disabled',true);
             $(".ad-mlstn").attr("checked", false);
             $('.rw-cls').css({
                 'background-color': ''
@@ -5767,6 +5790,8 @@ function selectMilestones(arg, i,chkall) {
             $("#addtskncont").css({
                 'cursor': 'pointer'
             });
+			$('.showhidebtn').removeClass('btn_blue_inactive');
+            $('.showhidebtn').attr('disabled',false);
         } else {
             $("#"+chkall).attr("checked", false);
             if ($('#actionChk' + i).is(":checked")) {
@@ -5784,6 +5809,13 @@ function selectMilestones(arg, i,chkall) {
                     'background-color': ''
                 });
             }
+        }
+		if(!$('.ad-mlstn:checked').length){
+         $('.showhidebtn').addClass('btn_blue_inactive');
+         $('.showhidebtn').attr('disabled',true);
+        }else{
+            $('.showhidebtn').removeClass('btn_blue_inactive');
+            $('.showhidebtn').attr('disabled',false);
         }
     }
 }
@@ -5845,10 +5877,12 @@ function assignCaseToMilestone(el) {
                         'cursor': 'default'
                     });
                     $("#tsk_name").val('');
+					$('.showhidebtn').addClass('btn_blue_inactive');
+                    $('.showhidebtn').attr('disabled',true);
                     $.post(HTTP_ROOT + 'milestones/add_case', {
                         "mstid": milestone_id,
                         "projid": project_id,
-                    }, function(data) {
+                    },function(data) {
                         if (data) {
                             $('#inner_mlstn_case').html(data);
                         }

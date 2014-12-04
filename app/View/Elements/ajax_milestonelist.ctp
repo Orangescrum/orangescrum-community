@@ -5,6 +5,7 @@
 .label{font-weight:normal;}
 </style>
 <% if(!error){ %>
+<% $('#mlist_crt_mlstbtn').show(); %>
 <div class="kanban-main">
 	<%
         var rec_ids=new Array();
@@ -74,7 +75,14 @@
 						<ul class="dropdown-menu sett_dropdown-caret">
 							<li class="pop_arrow_new"></li>
 							 <% if(isActive!=0){ %>
-                                                        <li  onClick="addTaskToMilestone(<%= '\'\',\''+ getdata.Easycase.Mid + '\'' %>,<%= '\'' + getdata.Easycase.project_id + '\'' %>,<%= '\'' + count + '\'' %>)" >
+							 <li  onClick="creatask(<%= getdata.Easycase.Mid %>)" >
+								<a href="javascript:void(0);" class="mnsm">
+									<div class="ct_icon act_create_task fl"></div>
+									<div class="fl">Create New Task</div>
+									<div class="cb"></div>
+								</a>
+							</li>
+								<li  onClick="addTaskToMilestone(<%= '\'\',\''+ getdata.Easycase.Mid + '\'' %>,<%= '\'' + getdata.Easycase.project_id + '\'' %>,<%= '\'' + count + '\'' %>)" >
 								<a href="javascript:void(0);" class="mnsm">
 									<div class="ct_icon icon-add-task-milston fl"></div>
 									<div class="fl mntxt">Add Task</div>
@@ -347,28 +355,37 @@
 					</div>
 					<div class="dropdown fl">
 						<div class="sett" data-toggle="dropdown"></div>
-						<ul class="dropdown-menu sett_dropdown-caret">
+						<ul class="dropdown-menu sett_dropdown-caret" style="min-width:166px;">
 							<li class="pop_arrow_new"></li>
 							 <% if(isActive!=0){ %>
-                                                        <li  onClick="addTaskToMilestone(<%= '\'\',\''+ mdtls.id + '\'' %>,<%= '\'' + mdtls.project_id + '\'' %>,<%= '\'' + count + '\'' %>)" >
-								<a href="javascript:void(0);"><div class="ct_icon icon-add-task-milston fl"></div>&nbsp;Add Task</a>
+							<li  onClick="creatask(<%= mdtls.id %>)" >
+								<a href="javascript:void(0);">
+								<div class="ct_icon act_create_task fl"></div>
+									<div class="fl mntxt" style="margin-left:-12px">Create New Task</div>
+								</a>                                                        
+							</li>
+							 <li  onClick="addTaskToMilestone(<%= '\'\',\''+ mdtls.id + '\'' %>,<%= '\'' + mdtls.project_id + '\'' %>,<%= '\'' + count + '\'' %>)" >
+								<a href="javascript:void(0);">
+									<div class="ct_icon icon-add-task-milston fl"></div>
+									<div class="fl mntxt">Add Task</div>
+								</a>                                                        
 							</li>
 							<li onclick="addEditMilestone(<%= '\'\',\'' + mdtls.uinq_id + '\'' %>,<%= '\'' + mdtls.id + '\'' %>,<%= '\'' + milestonetitle + '\',1' %>)" class="makeHover">
-								<a href="javascript:void(0)"><div class="ct_icon act_edit_task fl"></div>&nbsp;Edit </a>
+								<a href="javascript:void(0)"><div class="ct_icon act_edit_task fl"></div><div class="fl">Edit</div></a>
 							</li>
                                                         <%  } %>
 							<li onClick="delMilestone(<%= '\'\',\'' + milestonetitle + '\'' %>,<%= '\'' + mdtls.uinq_id + '\'' %>);" class="makeHover" >
-								<a href="javascript:void(0);" ><div class="act_icon act_del_task fl"></div>&nbsp;Delete</a>
+								<a href="javascript:void(0);" ><div class="act_icon act_del_task fl"></div><div class="fl mntxt" style="margin-left:-6px">Delete</div></a>
 							</li>
                                                          <% if(isActive!=0){ %>
 							<li onclick="milestoneArchive(<%= '\'\',\'' + mdtls.uinq_id + '\'' %>, <%= '\'' + milestonetitle + '\'' %>);"  >
-								<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> &nbsp;Complete</a>
-                                                        </li>
-                                                        <%  }else{ %>
-                                                        <li onclick="milestoneRestore(<%= '\'\',\'' + mdtls.uinq_id + '\'' %>, <%= '\'' + milestonetitle + '\'' %>);"  >
-								<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> &nbsp;Restore</a>
-                                                        </li>
-                                                        <%  } %>
+								<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div> <div class="fl mntxt" style="margin-left:-7px">Complete</div></a>
+							</li>
+							<%  }else{ %>
+							<li onclick="milestoneRestore(<%= '\'\',\'' + mdtls.uinq_id + '\'' %>, <%= '\'' + milestonetitle + '\'' %>);"  >
+								<a href="javascript:jsVoid();"><div class="ct_icon mt_completed fl"></div><div class="fl mntxt">Restore</div></a>
+							</li>
+							<%  } %>
 						</ul>
 					</div>
 					<div class="fr"><%= mdtls.totalcases %></div>
@@ -414,5 +431,27 @@
 </div>
 <div class="cb h30"></div>
 <% }else{ %>
-	<?php echo $this->element('no_data', array('nodata_name' => 'milestonelist','isActive'=>isActive)); ?>
+<div class="fl col-lg-12 not-fonud ml_not_found">
+	<div class="icon_con icon-no-milestone"></div>
+	<h2>
+		<%
+			$('#mlist_crt_mlstbtn').hide();
+			if(total_exist){
+				if(mile_type == '1'){
+		%>
+				No active Milestone
+			<% 	}else{ %>
+					No Completed Milestone
+			<% 	} %>
+		<% }else{ %>
+			No milestone
+		<% } %>
+	</h2>
+	<div style="padding-top:10px;">
+		<button class="btn btn_blue" value="Add" type="button" onclick="addEditMilestone(this);" style="margin:0;">
+			Create Milestone
+		</button>
+	</div>
+</div>
+	<?php //echo $this->element('no_data', array('nodata_name' => 'milestonelist','isActive'=>isActive)); ?>
 <% } %>

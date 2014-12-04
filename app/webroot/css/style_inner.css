@@ -2208,6 +2208,7 @@ table.col-lg-12.ajx-srch-tbl tr.nohover:hover{background:#fff;color:#333; cursor
 .act_resolve_task{background: url("../img/sprite_osv2.png") -76px -169px no-repeat;width:19px;height:17px;}
 .act_close_task{background: url("../img/sprite_osv2.png") -99px -169px no-repeat;width:20px;height:19px;}
 .act_reply_task{background: url("../img/sprite_osv2.png") -144px -169px no-repeat;width:19px;height:15px;}
+.act_create_task{background: url("../img/sprite_osv2.png") -351px -464px no-repeat;width:21px;height:23px;margin-right: 9px !important;}
 .act_edit_task{background: url("../img/sprite_osv2.png") -121px -170px no-repeat;width:21px;height:17px;margin-right: 9px !important;}
 .act_arcv_task{background: url("../img/sprite_osv2.png") -163px -170px no-repeat;width:19px;height:17px;}
 .act_del_task{background: url("../img/sprite_osv2.png") -185px -170px no-repeat;width:19px;height:17px;}

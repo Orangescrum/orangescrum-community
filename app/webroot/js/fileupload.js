@@ -120,7 +120,7 @@
 					}
 				}
 				else if(file.message == "s3_error") {
-					alert("Due to some network problem your file is not uploaded. Please try again after sometime.");
+					alert("Due to some network problem your file is not uploaded.Please try again after sometime.");
 					if(parseInt(total_files.length) == indx){
 					    gFileupload = 1;
 					}
