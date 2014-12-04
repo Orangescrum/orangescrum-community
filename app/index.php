@@ -1,4 +1,5 @@
 <?php
+
 /*********************************************************************************
  * Orangescrum Community Edition is a web based Project Management software developed by
  * Orangescrum. Copyright (C) 2013-2014
