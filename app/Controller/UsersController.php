@@ -2907,6 +2907,9 @@ class UsersController extends AppController {
 								echo json_encode($arr);exit;
 							}
 						}Catch(Exception $e){ 
+							$arr['msg']='err';
+							$arr['type'] = 'Error sending email';
+							echo json_encode($arr);exit;
 						}
 				}else{
 					$arr['msg']='err';
