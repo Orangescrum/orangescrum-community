@@ -57,7 +57,10 @@ if(php_sapi_name() === "cli") {
 }else{
 	$ht = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')?"https://":"http://";
 	define('PROTOCOL', $ht);
-	define('DOMAIN', $_SERVER['SERVER_NAME']."/");
+	if($_SERVER['SERVER_PORT'] != 80)
+		define('DOMAIN', $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/");
+	else	
+		define('DOMAIN', $_SERVER['SERVER_NAME']."/");
 }
 define('HTTP_SERVER',PROTOCOL.DOMAIN);
 define('HTTP_ROOT', HTTP_SERVER.SUB_FOLDER);
