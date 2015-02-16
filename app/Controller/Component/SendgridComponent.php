@@ -7,11 +7,6 @@ class SendgridComponent extends EmailComponent
 	
 	function sendGridEmail($from,$to,$subject,$message,$type,$fromname=NULL)
 	{
-		if(!defined('SMTP_PWORD') || SMTP_PWORD == "******") {
-			sendEmail($from,$to,$subject,$message,$type);
-			return true;
-		}
-		
 		App::import('helper', 'Format');
 		$frmtHlpr = new FormatHelper(new View(null));
 	
@@ -36,32 +31,49 @@ class SendgridComponent extends EmailComponent
 			$this->Email->from = $from;
 		}
 		$this->Email->sendAs = 'html';
-		
-		$this->Email->smtpOptions = array(
-					'port'=>SMTP_PORT,
-					'host' => SMTP_HOST,
-					'username'=>SMTP_UNAME,
-					'password'=>SMTP_PWORD,
-				);
-				
+
+		if(defined('SMTP_USER') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+			$email_array = array(
+				'port' => SMTP_PORT,
+				'host' => SMTP_HOST,
+				'username' => SMTP_UNAME,
+				'password' => SMTP_PWORD
+			);
+		}
+		else {
+			$email_array = array(
+				'port' => SMTP_PORT,
+				'host'=> SMTP_HOST
+			);
+		}
+		$this->Email->smtpOptions = $email_array;
+
 		$response = $this->Email->send($message);
 		return $response;
 	}
+
 	function sendgridsmtp($email){
-		
-		if(!defined('SMTP_PWORD') || SMTP_PWORD == "******") {
-			return true;
-		}
 		$email->replyTo = FROM_EMAIL;
-		$email->smtpOptions = array(
-			'port'=>SMTP_PORT,
-			'host' => SMTP_HOST,
-			'username'=>SMTP_UNAME,
-			'password'=>SMTP_PWORD,
-		);
+		if(defined('SMTP_USER') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+			$email_array = array(
+				'port' => SMTP_PORT,
+				'host' => SMTP_HOST,
+				'username' => SMTP_UNAME,
+				'password' => SMTP_PWORD
+			);
+		}
+		else {
+			$email_array = array(
+				'port' => SMTP_PORT,
+				'host'=> SMTP_HOST
+			);
+		}
+
+		$email->smtpOptions = $email_array;
 		$response = $email->send();
 		return $response;
 	}	
+
 	function sendEmail($from,$to,$subject,$message,$type)
 	{
             App::import('helper', 'Format');
