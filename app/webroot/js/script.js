@@ -2179,7 +2179,8 @@ function checkPasswordMatch(a, b, c,d) {
             errMsg = "Password cannot be  blank!";
             document.getElementById(a).focus();
             done = 0;
-        } else if (pass_new.length < 6) {
+        } 
+		/*else if (pass_new.length < 6) {
             errMsg = "Password should be between 6-15 characters!";
             document.getElementById(a).focus();
             done = 0;
@@ -2187,7 +2188,8 @@ function checkPasswordMatch(a, b, c,d) {
             errMsg = "Password should be between 6-15 characters!";
             document.getElementById(a).focus();
             done = 0;
-        } else if (retypr_pass.trim() == "") {
+        }*/
+		else if (retypr_pass.trim() == "") {
             errMsg = "Confirm Password cannot be  blank!";
             document.getElementById(b).focus();
             done = 0;
@@ -2211,7 +2213,8 @@ function checkPasswordMatch(a, b, c,d) {
             errMsg = "Password cannot be  blank!";
             document.getElementById(a).focus();
             done = 0;
-        } else if (pass_new.length < 6) {
+        }
+		/*else if (pass_new.length < 6) {
             errMsg = "Password should be between 6-15 characters!";
             document.getElementById(a).focus();
             done = 0;
@@ -2219,7 +2222,8 @@ function checkPasswordMatch(a, b, c,d) {
             errMsg = "Password should be between 6-15 characters!";
             document.getElementById(a).focus();
             done = 0;
-        } else if (retypr_pass.trim() == "") {
+        }*/
+		else if (retypr_pass.trim() == "") {
             errMsg = "Confirm Password cannot be  blank!";
             document.getElementById(b).focus();
             done = 0;

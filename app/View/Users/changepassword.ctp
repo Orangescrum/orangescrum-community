@@ -10,13 +10,13 @@
         <tr style="visibility:<?php if(NO_PASSWORD){echo 'hidden; margin-top: -40px;position: absolute;';} else { echo 'visible;';} ?>" >
             <th>Old Password:</th>
             <td style="padding-bottom:25px">
-		<?php echo $this->Form->password('old_pass',array('value'=>'','class'=>'form-control','id'=>'old_pass','maxlength'=>'15','onKeyPress'=>'return noSpace(event)','autocomplete'=>'off')); ?>
+		<?php echo $this->Form->password('old_pass',array('value'=>'','class'=>'form-control','id'=>'old_pass','onKeyPress'=>'return noSpace(event)','autocomplete'=>'off')); ?>
 	    </td>
         </tr>
         <tr>
             <th>New Password:</th>
             <td style="padding-bottom:25px">
-		<?php echo $this->Form->password('pas_new', array('value' => '', 'class' => 'form-control','id' => 'pas_new', 'maxlength' => '15', 'onKeyPress' => 'return noSpace(event)', 'autocomplete' => 'off')); ?>	
+		<?php echo $this->Form->password('pas_new', array('value' => '', 'class' => 'form-control','id' => 'pas_new','onKeyPress' => 'return noSpace(event)', 'autocomplete' => 'off')); ?>	
     		<div id="hints" style="display: none;">
     		    <div>
     			<span class="hint">Between 6-15 characters<span class="hint-pointer">&nbsp;</span></span>
@@ -27,7 +27,7 @@
         <tr>
             <th>Confirm Password:</th>
             <td style="padding-bottom:25px">
-		<?php echo $this->Form->password('pas_retype',array('value'=>'','class'=>'form-control','id'=>'pas_retype','maxlength'=>'15','onKeyPress'=>'return noSpace(event)','autocomplete'=>'off')); ?>	
+		<?php echo $this->Form->password('pas_retype',array('value'=>'','class'=>'form-control','id'=>'pas_retype','onKeyPress'=>'return noSpace(event)','autocomplete'=>'off')); ?>	
 	    </td>
         </tr>
         <tr>
