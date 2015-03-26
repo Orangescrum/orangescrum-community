@@ -35,7 +35,7 @@ define("SMTP_PWORD", "******");
 */
 
 ########################################################################
-
+define("WEB_DOMAIN", "YourDomain.com"); //ex. demo.orangescrum.com
 define('FROM_EMAIL_NOTIFY', 'notify@mycompany.com'); //(REQUIRED)
 define('SUPPORT_EMAIL', 'support@mycompany.com'); //(REQUIRED) From Email
 define('FROM_EMAIL',  'Orangescrum<'.SUPPORT_EMAIL.'>');

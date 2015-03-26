@@ -32,12 +32,14 @@ class SendgridComponent extends EmailComponent
 		}
 		$this->Email->sendAs = 'html';
 
-		if(defined('SMTP_USER') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+		if(defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
 			$email_array = array(
 				'port' => SMTP_PORT,
 				'host' => SMTP_HOST,
 				'username' => SMTP_UNAME,
-				'password' => SMTP_PWORD
+				'password' => SMTP_PWORD,
+				'timeout'=>'30', 
+				'client' => WEB_DOMAIN
 			);
 		}
 		else {
@@ -54,12 +56,14 @@ class SendgridComponent extends EmailComponent
 
 	function sendgridsmtp($email){
 		$email->replyTo = FROM_EMAIL;
-		if(defined('SMTP_USER') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+		if(defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
 			$email_array = array(
 				'port' => SMTP_PORT,
 				'host' => SMTP_HOST,
 				'username' => SMTP_UNAME,
-				'password' => SMTP_PWORD
+				'password' => SMTP_PWORD,
+				'timeout'=>'30', 
+				'client' => WEB_DOMAIN
 			);
 		}
 		else {
