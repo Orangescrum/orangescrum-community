@@ -46,7 +46,7 @@ input#txt_Password{font-family: Arial}
                     <?php
 					if(!$findCompany['Company']['id']) {
 						?>
-                        <h4>Welcome to Orangescrum Community Edition v1.0</h4>
+                        <h4>Welcome to Orangescrum Community Edition v1.5.7</h4>
                         <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
                         Make sure that, <br/>
                         <ul>
@@ -64,6 +64,10 @@ input#txt_Password{font-family: Arial}
                         <?php
 					}
 					else {
+						$pos = strpos(SUB_FOLDER, '/');
+						if ($pos === false) {
+							echo '<ul><li style="color:red;">Replace the SUB_FOLDER name as "'.SUB_FOLDER.'/" istead of "'.SUB_FOLDER.'" in the constants.php</li></ul>';
+						}
 					?>
 					<div style="padding:10px 5px;">
 						<div style="clear:both"></div>
