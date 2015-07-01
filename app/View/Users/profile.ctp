@@ -43,10 +43,10 @@
 		<div id="profDiv"></div>
 		<?php
 		if(defined('USE_S3') && USE_S3) {
-			if($this->Format->pub_file_exists(DIR_USER_PHOTOS_S3_FOLDER, $userdata['User']['photo'])) {
+			if($this->Format->pub_file_exists(DIR_USER_PHOTOS_S3_FOLDER, trim($userdata['User']['photo']))) {
 				$user_img_exists = 1;
 			}
-		} elseif($this->Format->imageExists(DIR_USER_PHOTOS,$userdata['User']['photo'])){
+		} elseif($this->Format->imageExists(DIR_USER_PHOTOS,trim($userdata['User']['photo']))){
 			$user_img_exists = 1;
 		}
 		if($user_img_exists) { ?>
@@ -54,11 +54,11 @@
 		    <?php if(defined('USE_S3') && USE_S3) {
 				$fileurl = $this->Format->generateTemporaryURL(DIR_USER_PHOTOS_S3 . $userdata['User']['photo']);
 			} else {
-				$fileurl = HTTP_ROOT.'users/files/photos/'.$userdata['User']['photo'];
+				$fileurl = HTTP_ROOT.'files/photos/'.$userdata['User']['photo'];
 			} ?>
     		    <div>
     			<a href="<?php echo $fileurl; ?>" target="_blank">
-    			    <img src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<?php echo $userdata['User']['photo']; ?>&sizex=100&sizey=100&quality=100" border="0" id="profphoto"/>
+    			    <img src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<?php echo trim($userdata['User']['photo']); ?>&sizex=100&sizey=100&quality=100" border="0" id="profphoto"/>
     			</a>
 			    <?php echo $this->Form->hidden('photo', array('class' => 'text_field', 'id' => 'imgName1', 'name' => 'data[User][photo]')); ?>
 			    <?php echo $this->Form->hidden('exst_photo', array('value' => $userdata['User']['photo'], 'class' => 'text_field', 'name' => 'data[User][exst_photo]')); ?>

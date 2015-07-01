@@ -1,6 +1,12 @@
 <?php
 date_default_timezone_set('UTC');
-
+if (!defined('DS')) {
+	define('DS', DIRECTORY_SEPARATOR);
+}
+if (!defined('WWW_ROOT')) {
+    $dir = dirname(__FILE__);
+    define('WWW_ROOT', substr($dir,0,stripos($dir,'webroot')+strlen('webroot')). DS);
+}
 include("../../../Config/constants.php");
 
 use ImageComponent as Image;

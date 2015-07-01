@@ -196,7 +196,7 @@ if( $is_active_proj || (SES_TYPE==3)){
 		  	<a href="javascript;" class="dropdown-toggle profile_name" data-toggle="dropdown" title="<?php echo trim($ses_name." ".$ses_last_name); ?>"><span class="prof_sett">
 		  	<div class="user_ipad"><?php echo $this->Format->shortLength(trim($ses_name),10); ?></div>
 			<?php if(trim($ses_photo)) { ?>
-			<img data-original="<?php echo HTTP_ROOT;?>users/image_thumb/?type=photos&file=<?php echo $ses_photo; ?>&sizex=28&sizey=28&quality=100" class="lazy round_profile_img" height="28" width="28" />
+			<img data-original="<?php echo HTTP_ROOT;?>users/image_thumb/?type=photos&file=<?php echo trim($ses_photo); ?>&sizex=28&sizey=28&quality=100" class="lazy round_profile_img" height="28" width="28" />
 			<?php } else { ?>
 			<img data-original="<?php echo HTTP_ROOT;?>users/image_thumb/?type=photos&file=user.png&sizex=28&sizey=28&quality=100" class="lazy round_profile_img" height="28" width="28" />
 			<?php } ?>

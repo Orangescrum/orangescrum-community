@@ -3951,6 +3951,7 @@ function resend_invitation(qrst, email) {
             if (res.msg == 'succ') {
                 $("#projectLoader").hide();
                 showTopErrSucc('success', "Invitaton link send successfully to email '" + email + "'. ");
+				setTimeout(function(){ window.location.reload(); }, 1000);
             }
             else {
                 $("#projectLoader").hide();
