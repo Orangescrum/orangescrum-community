@@ -61,7 +61,6 @@ class ImageComponent {
 		}
 		break;
 	}
-
 	return $res;
     }
 
@@ -111,6 +110,7 @@ class ImageComponent {
 	//}
 	//exit;
 	$temp = false;
+	$file_mime = false;
 	if (substr($from_name, 0, 7) == 'https://') {
 	    $tmpfname = tempnam("tmp/", "TmP-");
 	    $temp = @fopen($tmpfname, "w");
@@ -122,7 +122,6 @@ class ImageComponent {
 		die("Cannot create temp file");
 	    }
 	}
-
 	// check if file exists
 	if (defined('USE_S3') && USE_S3 && $filename != 'user.png') {
 	    $s3 = new S3(awsAccessKey, awsSecretKey);

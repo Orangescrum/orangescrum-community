@@ -8,7 +8,6 @@ if (!defined('WWW_ROOT')) {
     define('WWW_ROOT', substr($dir,0,stripos($dir,'webroot')+strlen('webroot')). DS);
 }
 include("../../../Config/constants.php");
-
 use ImageComponent as Image;
 
 require_once('ImageComponent.php');
@@ -64,11 +63,17 @@ function image_thumb()  {
 	if (isset($_REQUEST['size'])) {
 	  $max_x = intval($_REQUEST['size']);
 	}
+    if(file_exists($images_folder.$from_name)){
+        $file_path = $images_folder.$from_name;
+    }else{
+        $file_path = DIR_IMAGES."no-image.png";
+    }        
+    #echo $file_path;exit;
 	ini_set('memory_limit', '-1');//echo $images_folder.$from_name;//exit;
 	//$this->Image->GenerateThumbFile($images_folder.$from_name, $to_name,$max_x,$max_y);
 	$image = new ImageComponent();
 	//print $images_folder.$from_name.'---'.$to_name.'----'.$max_x.'---'.$max_y.'----'.$from_name;exit;
-	$image->GenerateThumbFile($images_folder.$from_name, $to_name,$max_x,$max_y,$from_name);
+	$image->GenerateThumbFile($file_path, $to_name,$max_x,$max_y,$from_name);
 }
 image_thumb();
 ?>
