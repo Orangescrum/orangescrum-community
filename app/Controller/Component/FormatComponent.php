@@ -582,6 +582,7 @@ class FormatComponent extends Component
 	function downloadFile($filename)
 	{
 		set_time_limit(0);
+		ob_clean();
           if (!isset($filename) || empty($filename)) {
 			$var = "<table align='center' width='100%'><tr><td style='font:bold 14px verdana;color:#FF0000;' align='center'>Please specify a file name for download.</td></tr></table>";
 		  die($var);

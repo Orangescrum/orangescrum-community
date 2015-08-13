@@ -150,7 +150,7 @@
 	?>
     <div class="get_hd_bg">Settings</div>
     <div class="get_det">
-	<a class="get_title" href="/users/profile" style="font-size: 14px;">
+		<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/profile" style="font-size: 14px;">
         <div class="fl get_img get_tm_bg">
             <div class="get_time"></div>
             <div class="get_img_txt">Setting</div>
@@ -170,7 +170,7 @@
         <div class="cb"></div>
     </div>
     <div class="get_det">
-	<a class="get_title" href="/users/email_notifications" style="font-size: 14px;">
+	<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_notifications" style="font-size: 14px;">
         <div class="fl get_img get_not_bg">
             <div class="get_not"></div>
             <div class="get_img_txt">Notification</div>
@@ -193,7 +193,7 @@
         <div class="cb"></div>
     </div>
     <div class="get_det" style="border-bottom:none">
-	<a class="get_title" href="/users/email_reports" style="font-size: 14px;">
+	<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_reports" style="font-size: 14px;">
         <div class="fl get_img get_emlrpt_bg">
             <div class="get_emlrpt"></div>
             <div class="get_img_txt">Reports</div>
