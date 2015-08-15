@@ -887,40 +887,41 @@ class CronController extends AppController{
 		foreach($timezn AS $k=>$tz){
 			$tzone[$tz['Timezone']['id']]=$tz['Timezone'];
 		}
-		$prv_date = date('Y-m-d',  strtotime('-1 week'));
-		$last_week_date = date('Y-m-d',  strtotime('-2 week'));
-		for($i=1 ;$i<=7;$i++){
-			$last7days[] = date('Y-m-d',  strtotime('-'.$i.' day'));
-		}
+		 $prv_date = date('Y-m-d',  strtotime('last monday'));
+  		 $last_week_date = date('Y-m-d',  strtotime('last monday', strtotime($prv_date)));
+  		 $days_diff = (strtotime(date('Y-m-d'))-strtotime($prv_date))/(24*60*60);
+		for($i=0 ;$i<=$days_diff;$i++){
+		      $last7days[] = date('Y-m-d',  strtotime('-'.$i.' day'));
+		   }
 		//print_r($user_details);
 		foreach($user_details AS $key=>$val){
 			$message ='<div><img src="'.HTTP_ROOT.'img/images/logo_outer.png"/><br/>';
 			//$message .= "<div style='font-family:verdana;font-size:12px;'>Hi ".$val['User']['name'].'</div><br/>';
-			$timezone_details = '';
+		$timezone_details = '';
 			$timezone_details = $tzone[$val['User']['timezone_id']];
+			//var_dump($timezone_details);exit;
 			$dateCurnt = $this->Tmzone->GetDateTime($val['User']['timezone_id'],$tzone[$val['User']['timezone_id']]['gmt_offset'],$tzone[$val['User']['timezone_id']]['dst_offset'],'',GMT_DATETIME,"datetime"); 
 			$dateCurnt1 = explode(' ',$dateCurnt);
 			$tim = $dateCurnt1['0']; 
-			$min=date('i',strtotime($dateCurnt)); 
-			$hour=date('H',strtotime($dateCurnt));  
-			$day =  gmdate('N',strtotime($dateCurnt)); // Day number in numeric value
-			$dt =  gmdate('j',strtotime($dateCurnt)); //Date in single numeric value
-			$month =  gmdate('m',strtotime($dateCurnt)); 
-			$lastDate = gmdate('Y-m-d');
-			$frmdt = date("m/d/Y",  (strtotime($dateCurnt)-(7*24*60*60)));
-			$todt = date("m/d/Y",  strtotime($dateCurnt)-(24*60*60));
+			 $dt =  gmdate('j',strtotime($dateCurnt)); //Date in single numeric value
+	        	 $month =  gmdate('m',strtotime($dateCurnt)); 
+	        	 $lastDate = gmdate('Y-m-d');
+			 // $frmdt = date("M d, Y",  (strtotime($dateCurnt)-(7*24*60*60)));
+	        	 $todt = date("M d, Y",  strtotime($dateCurnt));
+	        	 $frmdt = date("D, M d",  (strtotime($dateCurnt)-($days_diff*24*60*60)));
+	        	 
 			$subject = "Orangescrum Usage Report ".$frmdt." - ".$todt;
 			$header ='<div style="font-family:verdana;font-size:12px;color:#333;padding:0;margin:0;border:1px solid #ccc;float:left;width:600px;">
 			<div style="background:#555555;padding:5px 10px;margin-bottom:15px;">
 				<div style="float:left;color:#FFF;font-size:26px;font-weight:bold;">'.ucfirst($val['Company']['name']).'</div>
 				<div style="float:right;color:#fff;font-size:14px;">
-				<div style="font-size:12px;text-align:right;padding-top:7px;font-weight:bold">'.date("D, M d",  (strtotime($dateCurnt)-(7*24*60*60)))."&nbsp;-&nbsp;".date("D, M d",strtotime($dateCurnt)-(24*60*60)).' </div>
+				<div style="font-size:12px;text-align:right;padding-top:7px;font-weight:bold">'.$frmdt."&nbsp;-&nbsp;".$todt.' </div>
 			</div>
 			<div style="clear:both"></div>	
 			</div><div style="padding:10px">';
 			$message_top = '<div style="font-family:verdana;font-size:12px;">Hi '.$val['User']['name'].',<br/><br/>Here is your weekly usage report,</div><br/><div style="clear:both"></div> ';
 			//echo $prv_date."<br/>";
-			if($day==1 && $hour=='07' && $min<30){
+		//	if($day==1 && $hour=='07' && $min<30){
 			//if($hour=='07' && $min<30){
 				$userlogin = $companyusercls->query('SELECT COUNT(u.id) as notlogged,(SELECT COUNT(*) FROM company_users WHERE company_id='.$val['Company']['id'].' AND is_active=1) AS tot FROM users u , company_users cu WHERE u.id=cu.user_id AND cu.is_active=1 AND cu.company_id='.$val['Company']['id'].' AND DATE(u.dt_last_logout)<="'.$prv_date.'" ');
 				//echo 'SELECT COUNT(u.id) FROM users u , company_users cu WHERE u.id=cu.user_id AND cu.company_id='.$val['Company']['id'].' AND DATE(u.dt_last_logout)<="'.$prv_date.'" ';
@@ -961,7 +962,7 @@ class CronController extends AppController{
 				 			}
 							$project_idlist .= $value[0]['project_ids'].',';
 							$easycase_idlist .= $value[0]['easycase_ids'].',';
-							$total_hr_spent = $value[0]['cnt']['hrs'];
+							$total_hr_spent = $value[0]['hr_spent'];
 						}
 					}
 					$message .='<div style="width:85px;height:20px;border:1px solid #fff;float:left;text-align:center;padding:5px">'.date("D, M d",  strtotime($val1)).'</div>';
@@ -1259,7 +1260,7 @@ class CronController extends AppController{
                                 $this->Sendgrid->sendGridEmail(FROM_EMAIL,$to,$subject,$mail_body,"usagedetails");
 						
 				
-			}	
+			//}	
 		}
 		echo 'success';exit;
 	}
