@@ -2,6 +2,14 @@
 ########################################################################
 ##################### Email Sending Options ############################
 ########################################################################
+/**
+ * What method should the email be sent by
+ * Supported methods:
+ * - mail
+ * - smtp *
+ * @var string
+ */
+define("EMAIL_DELIVERY", "smtp");
 
 //Make sure to enable "php_openssl" in PHP. In WAMP, you need to enable extension=php_openssl.dll on php.ini file 
 

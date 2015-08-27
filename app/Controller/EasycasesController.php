@@ -621,7 +621,7 @@ class EasycasesController extends AppController {
 									$subject = 'Error in uploading file to S3 bucket';
 									$this->loadModel('User');
 									$userdetails = $this->User->query('SELECT User.*,Company.name FROM users User,company_users AS CompanyUser,companies AS Company WHERE User.id=CompanyUser.user_id AND CompanyUser.company_id=Company.id AND CompanyUser.company_id='.SES_COMP.' AND User.id='.SES_ID);
-									$this->Email->delivery = 'smtp';
+									$this->Email->delivery = EMAIL_DELIVERY;
 									$this->Email->to = DEV_EMAIL;
 									$this->Email->subject = $subject;
 									$this->Email->from = FROM_EMAIL;
@@ -6591,7 +6591,7 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $this->loadModel('User');
         $userdetails = $this->User->query('SELECT User.*,Company.name FROM users User,company_users AS CompanyUser,companies AS Company WHERE User.id=CompanyUser.user_id AND CompanyUser.company_id=Company.id AND CompanyUser.company_id='.SES_COMP.' AND User.id='.SES_ID);
 
-        $this->Email->delivery = 'smtp';
+        $this->Email->delivery = EMAIL_DELIVERY;
         $this->Email->to = $userdetails[0]['User']['email'];
         $this->Email->subject = $subject;
         $this->Email->from = FROM_EMAIL;

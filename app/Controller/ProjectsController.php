@@ -2034,7 +2034,7 @@ function project_thumb_view(){
 		
 		$subject = "You have been added to ".$projName." on Orangescrum";
 
-		$this->Email->delivery = 'smtp';
+		$this->Email->delivery = EMAIL_DELIVERY;
 		$this->Email->to = $to_email;      
 		$this->Email->subject = $subject;
 		$this->Email->from = FROM_EMAIL_NOTIFY;

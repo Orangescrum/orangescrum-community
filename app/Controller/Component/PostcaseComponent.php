@@ -308,7 +308,6 @@ class PostcaseComponent extends CookieComponent {
             if ($caseIstype == 2) { //if($postParam['Easycase']['message'] != '' && $caseIstype == 2)
 //socket.io implement start
                 $channel_name = $prjuniqid;
-                ;
                 $pname = $this->Format->getProjectName($projId);
                 $msgpub = "'Case Replay Available in '" . $postParam['Easycase']['title'] . "''";
 
@@ -1029,7 +1028,7 @@ Team Orangescrum
                             } else {
                                 $subject = $fromName . " invited you to join Orangescrum";
                             }
-                            $this->Email->delivery = 'smtp';
+                            $this->Email->delivery = EMAIL_DELIVERY;
                             $this->Email->to = $to;
                             $this->Email->subject = $subject;
                             $this->Email->from = FROM_EMAIL;

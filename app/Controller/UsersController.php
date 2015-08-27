@@ -625,7 +625,7 @@ class UsersController extends AppController {
 				$subject = $fromName." Invited you to join on Orangescrum";
 			}
 			
-			$this->Email->delivery = 'smtp';
+			$this->Email->delivery = EMAIL_DELIVERY;
 			$this->Email->to = $to;
 			$this->Email->subject = $subject;
 			$this->Email->from = FROM_EMAIL;
@@ -829,7 +829,7 @@ class UsersController extends AppController {
 				$qstr = md5(uniqid(rand()));
 				$urlValue = "?qstr=".$qstr;
 				
-				$this->Email->delivery = 'smtp';
+				$this->Email->delivery = EMAIL_DELIVERY;
 				$this->Email->to = $to;
 				$this->Email->subject = "Forgot Password Request";
 				$this->Email->from = FROM_EMAIL_NOTIFY;
@@ -1053,7 +1053,7 @@ class UsersController extends AppController {
 										$subject = $fromName." invited you to join Orangescrum";
 									}
 									
-									$this->Email->delivery = 'smtp';
+									$this->Email->delivery = EMAIL_DELIVERY;
 									$this->Email->to = $to;  
 									$this->Email->subject = $subject;
 									$this->Email->from = FROM_EMAIL;
@@ -1197,7 +1197,7 @@ class UsersController extends AppController {
 									$subject = $fromName." invited you to join Orangescrum";
 								}			
 
-								$this->Email->delivery = 'smtp';
+								$this->Email->delivery = EMAIL_DELIVERY;
 								$this->Email->to = $to;  
 								$this->Email->subject = $subject;
 								$this->Email->from = FROM_EMAIL;
@@ -1753,7 +1753,7 @@ class UsersController extends AppController {
 		    $to = $upd_email;
 		    $Name = $user['User']['name'];						
 		    $subject = "Orangescrum Login Email ID Confirmation";
-		    $this->Email->delivery = 'smtp';
+		    $this->Email->delivery = EMAIL_DELIVERY;
 		    $this->Email->to = $to;  
 		    $this->Email->subject = $subject;
 		    $this->Email->from = FROM_EMAIL;
@@ -2882,7 +2882,7 @@ class UsersController extends AppController {
 						
 						$subject = $fromName." invited you to join ".$comp['Company']['name']." on Orangescrum";
 						
-						$this->Email->delivery = 'smtp';
+						$this->Email->delivery = EMAIL_DELIVERY;
 						$this->Email->to = $to;  
 						$this->Email->subject = $subject;
 						$this->Email->from = FROM_EMAIL;
@@ -3261,7 +3261,7 @@ function done_cropimage(){
 			$subject = "You have been added to ".$pjnames." on Orangescrum";
 		}
 		
-		$this->Email->delivery = 'smtp';
+		$this->Email->delivery = EMAIL_DELIVERY;
 		$this->Email->to = $to;
 		$this->Email->subject = $subject;
 		$this->Email->from = FROM_EMAIL_NOTIFY;
@@ -3437,7 +3437,7 @@ function done_cropimage(){
 				$subject = "Welcome to Orangescrum, " . ucfirst($name) . "!";
 				$activation_url = PROTOCOL . $comp['Company']['seo_url'] . "." . DOMAIN . "users/confirmation/" . $activation_id;
 				$web_address = PROTOCOL . $comp['Company']['seo_url'] . "." . DOMAIN;
-				$this->Email->delivery = 'smtp';
+				$this->Email->delivery = EMAIL_DELIVERY;
 				$this->Email->to = $to;
 				$this->Email->subject = $subject;
 				$this->Email->from = $from;

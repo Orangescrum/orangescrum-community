@@ -101,7 +101,7 @@ class CronController extends AppController{
 					echo 'Simple Email Caught exception: ',  $e->getMessage(), "\n<br/>";
 				}
 				
-				$this->Email->delivery = 'smtp';
+				$this->Email->delivery = EMAIL_DELIVERY;
 				$this->Email->to = urldecode($_GET['to']);
 				$this->Email->subject = "Testing SMTP Template Email -".time();
 				$this->Email->from = FROM_EMAIL;
