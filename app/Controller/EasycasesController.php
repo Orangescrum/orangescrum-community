@@ -1070,6 +1070,9 @@ class EasycasesController extends AppController {
         }elseif($sortby=='caseAt') {
             $caseAtsort = strtolower($sortorder);
             $orderby = "Assigned ".$sortorder;
+        }elseif($sortby=='priority') {
+            $caseAtsort = strtolower($sortorder);
+            $orderby = "Priority ".$sortorder;
         }else {
             $orderby = "Easycase.dt_created DESC";
         }

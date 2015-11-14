@@ -139,6 +139,9 @@
 			<li>
 				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseAt');">Assigned to</a>
 			</li>
+			<li>
+				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('priority');">Priority</a>
+			</li>
 
 		</ul>
 	</div>
