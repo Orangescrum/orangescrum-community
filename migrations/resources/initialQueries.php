@@ -1066,18 +1066,6 @@ $queries[] =
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
 
 
-//Dumping data for table `user_logins`
-$queries[] =
-"INSERT INTO `user_logins` (`id`, `user_id`, `created`) VALUES
-(1, 1, '2014-09-15 09:59:39'),
-(2, 1, '2014-09-15 10:07:08'),
-(3, 1, '2014-09-15 10:10:52'),
-(4, 1, '2014-09-17 10:45:21'),
-(5, 1, '2014-09-18 05:41:54')";
-
-
-
-
 // Table structure for table `user_notifications`
 $queries[] =
 "CREATE TABLE IF NOT EXISTS `user_notifications` (
