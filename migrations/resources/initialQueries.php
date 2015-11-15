@@ -361,7 +361,7 @@ foreach ($rows as $index => $row)
 {
     foreach($row as $index => $value)
     {
-        $row[$index] = "'" . mysqli_escape_string($mysqli, $value) . "'";
+        $row[$index] = "'" . mysqli_escape_string($mysqliConn, $value) . "'";
     }
     
     $valueStrings[] .= "(" . implode(",", $row) . ")";
