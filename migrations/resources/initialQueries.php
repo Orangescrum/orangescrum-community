@@ -17,7 +17,7 @@ $queries[] =
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 // Table structure for table `case_actions`
@@ -32,7 +32,7 @@ $queries[] =
   KEY `easycase_id` (`easycase_id`),
   KEY `user_id` (`user_id`),
   KEY `action` (`action`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -57,7 +57,7 @@ $queries[] =
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `isactive` (`isactive`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -81,7 +81,7 @@ $queries[] =
   KEY `easycase_id` (`easycase_id`),
   KEY `comment_id` (`comment_id`),
   KEY `isactive` (`isactive`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
 
@@ -94,7 +94,7 @@ $queries[] =
   `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
   `file_info` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -107,7 +107,7 @@ $queries[] =
   `user_id` int(10) NOT NULL COMMENT 'Foreign Key of \"Users\"',
   `order` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -122,7 +122,7 @@ $queries[] =
   `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -140,7 +140,7 @@ $queries[] =
   `email` varchar(250) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -157,7 +157,7 @@ $queries[] =
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -171,7 +171,7 @@ $queries[] =
   `ismail` tinyint(2) NOT NULL DEFAULT '1' COMMENT '0-Stop Mailing, 1-Email Me',
   PRIMARY KEY (`id`),
   KEY `easycase_id` (`easycase_id`,`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
 
@@ -187,7 +187,7 @@ $queries[] =
   `isviewed` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0-Not Viewed, 1-Viewed',
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
 
@@ -212,7 +212,7 @@ $queries[] =
   PRIMARY KEY (`id`),
   KEY `is_active` (`is_active`),
   FULLTEXT KEY `uniq_id` (`uniq_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -238,7 +238,7 @@ $queries[] =
   KEY `user_type` (`user_type`),
   KEY `is_active` (`is_active`),
   FULLTEXT KEY `company_uniq_id` (`company_uniq_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -261,7 +261,7 @@ $queries[] =
   `filter_search` text NOT NULL,
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -279,7 +279,7 @@ $queries[] =
   `modified` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -297,7 +297,7 @@ $queries[] =
   `days` int(11) NOT NULL DEFAULT '5' COMMENT 'default:5',
   `cron_email_date` date DEFAULT NULL COMMENT 'When email is sent , this field is going to update',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -312,7 +312,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -331,7 +331,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -377,8 +377,7 @@ implode(",", $valueStrings);
 
 // Table structure for table `easycases`
 $queries[] =
-"DROP TABLE IF EXISTS `easycases`;
-CREATE TABLE IF NOT EXISTS `easycases` (
+"CREATE TABLE IF NOT EXISTS `easycases` (
   `id` mediumint(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
   `case_no` int(11) NOT NULL,
@@ -418,14 +417,12 @@ CREATE TABLE IF NOT EXISTS `easycases` (
   KEY `assign_to` (`assign_to`),
   KEY `priority` (`priority`),
   KEY `type_id` (`type_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
 
 
 // Table structure for table `easycase_milestones`
-
-
 $queries[] =
 "CREATE TABLE IF NOT EXISTS `easycase_milestones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -440,7 +437,7 @@ $queries[] =
   KEY `milestone_id` (`milestone_id`),
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -453,13 +450,12 @@ $queries[] =
   `email_type` int(11) NOT NULL COMMENT '1:Aaccount Activation, 2:login, 3:Project Creation, 4:User Add, 5:Task Add',
   `cron_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
 
 // Table structure for table `log_activities`
-
 $queries[] =
 "CREATE TABLE IF NOT EXISTS `log_activities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -470,7 +466,7 @@ $queries[] =
   `created` datetime DEFAULT NULL,
   `ip` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
 
 
@@ -556,7 +552,7 @@ $queries[] =
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -583,7 +579,7 @@ $queries[] =
   KEY `isactive` (`isactive`),
   KEY `project_type` (`project_type`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -597,7 +593,7 @@ $queries[] =
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `tech_proj_id` (`technology_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -614,7 +610,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -632,7 +628,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -652,7 +648,7 @@ $queries[] =
   KEY `user_id` (`user_id`),
   KEY `istype` (`istype`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -668,7 +664,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -689,7 +685,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1";
 
 
 //Dumping data for table `subscriptions`
@@ -712,7 +708,7 @@ $queries[] =
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -923,7 +919,7 @@ $queries[] =
   `company_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -967,7 +963,7 @@ $queries[] =
   `company_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -1018,7 +1014,7 @@ $queries[] =
   KEY `isactive` (`isactive`),
   KEY `isemail` (`isemail`),
   KEY `timezone_id` (`timezone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -1031,7 +1027,7 @@ $queries[] =
   `access_token` text,
   `is_google_signup` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 
 
@@ -1051,7 +1047,7 @@ $queries[] =
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -1063,7 +1059,7 @@ $queries[] =
   `user_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1";
 
 
 // Table structure for table `user_notifications`
@@ -1079,7 +1075,7 @@ $queries[] =
   `case_status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0-No, 1-Yes',
   `weekly_usage_alert` tinyint(2) NOT NULL DEFAULT '1' COMMENT 'Only for owner/admins 1-> Default on 0-> Off ',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
 
@@ -1119,4 +1115,4 @@ $queries[] =
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`),
   KEY `subscription_id` (`subscription_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1";
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
