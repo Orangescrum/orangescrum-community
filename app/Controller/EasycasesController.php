@@ -1054,29 +1054,41 @@ class EasycasesController extends AppController {
         }
         // Order by
         $sortby ='';
-        if(isset($_COOKIE['TASKSORTBY'])) {
-            $sortby = $_COOKIE['TASKSORTBY'];
-            $sortorder = $_COOKIE['TASKSORTORDER'];
+        $orderby = [];
+        if(isset($_COOKIE['TASKSORT'])) {
+            $sortby = (array) json_decode( $_COOKIE['TASKSORT'] );
         }
-        if($sortby=='title') {
-            $orderby = "LTRIM(Easycase.title) ".$sortorder;
-            $caseTitle = strtolower($sortorder);
-        }elseif($sortby=='duedate') {
-            $caseDueDate = strtolower($sortorder);
-            $orderby = "Easycase.due_date ".$sortorder;
-        }elseif($sortby=='caseno') {
-            $caseNum = strtolower($sortorder);
-            $orderby = "Easycase.case_no ".$sortorder;
-        }elseif($sortby=='caseAt') {
-            $caseAtsort = strtolower($sortorder);
-            $orderby = "Assigned ".$sortorder;
-        }elseif($sortby=='priority') {
-            $caseAtsort = strtolower($sortorder);
-            $orderby = "Priority ".$sortorder;
-        }else {
-            $orderby = "Easycase.dt_created DESC";
+
+        foreach( $sortby as $fieldName => $fieldValue )
+        {
+            if($fieldName == 'title') {
+                $orderby[] = "LTRIM(Easycase.title) ".$fieldValue;
+                $caseTitle = strtolower($fieldValue);
+            }
+            if($fieldName == 'duedate' ) {
+                $caseDueDate = strtolower($fieldValue);
+                $orderby[] = "Easycase.due_date ".$fieldValue;
+            }
+            if($fieldName === 'caseno' ) {
+                $caseNum = strtolower($fieldValue);
+                $orderby[] = "Easycase.case_no ".$fieldValue;
+            }
+            if($fieldName == 'caseAt') {
+                $caseAtsort = strtolower($fieldValue);
+                $orderby[] = "Assigned ".$fieldValue;
+            }
+            if($fieldName == 'priority') {
+                $caseAtsort = strtolower($fieldValue);
+                $orderby[] = "Easycase.priority ".$fieldValue;
+            }
         }
-        $groupby  = '';
+
+        if(empty($orderby)){
+            $orderby[] = "Easycase.dt_created DESC";
+        }
+        $orderby = implode( ', ', $orderby );
+
+        $groupby = '';
         $gby='';
         if(isset($_COOKIE['TASKGROUPBY']) && $_COOKIE['TASKGROUPBY'] !='date') {
             setcookie('TASKSORTBY','',time()-3600,'/',DOMAIN_COOKIE,false,false);

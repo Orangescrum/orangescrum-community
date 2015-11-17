@@ -116,7 +116,7 @@
 					<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('priority');">Priority</a>
 				</li>
 				<li>
-					<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('assignto');">Assigned to</a>
+					<a href="javascript:jsVoid();" title="Assigned to" data-toggle="dropdown" onclick="groupby('assignto');">Assigned to</a>
 				</li>
 			</ul>
 		</div>
@@ -128,20 +128,25 @@
 		<ul class="dropdown-menu" id="dropdown_menu_sortby_filters" style="position: absolute;">
 			<li class="pop_arrow_new"></li>
 			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('title');">Title</a>
+				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('title');">Title</a>
+				<a href="javascript:jsVoid();" onclick="ajaxMultiSorting('title');">+</a>
 			</li>
 			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseno');">Task#</a>
+				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('caseno');">Task#</a>
+                <a href="javascript:jsVoid();" onclick="ajaxMultiSorting('caseno');">+</a>
+            </li>
+			<li>
+				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('duedate');"> Due Date</a>
+                <a href="javascript:jsVoid();" onclick="ajaxMultiSorting('duedate');">+</a>
+            </li>
+			<li>
+				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('caseAt');">Assigned to</a>
+                <a href="javascript:jsVoid();" onclick="ajaxMultiSorting('caseAt');">+</a>
 			</li>
 			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('duedate');"> Due Date</a>
-			</li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseAt');">Assigned to</a>
-			</li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('priority');">Priority</a>
-			</li>
+				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('priority');">Priority</a>
+                <a href="javascript:jsVoid();" onclick="ajaxMultiSorting('priority');">+</a>
+            </li>
 
 		</ul>
 	</div>

@@ -1846,11 +1846,52 @@ function detChangepriority(caseId,priority,caseUniqId,cno) {
 	});
 }
 
+function ajaxMultiSorting(type){
+    if(typeof(getCookie("TASKSORT")!='undefined') && getCookie("TASKSORT") != '{}' && getCookie("TASKSORT") != '' ) {
+        var sort = JSON.parse( getCookie("TASKSORT") );
+        if( sort.hasOwnProperty( type ) )
+        {
+            if( sort[type] == 'ASC' )
+                sort[type] = 'DESC';
+            else
+                sort[type] = 'ASC';
+        }else{
+            sort[type] = 'ASC';
+        }
+
+    }else{
+        var sort= {};
+        sort[type] = 'ASC';
+    }
+    console.info( sort );
+    remember_filters( 'TASKSORT', JSON.stringify( sort ) );
+    easycase.refreshTaskList();
+}
+
 function ajaxSorting(type,cases,el){
 	/*if(typeof getCookie("TASKGROUPBY") !='undefined' && getCookie("TASKGROUPBY") !='date'){
 		return false;
-	} */ 
-	document.getElementById('isSort').value = "1";
+	} */
+    var newsort = {};
+    if(typeof(getCookie("TASKSORT")!='undefined') && getCookie("TASKSORT") != '{}' && getCookie("TASKSORT") != '' ) {
+        var sort = JSON.parse( getCookie("TASKSORT") );
+        if( sort.hasOwnProperty( type ) )
+        {
+            if( sort[type] == 'ASC' )
+                newsort[type] = 'DESC';
+            else
+                newsort[type] = 'ASC';
+        }else{
+            newsort[type] = 'ASC';
+        }
+
+    }else{
+        newsort[type] = 'ASC';
+    }
+    console.info( newsort );
+    remember_filters( 'TASKSORT', JSON.stringify( newsort ) );
+
+	/*document.getElementById('isSort').value = "1";
 	if(typeof(getCookie("TASKSORTBY")!='undefined') && getCookie("TASKSORTBY") ==type){
 		var tsorder = getCookie('TASKSORTORDER');
 		if(tsorder=='ASC'){
@@ -1865,8 +1906,8 @@ function ajaxSorting(type,cases,el){
 		remember_filters("TASKSORTORDER",'DESC');
 		var tcls = 'tsk_asc';
 	}
-	$('.tsk_sort').removeClass('tsk_asc tsk_desc'); 
-	var el= $('.sort'+type).children('.tsk_sort').addClass(tcls);
+	$('.tsk_sort').removeClass('tsk_asc tsk_desc');
+	var el= $('.sort'+type).children('.tsk_sort').addClass(tcls);*/
 	
 	/*if($(el).children('.tsk_sort.tsk_asc').length){
 		$('.tsk_sort').removeClass('tsk_asc tsk_desc');
