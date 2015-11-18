@@ -1863,15 +1863,11 @@ function ajaxMultiSorting(type){
         var sort= {};
         sort[type] = 'ASC';
     }
-    console.info( sort );
     remember_filters( 'TASKSORT', JSON.stringify( sort ) );
     easycase.refreshTaskList();
 }
 
 function ajaxSorting(type,cases,el){
-	/*if(typeof getCookie("TASKGROUPBY") !='undefined' && getCookie("TASKGROUPBY") !='date'){
-		return false;
-	} */
     var newsort = {};
     if(typeof(getCookie("TASKSORT")!='undefined') && getCookie("TASKSORT") != '{}' && getCookie("TASKSORT") != '' ) {
         var sort = JSON.parse( getCookie("TASKSORT") );
@@ -1888,7 +1884,6 @@ function ajaxSorting(type,cases,el){
     }else{
         newsort[type] = 'ASC';
     }
-    console.info( newsort );
     remember_filters( 'TASKSORT', JSON.stringify( newsort ) );
 
 	/*document.getElementById('isSort').value = "1";
@@ -1908,13 +1903,13 @@ function ajaxSorting(type,cases,el){
 	}
 	$('.tsk_sort').removeClass('tsk_asc tsk_desc');
 	var el= $('.sort'+type).children('.tsk_sort').addClass(tcls);*/
-	
+
 	/*if($(el).children('.tsk_sort.tsk_asc').length){
 		$('.tsk_sort').removeClass('tsk_asc tsk_desc');
 		$(el).children('.tsk_sort').addClass('tsk_desc');
-		
+
 		//$('#remember_filter').load(HTTP_ROOT+"easycases/remember_filters?issort=1&"+type+"=desc");
-		
+
 		$('#caseTitle, #caseDate, #caseDueDate, #caseNum, #caseLegendsort, #caseAtsort, #caseCreatedDate').val("");
 		if(type == "title"){
 			$('#caseTitle').val("desc");
@@ -1931,9 +1926,9 @@ function ajaxSorting(type,cases,el){
 	} else {
 		$('.tsk_sort').removeClass('tsk_asc tsk_desc');
 		$(el).children('.tsk_sort').addClass('tsk_asc');
-		
+
 		//$('#remember_filter').load(HTTP_ROOT+"easycases/remember_filters?issort=1&"+type+"=asc");
-		
+
 		$('#caseTitle, #caseDate, #caseDueDate, #caseNum, #caseLegendsort, #caseAtsort, #caseCreatedDate').val("");
 		if(type == "title"){
 			$('#caseTitle').val("asc");
@@ -2190,8 +2185,8 @@ function iniDueDateFilter(){
 		    $('#case_search, #caseSearch').val("");
 		    $('#case_srch').val("");
 		    var requiredUrl = document.URL;
-		    
-		    var n = requiredUrl.indexOf("filters=cases");	
+
+		    var n = requiredUrl.indexOf("filters=cases");
 		    if(n != -1){
 				remember_filters('CASESRCH','');
 				remember_filters('SEARCH','');
@@ -2207,8 +2202,7 @@ function iniDueDateFilter(){
 			casePage = 1;
 			//ajaxCaseView("case_project.php");
 		}else if(ftype=='taskorder'){
-			remember_filters('TASKSORTBY','');
-			remember_filters('TASKSORTORDER','');
+			remember_filters('TASKSORT','');
 		}else if(ftype=='taskgroupby'){
 			$('.sortby_btn').removeAttr('disabled');
 			$('.sortby_btn').removeClass('disable-btn');
