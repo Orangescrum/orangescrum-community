@@ -1,4 +1,4 @@
-/* 
+/*
 Author: Start Bootstrap - http://startbootstrap.com
 'SB Admin' HTML Template by Start Bootstrap
 
@@ -862,7 +862,7 @@ td.file_pdr a.file_name_ipad{max-width:460px;white-space:nowrap;text-overflow:el
 .task-type-cnt{margin: 6px;color: #397196;font-size: 11px;font-weight: bold;line-height: 0.6;padding: 3px;text-align: center;}
 
 /*Tab*/
-	
+
 @media (max-width:1030px) {	.ipad_txt{display:none}}
 @media (max-width:800px) {
 	.w-736{width:486px}
@@ -2279,7 +2279,7 @@ table.col-lg-12.ajx-srch-tbl tr.nohover:hover{background:#fff;color:#333; cursor
 	.kanbanview-filter #dropdown_menu_priority_div{left:-121px;}
 	.kanbanview-filter #dropdown_menu_types_div{left:-168px;}
 	.kanbanview-filter #dropdown_menu_status_div{left:-122px;}*/
-	
+
 	
 	
 /* Kanban view Menu filters */
@@ -2750,7 +2750,7 @@ li.dropdown.alerts-dropdown.help_a a{cursor:pointer}
 	border:1px solid #D3D3D3;
 	color:#C5C0B0;
 	display:none;
-	list-style:none;	
+	list-style:none;
 	left: -7px;
     margin-top: 3px;
     padding: 4px;
@@ -3164,3 +3164,16 @@ td.ml_title_wd{width:300px;}
 
 .edit_mile{background:url(../img/edit_ic2.png) no-repeat 0px 0px transparent; height:19px;width:23px;margin:3px -14px 0px 10px;cursor:pointer;opacity:0.3}
 .kbhead:hover .edit_mile{opacity:1}
+
+.dropdown-menu.sortby {
+    display: table;
+}
+.dropdown-menu.sortby li:nth-child(n+2){
+    display: table-row;
+}
+.dropdown-menu.sortby a{
+    display: table-cell;
+}
+.dropdown-menu.sortby a:nth-child(2n){
+    font-weight: bold;
+}

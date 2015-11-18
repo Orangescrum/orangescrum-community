@@ -125,11 +125,11 @@
 		<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt sortby_btn <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disable-btn<?php }?> " onclick="openfilter_popup(0,'dropdown_menu_sortby_filters');" <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disabled="disabled"<?php }?>>
 				<i class="icon_sortby_img"></i>Sort by<i class="icon-filter-right"></i>
 		</button>
-		<ul class="dropdown-menu" id="dropdown_menu_sortby_filters" style="position: absolute;">
+		<ul class="dropdown-menu sortby" id="dropdown_menu_sortby_filters" style="position: absolute;">
 			<li class="pop_arrow_new"></li>
 			<li>
 				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('title');">Title</a>
-				<a href="javascript:jsVoid();" onclick="ajaxMultiSorting('title');">+</a>
+                <a href="javascript:jsVoid();" onclick="ajaxMultiSorting('title');">+</a>
 			</li>
 			<li>
 				<a href="javascript:jsVoid();" data-toggle="dropdown" onclick="ajaxSorting('caseno');">Task#</a>
