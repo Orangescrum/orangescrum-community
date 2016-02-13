@@ -43,10 +43,10 @@ define("SMTP_PWORD", "******");
 */
 
 ########################################################################
-define("WEB_DOMAIN", "YourDomain.com"); //ex. demo.orangescrum.com
+define("WEB_DOMAIN",        "YourDomain.com"); //ex. demo.orangescrum.com
 define('FROM_EMAIL_NOTIFY', 'notify@mycompany.com'); //(REQUIRED)
-define('SUPPORT_EMAIL', 'support@mycompany.com'); //(REQUIRED) From Email
-define('FROM_EMAIL',  'Orangescrum<'.SUPPORT_EMAIL.'>');
+define('SUPPORT_EMAIL',     'support@mycompany.com'); //(REQUIRED) From Email
+define('FROM_EMAIL',        'Orangescrum<'.SUPPORT_EMAIL.'>');
 
 define("DEV_EMAIL", 'developer@mycompany.com'); // Developer Email ID to report the application error
 define('EMAIL_SUBJ', '[Orangescrum]');
@@ -59,30 +59,38 @@ define('RELEASE',1); //Increase the release version on every CSS/JS changes to r
 ##################### Domain and URL Constants ############################
 define('SUB_FOLDER', ''); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'
 
-if(php_sapi_name() === "cli") {
-	define('PROTOCOL', "http://");
-	define('DOMAIN', "www.my-orangescrum.com/"); // Please set your application domain (REQUIRED)
-}else{
-	$ht = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')?"https://":"http://";
-	define('PROTOCOL', $ht);
-	if($_SERVER['SERVER_PORT'] != 80)
-		define('DOMAIN', $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/"); 
-	else	
-		define('DOMAIN', $_SERVER['SERVER_NAME']."/");
+if (php_sapi_name() === "cli") 
+{
+    define('PROTOCOL', "http://");
+    define('DOMAIN', "www.my-orangescrum.com/"); // Please set your application domain (REQUIRED)
 }
-define('HTTP_SERVER',PROTOCOL.DOMAIN);
-define('HTTP_ROOT', HTTP_SERVER.SUB_FOLDER);
+else
+{   
+    $ht = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')?"https://":"http://";
+    define('PROTOCOL', $ht);
+    
+    if ($_SERVER['SERVER_PORT'] != 80)
+    {
+        define('DOMAIN', $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/"); 
+    }
+    else
+    {
+        define('DOMAIN', $_SERVER['SERVER_NAME']."/");
+    }
+}
+define('HTTP_SERVER',   PROTOCOL.DOMAIN);
+define('HTTP_ROOT',     HTTP_SERVER.SUB_FOLDER);
 define('DOMAIN_COOKIE', $_SERVER['SERVER_NAME']);
-define('HTTP_APP', PROTOCOL.DOMAIN.SUB_FOLDER);
-define('HTTPS_HOME', PROTOCOL.DOMAIN.SUB_FOLDER);
-define('HTTP_HOME', "http://".DOMAIN.SUB_FOLDER);
+define('HTTP_APP',      PROTOCOL.DOMAIN.SUB_FOLDER);
+define('HTTPS_HOME',    PROTOCOL.DOMAIN.SUB_FOLDER);
+define('HTTP_HOME',     "http://".DOMAIN.SUB_FOLDER);
 
 ##################### Google Keys (Login, Drive, Contacts) ############################
-define("CLIENT_ID", "XXXXXXXXXXXX.apps.googleusercontent.com");
+define("CLIENT_ID",     "XXXXXXXXXXXX.apps.googleusercontent.com");
 define("CLIENT_ID_NUM", "XXXXXXXXXXXX");
 define("CLIENT_SECRET", "xXxXXxxxx_xXxXXxxxx");
-define("API_KEY", "xXxXXxxxxxXXXXXXXXXXXXXxXXxxxx");
-define("REDIRECT_URI", HTTP_ROOT."users/googleConnect");
+define("API_KEY",       "xXxXXxxxxxXXXXXXXXXXXXXxXXxxxx");
+define("REDIRECT_URI",  HTTP_ROOT . "users/googleConnect");
 
 define("USE_GOOGLE", 0); //Set this parameter to 1, to use Google Login, Drive and Contacts
 
@@ -135,20 +143,23 @@ define('GMT_TIME', gmdate('H:i:s'));
 define('USE_LOCAL',0);
 
 ########## Cookie Settings ############
-if(isset($_COOKIE['REMEMBER']) && $_COOKIE['REMEMBER']) {
-define('COOKIE_TIME', time()+3600*24*7);
+if (isset($_COOKIE['REMEMBER']) && $_COOKIE['REMEMBER']) 
+{
+    define('COOKIE_TIME', time()+3600*24*7);
 }
-else {
-define('COOKIE_TIME',time()+3600*2);
+else 
+{
+    define('COOKIE_TIME',time()+3600*2);
 }
-define('COOKIE_REM',time()+3600*24*30);
 
+define('COOKIE_REM',time()+3600*24*30);
 define('CSS_PATH', HTTP_ROOT.'css/');
 define('JS_PATH', HTTP_ROOT.'js/');
 
 
 //print "gggggggggggg".WWW_ROOT.$_SERVER['DOCUMENT_ROOT'];exit;
-if(WWW_ROOT == 'WWW_ROOT'){
+if (WWW_ROOT == 'WWW_ROOT')
+{
     $w_root = $_SERVER['DOCUMENT_ROOT'].'/'.SUB_FOLDER.'app/webroot/';
     define('DIR_IMAGES', $w_root.'img/');
     define('CSV_PATH', $w_root.'csv/');
@@ -156,7 +167,9 @@ if(WWW_ROOT == 'WWW_ROOT'){
     define('DIR_FILES', $w_root.'files/');
     define('DIR_CASE_FILES', DIR_FILES.'case_files/');
     define('DIR_USER_PHOTOS', DIR_FILES.'photos/');
-}else{
+}
+else
+{
     define('DIR_IMAGES', WWW_ROOT.'img/');
     define('CSV_PATH', WWW_ROOT.'csv/');
     define('DOWNLOAD_TASK_PATH', WWW_ROOT.'DownloadTask/');
@@ -164,6 +177,7 @@ if(WWW_ROOT == 'WWW_ROOT'){
     define('DIR_CASE_FILES', DIR_FILES.'case_files/');
     define('DIR_USER_PHOTOS', DIR_FILES.'photos/');
 }
+
 define('DIR_USER_PHOTOS_TEMP', 'files/temp/');
 define('DIR_USER_PHOTOS_THUMB', 'files/thumb/');
 
