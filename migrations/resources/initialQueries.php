@@ -349,11 +349,96 @@ $queries[] =
 
 
 // Inserting data for table `default_templates`
+
+$bugDescription = 
+    '<b>Browser version:</b>\n       <br/>\n       ' . 
+    '<b>OS version:</b>\n        <br/><br/>\n        ' . 
+    '<b>Url:</b>\n       <br/><br/>\n        ' . 
+    '<b>What is the test case:</b><br/>\n        ' . 
+    '<b>What is the expected result:</b><br/>\n        ' . 
+    '<b>What is the actual result:</b><br/><br/>\n       \n        ' .
+    '<b>Is it happening all the time or intermittently:</b><br/>\n       <br/>\n       ' . 
+    '<b>Attach screenshots:</b>';
+
+$changeRequestDescription = 
+    '<p><strong>Change Requested:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 125</strong></p>\n       ' . 
+    '<p><strong>Today\'s accomplishment:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p><br /> <strong>List of files changed:</strong></p>\n       ' . 
+    '<ol>\n        ' . 
+        '<li>index.html</li>\n       ' . 
+        '<li>style.css</li>\n        ' . 
+        '<li>contact-us.html</li>\n        ' . 
+    '</ol>\n       ' . 
+    '<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       ' . 
+    '<p><strong>Blocker/Testing Issues:</strong></p>\n       ' . 
+    '<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       ' . 
+    '<p>&nbsp; &nbsp;1. Total tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        ' . 
+    '<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        ' . 
+    '<p><br /> <strong>Next Day\'s Plan:</strong></p>';
+
+$statusUpdateDescription = 
+    '<p><strong>Today\'s accomplishment:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p><br /> <strong>List of files changed:</strong></p>\n       ' . 
+    '<ol>\n        ' . 
+        '<li>index.html</li>\n       ' . 
+        '<li>style.css</li>\n        ' . 
+        '<li>contact-us.html</li>\n        ' . 
+    '</ol>\n       ' . 
+    '<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       ' . 
+    '<p><strong>Blocker/Testing Issues:</strong></p>\n       ' . 
+    '<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       ' . 
+    '<p>&nbsp; &nbsp;1. Total tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        ' . 
+    '<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        ' . 
+    '<p><br /> <strong>Next Day\'s Plan:</strong></p>';
+        
+$meetingMinuteDescription = 
+    '<b>Attendees:</b>  John, Michael<br/>\n        ' . 
+    '<b>Date and Time:</b> July 11th 11 am PST<br/>\n        ' . 
+    '<b>Purpose:</b><br/>\n        \n        <br/>\n       ' . 
+    '<b>Agenda:</b> \n       ' . 
+    '<ol>\n         ' . 
+        '<li>Discuss Layout </li>\n          ' . 
+        '<li>Discuss on Design</li>\n        ' . 
+    '</ol>\n       <br/>\n       ' . 
+    '<b>Discussion:</b><br/>';
+    
+$dateString = '2014-01-24 12:58:24';
+
 $rows = array(
-  array(1, 'Meeting Minute', '<b>Attendees:</b>  John, Michael<br/>\n        <b>Date and Time:</b> July 11th 11 am PST<br/>\n        <b>Purpose:</b><br/>\n        \n        <br/>\n       <b>Agenda:</b> \n       <o>\n         <li>Discuss Layout </li>\n          <li>Discuss on Design</li>\n        </ol>\n       <br/>\n       <b>Discussion:</b><br/>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-  array(2, 'Status update', '<p><strong>Today\'s accomplishment:</strong></p>\n        <p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       <ul>\n        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        <li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        <li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        </ul>\n       <p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        <ul>\n        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        <li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        <li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        </ul>\n       <p><br /> <strong>List of files changed:</strong></p>\n       <ol>\n        <li>index.html</li>\n       <li>style.css</li>\n        <li>contact-us.html</li>\n        </ol>\n       <p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       <p><strong>Blocker/Testing Issues:</strong></p>\n       <p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       <p>&nbsp; &nbsp;1. Total tasks:</p>\n       <p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       <p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        <p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        <p><br /> <strong>Next Day\'s Plan:</strong></p>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-  array(3, 'Change Request', '<p><strong>Change Requested:</strong></p>\n        <p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       <p><strong>&nbsp; &nbsp; &nbsp; Task no: 125</strong></p>\n       <p><strong>Today\'s accomplishment:</strong></p>\n        <p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       <ul>\n        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        <li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        <li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        </ul>\n       <p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        <ul>\n        <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        <li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        <li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        </ul>\n       <p><br /> <strong>List of files changed:</strong></p>\n       <ol>\n        <li>index.html</li>\n       <li>style.css</li>\n        <li>contact-us.html</li>\n        </ol>\n       <p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       <p><strong>Blocker/Testing Issues:</strong></p>\n       <p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       <p>&nbsp; &nbsp;1. Total tasks:</p>\n       <p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       <p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        <p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        <p><br /> <strong>Next Day\'s Plan:</strong></p>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-  array(4, 'Bug', '<b>Browser version:</b>\n       <br/>\n       <b>OS version:</b>\n        <br/><br/>\n        <b>Url:</b>\n       <br/><br/>\n        <b>What is the test case:</b><br/>\n        <b>What is the expected result:</b><br/>\n        <b>What is the actual result:</b><br/><br/>\n       \n        <b>Is it happening all the time or intermittently:</b><br/>\n       <br/>\n       <b>Attach screenshots:</b>', '2014-01-24 12:58:24', '2014-01-24 12:58:24');
+  array(1, 'Meeting Minute', $meetingMinuteDescription, $dateString, $dateString),
+  array(2, 'Status update',  $statusUpdateDescription,  $dateString, $dateString),
+  array(3, 'Change Request', $changeRequestDescription, $dateString, $dateString),
+  array(4, 'Bug',            $bugDescription,           $dateString, $dateString)
 );
 
 $valueStrings = array();
