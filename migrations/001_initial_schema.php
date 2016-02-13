@@ -80,11 +80,24 @@ class InitialSchema implements iRAP\Migrations\MigrationInterface
             'user_subscriptions',
         );
         
-        foreach($tables as $table)
+        $queries = array();
+        
+        foreach ($tables as $table)
         {
             # Truncate table then delete it to prevent issues with foreign keys.
-            $result = $mysqliConn->query("TRUNCATE `" . $table`");
-            $result = $mysqliConn->query("DROP TABLE `" . $table`");
+            $queries[] = "TRUNCATE `" . $table . "`";
+            $queries[] = "DROP TABLE `" . $table . "`";
+        }
+        
+        foreach ($queries as $query)
+        {
+            $result = $mysqliConn->query($query);
+            
+            if ($result === FALSE)
+            {
+                $msg = "Down query failed: " . $mysqliConn->error;
+                throw new Exception($msg);
+            }
         }
     }
 }
