@@ -13,7 +13,7 @@ class InitialSchema implements iRAP\Migrations\MigrationInterface
         # This will create a $queries array of queries to execute.
         require_once (__DIR__ . '/resources/initialQueries.php');
         
-        foreach($queries as $query)
+        foreach ($queries as $query)
         {
             $result = $mysqliConn->query($query);
             
