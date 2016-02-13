@@ -1,0 +1,106 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "57c8288a434223ebfe411f65b37ed13d",
+    "content-hash": "fc8ab1546ce15586c68d6149f912b3a3",
+    "packages": [
+        {
+            "name": "irap/migrations",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iRAP-software/package-migrations.git",
+                "reference": "c14b0b2ebef0b7f0db8666128cdc3d28d7d9a563"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iRAP-software/package-migrations/zipball/c14b0b2ebef0b7f0db8666128cdc3d28d7d9a563",
+                "reference": "c14b0b2ebef0b7f0db8666128cdc3d28d7d9a563",
+                "shasum": ""
+            },
+            "require": {
+                "irap/table-creator": "1.0.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iRAP\\Migrations\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "none"
+            ],
+            "authors": [
+                {
+                    "name": "Stuart Page",
+                    "email": "stuart.page@irap.org",
+                    "homepage": "http://irap.org/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Package handling Mysql Migrations/versioning.",
+            "homepage": "http://www.irap.org/",
+            "keywords": [
+                "models",
+                "mysql",
+                "mysqli"
+            ],
+            "time": "2015-10-28 13:56:28"
+        },
+        {
+            "name": "irap/table-creator",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iRAP-software/package-table-creator.git",
+                "reference": "9cbf2387619b7fb826bbda91335d7f7627fde696"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iRAP-software/package-table-creator/zipball/9cbf2387619b7fb826bbda91335d7f7627fde696",
+                "reference": "9cbf2387619b7fb826bbda91335d7f7627fde696",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iRAP\\TableCreator\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stuart Page",
+                    "email": "stuart.page@iRAP.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Package creating or editing MySQL tables.",
+            "keywords": [
+                "models",
+                "mysql",
+                "mysqli"
+            ],
+            "time": "2015-10-16 13:43:38"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

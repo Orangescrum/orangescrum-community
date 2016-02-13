@@ -1,0 +1,5 @@
+{
+    "require": {
+        "irap/migrations": "1.0.2"
+    }
+}
