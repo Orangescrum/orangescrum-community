@@ -45,16 +45,23 @@ App::import('Vendor', 's3', array('file' => 's3'.DS.'S3.php'));
 App::import('Vendor', 'ElephantIO', array('file' => 'ElephantIO'.DS.'Client.php'));
 //use ElephantIO\Client as ElephantIOClient;
 
-class EasycasesController extends AppController {
+class EasycasesController extends AppController 
+{
     public $name = 'Easycase';
-	public $components = array('Format','Postcase','Sendgrid');
-
-    function help() {
-        if($this->Auth->User("id")) {
+    public $components = array('Format','Postcase','Sendgrid');
+    
+    
+    function help() 
+    {
+        if ($this->Auth->User("id")) 
+        {
             $this->layout='default_inner';
-        } else {
+        }
+        else
+        {
             $this->layout='default_outer';
         }
+        
         $this->loadModel('Help');
         $this->loadModel('Subject');
         if(trim(@$_GET['search_help_txt'])) {
@@ -79,7 +86,7 @@ class EasycasesController extends AppController {
         $this->set("allSubjectData",$allSubjectData);
         $this->set("subjectId",$subjectId);
         $this->set("subject_name",$getSubjectName);
-
+        
         if($getSearchResult && count($getSearchResult) > 0) { //If search result data present then display results
             $this->set("isSearchresult",1);
             $this->set("allHelpData",$getSearchResult);
@@ -209,26 +216,26 @@ class EasycasesController extends AppController {
         $deleteGoogle = $this->CaseFileDrive->deleteRows($condition);
 
         /*$Archive = ClassRegistry::init('Archive');
-		$Archive = ClassRegistry::init('Archive');
-		$Archive->recursive = -1;
-		$arc=$Archive->query("SELECT * FROM archives WHERE easycase_id ='".$id."' AND type='2'");
-		//echo $arc['0']['archives']['id'];exit;
-		if(isset($arc) && count($arc)!="0")
-		{ 
-			$Archive = ClassRegistry::init('Archive');
-			$Archive->query("UPDATE archives SET type='1' WHERE id='".$arc['0']['archives']['id']."'");	
-		}else{
-			$Archive = ClassRegistry::init('Archive');
-			$Archive->recursive = -1;
-			$CaseArc['easycase_id'] = $id;
-			$CaseArc['case_file_id'] = "0";
-			$CaseArc['type'] = "1";
-			$CaseArc['user_id'] =SES_ID;
-			$CaseArc['dt_created'] = GMT_DATETIME;
-			$CaseArc['company_id'] = SES_COMP;
-			$Archive->saveAll($CaseArc);
-	
-		}*/
+        $Archive = ClassRegistry::init('Archive');
+        $Archive->recursive = -1;
+        $arc=$Archive->query("SELECT * FROM archives WHERE easycase_id ='".$id."' AND type='2'");
+        //echo $arc['0']['archives']['id'];exit;
+        if(isset($arc) && count($arc)!="0")
+        { 
+            $Archive = ClassRegistry::init('Archive');
+            $Archive->query("UPDATE archives SET type='1' WHERE id='".$arc['0']['archives']['id']."'"); 
+        }else{
+            $Archive = ClassRegistry::init('Archive');
+            $Archive->recursive = -1;
+            $CaseArc['easycase_id'] = $id;
+            $CaseArc['case_file_id'] = "0";
+            $CaseArc['type'] = "1";
+            $CaseArc['user_id'] =SES_ID;
+            $CaseArc['dt_created'] = GMT_DATETIME;
+            $CaseArc['company_id'] = SES_COMP;
+            $Archive->saveAll($CaseArc);
+    
+        }*/
         //socket.io implement start
         $Project = ClassRegistry::init('Project');
         $ProjectUser = ClassRegistry::init('ProjectUser');
@@ -306,7 +313,7 @@ class EasycasesController extends AppController {
         exit;
     }
     function ajaxpostcase($oauth_arg = NULL) {
-		
+        
         $this->layout='ajax';
         if(isset($this->params['data']['CS_project_id']) && $this->params['data']['CS_project_id'] && $this->params['data']['CS_project_id'] !="all") {
             $CS_project_id = $this->params['data']['CS_project_id'];
@@ -345,16 +352,16 @@ class EasycasesController extends AppController {
             if($this->data['CS_type_id']==10) {
                 $arr['CS_legend'] = 1 ;
             }
-			
-			if($this->params['data']['user_auth_key'])
-			{
-				$this->loadModel('User');
-				$getuser = $this->User->find('first',array('copnditions'=>array('User.uniq_id'=>$this->params['data']['user_auth_key'])));
-				if($getuser['User']['id']) {
-					$arr['CS_user_id'] = $getuser['User']['id'];
-				}
-			}
-			
+            
+            if($this->params['data']['user_auth_key'])
+            {
+                $this->loadModel('User');
+                $getuser = $this->User->find('first',array('copnditions'=>array('User.uniq_id'=>$this->params['data']['user_auth_key'])));
+                if($getuser['User']['id']) {
+                    $arr['CS_user_id'] = $getuser['User']['id'];
+                }
+            }
+            
             $arr['CS_message'] = $msg;
 
             //By Orangescrum
@@ -510,156 +517,156 @@ class EasycasesController extends AppController {
                 //$info = $s3->getObjectInfo(BUCKET_NAME, $folder_orig_Name,S3::ACL_PRIVATE);
                 // if ($info){
                 if($s3->deleteObject(BUCKET_NAME, $folder_orig_Name,S3::ACL_PRIVATE)) {
-//							if(isset($fl[2])){
-//								$CaseFile = ClassRegistry::init('CaseFile')->deleteAll(array('CaseFile.id'=>$fl[2],'CaseFile.company_id'=>SES_COMP));
-//								if($CaseFile){
-//									echo "File Removed From db ";
-//								}else{
-//									echo "Error in removing File From db ";
-//								}
-//							}
+//                          if(isset($fl[2])){
+//                              $CaseFile = ClassRegistry::init('CaseFile')->deleteAll(array('CaseFile.id'=>$fl[2],'CaseFile.company_id'=>SES_COMP));
+//                              if($CaseFile){
+//                                  echo "File Removed From db ";
+//                              }else{
+//                                  echo "Error in removing File From db ";
+//                              }
+//                          }
                     echo "success";
                 }else {
                     echo 'Error';
                     exit;
                 }
 //                    }else{
-//						echo "Failure";exit;
-//					}
+//                      echo "Failure";exit;
+//                  }
                 /*if(file_exists(DIR_CASE_FILES.$file)) {
-					if(unlink(DIR_CASE_FILES.$file)) {
-						//echo "Success";
-					}
+                    if(unlink(DIR_CASE_FILES.$file)) {
+                        //echo "Success";
+                    }
 
-				}*/
+                }*/
             }
         }
         exit;
     }
     function fileupload($oauth_arg = NULL) {
         $this->layout='ajax';
-		
-		//echo json_encode($oauth_arg); exit;
-		
+        
+        //echo json_encode($oauth_arg); exit;
+        
         $size = (isset($oauth_arg['case_files']['size'])) ? $oauth_arg['case_files']['size'] : $this->params['data']['Easycase']['case_files']['size'];
         $sizeinkb = $size/1024;
 
         $storageExceeds = 0;
         $totalStorage = 0;
-		$allowusage = "Unlimited";
-		if(isset($oauth_arg['usedstorage']) && isset($oauth_arg['allowusage'])){
-			$usedstorage = $oauth_arg['usedstorage'];
-			$allowusage = $oauth_arg['allowusage'];
-		}else{
-			if(!$oauth_arg){
-				$usedstorage = $this->Easycase->usedSpace('',SES_COMP);
-				$allowusage = $GLOBALS['user_subscription']['storage'];
-			}
-		}
-		if($allowusage != 'Unlimited') {
-				$usedstorageMb = $usedstorage+($sizeinkb/1024);
-				if($usedstorageMb > $allowusage) {
-					$storageExceeds = number_format($usedstorageMb-$allowusage,2);
-				}
-				$totalStorage = number_format($usedstorageMb,2);
-			}
+        $allowusage = "Unlimited";
+        if(isset($oauth_arg['usedstorage']) && isset($oauth_arg['allowusage'])){
+            $usedstorage = $oauth_arg['usedstorage'];
+            $allowusage = $oauth_arg['allowusage'];
+        }else{
+            if(!$oauth_arg){
+                $usedstorage = $this->Easycase->usedSpace('',SES_COMP);
+                $allowusage = $GLOBALS['user_subscription']['storage'];
+            }
+        }
+        if($allowusage != 'Unlimited') {
+                $usedstorageMb = $usedstorage+($sizeinkb/1024);
+                if($usedstorageMb > $allowusage) {
+                    $storageExceeds = number_format($usedstorageMb-$allowusage,2);
+                }
+                $totalStorage = number_format($usedstorageMb,2);
+            }
 
-			$name = (isset($oauth_arg['case_files']['name'])) ? $oauth_arg['case_files']['name'] : $this->params['data']['Easycase']['case_files']['name'];
-			$tmp_name = (isset($oauth_arg['case_files']['tmp_name'])) ? $oauth_arg['case_files']['tmp_name'] : $this->params['data']['Easycase']['case_files']['tmp_name'];
+            $name = (isset($oauth_arg['case_files']['name'])) ? $oauth_arg['case_files']['name'] : $this->params['data']['Easycase']['case_files']['name'];
+            $tmp_name = (isset($oauth_arg['case_files']['tmp_name'])) ? $oauth_arg['case_files']['tmp_name'] : $this->params['data']['Easycase']['case_files']['tmp_name'];
 
-			$type = (isset($oauth_arg['case_files']['type'])) ? $oauth_arg['case_files']['type'] : $this->params['data']['Easycase']['case_files']['type'];
+            $type = (isset($oauth_arg['case_files']['type'])) ? $oauth_arg['case_files']['type'] : $this->params['data']['Easycase']['case_files']['type'];
 
-			$file_path = WWW_ROOT.'files/case_files/';
+            $file_path = WWW_ROOT.'files/case_files/';
 
-			$newFileName = "";
-			$updateData = "";
-			$message = "success";
-			$displayname = "";
-			$allowedSize = MAX_FILE_SIZE*1024;
-			if($storageExceeds <= 0) {
-			if($sizeinkb <= $allowedSize) {
-				if($name) {
-					$oldname = $this->Format->chnageUploadedFileName($name);
-					$ext1 = substr(strrchr($oldname, "."), 1);
+            $newFileName = "";
+            $updateData = "";
+            $message = "success";
+            $displayname = "";
+            $allowedSize = MAX_FILE_SIZE*1024;
+            if($storageExceeds <= 0) {
+            if($sizeinkb <= $allowedSize) {
+                if($name) {
+                    $oldname = $this->Format->chnageUploadedFileName($name);
+                    $ext1 = substr(strrchr($oldname, "."), 1);
 
-					$message = $this->Format->validateFileExt($ext1);
-					if($message == "success") {
-						$tot = strlen($oldname);
-						$extcnt = strlen($ext1);
-						$end = $tot - $extcnt - 1;
-						$onlyfile = substr($oldname,0,$end);
+                    $message = $this->Format->validateFileExt($ext1);
+                    if($message == "success") {
+                        $tot = strlen($oldname);
+                        $extcnt = strlen($ext1);
+                        $end = $tot - $extcnt - 1;
+                        $onlyfile = substr($oldname,0,$end);
 
-						$CaseFile = ClassRegistry::init('CaseFile');
-						$CaseFile->recursive = -1;
+                        $CaseFile = ClassRegistry::init('CaseFile');
+                        $CaseFile->recursive = -1;
 
-						$checkFile = $CaseFile->query("SELECT id,count FROM case_files as CaseFile WHERE file='$oldname'");
-						if(count($checkFile) >= 1) {
-							$newCount = $checkFile['0']['CaseFile']['count']+1;
-							$newFileName = $onlyfile."(".$newCount.").".$ext1;
-							$updateData = "|".$sizeinkb."|".$checkFile['0']['CaseFile']['id']."|".$newCount;
-						}
-						else {
-							$newFileName = $oldname;
-							$updateData = "|".$sizeinkb;
-						}
+                        $checkFile = $CaseFile->query("SELECT id,count FROM case_files as CaseFile WHERE file='$oldname'");
+                        if(count($checkFile) >= 1) {
+                            $newCount = $checkFile['0']['CaseFile']['count']+1;
+                            $newFileName = $onlyfile."(".$newCount.").".$ext1;
+                            $updateData = "|".$sizeinkb."|".$checkFile['0']['CaseFile']['id']."|".$newCount;
+                        }
+                        else {
+                            $newFileName = $oldname;
+                            $updateData = "|".$sizeinkb;
+                        }
 
-						$file = $file_path.$newFileName;
-						if(USE_S3 == 0){
-						    copy($tmp_name,$file);
-						}else{
-							try{
-								// s3 bucket  start
-								$s3 = new S3(awsAccessKey, awsSecretKey);
-								//$s3->putBucket(BUCKET_NAME, S3::ACL_PUBLIC_READ_WRITE);
-								$s3->putBucket(BUCKET_NAME, S3::ACL_PRIVATE);
-								$folder_orig_Name = DIR_CASE_FILES_S3_FOLDER_TEMP.trim($newFileName);
-								//$s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PUBLIC_READ_WRITE);
-								//$s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PUBLIC_READ);
-								$returnvalue = $s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PRIVATE);
-									if(!$returnvalue) {
-									$message = "s3_error";
-									$subject = 'Error in uploading file to S3 bucket';
-									$this->loadModel('User');
-									$userdetails = $this->User->query('SELECT User.*,Company.name FROM users User,company_users AS CompanyUser,companies AS Company WHERE User.id=CompanyUser.user_id AND CompanyUser.company_id=Company.id AND CompanyUser.company_id='.SES_COMP.' AND User.id='.SES_ID);
-									$this->Email->delivery = EMAIL_DELIVERY;
-									$this->Email->to = DEV_EMAIL;
-									$this->Email->subject = $subject;
-									$this->Email->from = FROM_EMAIL;
-									$this->Email->template = 'fileupload_error';
-									$this->set('f_size', $size);
-									$this->set('f_type', $type);
-									$this->set('f_name', $newFileName);
-									$this->set('u_storage',$usedstorage);
-									$this->set('allow_usage',$allowusage);
-									$this->set('userdetails',$userdetails[0]);
-									$this->Email->sendAs = 'html';
-									$this->Sendgrid->sendgridsmtp($this->Email);
-								}
-							} catch (Exception $e){}
-						}
-						//s3 bucket end
-						$displayname = $name;
-						if(strlen($name) >= 30) {
-							$displayname = substr($displayname,0,30);
-						}
-					}
-				}
-				else {
-					$message = "error";
-				}
-			}
-			else {
-				$message = "size";
-			}
-		}
-		else {
-			$message = "exceed";
-		}
+                        $file = $file_path.$newFileName;
+                        if(USE_S3 == 0){
+                            copy($tmp_name,$file);
+                        }else{
+                            try{
+                                // s3 bucket  start
+                                $s3 = new S3(awsAccessKey, awsSecretKey);
+                                //$s3->putBucket(BUCKET_NAME, S3::ACL_PUBLIC_READ_WRITE);
+                                $s3->putBucket(BUCKET_NAME, S3::ACL_PRIVATE);
+                                $folder_orig_Name = DIR_CASE_FILES_S3_FOLDER_TEMP.trim($newFileName);
+                                //$s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PUBLIC_READ_WRITE);
+                                //$s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PUBLIC_READ);
+                                $returnvalue = $s3->putObjectFile($tmp_name,BUCKET_NAME ,$folder_orig_Name ,S3::ACL_PRIVATE);
+                                    if(!$returnvalue) {
+                                    $message = "s3_error";
+                                    $subject = 'Error in uploading file to S3 bucket';
+                                    $this->loadModel('User');
+                                    $userdetails = $this->User->query('SELECT User.*,Company.name FROM users User,company_users AS CompanyUser,companies AS Company WHERE User.id=CompanyUser.user_id AND CompanyUser.company_id=Company.id AND CompanyUser.company_id='.SES_COMP.' AND User.id='.SES_ID);
+                                    $this->Email->delivery = EMAIL_DELIVERY;
+                                    $this->Email->to = DEV_EMAIL;
+                                    $this->Email->subject = $subject;
+                                    $this->Email->from = FROM_EMAIL;
+                                    $this->Email->template = 'fileupload_error';
+                                    $this->set('f_size', $size);
+                                    $this->set('f_type', $type);
+                                    $this->set('f_name', $newFileName);
+                                    $this->set('u_storage',$usedstorage);
+                                    $this->set('allow_usage',$allowusage);
+                                    $this->set('userdetails',$userdetails[0]);
+                                    $this->Email->sendAs = 'html';
+                                    $this->Sendgrid->sendgridsmtp($this->Email);
+                                }
+                            } catch (Exception $e){}
+                        }
+                        //s3 bucket end
+                        $displayname = $name;
+                        if(strlen($name) >= 30) {
+                            $displayname = substr($displayname,0,30);
+                        }
+                    }
+                }
+                else {
+                    $message = "error";
+                }
+            }
+            else {
+                $message = "size";
+            }
+        }
+        else {
+            $message = "exceed";
+        }
         echo '{"name":"'.$displayname.'","sizeinkb":"'.$sizeinkb.'","filename":"'.$newFileName.$updateData.'","message":"'.$message.'","storageExceeds":"'.$storageExceeds.'","totalStorage":"'.$totalStorage.'"}';
         exit;
     }
     function dashboard() {
-		$caseLegendsort = "";
+        $caseLegendsort = "";
         if(SES_TYPE<=2) {
             $proje_ids = array_keys($GLOBALS['active_proj_list']);
             $this->Easycase->recursive=-1;
@@ -846,13 +853,13 @@ class EasycasesController extends AppController {
                         $caseAll[$key]['file_type'] = "db";
                     }
                 } else {
-		    if($frmt->validateImgFileExt($getdata['CaseFile']['file'])) {
-			if(USE_S3 == 0){
-			    $caseAll[$key]['fileurl'] = HTTP_CASE_FILES.$getdata['CaseFile']['file'];
-			}else{
-			    $caseAll[$key]['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$getdata['CaseFile']['file']);
-			}                            
-		    }
+            if($frmt->validateImgFileExt($getdata['CaseFile']['file'])) {
+            if(USE_S3 == 0){
+                $caseAll[$key]['fileurl'] = HTTP_CASE_FILES.$getdata['CaseFile']['file'];
+            }else{
+                $caseAll[$key]['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$getdata['CaseFile']['file']);
+            }                            
+            }
                     $caseAll[$key]['file_name'] = $frmt->formatText($frmt->longstringwrap($this->Format->shortLength($getdata['CaseFile']['file'],75)));
                     $caseAll[$key]['link_url'] =  HTTP_ROOT."easycases/download/".$getdata['CaseFile']['file'];
                     $caseAll[$key]['download_url'] =  '';
@@ -1023,8 +1030,8 @@ class EasycasesController extends AppController {
             }
         }
         /*elseif($caseMenuFilters != "closecase" && $caseMenuFilters != "milestone" && $caseMenuFilters != "bugcase" ) {
-			$qry.= " AND (Easycase.legend !='3' OR Easycase.type_id ='10')";
-		}*/
+            $qry.= " AND (Easycase.legend !='3' OR Easycase.type_id ='10')";
+        }*/
         /* Start By OSDEV on 07112013 */
         elseif($caseMenuFilters != "closecase" && $caseMenuFilters != "milestone" && $caseMenuFilters != "bugcase" && trim(urldecode($case_srch)) == "" && empty($caseSrch)) {
             //$qry.= " AND (Easycase.legend !='3' OR Easycase.type_id ='10')";
@@ -1102,50 +1109,50 @@ class EasycasesController extends AppController {
         }
 
         ######### Order by Date ##########
-//		 if(!empty($caseDate)){ 
-//		     if($caseDate == "asc") {
-//			    $orderby = "Easycase.dt_created ASC,Easycase.priority DESC";
-//		     }else {
-//				$orderby = "Easycase.dt_created DESC,Easycase.priority DESC";
-//		     }
+//       if(!empty($caseDate)){ 
+//           if($caseDate == "asc") {
+//              $orderby = "Easycase.dt_created ASC,Easycase.priority DESC";
+//           }else {
+//              $orderby = "Easycase.dt_created DESC,Easycase.priority DESC";
+//           }
 //          }else{
 //               $orderby = "Easycase.dt_created DESC,Easycase.priority DESC";
 //          }                   
-//		######### Order by Title ##########
-//		if($caseTitle == "desc") {
-//			$orderby = "LTRIM(Easycase.title) DESC";
-//		}elseif($caseTitle == "asc") {
-//			$orderby = "LTRIM(Easycase.title) ASC";
-//		}
-//		######### Order by Due Date ##########
-//		if($caseDueDate == "desc") {
-//			$orderby = "Easycase.due_date DESC";
-//		}elseif($caseDueDate == "asc") {
-//			$orderby = "Easycase.due_date ASC";
-//		}
-//		if($caseNum == "desc") {
-//			$orderby = "Easycase.case_no DESC";
-//		}
+//      ######### Order by Title ##########
+//      if($caseTitle == "desc") {
+//          $orderby = "LTRIM(Easycase.title) DESC";
+//      }elseif($caseTitle == "asc") {
+//          $orderby = "LTRIM(Easycase.title) ASC";
+//      }
+//      ######### Order by Due Date ##########
+//      if($caseDueDate == "desc") {
+//          $orderby = "Easycase.due_date DESC";
+//      }elseif($caseDueDate == "asc") {
+//          $orderby = "Easycase.due_date ASC";
+//      }
+//      if($caseNum == "desc") {
+//          $orderby = "Easycase.case_no DESC";
+//      }
 //          if($caseCreateDate == "desc"){
 //               $orderby = "Easycase.actual_dt_created DESC";
 //          }else if($caseCreateDate == "asc"){
 //               $orderby = "Easycase.actual_dt_created ASC";
 //          }
-//		elseif($caseNum == "asc") {
-//			$orderby = "Easycase.case_no ASC";
-//		}
-//		if($caseLegendsort == "desc") {
-//			//$orderby = "Easycase.legend DESC";
-//			$orderby = "FIND_IN_SET(Easycase.type_id,'10'),FIND_IN_SET(Easycase.legend,'2,10,4,5,1,3') ";
-//		}elseif($caseLegendsort == "asc") {
-//			//$orderby = "Easycase.legend ASC";
-//			$orderby = "FIND_IN_SET(Easycase.type_id,'10'),FIND_IN_SET(Easycase.legend,'3,1,5,4,10,2') ";
-//		}
-//		if($caseAtsort == "desc") {
-//			$orderby = "Assigned DESC";
-//		}elseif($caseAtsort == "asc") {
-//			$orderby = "Assigned ASC";
-//		}
+//      elseif($caseNum == "asc") {
+//          $orderby = "Easycase.case_no ASC";
+//      }
+//      if($caseLegendsort == "desc") {
+//          //$orderby = "Easycase.legend DESC";
+//          $orderby = "FIND_IN_SET(Easycase.type_id,'10'),FIND_IN_SET(Easycase.legend,'2,10,4,5,1,3') ";
+//      }elseif($caseLegendsort == "asc") {
+//          //$orderby = "Easycase.legend ASC";
+//          $orderby = "FIND_IN_SET(Easycase.type_id,'10'),FIND_IN_SET(Easycase.legend,'3,1,5,4,10,2') ";
+//      }
+//      if($caseAtsort == "desc") {
+//          $orderby = "Assigned DESC";
+//      }elseif($caseAtsort == "asc") {
+//          $orderby = "Assigned ASC";
+//      }
         ######### Search by KeyWord ##########
         $searchcase = "";
         if(trim(urldecode($caseSrch)) && (trim($case_srch) == "")) {
@@ -1237,9 +1244,9 @@ class EasycasesController extends AppController {
             $qry.= " AND Easycase.legend='3' AND Easycase.type_id !='10'";
         }elseif($caseMenuFilters == "overdue") { 
             //$qry.= " AND Easycase.type_id ='1'";
-	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+        $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
             $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
-	}elseif($caseMenuFilters == "highpriority") {
+    }elseif($caseMenuFilters == "highpriority") {
             $qry.= " AND Easycase.priority ='0' ";
         }elseif($caseMenuFilters == "newwip") {
             $qry.= " AND (Easycase.legend='1' OR Easycase.legend='2')  AND Easycase.type_id !='10'";
@@ -1694,15 +1701,15 @@ class EasycasesController extends AppController {
         $this->layout='ajax';
         $project = $this->params['data']['project'];
         /*$csId = $this->params['data']['csId'];
-		$caseUniqId = $this->params['data']['caseUniqId'];
-		$caseAssgnUid = $this->params['data']['caseAssgnUid'];*/
+        $caseUniqId = $this->params['data']['caseUniqId'];
+        $caseAssgnUid = $this->params['data']['caseAssgnUid'];*/
 
         $usrDtlsArr = $this->Easycase->getMemebers($project);
 
         /*$this->set('usrDtlsArr',$usrDtlsArr);
-		$this->set('caseAutoId',$csId);
-		$this->set('caseUniqId',$caseUniqId);
-		$this->set('caseAssgnUid',$caseAssgnUid);*/
+        $this->set('caseAutoId',$csId);
+        $this->set('caseUniqId',$caseUniqId);
+        $this->set('caseAssgnUid',$caseAssgnUid);*/
 
         $this->set('projUser', json_encode(array($project => $usrDtlsArr)));
     }
@@ -1720,8 +1727,8 @@ class EasycasesController extends AppController {
         //$spnajx = $this->params['data']['spnajx'];
         //$count = $this->params['data']['count'];
         /*if((isset($this->params['data']['prjid']) && $this->params['data']['prjid']) || (isset($oauth_arg['prjid']) && $oauth_arg['prjid'])){
-		    $prjid = isset($oauth_arg['prjid']) ? $oauth_arg['prjid'] : $this->params['data']['prjid'];
-		}*/
+            $prjid = isset($oauth_arg['prjid']) ? $oauth_arg['prjid'] : $this->params['data']['prjid'];
+        }*/
 
         if(isset($this->params['data']['details'])) {
             $details = $this->params['data']['details'];
@@ -1753,7 +1760,7 @@ class EasycasesController extends AppController {
             //No task with uniq_id $caseUniqId
             die;
         }
-	
+    
         ######## Checking user_project ################
         $this->loadModel('ProjectUser');
         $cond1 = array(
@@ -1770,7 +1777,7 @@ class EasycasesController extends AppController {
             //Session user not assigned the project $prjid
             die;
         }
-	
+    
         $sqlcasedata = array();
         $getPostCase = array();
         if($ProjId && $curCaseNo) {
@@ -1785,10 +1792,10 @@ class EasycasesController extends AppController {
 
             ######## get users
             /*if($projUniqDtls != 'all'){
-				$allMems = $this->Easycase->getMemebers($projUniqDtls);
-			}else{
-				$allMems = $this->Easycase->getMemebersid($ProjId);
-			}*/
+                $allMems = $this->Easycase->getMemebers($projUniqDtls);
+            }else{
+                $allMems = $this->Easycase->getMemebersid($ProjId);
+            }*/
             $allMemsArr = $this->Easycase->getMemebersid($ProjId);
             $allMems = array();
             foreach($allMemsArr as $k=>$getAllMems) {
@@ -1941,11 +1948,11 @@ class EasycasesController extends AppController {
         $asgnPic = $assigned['User']['photo'];
         $asgnEmail = $assigned['User']['email'];
         /*if($assignUid == SES_ID) {
-			$assignTo = "me";
-		}
-		else {
-			$assignTo = $this->Format->shortLength($assignTo,20);
-		}*/
+            $assignTo = "me";
+        }
+        else {
+            $assignTo = $this->Format->shortLength($assignTo,20);
+        }*/
 
         $csDuDtFmtT = $csDuDtFmt = '';
         if($caseTypeRep == 10 || $caseLegendRep == 3 || $caseLegendRep == 5) {
@@ -1980,11 +1987,11 @@ class EasycasesController extends AppController {
         }
 
         /*if($caseDuDate && !stristr($caseDuDate,"0000")) {
-			$csDuDt = $dt->facebook_style_date_time($caseDuDate,$curDateTz,'date'); 
-		}
-		else {
-			$csDuDt = '<i class="no_due_dt">None</i>';
-		}*/
+            $csDuDt = $dt->facebook_style_date_time($caseDuDate,$curDateTz,'date'); 
+        }
+        else {
+            $csDuDt = '<i class="no_due_dt">None</i>';
+        }*/
 
         //Title Caption start
         if($caseUpdBy) {
@@ -2001,12 +2008,12 @@ class EasycasesController extends AppController {
         }
 
         //getting case type image
-	$sql = "SELECT Type.* FROM types AS Type WHERE Type.company_id = 0 OR Type.company_id =".SES_COMP;
-	$this->loadModel('Type');
-	$typeArr = $this->Type->query($sql);
+    $sql = "SELECT Type.* FROM types AS Type WHERE Type.company_id = 0 OR Type.company_id =".SES_COMP;
+    $this->loadModel('Type');
+    $typeArr = $this->Type->query($sql);
         //$prjtype_name = $cq->getTypeArr($caseTypeRep,$GLOBALS['TYPE']);
         $prjtype_name = $cq->getTypeArr($caseTypeRep,$typeArr);
-	
+    
         //$name = $prjtype_name['Type']['name'];
         //$sname = $prjtype_name['Type']['short_name'];
         //$typImage = $this->Format->todo_typ($sname,$name);
@@ -2017,7 +2024,7 @@ class EasycasesController extends AppController {
         if(trim(strip_tags(str_replace("&nbsp;", "", $caseMsgRep))) != "") {
             $details = 1;
         }
-	
+    
         $caseFiles = 0;
         if($caseFormat != 2) {
             $filesArr = $this->Easycase->getCaseFiles($caseAutoId);
@@ -2047,11 +2054,11 @@ class EasycasesController extends AppController {
                         $filesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1); //str_replace(array('"','\''), array('\'','"'), $frmt->imageType($caseFileName,25,10,1));
                         $filesArr[$fkey]['CaseFile']['is_ImgFileExt'] = $frmt->validateImgFileExt($caseFileName);
                         if($filesArr[$fkey]['CaseFile']['is_ImgFileExt']) {
-			    if(USE_S3 == 0){
-				$filesArr[$fkey]['CaseFile']['fileurl'] = HTTP_CASE_FILES.$caseFileName;
-			    }else{
-				$filesArr[$fkey]['CaseFile']['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$caseFileName);
-			    }                            
+                if(USE_S3 == 0){
+                $filesArr[$fkey]['CaseFile']['fileurl'] = HTTP_CASE_FILES.$caseFileName;
+                }else{
+                $filesArr[$fkey]['CaseFile']['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$caseFileName);
+                }                            
                         }
                         $filesArr[$fkey]['CaseFile']['file_size'] = $frmt->getFileSize($getFiles['CaseFile']['file_size']);
                     }
@@ -2458,7 +2465,7 @@ class EasycasesController extends AppController {
 
                 $qry.= $this->Format->memberFilter($caseUserId);
             }
-            ######### Filter by AssignTo ##########		/* Added by OSDEV on 08082013*/
+            ######### Filter by AssignTo ##########     /* Added by OSDEV on 08082013*/
             if($caseAssignTo && $caseAssignTo != "all" ) {
                 $qry.= $this->Format->assigntoFilter($caseAssignTo);
             }
@@ -2547,22 +2554,22 @@ class EasycasesController extends AppController {
             //AssigntoMe
             $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.project_id='.$proj_id.' AND (Easycase.assign_to='.SES_ID.' OR ( Easycase.assign_to=0 AND Easycase.user_id='.SES_ID.')) '.$qry.' '.$searchcase);
 
-//			$assignToMe = $this->Easycase->find('count', array('conditions' => array(
-//			"OR" => array(
-//			'AND' => array(
-//			'Easycase.isactive'   => 1,
-//			'Easycase.istype'     => 1,
-//			'Easycase.project_id' => $proj_id,
-//			'Easycase.assign_to' =>SES_ID 
-//			),
-//			array(
-//			'Easycase.isactive'  => 1,
-//			'Easycase.istype'    => 1,
-//			'Easycase.project_id' => $proj_id,
-//			'Easycase.assign_to' => '0',
-//			'Easycase.user_id' => SES_ID))
-//			),'fields' => 'DISTINCT Easycase.id'));
-//		
+//          $assignToMe = $this->Easycase->find('count', array('conditions' => array(
+//          "OR" => array(
+//          'AND' => array(
+//          'Easycase.isactive'   => 1,
+//          'Easycase.istype'     => 1,
+//          'Easycase.project_id' => $proj_id,
+//          'Easycase.assign_to' =>SES_ID 
+//          ),
+//          array(
+//          'Easycase.isactive'  => 1,
+//          'Easycase.istype'    => 1,
+//          'Easycase.project_id' => $proj_id,
+//          'Easycase.assign_to' => '0',
+//          'Easycase.user_id' => SES_ID))
+//          ),'fields' => 'DISTINCT Easycase.id'));
+//      
             $delegateToArr = $this->Easycase->query("SELECT COUNT(DISTINCT Easycase.id) as total FROM `easycases` AS `Easycase` WHERE Easycase.isactive='1' AND Easycase.istype='1' AND Easycase.project_id='$proj_id' AND Easycase.assign_to!='0' AND Easycase.assign_to!='".SES_ID."' AND Easycase.user_id='".SES_ID."' ".$qry." ".$searchcase);
             $delegateTo = $delegateToArr[0][0]['total'];
 
@@ -2570,11 +2577,11 @@ class EasycasesController extends AppController {
             //$latest = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.dt_created >'=> $before,'Easycase.dt_created <='=> GMT_DATETIME),'fields' => 'DISTINCT Easycase.id'));
 
             /*if($latest == 0){
-				$rest=$this->Easycase->query("SELECT dt_created FROM easycases WHERE project_id ='".$proj_id."' ORDER BY dt_created DESC LIMIT 0 , 1");
-				@$sdate=explode(" ",@$rest[0]['easycases']['dt_created']);
-				$before=@$sdate[0];
-				$latest = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.dt_created >='=> $before,'Easycase.dt_created <='=> GMT_DATETIME),'fields' => 'DISTINCT Easycase.id'));
-			}*/
+                $rest=$this->Easycase->query("SELECT dt_created FROM easycases WHERE project_id ='".$proj_id."' ORDER BY dt_created DESC LIMIT 0 , 1");
+                @$sdate=explode(" ",@$rest[0]['easycases']['dt_created']);
+                $before=@$sdate[0];
+                $latest = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.dt_created >='=> $before,'Easycase.dt_created <='=> GMT_DATETIME),'fields' => 'DISTINCT Easycase.id'));
+            }*/
             $caseCount = $this->Easycase->query("SELECT COUNT(CaseFile.id) as count FROM easycases as Easycase,case_files as CaseFile WHERE Easycase.id=CaseFile.easycase_id AND Easycase.isactive='1' AND Easycase.project_id='".$proj_id."' AND CaseFile.isactive='1'");
             $caseFiles = $caseCount[0][0]['count'];
 
@@ -2584,9 +2591,9 @@ class EasycasesController extends AppController {
             //$closeCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.legend' => 3,'Easycase.type_id !=' => 10,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id),'fields' => 'DISTINCT Easycase.id'));
             //$bugCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.type_id' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id),'fields' => 'DISTINCT Easycase.id'));
             $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
-	    
-            //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
+        $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
+        
+            //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $proj_id,'Easycase.priority  ' => 0),'fields' => 'DISTINCT Easycase.id'));
             $caseHighPri = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as hpcount FROM easycases Easycase WHERE Easycase.isactive = 1 AND Easycase.istype= 1 AND Easycase.project_id ='. $proj_id.' AND Easycase.priority = 0 AND Easycase.type_id != 10 '.$qry.$searchcase);
 
             //$this->loadModel('Milestone');
@@ -2608,23 +2615,23 @@ class EasycasesController extends AppController {
                 array_push($ids,$csid['Project']['id']);
             }
             $idlist = trim($idlist,',');
-	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+        $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
             $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2)  AND Easycase.project_id IN('.$idlist.') AND (Easycase.assign_to='.SES_ID.' OR ( Easycase.assign_to=0 AND Easycase.user_id='.SES_ID.')) '.$qry.' '.$searchcase);
-//			$assignToMe = $this->Easycase->find('count', array('conditions' => array(
-//			"OR" => array(
-//			'AND' => array(
-//			'Easycase.isactive'   => 1,
-//			'Easycase.istype'     => 1,
-//			'Easycase.project_id' => $ids,
-//			'Easycase.assign_to' =>SES_ID 
-//			),
-//			array(
-//			'Easycase.isactive'  => 1,
-//			'Easycase.istype'    => 1,
-//			'Easycase.project_id' => $ids,
-//			'Easycase.assign_to' => '0',
-//			'Easycase.user_id' => SES_ID))
-//			),'fields' => 'DISTINCT Easycase.id'));
+//          $assignToMe = $this->Easycase->find('count', array('conditions' => array(
+//          "OR" => array(
+//          'AND' => array(
+//          'Easycase.isactive'   => 1,
+//          'Easycase.istype'     => 1,
+//          'Easycase.project_id' => $ids,
+//          'Easycase.assign_to' =>SES_ID 
+//          ),
+//          array(
+//          'Easycase.isactive'  => 1,
+//          'Easycase.istype'    => 1,
+//          'Easycase.project_id' => $ids,
+//          'Easycase.assign_to' => '0',
+//          'Easycase.user_id' => SES_ID))
+//          ),'fields' => 'DISTINCT Easycase.id'));
 
             if(count($ids)) {
                 //$delegateToArr = $this->Easycase->query("SELECT COUNT(id) as total FROM `easycases` AS `Easycase` WHERE Easycase.isactive='1' AND Easycase.istype='1' AND Easycase.project_id IN (".implode(",",$ids).") AND Easycase.assign_to!='0' AND Easycase.assign_to!='".SES_ID."' AND Easycase.user_id='".SES_ID."'");
@@ -2647,9 +2654,9 @@ class EasycasesController extends AppController {
             //$closeCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.legend' => 3,'Easycase.type_id !=' => 10,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
             //$bugCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.type_id' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
             $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
-	    
-	    //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
+        $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
+        
+        //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids,'Easycase.priority  ' => 0),'fields' => 'DISTINCT Easycase.id'));
             $caseHighPri = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as hpcount FROM easycases Easycase WHERE Easycase.isactive = 1 AND Easycase.istype= 1 AND Easycase.project_id IN('. $idlist.') AND Easycase.priority = 0 AND Easycase.type_id != 10 '.$qry.$searchcase);
         }
         $resCaseMenu = array();
@@ -2704,24 +2711,24 @@ class EasycasesController extends AppController {
         $checktype = $this->params['data']['checktype'];
         $milestoneId = isset($this->data['milestoneId'])?$this->data['milestoneId']:'';
         $qry = "";
-	
+    
         ######### Filter by Status ##########
         //Commented by GK as per the requirement of PG sir on dt:-04th Apr 2013 -- starts
         /*if($caseStatus != "all" && $this->params['data']['page_type'] != 'ajax_status') {
 
-			$qry.= $this->Format->statusFilter($caseStatus);
-			$stsLegArr = $caseStatus."-"."";
-			$expStsLeg = explode("-",$stsLegArr);
-			if(!in_array("upd",$expStsLeg))
-			{
-				$qry.= " AND Easycase.type_id !=10";
-			}
+            $qry.= $this->Format->statusFilter($caseStatus);
+            $stsLegArr = $caseStatus."-"."";
+            $expStsLeg = explode("-",$stsLegArr);
+            if(!in_array("upd",$expStsLeg))
+            {
+                $qry.= " AND Easycase.type_id !=10";
+            }
 
-		}*/
+        }*/
         //Ends
         /*elseif($caseMenuFilters != "closecase") {
-			$qry.= " AND (Easycase.legend !='3' OR Easycase.type_id ='10')";
-		}*/
+            $qry.= " AND (Easycase.legend !='3' OR Easycase.type_id ='10')";
+        }*/
 
         if(!$milestoneId) {
             ######### Filter by Case Types ##########
@@ -2729,7 +2736,7 @@ class EasycasesController extends AppController {
 
                 $qry.= $this->Format->typeFilter($caseTypes);
             }
-			######### Filter by Priority ##########
+            ######### Filter by Priority ##########
             if(trim($priorityFil) && $priorityFil != "all" && $this->params['data']['page_type'] != 'ajax_priority') {
 
                 $qry.= $this->Format->priorityFilter($priorityFil,$caseTypes);
@@ -2739,7 +2746,7 @@ class EasycasesController extends AppController {
 
                 $qry.= $this->Format->memberFilter($caseUserId);
             }
-            ######### Filter by AssignTo ##########		/* Added by OSDEV on 08082013*/
+            ######### Filter by AssignTo ##########     /* Added by OSDEV on 08082013*/
             if(trim($caseAssignTo) && $caseAssignTo != "all" && $this->params['data']['page_type'] != 'ajax_assignto') {
                 $qry.= $this->Format->assigntoFilter($caseAssignTo);
             }
@@ -2787,7 +2794,7 @@ class EasycasesController extends AppController {
                     $qry.= " AND DATE(Easycase.dt_created) >= '".date('Y-m-d H:i:s',strtotime($frm_dt))."' AND DATE(Easycase.dt_created) <= '".date('Y-m-d H:i:s',strtotime($to_dt))."'";
                 }
             }
-	    
+        
             if(trim($case_duedate) != "") {
                 if(trim($case_duedate) == '24') {
                     $day_date = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s"))) . " +1 day"));
@@ -2831,7 +2838,7 @@ class EasycasesController extends AppController {
         }
         ######### Filter by Bug case ##########
         elseif($caseMenuFilters == "overdue") { /* By OSDEV 0201*/
-	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
+        $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
             $qry.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
             $qry1.= " AND Easycase.due_date !='' AND Easycase.due_date !='0000-00-00' AND Easycase.due_date !='1970-01-01' AND Easycase.due_date < '".$cur_dt."' AND (Easycase.legend =1 || Easycase.legend=2) ";
         }
@@ -2842,7 +2849,7 @@ class EasycasesController extends AppController {
             $all_rest=" AND Easycase.dt_created > '".$before."' AND Easycase.dt_created <= '".GMT_DATETIME."'";
             $qry_rest.= " AND Easycase.dt_created > '".$before."' AND Easycase.dt_created <= '".GMT_DATETIME."'";
         }
-	
+    
         if($caseMenuFilters == "latest" && $projUniq != 'all') {
             $CaseCount3 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase WHERE istype='1' AND Easycase.isactive='1' AND Easycase.project_id='$curProjId' AND Easycase.project_id!=0  ".$searchcase." ".trim($qry_rest));
             $CaseCount=$CaseCount3['0']['0']['count'];
@@ -2863,7 +2870,7 @@ class EasycasesController extends AppController {
             $qry=$qry.$all_rest;
             $qry1.= $all_rest;
         }
-	
+    
         $mlstnQ1 = "";
         $mlstnQ2 = "";
         if($caseMenuFilters =='kanban' && $milestoneId) {
@@ -2949,9 +2956,9 @@ class EasycasesController extends AppController {
         }
         elseif($this->params['data']['page_type'] == 'ajax_types') {
         $types_sql =  "select DISTINCT t.name,t.id,t.short_name,t.company_id,(select count(Easycase.id) from easycases as Easycase".$mlstnQ1." where Easycase.istype='1' AND Easycase.type_id=t.id AND Easycase.isactive='1' ".$mlstnQ2.$projQry." ".trim($qry).") as count from types as t 
-	WHERE CASE WHEN (SELECT COUNT(*) AS total FROM type_companies WHERE company_id = ".SES_COMP." HAVING total >=1) THEN id IN (SELECT type_id FROM type_companies WHERE company_id = ".SES_COMP.") ELSE company_id = 0 End 
-	ORDER BY t.seq_order";
-	$typeArr = $this->Easycase->query($types_sql);
+    WHERE CASE WHEN (SELECT COUNT(*) AS total FROM type_companies WHERE company_id = ".SES_COMP." HAVING total >=1) THEN id IN (SELECT type_id FROM type_companies WHERE company_id = ".SES_COMP.") ELSE company_id = 0 End 
+    ORDER BY t.seq_order";
+    $typeArr = $this->Easycase->query($types_sql);
 
             $this->set('proj_uniq_id',$proj_uniq_id);
             $this->set('proj_id',$proj_id);
@@ -2990,21 +2997,21 @@ class EasycasesController extends AppController {
                     $query_All +=$val[0]['count'];
                 }
             }
-//			$query_New1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count,Easycase.legend FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='1' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
-//			$query_New=$query_New1['0']['0']['count'];
-//			
-//			$query_Open1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND (Easycase.legend='2' || Easycase.legend='4') AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
-//			$query_Open=$query_Open1['0']['0']['count'];
-//			
-//			$query_Close1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='3' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
-//			$query_Close=$query_Close1['0']['0']['count'];
-//	
-//			$query_Resolve1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='5' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
-//			$query_Resolve=$query_Resolve1['0']['0']['count'];
-//			
+//          $query_New1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count,Easycase.legend FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='1' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
+//          $query_New=$query_New1['0']['0']['count'];
+//          
+//          $query_Open1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND (Easycase.legend='2' || Easycase.legend='4') AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
+//          $query_Open=$query_Open1['0']['0']['count'];
+//          
+//          $query_Close1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='3' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
+//          $query_Close=$query_Close1['0']['0']['count'];
+//  
+//          $query_Resolve1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='5' AND Easycase.type_id!='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
+//          $query_Resolve=$query_Resolve1['0']['0']['count'];
+//          
 
-//			$query_Upd1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
-//			$query_Upd=$query_Upd1['0']['0']['count'];
+//          $query_Upd1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
+//          $query_Upd=$query_Upd1['0']['0']['count'];
 
             if($this->params['data']['page_type'] == 'ajax_status') {
                 $query_Attch1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.format='1' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
@@ -3038,7 +3045,7 @@ class EasycasesController extends AppController {
         }
     }
     function files($type='cases', $files = NULL) {
-		
+        
     }
     function ajax_milestones() {
         $this->layout='ajax';
@@ -3524,24 +3531,24 @@ class EasycasesController extends AppController {
                     $cond = "CompanyUser.user_type = '3'";
                 }
                 $usr_sql = "SELECT User.id,User.name,User.last_name,User.short_name,User.email,User.uniq_id,CompanyUser.is_active,UserInvitation.is_active
-			FROM users AS User LEFT JOIN company_users AS CompanyUser ON (User.id=CompanyUser.user_id) LEFT JOIN user_invitations AS UserInvitation
-			ON (User.id=UserInvitation.user_id) WHERE (User.name LIKE '%". trim($srchstr) ."%'  OR User.last_name LIKE '%". trim($srchstr) ."%' OR 
-			User.email LIKE '%". trim($srchstr) ."%'  OR User.short_name LIKE '%". trim($srchstr) ."%') AND (".$cond." AND 
-			CompanyUser.company_id='".SES_COMP."' AND ((CompanyUser.is_active = '0' OR CompanyUser.is_active = '1') OR (UserInvitation.company_id='".SES_COMP."' AND UserInvitation.is_active='1')))
-			    GROUP BY User.id ORDER BY User.name LIMIT 0,8";
+            FROM users AS User LEFT JOIN company_users AS CompanyUser ON (User.id=CompanyUser.user_id) LEFT JOIN user_invitations AS UserInvitation
+            ON (User.id=UserInvitation.user_id) WHERE (User.name LIKE '%". trim($srchstr) ."%'  OR User.last_name LIKE '%". trim($srchstr) ."%' OR 
+            User.email LIKE '%". trim($srchstr) ."%'  OR User.short_name LIKE '%". trim($srchstr) ."%') AND (".$cond." AND 
+            CompanyUser.company_id='".SES_COMP."' AND ((CompanyUser.is_active = '0' OR CompanyUser.is_active = '1') OR (UserInvitation.company_id='".SES_COMP."' AND UserInvitation.is_active='1')))
+                GROUP BY User.id ORDER BY User.name LIMIT 0,8";
 
                 $usr_res = $this->User->query($usr_sql);
             } elseif($page == "projects") {
                 $this->loadModel('Project');
                 if(SES_TYPE == 3) {
                     $prj_sql = "SELECT Project.id,Project.uniq_id,Project.name,Project.short_name,Project.isactive FROM projects AS Project,
-			project_users AS ProjectUser  WHERE Project.name!='' AND (Project.name LIKE '%". trim($srchstr) ."%'  
-			OR Project.short_name LIKE '%". trim($srchstr) ."%') AND Project.company_id='".SES_COMP."' 
-			AND Project.id=ProjectUser.project_id and ProjectUser.user_id='".SES_ID."' GROUP BY Project.id ORDER BY Project.name LIMIT 0,8";
+            project_users AS ProjectUser  WHERE Project.name!='' AND (Project.name LIKE '%". trim($srchstr) ."%'  
+            OR Project.short_name LIKE '%". trim($srchstr) ."%') AND Project.company_id='".SES_COMP."' 
+            AND Project.id=ProjectUser.project_id and ProjectUser.user_id='".SES_ID."' GROUP BY Project.id ORDER BY Project.name LIMIT 0,8";
                 } else {
                     $prj_sql = "SELECT Project.id,Project.uniq_id,Project.name,Project.short_name,Project.isactive FROM projects AS Project WHERE Project.name!='' AND (Project.name LIKE '%". trim($srchstr) ."%'
-			OR Project.short_name LIKE '%". trim($srchstr) ."%') AND Project.company_id='".SES_COMP."' 
-			GROUP BY Project.id ORDER BY Project.name LIMIT 0,8";
+            OR Project.short_name LIKE '%". trim($srchstr) ."%') AND Project.company_id='".SES_COMP."' 
+            GROUP BY Project.id ORDER BY Project.name LIMIT 0,8";
                 }
 
                 $prj_res = $this->Project->query($prj_sql);
@@ -3789,12 +3796,12 @@ class EasycasesController extends AppController {
             $sqldata = "SELECT * FROM `easycases` WHERE `id`='".$caseId."' ";
             $dataeasycase = $this->Easycase->query($sqldata);//print_r($dataeasycase);
             $caseuniqid = md5(uniqid());
-            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."', 	case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$priority ."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=4");
+            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."',  case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$priority ."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=4");
             //Jyoti End
             /*$sqldata = "SELECT case_no,project_id FROM `easycases` WHERE `id`='".$caseId."' ";
-		$dataeasycase = $this->Easycase->query($sqldata);
-		$sqlinsert = "INSERT INTO `orangescrum`.`case_activities` (`easycase_id`, `case_no`, `project_id`, `user_id`, `type`,`dt_created`) VALUES ('".$caseId."','".$dataeasycase['0']['easycases']['case_no']."','".$dataeasycase['0']['easycases']['project_id']."', '".SES_ID."','6','".GMT_DATETIME."')";
-		$sqlinsertdata=$this->Easycase->query($sqlinsert);*/
+        $dataeasycase = $this->Easycase->query($sqldata);
+        $sqlinsert = "INSERT INTO `orangescrum`.`case_activities` (`easycase_id`, `case_no`, `project_id`, `user_id`, `type`,`dt_created`) VALUES ('".$caseId."','".$dataeasycase['0']['easycases']['case_no']."','".$dataeasycase['0']['easycases']['project_id']."', '".SES_ID."','6','".GMT_DATETIME."')";
+        $sqlinsertdata=$this->Easycase->query($sqlinsert);*/
 
             $protyCls = '';
             $protyTtl = '';
@@ -3825,7 +3832,7 @@ class EasycasesController extends AppController {
             }
             $response = json_encode(array('protyCls'=>$protyCls,'protyTtl'=>$protyTtl));
         }
-	echo $response;exit;
+    echo $response;exit;
         $this->set('response', $response);
     }
     function ajax_change_status() {
@@ -3851,12 +3858,12 @@ class EasycasesController extends AppController {
             $sqldata = "SELECT * FROM `easycases` WHERE `id`='".$caseId."' ";
             $dataeasycase = $this->Easycase->query($sqldata);//print_r($dataeasycase);
             $caseuniqid = md5(uniqid());
-            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."', 	case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$statusId ."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=1");
+            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."',  case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$statusId ."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=1");
             //Jyoti End
             /*$sqldata = "SELECT case_no,project_id FROM `easycases` WHERE `id`='".$caseId."' ";
-			$dataeasycase = $this->Easycase->query($sqldata);
-			$sqlinsert = "INSERT INTO `orangescrum`.`case_activities` (`easycase_id`, `case_no`, `project_id`, `user_id`, `type`,`dt_created`) VALUES ('".$caseId."','".$dataeasycase['0']['easycases']['case_no']."','".$dataeasycase['0']['easycases']['project_id']."', '".SES_ID."','6','".GMT_DATETIME."')";
-			$sqlinsertdata=$this->Easycase->query($sqlinsert);*/
+            $dataeasycase = $this->Easycase->query($sqldata);
+            $sqlinsert = "INSERT INTO `orangescrum`.`case_activities` (`easycase_id`, `case_no`, `project_id`, `user_id`, `type`,`dt_created`) VALUES ('".$caseId."','".$dataeasycase['0']['easycases']['case_no']."','".$dataeasycase['0']['easycases']['project_id']."', '".SES_ID."','6','".GMT_DATETIME."')";
+            $sqlinsertdata=$this->Easycase->query($sqlinsert);*/
 
             //if($upd) {
             echo json_encode(array($statusName,$statusTitle));
@@ -3877,7 +3884,7 @@ class EasycasesController extends AppController {
         $sqldata = "SELECT * FROM `easycases` WHERE `id`='".$caseId."' ";
         $dataeasycase = $this->Easycase->query($sqldata);//print_r($dataeasycase);
         $caseuniqid = md5(uniqid());
-        $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."', 	case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$assignId ."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=2");
+        $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."',  case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$assignId ."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=2");
         //Jyoti End
         if(($assignId == 0) || ($assignId == SES_ID)) {
             $val['top'] = '<span style="color:#E0814E">me</span>';
@@ -3937,7 +3944,7 @@ class EasycasesController extends AppController {
             $sqldata = "SELECT * FROM `easycases` WHERE `id`='".$caseId."' ";
             $dataeasycase = $this->Easycase->query($sqldata);//print_r($dataeasycase);
             $caseuniqid = md5(uniqid());
-            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."', 	case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."',due_date='".$due_date ."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=3");
+            $this->Easycase->query("INSERT INTO easycases SET uniq_id='".$caseuniqid."', case_no = '".$dataeasycase[0]['easycases']['case_no']."',  case_count=0, project_id='".$dataeasycase[0]['easycases']['project_id']."', user_id='".SES_ID."', updated_by=0, type_id='".$dataeasycase[0]['easycases']['type_id']."', priority='".$dataeasycase[0]['easycases']['priority']."', title='', message='', hours='0', assign_to='".$dataeasycase[0]['easycases']['assign_to']."',due_date='".$due_date ."', istype='2',format='2', status='".$dataeasycase[0]['easycases']['status']."', legend='".$dataeasycase[0]['easycases']['legend']."', isactive=1, dt_created='".GMT_DATETIME."',actual_dt_created='".GMT_DATETIME."',reply_type=3");
             //Jyoti End
             //if($upd) {
             if($duedt == "00/00/0000") {
@@ -4113,10 +4120,10 @@ class EasycasesController extends AppController {
 
         $sql = "SELECT DISTINCT Project.uniq_id, Project.name FROM project_users AS ProjectUser LEFT JOIN projects AS Project ON (Project.id= ProjectUser.project_id) WHERE ProjectUser.user_id='".SES_ID."' AND ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1' ORDER BY Project.name ASC";
         $projArr = $this->Project->query($sql);
-	
-	$this->loadModel('Type');
-	$type_sql = "SELECT * FROM types WHERE CASE WHEN (SELECT COUNT(*) AS total FROM type_companies WHERE company_id = ".SES_COMP." HAVING total >=1) THEN id IN (SELECT type_id FROM type_companies WHERE company_id = ".SES_COMP.") ELSE company_id = 0 End ORDER BY company_id DESC, seq_order ASC";
-	$typeArr = $this->Type->query($type_sql);
+    
+    $this->loadModel('Type');
+    $type_sql = "SELECT * FROM types WHERE CASE WHEN (SELECT COUNT(*) AS total FROM type_companies WHERE company_id = ".SES_COMP." HAVING total >=1) THEN id IN (SELECT type_id FROM type_companies WHERE company_id = ".SES_COMP.") ELSE company_id = 0 End ORDER BY company_id DESC, seq_order ASC";
+    $typeArr = $this->Type->query($type_sql);
         $this->set(compact('projArr', 'is_milestone', 'typeArr'));
     }
 
@@ -4186,7 +4193,7 @@ class EasycasesController extends AppController {
             $projArr = $this->Project->find('first', array('conditions' => array('Project.uniq_id' => $prj_unq_id, 'Project.isactive' => 1, 'Project.company_id' => SES_COMP), 'fields' => array('Project.id')));
             if (count($projArr)) {
                 $curProjId = $projArr['Project']['id'];
-//		$sql = "SELECT Easycase.*, Project.name FROM easycases as Easycase ,projects as Project, LEFT JOIN easycase_milestones as EasycaseMilestone ON Easycase.id=EasycaseMilestone.easycase_id LEFT JOIN milestones as Milestone on Milestone.id=EasycaseMilestone.milestone_id as EastcaseMilestone on  WHERE Easycase.project_id=Project.id AND Easycase.istype = 1 AND Easycase.title != '' AND Easycase.isactive='1' AND Easycase.project_id!=0 AND Easycase.project_id = '" . $curProjId . "' ".$qry." ORDER BY Easycase.dt_created ASC";
+//      $sql = "SELECT Easycase.*, Project.name FROM easycases as Easycase ,projects as Project, LEFT JOIN easycase_milestones as EasycaseMilestone ON Easycase.id=EasycaseMilestone.easycase_id LEFT JOIN milestones as Milestone on Milestone.id=EasycaseMilestone.milestone_id as EastcaseMilestone on  WHERE Easycase.project_id=Project.id AND Easycase.istype = 1 AND Easycase.title != '' AND Easycase.isactive='1' AND Easycase.project_id!=0 AND Easycase.project_id = '" . $curProjId . "' ".$qry." ORDER BY Easycase.dt_created ASC";
                 $sql=("SELECT Easycase.*, Project.name,Milestone.* FROM easycases as Easycase LEFT JOIN projects as Project ON Easycase.project_id=Project.id LEFT JOIN easycase_milestones as EasycaseMilestone ON Easycase.id=EasycaseMilestone.easycase_id LEFT JOIN milestones as Milestone on Milestone.id=EasycaseMilestone.milestone_id   WHERE   Easycase.istype = 1 AND Easycase.title != '' AND Easycase.isactive='1' AND Easycase.project_id!=0 AND Easycase.project_id = '" . $curProjId . "' ".$qry." ORDER BY Easycase.dt_created ASC ");
                 $case_lists = $this->Easycase->query($sql);
             }
@@ -4278,7 +4285,7 @@ class EasycasesController extends AppController {
         }
         $csv_output = "projectName,tasks#,title,status,type,created by,assigned to,created at,lastUpdated\n";
 
-        /*echo "<pre>";	print_r($case_lists);exit;*/
+        /*echo "<pre>"; print_r($case_lists);exit;*/
 
         foreach($case_lists as $case_list) {
             if($case_list['Easycase']['legend'] == 1) {
@@ -4421,12 +4428,12 @@ class EasycasesController extends AppController {
                         //$getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User,user_notifications as UserNotification,case_user_emails as CaseUserEmail,project_users as ProjectUser,company_users as CompanyUser WHERE User.id=UserNotification.user_id AND CaseUserEmail.user_id=UserNotification.user_id AND CaseUserEmail.ismail='1' AND UserNotification.case_status='1' AND User.isactive='1' AND CompanyUser.user_id=UserNotification.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='".SES_COMP."' AND ProjectUser.user_id=User.id AND ProjectUser.project_id='".$data['projId']."' AND ProjectUser.default_email='1'");
 
                         /* Commenting by Orangescrum
-			      if (isset($this->data['emailUser'])) {
-			      $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User WHERE User.id IN (" . implode(',', $this->data['emailUser']) . ") AND User.isactive='1' ");
-			      } else {
-			      //$getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User,user_notifications as UserNotification,project_users as ProjectUser,company_users as CompanyUser WHERE User.id=UserNotification.user_id AND UserNotification.case_status='1' AND User.isactive='1' AND CompanyUser.user_id=UserNotification.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='" . SES_COMP . "' AND ProjectUser.user_id=User.id AND ProjectUser.project_id='" . $data['projId'] . "' AND ProjectUser.default_email='1'");
-			      $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User,user_notifications as UserNotification,case_user_emails as CaseUserEmail,project_users as ProjectUser,company_users as CompanyUser WHERE User.id=UserNotification.user_id AND CaseUserEmail.user_id=UserNotification.user_id AND CaseUserEmail.easycase_id='".$caseStsId."' AND CaseUserEmail.ismail='1' AND UserNotification.case_status='1' AND User.isactive='1' AND CompanyUser.user_id=UserNotification.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='".SES_COMP."' AND ProjectUser.user_id=User.id AND ProjectUser.project_id='".$data['projId']."'");
-			      } */
+                  if (isset($this->data['emailUser'])) {
+                  $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User WHERE User.id IN (" . implode(',', $this->data['emailUser']) . ") AND User.isactive='1' ");
+                  } else {
+                  //$getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User,user_notifications as UserNotification,project_users as ProjectUser,company_users as CompanyUser WHERE User.id=UserNotification.user_id AND UserNotification.case_status='1' AND User.isactive='1' AND CompanyUser.user_id=UserNotification.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='" . SES_COMP . "' AND ProjectUser.user_id=User.id AND ProjectUser.project_id='" . $data['projId'] . "' AND ProjectUser.default_email='1'");
+                  $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User,user_notifications as UserNotification,case_user_emails as CaseUserEmail,project_users as ProjectUser,company_users as CompanyUser WHERE User.id=UserNotification.user_id AND CaseUserEmail.user_id=UserNotification.user_id AND CaseUserEmail.easycase_id='".$caseStsId."' AND CaseUserEmail.ismail='1' AND UserNotification.case_status='1' AND User.isactive='1' AND CompanyUser.user_id=UserNotification.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='".SES_COMP."' AND ProjectUser.user_id=User.id AND ProjectUser.project_id='".$data['projId']."'");
+                  } */
 
                         //Added by Orangescrum
                         $emailUsers = $CaseUserEmail->getEmailUsers($commonCaseId);
@@ -4445,15 +4452,15 @@ class EasycasesController extends AppController {
             }
 
             /* Commenting by Orangescrum
-		  if (isset($data['emailUser']) && $data['emailUser']) {
-		  $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User WHERE User.id IN (" . implode(',', $data['emailUser']) . ") AND User.isactive='1' ");
-		  } elseif (isset($data['emailUser'])) {
-		  $getEmailUser = "";
-		  } elseif ($data['caseIstype'] == 1) {
-		  $getEmailUser = $this->Format->getAllNotifyUser($data['projId'], 'new');
-		  } else {
-		  $getEmailUser = $this->Format->getAllNotifyUser($data['projId'], 'reply');
-		  } */
+          if (isset($data['emailUser']) && $data['emailUser']) {
+          $getEmailUser = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email FROM users as User WHERE User.id IN (" . implode(',', $data['emailUser']) . ") AND User.isactive='1' ");
+          } elseif (isset($data['emailUser'])) {
+          $getEmailUser = "";
+          } elseif ($data['caseIstype'] == 1) {
+          $getEmailUser = $this->Format->getAllNotifyUser($data['projId'], 'new');
+          } else {
+          $getEmailUser = $this->Format->getAllNotifyUser($data['projId'], 'reply');
+          } */
 
             //Added by Orangescrum
             if ($data['caseIstype'] == 1) {
@@ -4782,7 +4789,7 @@ class EasycasesController extends AppController {
         $this->set('case_info',$rec['0']);
     }
 
-#### EDITED TEXT OF REPLY ARE SAVED ###########	
+#### EDITED TEXT OF REPLY ARE SAVED ########### 
 
     function save_editedvalue() {
         $this->layout='ajax';
@@ -5098,8 +5105,8 @@ class EasycasesController extends AppController {
         $this->loadModel('Project');
         $this->Project->recursive = -1;
         $sql = "SELECT DISTINCT Project.name,Project.id,Project.uniq_id FROM projects AS Project,
-		project_users AS ProjectUser WHERE Project.id = ProjectUser.project_id AND ProjectUser.user_id='".SES_ID."'
-		    and ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1' AND Project.name !='' ORDER BY ProjectUser.dt_visited DESC";
+        project_users AS ProjectUser WHERE Project.id = ProjectUser.project_id AND ProjectUser.user_id='".SES_ID."'
+            and ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1' AND Project.name !='' ORDER BY ProjectUser.dt_visited DESC";
         $projects = $this->Project->query($sql);
         $this->set('projects',$projects);
         $this->set('project_id',$project_id);
@@ -5150,12 +5157,12 @@ class EasycasesController extends AppController {
                 $easycase['Easycase']['case_no'] = $max_case;
 
                 //Getting assign user is exist in new project or not
-//		    if(($case['Easycase']['user_id'] == SES_ID) && ($case['Easycase']['user_id'] !== $case['Easycase']['assign_to'])) {
-//				$assignto = $this->ProjectUser->find('first',array('conditions'=>array('ProjectUser.project_id'=>$project_id,'ProjectUser.user_id'=>$case['Easycase']['assign_to'],'ProjectUser.company_id'=>SES_COMP)));
-//				if(isset($assignto) && empty($assignto)) {
-//					$easycase['Easycase']['assign_to'] = SES_ID;
-//				}
-//		    }
+//          if(($case['Easycase']['user_id'] == SES_ID) && ($case['Easycase']['user_id'] !== $case['Easycase']['assign_to'])) {
+//              $assignto = $this->ProjectUser->find('first',array('conditions'=>array('ProjectUser.project_id'=>$project_id,'ProjectUser.user_id'=>$case['Easycase']['assign_to'],'ProjectUser.company_id'=>SES_COMP)));
+//              if(isset($assignto) && empty($assignto)) {
+//                  $easycase['Easycase']['assign_to'] = SES_ID;
+//              }
+//          }
                 //Move to new project
                 if(strstr($case['0']['easycase_ids'],',')) {
                     $casearr=  explode(',',$case['0']['easycase_ids']);
@@ -5577,9 +5584,9 @@ class EasycasesController extends AppController {
                 }
             }
         }
-	
+    
         $task_type = $GLOBALS['TYPE'];
-	$this->set(compact('dashboard_order', 'task_type'));
+    $this->set(compact('dashboard_order', 'task_type'));
         setcookie('DEFAULT_PAGE','mydashboard',COOKIE_REM,'/',DOMAIN_COOKIE,false,false);
     }
 
@@ -5632,24 +5639,24 @@ class EasycasesController extends AppController {
 
         $dt_cond = " AND Easycase.due_date<'".GMT_DATE."'";
         $sql_od = "SELECT SQL_CALC_FOUND_ROWS Easycase.case_no,Easycase.actual_dt_created,Easycase.dt_created,Easycase.uniq_id,Easycase.project_id,Easycase.due_date,
-		Easycase.title,Project.name,Project.short_name, Project.uniq_id, 'od' as todos_type FROM (SELECT * FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.legend!=3
-		AND Easycase.legend!=5 AND Easycase.isactive=1 AND Easycase.type_id!=10 AND Easycase.project_id!=0 ".$dt_cond." AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM
-		project_users AS ProjectUser,projects AS Project WHERE ".$cond." ProjectUser.user_id='".SES_ID."' AND ProjectUser.project_id=Project.id AND 
-		Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."')  AND ((Easycase.assign_to='".SES_ID."') OR 
-		(Easycase.assign_to=0 AND Easycase.user_id='".SES_ID."')) ORDER BY  Easycase.project_id DESC) AS Easycase LEFT JOIN projects AS Project
-		ON (Easycase.project_id=Project.id)  ORDER BY Easycase.dt_created DESC LIMIT 0,5";
+        Easycase.title,Project.name,Project.short_name, Project.uniq_id, 'od' as todos_type FROM (SELECT * FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.legend!=3
+        AND Easycase.legend!=5 AND Easycase.isactive=1 AND Easycase.type_id!=10 AND Easycase.project_id!=0 ".$dt_cond." AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM
+        project_users AS ProjectUser,projects AS Project WHERE ".$cond." ProjectUser.user_id='".SES_ID."' AND ProjectUser.project_id=Project.id AND 
+        Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."')  AND ((Easycase.assign_to='".SES_ID."') OR 
+        (Easycase.assign_to=0 AND Easycase.user_id='".SES_ID."')) ORDER BY  Easycase.project_id DESC) AS Easycase LEFT JOIN projects AS Project
+        ON (Easycase.project_id=Project.id)  ORDER BY Easycase.dt_created DESC LIMIT 0,5";
         $get_od_todos = $this->Easycase->query($sql_od);
         $tot_od = $this->Easycase->query("SELECT FOUND_ROWS() as tot_od");
 
         $qry_limit = 10-count($get_od_todos);
         $dt_cond = " AND (Easycase.due_date>='".GMT_DATE."' OR Easycase.due_date IS NULL OR Easycase.due_date='0000-00-00' OR Easycase.due_date='1970-01-01' OR Easycase.due_date='')";
         $sql = "SELECT SQL_CALC_FOUND_ROWS Easycase.case_no,Easycase.actual_dt_created,Easycase.dt_created,Easycase.uniq_id,Easycase.project_id,Easycase.due_date,
-		Easycase.title,Project.name,Project.short_name, Project.uniq_id, 'td' as todos_type FROM (SELECT * FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.legend!=3
-		AND Easycase.legend!=5 AND Easycase.isactive=1 AND Easycase.type_id!=10 AND Easycase.project_id!=0 ".$dt_cond." AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM
-		project_users AS ProjectUser,projects AS Project WHERE ".$cond." ProjectUser.user_id='".SES_ID."' AND ProjectUser.project_id=Project.id AND 
-		Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."')  AND ((Easycase.assign_to='".SES_ID."') OR 
-		(Easycase.assign_to=0 AND Easycase.user_id='".SES_ID."')) ORDER BY  Easycase.project_id DESC) AS Easycase LEFT JOIN projects AS Project
-		ON (Easycase.project_id=Project.id)  ORDER BY Easycase.due_date DESC, Easycase.dt_created DESC LIMIT 0,$qry_limit";
+        Easycase.title,Project.name,Project.short_name, Project.uniq_id, 'td' as todos_type FROM (SELECT * FROM easycases as Easycase WHERE Easycase.istype='1' AND Easycase.legend!=3
+        AND Easycase.legend!=5 AND Easycase.isactive=1 AND Easycase.type_id!=10 AND Easycase.project_id!=0 ".$dt_cond." AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM
+        project_users AS ProjectUser,projects AS Project WHERE ".$cond." ProjectUser.user_id='".SES_ID."' AND ProjectUser.project_id=Project.id AND 
+        Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."')  AND ((Easycase.assign_to='".SES_ID."') OR 
+        (Easycase.assign_to=0 AND Easycase.user_id='".SES_ID."')) ORDER BY  Easycase.project_id DESC) AS Easycase LEFT JOIN projects AS Project
+        ON (Easycase.project_id=Project.id)  ORDER BY Easycase.due_date DESC, Easycase.dt_created DESC LIMIT 0,$qry_limit";
         $gettodos = $this->Easycase->query($sql);
         $tot = $this->Easycase->query("SELECT FOUND_ROWS() as total");
 
@@ -5667,13 +5674,13 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $this->loadModel('Project');
         $sql = "SELECT SQL_CALC_FOUND_ROWS DISTINCT Project.id,Project.uniq_id AS uniq_id,Project.name,
-			Project.dt_created,(SELECT COUNT(Easycase.id) FROM easycases AS Easycase WHERE 
-			Easycase.istype='1' AND Easycase.isactive='1' AND Projectuser.project_id=Easycase.project_id ) 
-			AS total, (SELECT COUNT(Easycase.id) FROM easycases AS Easycase WHERE 
-			Easycase.istype='1' AND Easycase.isactive='1' AND (Easycase.legend ='3' OR Easycase.legend ='5') AND Projectuser.project_id=Easycase.project_id ) 
-			AS resolved FROM projects AS Project, project_users AS Projectuser WHERE Project.id=Projectuser.project_id 
-			AND Projectuser.user_id='".SES_ID."' AND Projectuser.company_id='".SES_COMP."' AND Project.isactive='1' 
-			ORDER BY Projectuser.dt_visited DESC LIMIT 0,10";
+            Project.dt_created,(SELECT COUNT(Easycase.id) FROM easycases AS Easycase WHERE 
+            Easycase.istype='1' AND Easycase.isactive='1' AND Projectuser.project_id=Easycase.project_id ) 
+            AS total, (SELECT COUNT(Easycase.id) FROM easycases AS Easycase WHERE 
+            Easycase.istype='1' AND Easycase.isactive='1' AND (Easycase.legend ='3' OR Easycase.legend ='5') AND Projectuser.project_id=Easycase.project_id ) 
+            AS resolved FROM projects AS Project, project_users AS Projectuser WHERE Project.id=Projectuser.project_id 
+            AND Projectuser.user_id='".SES_ID."' AND Projectuser.company_id='".SES_COMP."' AND Project.isactive='1' 
+            ORDER BY Projectuser.dt_visited DESC LIMIT 0,10";
 
         $recent_projects = $this->Project->query($sql);
         $tot = $this->Project->query("SELECT FOUND_ROWS() as total");
@@ -5696,17 +5703,17 @@ class EasycasesController extends AppController {
         }
 
         /*$sql = "SELECT SQL_CALC_FOUND_ROWS Easycase.*,User.name,User.short_name,User.photo,Project.id,Project.uniq_id,Project.name
-			FROM easycases AS Easycase INNER JOIN users AS User ON (Easycase.user_id = User.id) INNER JOIN 
-			projects AS Project ON (Easycase.project_id = Project.id) inner JOIN project_users AS ProjectUser ON 
-			(Easycase.project_id = ProjectUser.project_id AND ProjectUser.user_id = '".SES_ID."' AND ProjectUser.company_id = '".SES_COMP."') 
-			WHERE Project.isactive='1' AND Easycase.isactive='1' ".$cond." AND 
-			Easycase.id = (SELECT MAX(id) FROM easycases WHERE case_no = Easycase.case_no GROUP BY case_no) 
-			GROUP BY Easycase.case_no ORDER BY Easycase.actual_dt_created DESC LIMIT 0,10";*/
+            FROM easycases AS Easycase INNER JOIN users AS User ON (Easycase.user_id = User.id) INNER JOIN 
+            projects AS Project ON (Easycase.project_id = Project.id) inner JOIN project_users AS ProjectUser ON 
+            (Easycase.project_id = ProjectUser.project_id AND ProjectUser.user_id = '".SES_ID."' AND ProjectUser.company_id = '".SES_COMP."') 
+            WHERE Project.isactive='1' AND Easycase.isactive='1' ".$cond." AND 
+            Easycase.id = (SELECT MAX(id) FROM easycases WHERE case_no = Easycase.case_no GROUP BY case_no) 
+            GROUP BY Easycase.case_no ORDER BY Easycase.actual_dt_created DESC LIMIT 0,10";*/
         $sql = "SELECT SQL_CALC_FOUND_ROWS Easycase.*,User.name,User.short_name,User.photo,Project.id,Project.uniq_id,Project.name
-			FROM easycases AS Easycase INNER JOIN users AS User ON (Easycase.user_id = User.id) INNER JOIN 
-			projects AS Project ON (Easycase.project_id = Project.id) inner JOIN project_users AS ProjectUser ON 
-			(Easycase.project_id = ProjectUser.project_id AND ProjectUser.user_id = '".SES_ID."' AND ProjectUser.company_id = '".SES_COMP."') 
-			WHERE Project.isactive='1' AND Easycase.isactive='1' ".$cond." ORDER BY Easycase.actual_dt_created DESC LIMIT 0,10";
+            FROM easycases AS Easycase INNER JOIN users AS User ON (Easycase.user_id = User.id) INNER JOIN 
+            projects AS Project ON (Easycase.project_id = Project.id) inner JOIN project_users AS ProjectUser ON 
+            (Easycase.project_id = ProjectUser.project_id AND ProjectUser.user_id = '".SES_ID."' AND ProjectUser.company_id = '".SES_COMP."') 
+            WHERE Project.isactive='1' AND Easycase.isactive='1' ".$cond." ORDER BY Easycase.actual_dt_created DESC LIMIT 0,10";
 
         $recent_activities = $this->Easycase->query($sql);
         $tot = $this->Easycase->query("SELECT FOUND_ROWS() as total");
@@ -5744,9 +5751,9 @@ class EasycasesController extends AppController {
 
         $this->loadModel('Milestone');
         $sql = "SELECT SQL_CALC_FOUND_ROWS Milestone.*,Project.name,Project.uniq_id,COUNT(c.easycase_id) AS totalcases,
-			GROUP_CONCAT(c.easycase_id) AS `caseids`,GROUP_CONCAT(e.legend) AS `legend` FROM milestones AS `Milestone` LEFT JOIN
-			easycase_milestones AS c ON Milestone.id = c.milestone_id LEFT JOIN easycases AS e ON (c.easycase_id = e.id) LEFT JOIN
-			projects AS Project ON (Project.id=Milestone.project_id) WHERE Milestone.isactive='1' AND `Milestone`.`company_id` = ".SES_COMP;
+            GROUP_CONCAT(c.easycase_id) AS `caseids`,GROUP_CONCAT(e.legend) AS `legend` FROM milestones AS `Milestone` LEFT JOIN
+            easycase_milestones AS c ON Milestone.id = c.milestone_id LEFT JOIN easycases AS e ON (c.easycase_id = e.id) LEFT JOIN
+            projects AS Project ON (Project.id=Milestone.project_id) WHERE Milestone.isactive='1' AND `Milestone`.`company_id` = ".SES_COMP;
 
         if($allpj != "all") {
             $sql .= " AND `Milestone`.`project_id` =".$projectId." AND `Milestone`.`company_id` = ".SES_COMP."  GROUP BY Milestone.id ORDER BY `Milestone`.`modified` DESC LIMIT 0,10";
@@ -5810,29 +5817,29 @@ class EasycasesController extends AppController {
         $this->loadModel('ProjectUser');
         $rec=$this->ProjectUser->findByUserId($id);
         if(!empty($rec)) {
-	    $task_type = $GLOBALS['TYPE'];
-	    $type_id = (isset($GLOBALS['TYPE'][0]['Type']['id']) && trim($GLOBALS['TYPE'][0]['Type']['id'])) ? $GLOBALS['TYPE'][0]['Type']['id'] : $GLOBALS['TYPE'][1]['Type']['id'];
-	    $task_type_id = (isset($_COOKIE['TASK_TYPE_IN_DASHBOARD']) && trim($_COOKIE['TASK_TYPE_IN_DASHBOARD'])) ? $_COOKIE['TASK_TYPE_IN_DASHBOARD'] : $type_id;
+        $task_type = $GLOBALS['TYPE'];
+        $type_id = (isset($GLOBALS['TYPE'][0]['Type']['id']) && trim($GLOBALS['TYPE'][0]['Type']['id'])) ? $GLOBALS['TYPE'][0]['Type']['id'] : $GLOBALS['TYPE'][1]['Type']['id'];
+        $task_type_id = (isset($_COOKIE['TASK_TYPE_IN_DASHBOARD']) && trim($_COOKIE['TASK_TYPE_IN_DASHBOARD'])) ? $_COOKIE['TASK_TYPE_IN_DASHBOARD'] : $type_id;
 
             $task_without_due_date = "SELECT  DISTINCT COUNT(Easycase.id) AS task_without_due_date FROM easycases AS Easycase LEFT JOIN projects AS Project
-			ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date IS NULL";
+            ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date IS NULL";
 
             $hours_spent = "SELECT SUM(hours) AS hours_spent FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0";
 
-	    $task_hours = "SELECT SUM(hours) as task_hours FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0 AND type_id = '".$task_type_id."'";
+        $task_hours = "SELECT SUM(hours) as task_hours FROM easycases AS Easycase LEFT JOIN projects AS Project ON (Project.id = Easycase.project_id) WHERE Project.company_id='".SES_COMP."' $cond AND Easycase.isactive=1 AND Easycase.reply_type=0 AND type_id = '".$task_type_id."'";
 
             //$sql = "SELECT * FROM ($task_without_due_date) AS task_without_due_date,($task_have_no_hours) AS task_have_no_hours,($hours_spent) AS hours_spent,($bug_hours) AS bug_hours";
             $sql = "SELECT * FROM ($task_without_due_date) AS task_without_due_date,($hours_spent) AS hours_spent,($task_hours) AS task_hours";
 
             $statistics = $this->Easycase->query($sql);
-	    $task_type_name = "";
-	    if (isset($task_type) && !empty($task_type)) {
-		foreach ($task_type as $key => $value) {
-		    if ($task_type_id == $value['Type']['id']) {
-			$task_type_name = strtolower($value['Type']['name']);
-		    }
-		}
-	    }
+        $task_type_name = "";
+        if (isset($task_type) && !empty($task_type)) {
+        foreach ($task_type as $key => $value) {
+            if ($task_type_id == $value['Type']['id']) {
+            $task_type_name = strtolower($value['Type']['name']);
+            }
+        }
+        }
             $this->set(compact('statistics', 'task_type_name'));
         }
 
@@ -5858,15 +5865,15 @@ class EasycasesController extends AppController {
             $usercond = " AND ProjectUser.project_id='".$projectId."'";
         } else {
             $projectcond = ",(SELECT DISTINCT COUNT(Project.id) AS cnt_projects FROM projects AS Project, project_users AS ProjectUser WHERE Project.id=ProjectUser.project_id AND ProjectUser.user_id='".SES_ID."'
-			AND  ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1') AS total_projects";
+            AND  ProjectUser.company_id='".SES_COMP."' AND Project.isactive='1') AS total_projects";
         }
 
         /*$sql = "SELECT * FROM (SELECT ROUND((SUM(CaseFile.file_size)/1024),2) AS filesize FROM case_files AS CaseFile WHERE CaseFile.company_id ='".SES_COMP."' $filecond) AS total_filesize,
-		(SELECT  DISTINCT COUNT(CompanyUser.id) AS cnt_users FROM company_users AS CompanyUser, project_users AS ProjectUser WHERE CompanyUser.is_active=1 AND
-		CompanyUser.company_id='".SES_COMP."' $usercond AND ProjectUser.company_id=CompanyUser.company_id AND ProjectUser.user_id = CompanyUser.user_id) AS total_users $projectcond";*/
+        (SELECT  DISTINCT COUNT(CompanyUser.id) AS cnt_users FROM company_users AS CompanyUser, project_users AS ProjectUser WHERE CompanyUser.is_active=1 AND
+        CompanyUser.company_id='".SES_COMP."' $usercond AND ProjectUser.company_id=CompanyUser.company_id AND ProjectUser.user_id = CompanyUser.user_id) AS total_users $projectcond";*/
 
         $sql = "SELECT * FROM (SELECT ROUND((SUM(CaseFile.file_size)/1024),2) AS filesize FROM case_files AS CaseFile WHERE CaseFile.company_id ='".SES_COMP."' $filecond) AS total_filesize,
-		(SELECT COUNT(DISTINCT(CompanyUser.user_id)) as cnt_users  FROM company_users AS CompanyUser LEFT JOIN project_users as ProjectUser ON ProjectUser.user_id = CompanyUser.user_id WHERE CompanyUser.is_active=1 AND
+        (SELECT COUNT(DISTINCT(CompanyUser.user_id)) as cnt_users  FROM company_users AS CompanyUser LEFT JOIN project_users as ProjectUser ON ProjectUser.user_id = CompanyUser.user_id WHERE CompanyUser.is_active=1 AND
 CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
 
         $usage_details = $this->Project->query($sql);
@@ -5944,7 +5951,7 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
      */
     
     function task_type() {
-	$this->layout = 'ajax';
+    $this->layout = 'ajax';
         $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
         $task_type_id = (isset($this->params['data']['task_type_id']) && trim($this->params['data']['task_type_id'])) ? $this->params['data']['task_type_id'] : 0;
         $cond = '';
@@ -6131,48 +6138,48 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $frmt = $view->loadHelper('Format');
         ######### Filete with Milestone ##########
         /*
-		if($milestoneUid ){
-			$mlst_cls = ClassRegistry::init('Milestone');
-			//$mlist = $mlst_cls->find('first',array('conditions'=>array('Milestone.uniq_id'=>$milestoneUid),'fields'=>'Milestone.id,Milestone.title'));
-			$mls = $mlst_cls->query("SELECT `Milestone`.`id`,`Milestone`.`title`,`Milestone`.`project_id`,`Milestone`.`end_date`,`Milestone`.`uniq_id`,`Milestone`.`isactive`,`Milestone`.`user_id`,COUNT(c.easycase_id) AS totalcases,GROUP_CONCAT(c.easycase_id) AS `caseids`  FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id WHERE `Milestone`.`uniq_id` ='".$milestoneUid."'  AND `Milestone`.`company_id` = ".SES_COMP);
-			//echo "<pre>";print_r($mls);exit;
-			$resCaseProj['mlstTitle'] = $mls[0]['Milestone']['title'];
-			$resCaseProj['mlstId'] = $mls[0]['Milestone']['id'];
-			$resCaseProj['mlstUid'] = $milestoneUid;
-			$resCaseProj['mlstProjId'] = $mls[0]['Milestone']['project_id'];
-			$resCaseProj['mlsttotalCs'] = $mls[0][0]['totalcases'];
-			$resCaseProj['mlsttype'] = $mls[0]['Milestone']['isactive'];
-			
-			$curCreated = $tz->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,GMT_DATETIME,"datetime");
-			$curTime = date('H:i:s',strtotime($curCreated));
-			
-			$closed_cases = $mlst_cls->query("SELECT EasycaseMilestone.milestone_id,COUNT(Easycase.id) as totcase FROM easycase_milestones AS EasycaseMilestone LEFT JOIN easycases as Easycase ON   EasycaseMilestone.easycase_id=Easycase.id WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='3' AND EasycaseMilestone.milestone_id='".$mls[0]['Milestone']['id']."'  GROUP BY  EasycaseMilestone.milestone_id");
-			$tot_closed_case = $closed_cases[0][0]['totcase'];
-			
-			$endDate = $mls[0]['Milestone']['end_date']." ".$curTime;
-			$days = $dt->dateDiff($endDate,$curCreated);
+        if($milestoneUid ){
+            $mlst_cls = ClassRegistry::init('Milestone');
+            //$mlist = $mlst_cls->find('first',array('conditions'=>array('Milestone.uniq_id'=>$milestoneUid),'fields'=>'Milestone.id,Milestone.title'));
+            $mls = $mlst_cls->query("SELECT `Milestone`.`id`,`Milestone`.`title`,`Milestone`.`project_id`,`Milestone`.`end_date`,`Milestone`.`uniq_id`,`Milestone`.`isactive`,`Milestone`.`user_id`,COUNT(c.easycase_id) AS totalcases,GROUP_CONCAT(c.easycase_id) AS `caseids`  FROM milestones AS `Milestone` LEFT JOIN easycase_milestones AS c ON Milestone.id = c.milestone_id WHERE `Milestone`.`uniq_id` ='".$milestoneUid."'  AND `Milestone`.`company_id` = ".SES_COMP);
+            //echo "<pre>";print_r($mls);exit;
+            $resCaseProj['mlstTitle'] = $mls[0]['Milestone']['title'];
+            $resCaseProj['mlstId'] = $mls[0]['Milestone']['id'];
+            $resCaseProj['mlstUid'] = $milestoneUid;
+            $resCaseProj['mlstProjId'] = $mls[0]['Milestone']['project_id'];
+            $resCaseProj['mlsttotalCs'] = $mls[0][0]['totalcases'];
+            $resCaseProj['mlsttype'] = $mls[0]['Milestone']['isactive'];
+            
+            $curCreated = $tz->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,GMT_DATETIME,"datetime");
+            $curTime = date('H:i:s',strtotime($curCreated));
+            
+            $closed_cases = $mlst_cls->query("SELECT EasycaseMilestone.milestone_id,COUNT(Easycase.id) as totcase FROM easycase_milestones AS EasycaseMilestone LEFT JOIN easycases as Easycase ON   EasycaseMilestone.easycase_id=Easycase.id WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='3' AND EasycaseMilestone.milestone_id='".$mls[0]['Milestone']['id']."'  GROUP BY  EasycaseMilestone.milestone_id");
+            $tot_closed_case = $closed_cases[0][0]['totcase'];
+            
+            $endDate = $mls[0]['Milestone']['end_date']." ".$curTime;
+            $days = $dt->dateDiff($endDate,$curCreated);
 
-			$mlstDT = $dt->dateFormatOutputdateTime_day($mls[0]['Milestone']['end_date'],GMT_DATETIME,'week');
+            $mlstDT = $dt->dateFormatOutputdateTime_day($mls[0]['Milestone']['end_date'],GMT_DATETIME,'week');
 
-			$totalCs = $mls[0][0]['totalcases'];
-			$totalClosedCs = 0;
-			if($tot_closed_case){
-				$totalClosedCs = $tot_closed_case;
-			}
-			$fill = 0;
-			if($totalClosedCs != 0) {
-				$fill = round((($totalClosedCs/$totalCs)*100));
-			}
+            $totalCs = $mls[0][0]['totalcases'];
+            $totalClosedCs = 0;
+            if($tot_closed_case){
+                $totalClosedCs = $tot_closed_case;
+            }
+            $fill = 0;
+            if($totalClosedCs != 0) {
+                $fill = round((($totalClosedCs/$totalCs)*100));
+            }
 
-			$resCaseProj['intEndDate'] = strtotime($endDate);
-			$resCaseProj['mlstdays_diff'] = $days;
-			$resCaseProj['mlstDT'] = $mlstDT;
-			$resCaseProj['mlstFill'] = $fill;
-			$resCaseProj['totalClosedCs'] = $totalClosedCs;
-			$resCaseProj['totalCs'] = $totalCs;
-			
-			$qry .=' AND EasycaseMilestone.milestone_id='.$mls[0]['Milestone']['id'];
-		}else{
+            $resCaseProj['intEndDate'] = strtotime($endDate);
+            $resCaseProj['mlstdays_diff'] = $days;
+            $resCaseProj['mlstDT'] = $mlstDT;
+            $resCaseProj['mlstFill'] = $fill;
+            $resCaseProj['totalClosedCs'] = $totalClosedCs;
+            $resCaseProj['totalCs'] = $totalCs;
+            
+            $qry .=' AND EasycaseMilestone.milestone_id='.$mls[0]['Milestone']['id'];
+        }else{
         */
         $resCaseProj['mlstTitle'] = '';
         $resCaseProj['mlstId'] = '';
@@ -6269,18 +6276,18 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         //}
         $msQuery1 = " ";
         /*$resCaseProj['page_limit'] = $page_limit;
-		$resCaseProj['csPage'] = $casePage;
-		$resCaseProj['caseUrl'] = $caseUrl;
-		$resCaseProj['projUniq'] = $projUniq;
-		$resCaseProj['csdt'] = $caseDate;
-		$resCaseProj['csTtl'] = $caseTitle;
-		$resCaseProj['csDuDt'] = $caseDueDate;
-		$resCaseProj['csCrtdDt'] = $caseCreateDate;
-		$resCaseProj['csNum'] = $caseNum;
-		$resCaseProj['csLgndSrt'] = $caseLegendsort;
-		$resCaseProj['csAtSrt'] = $caseAtsort;
-		$resCaseProj['caseMenuFilters'] = $caseMenuFilters;
-		$resCaseProj['morecontent'] = $morecontent;*/
+        $resCaseProj['csPage'] = $casePage;
+        $resCaseProj['caseUrl'] = $caseUrl;
+        $resCaseProj['projUniq'] = $projUniq;
+        $resCaseProj['csdt'] = $caseDate;
+        $resCaseProj['csTtl'] = $caseTitle;
+        $resCaseProj['csDuDt'] = $caseDueDate;
+        $resCaseProj['csCrtdDt'] = $caseCreateDate;
+        $resCaseProj['csNum'] = $caseNum;
+        $resCaseProj['csLgndSrt'] = $caseLegendsort;
+        $resCaseProj['csAtSrt'] = $caseAtsort;
+        $resCaseProj['caseMenuFilters'] = $caseMenuFilters;
+        $resCaseProj['morecontent'] = $morecontent;*/
 
         $from_input_yr = $this->data['from_view_year'];
         $from_input_mth = $this->data['from_view_month'];
@@ -6379,14 +6386,14 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
      * @author GDR<support@Orangescrum.com>
      */
     function taskDownload() {
-		
-		if(!is_dir(DOWNLOAD_TASK_PATH)) {
-			mkdir(DOWNLOAD_TASK_PATH, 0777, true);
-		}
-		if(!is_dir(DOWNLOAD_TASK_PATH."zipTask")) {
-			mkdir(DOWNLOAD_TASK_PATH."zipTask", 0777, true);
-		}
-		
+        
+        if(!is_dir(DOWNLOAD_TASK_PATH)) {
+            mkdir(DOWNLOAD_TASK_PATH, 0777, true);
+        }
+        if(!is_dir(DOWNLOAD_TASK_PATH."zipTask")) {
+            mkdir(DOWNLOAD_TASK_PATH."zipTask", 0777, true);
+        }
+        
         $caseUniqId = $this->data['caseUid'];
         //$caseUniqId = '8d082f712782302aafe8a62129f7cc24';
         $this->layout='ajax';
@@ -6427,12 +6434,12 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $getPostCase = array();
         if($ProjId && $curCaseNo) {
             //$getPostCase = $this->Easycase->query("SELECT Easycase.*, User1.name AS created_by , User2.name as updated_by , User3.name AS Assigned_to  FROM easycases as Easycase LEFT JOIN users User1 ON Easycase.user_id=User1.id LEFT JOIN users User2 ON Easycase.updated_by= User2.id LEFT JOIN users User3 ON Easycase.assign_to= User3.id WHERE Easycase.project_id='".$ProjId."' AND Easycase.case_no=".$curCaseNo." AND (Easycase.legend !=6) ORDER BY Easycase.actual_dt_created ASC");
-	    $getPostCase = $this->Easycase->query("SELECT Easycase.*, User1.name AS created_by , User2.name as updated_by , User3.name AS Assigned_to  FROM easycases as Easycase LEFT JOIN users User1 ON Easycase.user_id=User1.id LEFT JOIN users User2 ON Easycase.updated_by= User2.id LEFT JOIN users User3 ON Easycase.assign_to= User3.id WHERE Easycase.project_id='".$ProjId."' AND Easycase.case_no=".$curCaseNo." AND (Easycase.istype='1' OR Easycase.legend !=6) ORDER BY Easycase.actual_dt_created ASC");
-		$estimated_hours = (isset($getPostCase['0']['Easycase']) && !empty($getPostCase['0']['Easycase'])) ? $getPostCase['0']['Easycase']['estimated_hours'] : '0.0';
+        $getPostCase = $this->Easycase->query("SELECT Easycase.*, User1.name AS created_by , User2.name as updated_by , User3.name AS Assigned_to  FROM easycases as Easycase LEFT JOIN users User1 ON Easycase.user_id=User1.id LEFT JOIN users User2 ON Easycase.updated_by= User2.id LEFT JOIN users User3 ON Easycase.assign_to= User3.id WHERE Easycase.project_id='".$ProjId."' AND Easycase.case_no=".$curCaseNo." AND (Easycase.istype='1' OR Easycase.legend !=6) ORDER BY Easycase.actual_dt_created ASC");
+        $estimated_hours = (isset($getPostCase['0']['Easycase']) && !empty($getPostCase['0']['Easycase'])) ? $getPostCase['0']['Easycase']['estimated_hours'] : '0.0';
             $getHours = $this->Easycase->query("SELECT SUM(hours) as hours FROM easycases as Easycase WHERE project_id='".$ProjId."' AND case_no=".$curCaseNo." AND reply_type=0");
             $hours = $getHours[0][0]['hours'];
-//		$getcompletedtask = $this->Easycase->query("SELECT completed_task  FROM easycases as Easycase WHERE project_id='".$ProjId."' AND case_no=".$curCaseNo."  and completed_task != 0 ORDER BY id DESC LIMIT 1");
-//		$completedtask  = $getcompletedtask[0]['Easycase']['completed_task'];
+//      $getcompletedtask = $this->Easycase->query("SELECT completed_task  FROM easycases as Easycase WHERE project_id='".$ProjId."' AND case_no=".$curCaseNo."  and completed_task != 0 ORDER BY id DESC LIMIT 1");
+//      $completedtask  = $getcompletedtask[0]['Easycase']['completed_task'];
         } else {
             //$ProjId and $curCaseNo not found. This step should not, b'cos it handeled previously.
             die;
@@ -6442,7 +6449,7 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $frmt = $view->loadHelper('Format');
         $curdt = date('F_dS_Y',time());
         $filename = strtoupper($projShorName).'_TASK_'.$curCaseNo."_".$curdt.'.csv';
-		//$filename = $ProjName . "_#".$curCaseNo."_" . date("mdY", time()).'.csv';
+        //$filename = $ProjName . "_#".$curCaseNo."_" . date("mdY", time()).'.csv';
         $folder_name = strtoupper($projShorName).'_TASK_'.$curCaseNo."_".$curdt;
         if(file_exists(DOWNLOAD_TASK_PATH.$folder_name)) {
             @chmod(DOWNLOAD_TASK_PATH.$folder_name."/attachments", 0777);
@@ -6451,9 +6458,9 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
             @array_map('unlink', glob(DOWNLOAD_TASK_PATH.$folder_name."/*"));
             $isdel = rmdir(DOWNLOAD_TASK_PATH.$folder_name);
         }
-		
+        
         mkdir(DOWNLOAD_TASK_PATH.$folder_name, 0777, true);
-		
+        
         $file = fopen(DOWNLOAD_TASK_PATH.$folder_name.'/'.$filename,"w");
         $csv_output = "Title, Description, Status, Priority, Task Type, Assigned To, Created By, Last Updated By, Created On, Estimated Hours, Hours Spent";
         fputcsv($file,explode(',',$csv_output));
@@ -6461,11 +6468,11 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
             $status='';
             $priority = '';
             $tasktype ='';
-	    	$taskTitle = '';
+            $taskTitle = '';
             //if(!$key) {
-		if(isset($case_list['Easycase']['title']) && $case_list['Easycase']['title']){
-			$taskTitle = $case_list['Easycase']['title'];
-		}
+        if(isset($case_list['Easycase']['title']) && $case_list['Easycase']['title']){
+            $taskTitle = $case_list['Easycase']['title'];
+        }
                 $status = $this->Format->displayStatus($case_list['Easycase']['legend']);
                 if($case_list['Easycase']['priority']==2) {
                     $priority = 'Low';
@@ -6485,103 +6492,142 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
             $arr[] = $status;
             $arr[] = $priority;
             $arr[] = $tasktype;
-            if($case_list['User3']['Assigned_to']) {
+            
+            if ($case_list['User3']['Assigned_to'])
+            {
                 $Assigned = $case_list['User3']['Assigned_to'];
-            }else {
+            }
+            else
+            {
                 $Assigned = $case_list['User1']['created_by'];
             }
+            
             $arr[] = $Assigned;
             $arr[]= $crby = $case_list['User1']['created_by'];
             $arr[] = $updateby = $case_list['User2']['updated_by'];
-	    
-	    $tz = $view->loadHelper('Tmzone');
-	    $temp_dat = $tz->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, $case_list['Easycase']['actual_dt_created'], "datetime");
-	    $arr[] = $crted = date('m/d/Y H:i:s', strtotime($temp_dat));
-	    
-			//$arr[] = $crted =date('m/d/Y H:i:s', strtotime($case_list['Easycase']['actual_dt_created']));	    
+        
+        $tz = $view->loadHelper('Tmzone');
+        $temp_dat = $tz->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, $case_list['Easycase']['actual_dt_created'], "datetime");
+        $arr[] = $crted = date('m/d/Y H:i:s', strtotime($temp_dat));
+        
+            //$arr[] = $crted =date('m/d/Y H:i:s', strtotime($case_list['Easycase']['actual_dt_created']));     
             $estmthrs = '';
             $hrspent ='';
-            if($case_list['Easycase']['istype']==1) {
+            
+            if ($case_list['Easycase']['istype']==1)
+            {
                 $estmthrs = $estimated_hours ;
                 $hrspent = $hours;
-            }else {
-				$estimated_hours = '';
+            }
+            else
+            {
+                $estimated_hours = '';
                 $hrspent = $case_list['Easycase']['hours'];
             }
+            
             $arr[] = $estimated_hours;
             $arr[] = $hrspent;
             $easycaseids[] = $case_list['Easycase']['id'];
             $retval = fputcsv($file,$arr);
             //$csv_output .= $title.",".$status.",".$priority.",".$tasktype.",".$description.",".$Assigned.",".$crby.",".$updateby.",".$estmthrs.",".$hrspent.",".$crted.",".$modified;
         }
+        
         fclose($file);
-        if($retval) {
+        
+        if ($retval) 
+        {
             $filesarr = ClassRegistry::init('CaseFile')->find('all',array('conditions'=>array('CaseFile.easycase_id'=>$easycaseids,'CaseFile.project_id'=>$ProjId,'CaseFile.company_id'=>SES_COMP)));
 
-            if($filesarr) {
-
-                foreach($filesarr AS $k=>$value) {
-                    if($value['CaseFile']['downloadurl']) {
+            if ($filesarr) 
+            {
+                foreach ($filesarr AS $k=>$value) 
+                {
+                    if ($value['CaseFile']['downloadurl']) 
+                    {
                         if(!isset($fp)) {
                             $fp = fopen(DOWNLOAD_TASK_PATH.$folder_name.'/cloud.txt', 'a+');
                         }
                         fwrite($fp, "\n\t".$value['CaseFile']['downloadurl']."\n");
                         $temp_url = $value['CaseFile']['downloadurl'];
-                    }else {
-                        if (!file_exists(DOWNLOAD_TASK_PATH.$folder_name.'/attachments')) {
+                    }
+                    else 
+                    {
+                        if (!file_exists(DOWNLOAD_TASK_PATH.$folder_name.'/attachments')) 
+                        {
                             mkdir(DOWNLOAD_TASK_PATH.$folder_name."/attachments", 0777, true);
                         }
+                        
                         $temp_url = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3.$value['CaseFile']['file']);
                         $img = DOWNLOAD_TASK_PATH.$folder_name."/attachments/".$value['CaseFile']['file'];
                         $resp = file_put_contents($img, file_get_contents($temp_url));
                     }
-
                 }
-                if(isset($fp)) {
+                
+                if (isset($fp)) 
+                {
                     fclose($fp);
                 }
             }
+            
             $zipfile_name = strtoupper($projShorName).'_TASK_'.$curCaseNo."_".$curdt.'.zip';
             $zipfile = DOWNLOAD_TASK_PATH.'zipTask/'. $zipfile_name;
             $return = $this->Format->zipFile(DOWNLOAD_TASK_PATH.$folder_name,$zipfile,1);
-            if($return) {
-                if(file_exists(DOWNLOAD_TASK_PATH.$folder_name)) {
+            
+            if ($return) 
+            {
+                if (file_exists(DOWNLOAD_TASK_PATH.$folder_name)) 
+                {
                     @array_map('unlink', glob(DOWNLOAD_TASK_PATH.$folder_name."/attachments/*"));
                     @rmdir(DOWNLOAD_TASK_PATH.$folder_name.'/attachments');
                     @array_map('unlink', glob(DOWNLOAD_TASK_PATH.$folder_name."/*"));
                     $isdel = rmdir(DOWNLOAD_TASK_PATH.$folder_name);
                 }
-				if(USE_S3 == 0){
-					$download_url = HTTP_ROOT.DOWNLOAD_S3_TASK_PATH.$zipfile_name;
-					$this->set('downloadurl',$download_url);
-				}else{
-					$s3 = new S3(awsAccessKey, awsSecretKey);
-					$s3->putBucket(DOWNLOAD_BUCKET_NAME, S3::ACL_PRIVATE);
-					$download_url = DOWNLOAD_S3_TASK_PATH. $zipfile_name;
-					$s3_download_url = "https://s3.amazonaws.com/".DOWNLOAD_BUCKET_NAME.'/'.DOWNLOAD_S3_TASK_PATH. $zipfile_name;		
-					$returnvalue = $s3->putObjectFile(DOWNLOAD_S3_TASK_PATH. $zipfile_name,DOWNLOAD_BUCKET_NAME ,$download_url ,S3::ACL_PUBLIC_READ);
-					if($returnvalue){
-						unlink(DOWNLOAD_S3_TASK_PATH. $zipfile_name);
-					}
-					$this->set('downloadurl',$s3_download_url);
-				}
+                
+                if (USE_S3 == 0)
+                {
+                    $download_url = HTTP_ROOT.DOWNLOAD_S3_TASK_PATH.$zipfile_name;
+                    $this->set('downloadurl',$download_url);
+                }
+                else
+                {
+                    $s3 = new S3(awsAccessKey, awsSecretKey);
+                    $s3->putBucket(DOWNLOAD_BUCKET_NAME, S3::ACL_PRIVATE);
+                    $download_url = DOWNLOAD_S3_TASK_PATH. $zipfile_name;
+                    $s3_download_url = "https://s3.amazonaws.com/".DOWNLOAD_BUCKET_NAME.'/'.DOWNLOAD_S3_TASK_PATH. $zipfile_name;       
+                    $returnvalue = $s3->putObjectFile(DOWNLOAD_S3_TASK_PATH. $zipfile_name,DOWNLOAD_BUCKET_NAME ,$download_url ,S3::ACL_PUBLIC_READ);
+                    
+                    if ($returnvalue)
+                    {
+                        unlink(DOWNLOAD_S3_TASK_PATH. $zipfile_name);
+                    }
+                    
+                    $this->set('downloadurl',$s3_download_url);
+                }
+                
                 $this->set('projName',$ProjName);
                 $this->set('projId',$ProjId);
                 $this->set('caseUid',$caseUniqId);
                 $this->set('caseNum',$curCaseNo);
                 $this->set('taskTitle',$taskTitle);
                 $this->set('zipfilename',$zipfile_name);
-            }else {
+            }
+            else 
+            {
                 $this->set('derror','Opps! Error occured in creation of zip file.');
             }
-        }else {
+        }
+        else 
+        {
             $this->set('derror','Opps! Error occured in creating the task csv file.');
         }
     }
+    
+    
     /**
-     * @method sendDownloadTaskMail() Used for sending email to the user with the download link of the Task
+     * Used for sending email to the user with the download link of the Task
      */
-    function sendDownloadTaskMail() {
+    function sendDownloadTaskMail() 
+    {
         $caseNum = $this->data['caseNum'];
         $projName = $this->data['projName'];
         $downloadUrl = $this->data['dwnldUrl'];
@@ -6595,8 +6641,8 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $this->Email->to = $userdetails[0]['User']['email'];
         $this->Email->subject = $subject;
         $this->Email->from = FROM_EMAIL;
-//		$this->Email->filePaths  = array(DOWNLOAD_TASK_PATH.'zipTask/');
-//		$this->Email->attachments =array(SES_COMP."_".$caseNum."_".$projName.".zip");
+        //$this->Email->filePaths  = array(DOWNLOAD_TASK_PATH.'zipTask/');
+        //$this->Email->attachments =array(SES_COMP."_".$caseNum."_".$projName.".zip");
         $this->Email->attachments = array(DOWNLOAD_TASK_PATH.'zipTask/'.$zipfile);
         $this->Email->template = 'download_task';
         $this->Email->sendAs = 'html';
@@ -6606,11 +6652,15 @@ CompanyUser.company_id=".SES_COMP." $usercond) AS total_users $projectcond";
         $this->set('projName',$projName);
         $this->set('title',$title);
         $this->set('zipfile',$zipfile);
-        if($this->Sendgrid->sendgridsmtp($this->Email)) {
+        
+        if ($this->Sendgrid->sendgridsmtp($this->Email)) 
+        {
             @unlink(DOWNLOAD_TASK_PATH.'zipTask/'.$zipfile);
             echo 'Success';
             exit;
-        }else {
+        }
+        else 
+        {
             echo 'Failure';
             exit;
         }
