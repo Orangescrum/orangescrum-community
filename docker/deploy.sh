@@ -72,8 +72,8 @@ docker run \
 # Wait for the database to set up. 
 # Unfortunately because this is necessary there may be issues with integrating 
 # docker compose.
-echo "Waiting 3 seconds to give the database time to set up..."
-sleep 3
+echo "Waiting 10 seconds to give the database time to set up..."
+sleep 10
 
 # Start the application container.
 docker run -d \
