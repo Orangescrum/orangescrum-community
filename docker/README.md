@@ -5,5 +5,5 @@ All that one needs to do in order to build and run the orangescrum application i
 
 ```
 bash build.sh
-bash run-container.sh
+bash deploy.sh
 ```
