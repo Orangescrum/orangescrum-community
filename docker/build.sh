@@ -30,15 +30,22 @@ read -p "Do you want to use a cached build (y/n)? " -n 1 -r
 echo ""   # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    docker build --tag $TAG .
+    docker build --tag $APP_TAG .
 else
-    docker build --no-cache --pull --tag $TAG .
+    docker build --no-cache --pull --tag $APP_TAG .
+    docker pull $MYSQL_IMAGE
 fi
 
 # clean up
 rm -rf /tmp/orangescrum
 
-docker push $REGISTRY/$PROJECT_NAME
+
+if [[ $REGISTRY ]]
+then 
+    docker push $REGISTRY/$PROJECT_NAME
+else
+    echo "You have not set the REGISTRY variable, so we will not push built image."
+fi
 
 echo "Run the container with the following command:"
 echo "bash run-container.sh"

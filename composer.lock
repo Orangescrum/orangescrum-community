@@ -54,16 +54,16 @@
         },
         {
             "name": "irap/table-creator",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/iRAP-software/package-table-creator.git",
-                "reference": "9cbf2387619b7fb826bbda91335d7f7627fde696"
+                "reference": "2b0e376dfb4a6d2fb834ac833f7238c827cebc87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iRAP-software/package-table-creator/zipball/9cbf2387619b7fb826bbda91335d7f7627fde696",
-                "reference": "9cbf2387619b7fb826bbda91335d7f7627fde696",
+                "url": "https://api.github.com/repos/iRAP-software/package-table-creator/zipball/2b0e376dfb4a6d2fb834ac833f7238c827cebc87",
+                "reference": "2b0e376dfb4a6d2fb834ac833f7238c827cebc87",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +92,7 @@
                 "mysql",
                 "mysqli"
             ],
-            "time": "2015-10-16 13:43:38"
+            "time": "2015-11-22 12:28:01"
         }
     ],
     "packages-dev": [],
