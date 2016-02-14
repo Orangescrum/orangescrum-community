@@ -3,21 +3,37 @@ SCRUMptious is a free, open source, flexible project management web application 
 **Orangescrum**. To the best of my ability, I will try to merge in updates from Orangescrum so that hopefully this project will just be Orangescrum + more.
 
 
-#### Requirements
-* A Docker host.
-  * I recommend [DigitalOcean](https://www.digitalocean.com/features/one-click-apps/docker/).
+## Requirements
+* [A Docker host]((https://www.digitalocean.com/features/one-click-apps/docker/)).
+* [Composer](http://blog.programster.org/ubuntu-install-composer/) if you are installing from the development line rather than a release.
+  
 
-#### Installation
+## Installation / Deployment
 
-  1. Clone this repository.
-  2. Checkout the programster branch (which is my main line of development for SCRUMptious)
+### From A Release
+  1. Download one of the releases from the [releases page](https://github.com/programster/SCRUMptious/releases).
+  2. Extract the source code and navigate to within the folder.
+  3. Navigate to the `docker` directory.
+  4. Execute `bash build.sh`
+  5. Execute `bash deploy.sh`
+  6. Navigate to your host's IP or domain name in your web browser.
+  7. That's it.
+
+### From Source
+  1. Clone this repository
+    * `git clone git@github.com:programster/SCRUMptious.git`
+  2. Navigate into the cloned repository.
+    * `cd SCRUMptious`
+  2. Checkout the `programster` branch (which is my main line of development for SCRUMptious)
      * `git checkout programster`
-  2. Navigate to the docker directory
-     * `cd SCRUMptious/docker`
-  3. Execute `bash build.sh`
-  4. Execute `bash deploy.sh`
-  5. Navigate to your host's IP or domain name in your web browser.
-  6. That's it.
+  3. Run a composer install to fetch all the external libraries.
+     * `composer install`
+  4. Navigate to the docker directory
+     * `cd docker`
+  5. Execute `bash build.sh`
+  6. Execute `bash deploy.sh`
+  7. Navigate to your host's IP or domain name in your web browser.
+  8. That's it.
 
 
 ## How to Contribute
