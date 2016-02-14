@@ -369,42 +369,68 @@ class ProjectsController extends AppController {
           $this->set('page_limit',$page_limit);
           $this->set('casePage',$page);
     }
-    function add_project(){
+    
+    
+    /**
+     * Add a nw project
+     */
+    public function add_project()
+    {
         $Company = ClassRegistry::init('Company');
         $comp = $Company->find('first', array('fields' => array('Company.name')));
         $userscls = ClassRegistry::init('User');
         $companyusercls = ClassRegistry::init('CompanyUser');
         $postProject['Project'] = $this->params['data']['Project'];
-        if(isset($this->data['Project']['members_list']) && $this->data['Project']['members_list']){
+        
+        if (isset($this->data['Project']['members_list']) && $this->data['Project']['members_list'])
+        {
             $emaillist = trim(trim($this->data['Project']['members_list']),',');
-            if(strstr(trim($emaillist),',')){
-                $emailid = explode(',', $emaillist);
-            }else{
+            
+            if (strstr(trim($emaillist),','))
+            {
                 $emailid = explode(',', $emaillist);
             }
+            else
+            {
+                $emailid = explode(',', $emaillist);
+            }
+            
             $emailarr='';
-            foreach($emailid AS $ind =>$data){
-                if(trim($data)!=''){
+            
+            foreach ($emailid AS $ind =>$data)
+            {
+                if (trim($data)!='')
+                {
                     $emailarr[$ind]= trim($data);
                     $cond .= " (email LIKE '%".trim($data)."%') OR";
                 }
             }
+            
             //print_r($emailarr);exit;
-            if($emailarr!=''){
+            if ($emailarr!='')
+            {
                 $emailarr = array_unique($emailarr);
                 $cond = substr($cond, 0,  strlen($cond)-2);
                 $userlist = $userscls->find('list',array('conditions'=>array($cond),'fields'=>array('id','email')));
-                if($userlist){
+                
+                if ($userlist)
+                {
                     $compuserlist = $companyusercls->find('list',array('conditions'=>array('company_id'=>SES_COMP,'user_id'=>array_keys($userlist),'is_active'=>1),'fields'=>array('CompanyUser.id','CompanyUser.user_id')));
-                    if($compuserlist){
-                        foreach($compuserlist AS $k1=>$value){
+                   
+                    if ($compuserlist)
+                    {
+                        foreach ($compuserlist AS $k1=>$value)
+                        {
                             $postProject['Project']['members'][]= $value;
                             $removeduserlist[] = $userlist[$value];
                             //$index = array_search($userlist[$value],$emailarr);
                             //unset($emailarr[$index]);
                         }
-                        foreach($emailarr AS $key1=>$edata){
-                            if(in_array(trim($edata),$removeduserlist)){
+                        
+                        foreach ($emailarr AS $key1=>$edata)
+                        {
+                            if (in_array(trim($edata),$removeduserlist))
+                            {
                                 unset($emailarr[$key1]);
                             }
                         }
@@ -412,20 +438,31 @@ class ProjectsController extends AppController {
                 }
             }
         }
+        
         $memberslist ='';
-        if($postProject['Project']['members']){
+        if ($postProject['Project']['members'])
+        {
             $memberslist = array_unique($postProject['Project']['members']);
-        }elseif(!$GLOBALS['project_count']){
+        }
+        elseif(!$GLOBALS['project_count'])
+        {
             $memberslist[] = SES_ID;
         }
-        if(isset($this->params['data']['Project']) && $postProject['Project']['validate'] == 1) {
+        
+        if (isset($this->params['data']['Project']) && $postProject['Project']['validate'] == 1) 
+        {
             $findName = $this->Project->find('first',array('conditions'=>array('Project.name'=>$postProject['Project']['name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
-            if($findName) {
+            
+            if ($findName) 
+            {
                 $this->Session->write("ERROR","Project name '".$postProject['Project']['name']."' already exists");
                 $this->redirect(HTTP_ROOT."projects/manage/");
             }
+            
             $findShrtName = $this->Project->find('first',array('conditions'=>array('Project.short_name'=>$postProject['Project']['short_name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
-            if($findShrtName) {
+            
+            if ($findShrtName) 
+            {
                 $this->Session->write("ERROR","Project short name '".$postProject['Project']['short_name']."' already exists");
                 $this->redirect(HTTP_ROOT."projects/manage/");
             }
@@ -437,17 +474,22 @@ class ProjectsController extends AppController {
             $postProject['Project']['uniq_id'] = $prjUniqId;
             $postProject['Project']['user_id'] = SES_ID;
             $postProject['Project']['project_type'] = 1;
-            if(isset($postProject['Project']['default_assign']) && !empty($postProject['Project']['default_assign'])){
+            
+            if (isset($postProject['Project']['default_assign']) && !empty($postProject['Project']['default_assign'])){
                 $postProject['Project']['default_assign'] = $postProject['Project']['default_assign'];  
-            }else{
+            }
+            else
+            {
                 $postProject['Project']['default_assign'] = SES_ID;
             }
+            
             $postProject['Project']['isactive'] = 1;
             $postProject['Project']['name'] = trim($postProject['Project']['name']);
             $postProject['Project']['dt_created'] = GMT_DATETIME;
             $postProject['Project']['company_id'] = SES_COMP;
             
-            if($this->Project->save($postProject)){
+            if ($this->Project->save($postProject))
+            {
                 $prjid = $this->Project->getLastInsertID();
                 
                 $User = ClassRegistry::init('User');
@@ -458,8 +500,11 @@ class ProjectsController extends AppController {
                 $ProjectUser->recursive = -1;
                 $getLastId = $ProjectUser->query("SELECT MAX(id) as maxid FROM project_users");
                 $lastid = $getLastId[0][0]['maxid']+1;
-                if(!empty($memberslist)){
-                    foreach($memberslist as $members) {
+                
+                if (!empty($memberslist))
+                {
+                    foreach($memberslist as $members) 
+                    {
                         $ProjUsr['ProjectUser']['id'] = $lastid;
                         $ProjUsr['ProjectUser']['project_id'] = $prjid;
                         $ProjUsr['ProjectUser']['user_id'] = $members;
@@ -475,22 +520,23 @@ class ProjectsController extends AppController {
                     }
                 }
                 
-                
-                
-                if(isset($postProject['Project']['module_id']) && isset($prjid) && $postProject['Project']['module_id']){
+                if (isset($postProject['Project']['module_id']) && isset($prjid) && $postProject['Project']['module_id'])
+                {
                     //Add relation when template is added
                     $post_temp['TemplateModuleCase']['template_module_id']=$postProject['Project']['module_id'];
                     $post_temp['TemplateModuleCase']['user_id']=SES_ID;
                     $post_temp['TemplateModuleCase']['company_id']=SES_COMP;
                     $post_temp['TemplateModuleCase']['project_id']=$prjid;
-                    $s=ClassRegistry::init('TemplateModuleCase')->save($post_temp);
+                    $s = ClassRegistry::init('TemplateModuleCase')->save($post_temp);
 
                     $this->loadModel("ProjectTemplateCase");
                     $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'=>$postProject['Project']['module_id']), 'order'=>'ProjectTemplateCase.sort ASC'));
                     $Easycase = ClassRegistry::init('Easycase');
                     $Easycase->recursive = -1;
                     $CaseActivity = ClassRegistry::init('CaseActivity');
-                    foreach($pjtemp as $temp){
+                    
+                    foreach ($pjtemp as $temp)
+                    {
                         $postCases['Easycase']['uniq_id'] = md5(uniqid());
                         $postCases['Easycase']['project_id'] = $prjid;
                         $postCases['Easycase']['user_id'] = SES_ID;
@@ -510,7 +556,8 @@ class ProjectsController extends AppController {
                         $caseNoArr = $Easycase->find('first', array('conditions' => array('Easycase.project_id' => $prjid),'fields' => array('MAX(Easycase.case_no) as caseno')));
                         $caseNo = $caseNoArr[0]['caseno']+1;
                         $postCases['Easycase']['case_no'] = $caseNo;
-                        if($Easycase->saveAll($postCases))
+                        
+                        if ($Easycase->saveAll($postCases))
                         {
                             $caseid = $Easycase->getLastInsertID();
                             $CaseActivity->recursive = -1;
@@ -525,50 +572,46 @@ class ProjectsController extends AppController {
                     }
                 }
                 
-                if($emailarr!=''){
+                if ($emailarr!='')
+                {
                     $inviteduserlist = $this->Postcase->invitenewuser($emailarr,$prjid,$this);
                 }
                 $this->Session->write("SUCCESS","'".strip_tags($postProject['Project']['name'])."' created successfully");
-            
+                
                 setcookie('LAST_CREATED_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
                 
                 $CompanyUser = ClassRegistry::init('CompanyUser');
                 $checkMem = $CompanyUser->find('all',array('conditions'=>array('CompanyUser.company_id'=>SES_COMP,'CompanyUser.is_active'=>1)));
-                if(isset($checkMem['CompanyUser']['id']) && $checkMem['CompanyUser']['id']) {
-//                  $ProjectUser = ClassRegistry::init("ProjectUser");
-//                  $checkProjusr = $ProjectUser->find('first',array('conditions'=>array('ProjectUser.project_id'=>$prjid,'ProjectUser.user_id !='=>SES_ID)));
-//                  
-//                  if(isset($checkProjusr['ProjectUser']['id']) && $checkProjusr['ProjectUser']['id']) {
-//                      //setcookie('CREATE_CASE',1,time()+3600,'/',DOMAIN_COOKIE,false,false);
-//                      $this->redirect(HTTP_ROOT."dashboard");
-//                  }
-//                  else {
-                        if(count($memberslist)< count($checkMem)){
-                            setcookie('LAST_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
-                        }   
-                        setcookie('ASSIGN_USER',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
-                        setcookie('PROJ_NAME',trim($postProject['Project']['name']),time()+3600,'/',DOMAIN_COOKIE,false,false);
-                        $this->redirect(HTTP_ROOT."projects/manage");
+                
+                if (isset($checkMem['CompanyUser']['id']) && $checkMem['CompanyUser']['id']) 
+                {
+                    if (count($memberslist)< count($checkMem))
+                    {
+                        setcookie('LAST_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
+                    }
                     
-                }else {
-                    //setcookie('INVITE_USER',1,time()+3600,'/',DOMAIN_COOKIE,false,false);
-                    //$this->redirect(HTTP_ROOT."dashboard");
-                    if($GLOBALS['project_count']>=1){
+                    setcookie('ASSIGN_USER',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
+                    setcookie('PROJ_NAME',trim($postProject['Project']['name']),time()+3600,'/',DOMAIN_COOKIE,false,false);
+                    $this->redirect(HTTP_ROOT."projects/manage");
+                }
+                else 
+                {
+                    if ($GLOBALS['project_count']>=1)
+                    {
                         if(count($memberslist)< count($checkMem)){
                         setcookie('LAST_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
                         }
                         $this->redirect(HTTP_ROOT."projects/manage");
-                    }else{
+                    }
+                    else
+                    {
                         $this->redirect(HTTP_ROOT.'onbording');
                     }
-                    
                 }
-                
-                //setcookie('NEW_PROJECT',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
-                
             }
         }
-        else {
+        else 
+        {
             $this->Session->write("ERROR","Error creating project");
             $this->redirect(HTTP_ROOT."projects/manage/");
         }
@@ -1517,10 +1560,10 @@ function ajax_save_filter(){
           $this->set('totalfilter',$tot[0][0]['total']);
              }
              
-/**
- * @method public importexport(int proj_id) Dataimport Interface 
- */
-    function importexport($proj_id='') {
+    /**
+     * Dataimport Interface 
+     */
+    public function importexport($proj_id='') {
         if(!$proj_id && (!isset($GLOBALS['getallproj'][0]['Project']['uniq_id']) && $GLOBALS['getallproj'][0]['Project']['uniq_id'])){
             $this->redirect(HTTP_ROOT.'projects/manage/');exit;
         }else{
@@ -1686,9 +1729,11 @@ function ajax_save_filter(){
             $this->redirect(HTTP_ROOT."projects/importexport/".$project_uid);
         }
     }
-/**
- * @method public confirm_import Dataimport Interface 
- */ 
+    
+    
+    /**
+     *  Dataimport Interface 
+     */ 
     function confirm_import() {
         $project_id = $this->data['project_id'];
         $this->loadModel('User');
@@ -1910,10 +1955,12 @@ function project_thumb_view(){
         //$arr['email'] = array_unique($email);
         echo json_encode(array_unique($email));exit;
     }
-/**
- * @method Public onbording($paramName) Onboarding for create project
- * @return  html
- */ 
+    
+    
+    /**
+     * Onboarding for create project
+     * @return  html
+     */ 
     function onbording(){
         if(SES_TYPE>2){
             $this->redirect(HTTP_ROOT);exit;
@@ -1950,10 +1997,12 @@ function project_thumb_view(){
         echo 'success';
         exit;
     }
-/**
- * @method Public deleteprojects($projuid) Deleting project with all associated data to that project
- * @return bool true/false
- */
+    
+    
+    /**
+     * Deleting project with all associated data to that project
+     * @return bool true/false
+     */
     function deleteprojects($projuid='',$page = NULL){
         if(SES_TYPE>2){
             $grpcount = $this->Project->query('SELECT Project.id FROM projects AS Project WHERE Project.user_id='.$this->Auth->user('id').' AND Project.uniq_id="'.$projuid.'" AND Project.company_id='.SES_COMP.'');
