@@ -48,4 +48,4 @@ else
 fi
 
 echo "Run the container with the following command:"
-echo "bash run-container.sh"
+echo "bash deploy.sh"
