@@ -39,12 +39,14 @@ App::import('Vendor', 'oauth');
 class UsersController extends AppController 
 {
     public $name = 'Users';
-    public $components = array('Format','Postcase','Sendgrid','Tmzone','Email','Cookie');
+    public $components = array('Format', 'Postcase', 'Sendgrid', 'Tmzone', 'Email', 'Cookie');
+    
     
     public function beforeFilter()
     {
         parent::beforeFilter();
     }
+    
     
     function beforeRender() 
     {
@@ -147,31 +149,32 @@ class UsersController extends AppController
                 
                 if ($photo_name == "ext")
                 {
-                        $this->Session->write("ERROR","Company logo should be an image file");
-                        $this->redirect(HTTP_ROOT."users/company");
+                    $this->Session->write("ERROR","Company logo should be an image file");
+                    $this->redirect(HTTP_ROOT."users/company");
                 }
                 elseif($photo_name == "size")
                 {
-                        $this->Session->write("ERROR","Company logo size cannot excceed 1mb");
-                        $this->redirect(HTTP_ROOT."users/company");
+                    $this->Session->write("ERROR","Company logo size cannot excceed 1mb");
+                    $this->redirect(HTTP_ROOT."users/company");
                 }
             }
             
             if (trim($this->request->data['Company']['name']) == "")
             {
-                    $this->Session->write("ERROR","Name cannot be left blank");
-                    $this->redirect(HTTP_ROOT."users/company");
+                $this->Session->write("ERROR","Name cannot be left blank");
+                $this->redirect(HTTP_ROOT."users/company");
             }
             else
             {
                 $this->request->data['Company']['id'] = SES_COMP;
+                
                 if(isset($this->request->data['Company']['photo_name']))
                 {
-                        $this->request->data['Company']['logo'] = $this->request->data['Company']['photo_name'];
+                    $this->request->data['Company']['logo'] = $this->request->data['Company']['photo_name'];
                 }
                 else
                 {
-                        $this->request->data['Company']['logo'] = $photo_name;
+                    $this->request->data['Company']['logo'] = $photo_name;
                 }
                 
                 $Company->save($this->request->data);
@@ -4349,11 +4352,14 @@ class UsersController extends AppController
     }
     
     
+    /**
+     * Handle the registration of a new user.
+     */
     function register_user() 
     {
         $this->layout = 'ajax';     
         $this->loadModel('Company');
-    
+        
         $email = urldecode($this->request->data['email']);  
         $password = urldecode($this->request->data['password']);
         $company = urldecode($this->request->data['company']);
@@ -4367,34 +4373,49 @@ class UsersController extends AppController
         $gaccess_token = '';
         $sub_type = 0;
         $message = '';
-
-        $temp_name = explode("@",$email);   
+        
+        $temp_name = explode("@", $email);   
         $name = $temp_name[0];
         $last_name = '';
-    
+        
         $short_name = $this->Format->makeShortName($name, $last_name);
         //Get the timezone for the registered user
         $this->loadModel('Timezone');
-        $getTmz = $this->Timezone->find('first', array('conditions' => array('Timezone.gmt_offset' => urldecode($this->request->data['timezone_id']))));
+        
+        $getTmz = $this->Timezone->find(
+            'first', 
+            array(
+                'conditions' => array(
+                    'Timezone.gmt_offset' => urldecode($this->request->data['timezone_id'])
+                 )
+            )
+        );
+        
         $timezone_id = $getTmz['Timezone']['id'];
-        //Choose the subscritpion plan as selected by the user 
-
-        $plan_id = (isset($this->data['plan_id']) && $this->data['plan_id']) ? $this->data['plan_id'] : 1;
+        
+        # Choose the subscritpion plan as selected by the user 
+        $plan_id = 1;
+        
+        if (isset($this->data['plan_id']) && $this->data['plan_id'])
+        {
+            $plan_id = $this->data['plan_id'];
+        }
+        
         $this->loadModel('Subscription');
         $subScription = $this->Subscription->find('first', array('conditions' => array('Subscription.plan' => $plan_id)));
-
+        
         if ($this->request->data && $name && $email && $company) 
         {
-            $comp['Company']['uniq_id'] = $this->Format->generateUniqNumber();
-            $comp['Company']['seo_url'] = $this->Format->makeSeoUrl($seo_url);
-            $comp['Company']['subscription_id'] = $subScription['Subscription']['id'];
-            $comp['Company']['name'] = $company;
-            $comp['Company']['contact_phone'] = 'NA';
+            $companyArray['Company']['uniq_id'] = $this->Format->generateUniqNumber();
+            $companyArray['Company']['seo_url'] = $this->Format->makeSeoUrl($seo_url);
+            $companyArray['Company']['subscription_id'] = $subScription['Subscription']['id'];
+            $companyArray['Company']['name'] = $company;
+            $companyArray['Company']['contact_phone'] = 'NA';
             $message = "success";
             
             try 
             {
-                $sus_comp = $this->Company->save($comp);
+                $sus_comp = $this->Company->save($companyArray);
             } 
             catch (Exception $e) 
             {
@@ -4434,7 +4455,7 @@ class UsersController extends AppController
                 $ip = $this->Format->getRealIpAddr();
                 $usr['User']['ip'] = $ip;
                 $usr['User']['gaccess_token'] = $gaccess_token;
-        
+                
                 try 
                 {
                     $sus_user = $this->User->save($usr);
@@ -4449,7 +4470,7 @@ class UsersController extends AppController
                 {
                     $comp_usr['CompanyUser']['user_id'] = $this->User->getLastInsertID();
                     $comp_usr['CompanyUser']['company_id'] = $company_id;
-                    $comp_usr['CompanyUser']['company_uniq_id'] = $comp['Company']['uniq_id'];
+                    $comp_usr['CompanyUser']['company_uniq_id'] = $companyArray['Company']['uniq_id'];
                     $comp_usr['CompanyUser']['user_type'] = 1;
                     $this->loadModel('CompanyUser');
                     
@@ -4465,7 +4486,7 @@ class UsersController extends AppController
                     
                     if ($message == "success" && $sus_companyuser) 
                     {
-                        $price = $subScription['Subscription']['price'];                
+                        $price = $subScription['Subscription']['price'];
                         $companyUid = $this->CompanyUser->getLastInsertID();
                         $this->loadModel('UserSubscription');
                         $sub_usr['UserSubscription']['user_id'] = $comp_usr['CompanyUser']['user_id'];
@@ -4503,7 +4524,7 @@ class UsersController extends AppController
                             ClassRegistry::init('UserNotification')->save($notification);
                             
                             //Event log data and inserted into database in account creation--- Start
-                            $json_arr['company_name'] = $comp['Company']['name'];
+                            $json_arr['company_name'] = $companyArray['Company']['name'];
                             $json_arr['name'] = $usr['User']['name'];
                             $json_arr['user_type'] = isset($this->request->data['bt_profile_id']) ? 'Paid' : 'Free';
                             $json_arr['created'] = GMT_DATETIME;
