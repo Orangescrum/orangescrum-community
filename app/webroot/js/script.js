@@ -1319,7 +1319,8 @@ function addUserToProject() {
     }
 }
 
-function projectAdd(txtProj, shortname, loader, btn) {
+function projectAdd(txtProj, shortname, loader, btn) 
+{
     document.getElementById('err_msg').innerHTML = "";
     document.getElementById('validate').value = '1'
     var proj1 = "";
@@ -1327,14 +1328,19 @@ function projectAdd(txtProj, shortname, loader, btn) {
     shortname1 = document.getElementById(shortname).value;
     var strURL = HTTP_ROOT;
     proj1 = proj1.trim();
-    if (proj1 == "") {
+    
+    if (proj1 == "") 
+    {
         msg = "'Project Name' cannot be left blank!";
         document.getElementById('err_msg').style.display = 'block';
         document.getElementById('err_msg').innerHTML = msg;
         document.getElementById(txtProj).focus();
         return false;
-    } else {
-        if (!proj1.match(/^[A-Za-z0-9]/g)) {
+    } 
+    else 
+    {
+        if (!proj1.match(/^[A-Za-z0-9]/g)) 
+        {
             msg = "'Project Name' must starts with an Alphabet or Number!";
             $('#err_msg').show();
             $('#err_msg').html(msg);
@@ -1342,20 +1348,23 @@ function projectAdd(txtProj, shortname, loader, btn) {
             return false;
         }
     }
+    
     if (shortname1.trim() == "") {
         msg = "'Project Short Name' cannot be left blank!";
         document.getElementById('err_msg').style.display = 'block';
         document.getElementById('err_msg').innerHTML = msg;
         document.getElementById(shortname).focus();
         return false;
-    } else {
+    } 
+    else
+    {
         var x = shortname1.substr(-1);
         if (!isNaN(x)) {
             msg = "'Short Name' cannot end with a number or space!";
             document.getElementById('err_msg').style.display = 'block';
             document.getElementById('err_msg').innerHTML = msg;
             document.getElementById(shortname).focus();
-
+            
             return false;
         }
         var email_id = $('#members_list').val();
@@ -1401,13 +1410,14 @@ function projectAdd(txtProj, shortname, loader, btn) {
         document.getElementById('err_msg').style.display = 'none';
         document.getElementById(loader).style.display = 'block';
         document.getElementById(btn).style.display = 'none';
-
+        
         $.post(strURL + "projects/ajax_check_project_exists", {
             "name": escape(proj1),
             "shortname": escape(shortname1)
         }, function(data) {
-
-            if (data == "Project") {
+            
+            if (data == "Project") 
+            {
                 document.getElementById(loader).style.display = 'none';
                 document.getElementById(btn).style.display = 'block';
                 msg = "'Project Name' is already exists!";
@@ -1415,7 +1425,9 @@ function projectAdd(txtProj, shortname, loader, btn) {
                 document.getElementById('err_msg').innerHTML = msg;
                 document.getElementById(shortname).focus();
                 return false;
-            }else if (data == "ShortName") {
+            }
+            else if (data == "ShortName") 
+            {
                 document.getElementById(loader).style.display = 'none';
                 document.getElementById(btn).style.display = 'block';
                 msg = "'Project Short Name' is already exists!";
@@ -1423,7 +1435,9 @@ function projectAdd(txtProj, shortname, loader, btn) {
                 document.getElementById('err_msg').innerHTML = msg;
                 document.getElementById(shortname).focus();
                 return false;
-            } else {
+            } 
+            else 
+            {
                 if (email_id) {
                     $.post(strURL + 'users/check_fordisabled_user', {
                         'email': email_id
@@ -1436,26 +1450,32 @@ function projectAdd(txtProj, shortname, loader, btn) {
                             } else {
                                 msg = "'" + res + "' is a disabled user, So cann't be added to a project";
                             }
-
+                            
                             $('#err_mem_email').show();
                             $('#err_mem_email').html(msg);
                             $('#members_list').focus();
                             return false;
-                        } else {
+                        } 
+                        else 
+                        {
                             $('#err_mem_email').html('');
                             $('#err_mem_email').hide();
                             document.projectadd.submit();
                             return true;
                         }
                     });
-                }else {
+                }
+                else 
+                {
                     document.projectadd.submit();
                     return true;
                 }
             }
         });
+        
         return false;
     }
+    
     return false;
 }
 
