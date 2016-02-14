@@ -1695,66 +1695,80 @@ class Model extends Object implements CakeEventListener
     public function saveField($name, $value, $validate = false) {
         $id = $this->id;
         $this->create(false);
-
+        
         $options = array('validate' => $validate, 'fieldList' => array($name));
         if (is_array($validate)) {
             $options = array_merge(array('validate' => false, 'fieldList' => array($name)), $validate);
         }
-
+        
         return $this->save(array($this->alias => array($this->primaryKey => $id, $name => $value)), $options);
     }
-
-/**
- * Saves model data (based on white-list, if supplied) to the database. By
- * default, validation occurs before save.
- *
- * @param array $data Data to save.
- * @param boolean|array $validate Either a boolean, or an array.
- *   If a boolean, indicates whether or not to validate before saving.
- *   If an array, can have following keys:
- *
- *   - validate: Set to true/false to enable or disable validation.
- *   - fieldList: An array of fields you want to allow for saving.
- *   - callbacks: Set to false to disable callbacks. Using 'before' or 'after'
- *      will enable only those callbacks.
- *   - `counterCache`: Boolean to control updating of counter caches (if any)
- *
- * @param array $fieldList List of fields to allow to be saved
- * @return mixed On success Model::$data if its not empty or true, false on failure
- * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html
- */
-    public function save($data = null, $validate = true, $fieldList = array()) {
+    
+    
+    /**
+     * Saves model data (based on white-list, if supplied) to the database. By
+     * default, validation occurs before save.
+     *
+     * @param array $data Data to save.
+     * @param boolean|array $validate Either a boolean, or an array.
+     *   If a boolean, indicates whether or not to validate before saving.
+     *   If an array, can have following keys:
+     *
+     *   - validate: Set to true/false to enable or disable validation.
+     *   - fieldList: An array of fields you want to allow for saving.
+     *   - callbacks: Set to false to disable callbacks. Using 'before' or 'after'
+     *      will enable only those callbacks.
+     *   - `counterCache`: Boolean to control updating of counter caches (if any)
+     *
+     * @param array $fieldList List of fields to allow to be saved
+     * @return mixed On success Model::$data if its not empty or true, false on failure
+     * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html
+     */
+    public function save($data = null, $validate = true, $fieldList = array()) 
+    {
         $defaults = array(
             'validate' => true, 'fieldList' => array(),
             'callbacks' => true, 'counterCache' => true
         );
+        
         $_whitelist = $this->whitelist;
         $fields = array();
 
-        if (!is_array($validate)) {
+        if (!is_array($validate)) 
+        {
             $options = array_merge($defaults, compact('validate', 'fieldList'));
-        } else {
+        } 
+        else 
+        {
             $options = array_merge($defaults, $validate);
         }
 
-        if (!empty($options['fieldList'])) {
-            if (!empty($options['fieldList'][$this->alias]) && is_array($options['fieldList'][$this->alias])) {
+        if (!empty($options['fieldList'])) 
+        {
+            if (!empty($options['fieldList'][$this->alias]) && is_array($options['fieldList'][$this->alias])) 
+            {
                 $this->whitelist = $options['fieldList'][$this->alias];
-            } elseif (Hash::dimensions($options['fieldList']) < 2) {
+            } 
+            elseif (Hash::dimensions($options['fieldList']) < 2) 
+            {
                 $this->whitelist = $options['fieldList'];
             }
-        } elseif ($options['fieldList'] === null) {
+        } 
+        elseif ($options['fieldList'] === null) 
+        {
             $this->whitelist = array();
         }
 
         $this->set($data);
 
-        if (empty($this->data) && !$this->hasField(array('created', 'updated', 'modified'))) {
+        if (empty($this->data) && !$this->hasField(array('created', 'updated', 'modified'))) 
+        {
             $this->whitelist = $_whitelist;
             return false;
         }
 
-        foreach (array('created', 'updated', 'modified') as $field) {
+        foreach (array('created', 'updated', 'modified') as $field) 
+        {
             $keyPresentAndEmpty = (
                 isset($this->data[$this->alias]) &&
                 array_key_exists($field, $this->data[$this->alias]) &&
@@ -1769,15 +1783,18 @@ class Model extends Object implements CakeEventListener
         $exists = $this->exists();
         $dateFields = array('modified', 'updated');
 
-        if (!$exists) {
+        if (!$exists) 
+        {
             $dateFields[] = 'created';
         }
 
-        if (isset($this->data[$this->alias])) {
+        if (isset($this->data[$this->alias])) 
+        {
             $fields = array_keys($this->data[$this->alias]);
         }
 
-        if ($options['validate'] && !$this->validates($options)) {
+        if ($options['validate'] && !$this->validates($options)) 
+        {
             $this->whitelist = $_whitelist;
             return false;
         }
@@ -1785,8 +1802,10 @@ class Model extends Object implements CakeEventListener
         $db = $this->getDataSource();
         $now = time();
 
-        foreach ($dateFields as $updateCol) {
-            if (in_array($updateCol, $fields) || !$this->hasField($updateCol)) {
+        foreach ($dateFields as $updateCol) 
+        {
+            if (in_array($updateCol, $fields) || !$this->hasField($updateCol)) 
+            {
                 continue;
             }
 
@@ -1794,13 +1813,17 @@ class Model extends Object implements CakeEventListener
             $colType = array_merge($default, $db->columns[$this->getColumnType($updateCol)]);
 
             $time = $now;
-            if (array_key_exists('format', $colType)) {
+            
+            if (array_key_exists('format', $colType)) 
+            {
                 $time = call_user_func($colType['formatter'], $colType['format']);
             }
 
-            if (!empty($this->whitelist)) {
+            if (!empty($this->whitelist)) 
+            {
                 $this->whitelist[] = $updateCol;
             }
+            
             $this->set($updateCol, $time);
         }
 
