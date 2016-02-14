@@ -7,7 +7,8 @@
 service apache2 restart
 
 # If we had database migrations, they would be called here.
-#/usr/bin/php /path/to/migration/manager.php
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) 
+/usr/bin/php $DIR/../scripts/RunMigrations.php
 
 # Start the cron service in the foreground
 cron -f
