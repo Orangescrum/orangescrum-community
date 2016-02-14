@@ -10,17 +10,24 @@ SCRUMptious is a free, open source, flexible project management web application 
 #### Installation
 
   1. Clone this repository.
-  2. Navigate to the docker directory (top level).
+  2. Checkout the programster branch (which is my main line of development for SCRUMptious)
+     * `git checkout programster`
+  2. Navigate to the docker directory
+     * `cd SCRUMptious/docker`
   3. Execute `bash build.sh`
-  4. Execute `bash run-container.sh`
+  4. Execute `bash deploy.sh`
   5. Navigate to your host's IP or domain name in your web browser.
+  6. That's it.
 
 
 ## How to Contribute
   1. Fork [the project on Github](https://github.com/programster/SCRUMptious).
   2. Clone the repository to your system/working directory
+  3. Checkout the programster branch.
+  4. From there start your own branch named after the functionality/fix you wish to implement.
   3. Implement your changes with as clean a series of commits as you can with commit comments.
   4. Test it works by building and running the docker container and testing your functionality.
+  5. Merge your changes into the programster branch.
   5. Commit/Push the code to your repository
   6. Send a Pull request to SCRUMptious git repository
 
