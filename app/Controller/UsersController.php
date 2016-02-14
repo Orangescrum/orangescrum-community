@@ -4410,6 +4410,8 @@ class UsersController extends AppController
             $companyArray['Company']['seo_url'] = $this->Format->makeSeoUrl($seo_url);
             $companyArray['Company']['subscription_id'] = $subScription['Subscription']['id'];
             $companyArray['Company']['name'] = $company;
+            $companyArray['Company']['logo'] = "";
+            $companyArray['Company']['website'] = "";
             $companyArray['Company']['contact_phone'] = 'NA';
             $message = "success";
             
@@ -4429,6 +4431,9 @@ class UsersController extends AppController
                 $activation_id = $this->Format->generateUniqNumber();
                 $usr['User']['uniq_id'] = $this->Format->generateUniqNumber();
                 $usr['User']['email'] = $email;
+                $usr['User']['update_email'] = $email;
+                $usr['User']['update_random'] = "";
+                $usr['User']['sig'] = "";
                 $usr['User']['password'] = $this->Auth->password($password);
                 
                 if (!trim($name)) 
