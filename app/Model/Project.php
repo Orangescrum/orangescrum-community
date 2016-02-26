@@ -30,10 +30,13 @@ class Project extends AppModel
     
     public function beforeSave($options = array()) 
     {
-        if(trim($this->data['Project']['name'])) {
+        if (trim($this->data['Project']['name'])) 
+        {
             $this->data['Project']['name'] = htmlentities(strip_tags($this->data['Project']['name']));
         }
-        if(trim($this->data['Project']['short_name'])) {
+        
+        if (trim($this->data['Project']['short_name'])) 
+        {
             $this->data['Project']['short_name'] = htmlentities(strip_tags($this->data['Project']['short_name']));
         }
     }
@@ -74,7 +77,7 @@ class Project extends AppModel
      * @param String $projuid 
      * @return array 
      */
-    public function deleteprojects($projuid)
+    public function deleteProjects($projuid)
     {
         $this->recursive=-1;
         $proj = $this->find('first',array('conditions'=>array('Project.uniq_id'=>$projuid,'Project.company_id'=>SES_COMP)));

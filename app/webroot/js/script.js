@@ -2601,7 +2601,7 @@ $(".del_prj").click(function(){
     if (confirm("Are you sure to delete project '" + prj_nm + "'")) {
         if (confirm("All the Tasks, Files associated with '" + prj_nm + "' will be deleted permanently.")) {
             var pg = $(".button_page").html();
-            var loc = HTTP_ROOT+"projects/deleteprojects/"+prj_unq_id;
+            var loc = HTTP_ROOT+"projects/delete_projects/"+prj_unq_id;
             if(parseInt(pg) > 1) {
                 loc = loc + "/"+pg;
             }

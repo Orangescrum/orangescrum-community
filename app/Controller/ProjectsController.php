@@ -2195,7 +2195,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
      * Deleting project with all associated data to that project
      * @return bool true/false
      */
-    function deleteprojects($projuid='',$page = NULL)
+    public function delete_projects($projuid='',$page = NULL)
     {
         if (SES_TYPE>2)
         {
@@ -2221,7 +2221,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         {
             /* @var $projectModel Project */
             $projectModel = $this->Project;
-            $arr = $projectModel->deleteprojects($projuid);
+            $arr = $projectModel->deleteProjects($projuid);
             
             if (isset($arr['succ']) && $arr['succ'])
             {
