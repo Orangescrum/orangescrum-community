@@ -576,7 +576,9 @@ class ProjectsController extends AppController
                         $ProjUsr['ProjectUser']['dt_visited'] = GMT_DATETIME;
                         $ProjectUser->saveAll($ProjUsr);
                         $lastid = $lastid+1;
-                        if ($this->Auth->user('id')!=$members){
+                        
+                        if ($this->Auth->user('id')!=$members)
+                        {
                             $this->generateMsgAndSendPjMail($prjid,$members,$comp);
                         }
                     }
@@ -961,9 +963,9 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         $this->set('selecteduser',$selecteduser);
     }
     
-    function dailyUpdate() {    
-
-
+    
+    function dailyUpdate() 
+    {
         //Getting project id
         $this->loadModel('Project');
         $project = $this->Project->getProjectFields(array('Project.uniq_id'=>$this->data['Project']['uniq_id']),array('id'));
@@ -973,9 +975,11 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         
         //Getting user ids
         $uids = '';
-        foreach($usr as $key => $value) {
-        $user = $this->User->getUserFields(array('User.uniq_id'=>$value),array('id'));
-        $uids.=",".$user['User']['id'];
+        
+        foreach($usr as $key => $value) 
+        {
+            $user = $this->User->getUserFields(array('User.uniq_id'=>$value),array('id'));
+            $uids.=",".$user['User']['id'];
         }
         
         //Making an array to insert or update
@@ -991,17 +995,20 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         //Check if insert or update
         $this->loadModel('DailyUpdate');
         $selecteduser = $this->DailyUpdate->getDailyUpdateFields($project['Project']['id']);
-        if (isset($selecteduser['DailyUpdate']) && !empty($selecteduser['DailyUpdate'])){
+        
+        if (isset($selecteduser['DailyUpdate']) && !empty($selecteduser['DailyUpdate']))
+        {
             $this->DailyUpdate->id = $selecteduser['DailyUpdate']['id'];
         }
         
         //Save or update records
-         if ($this->DailyUpdate->save($data)){
-
-        $this->Session->write("SUCCESS","Group update alert has been saved successfully.");
-        }else{
-
-        $this->Session->write("ERROR","Failed to save of Group update alert.");
+        if ($this->DailyUpdate->save($data))
+        {
+            $this->Session->write("SUCCESS","Group update alert has been saved successfully.");
+        }
+        else
+        {
+            $this->Session->write("ERROR","Failed to save of Group update alert.");
         }
 
         $this->redirect(HTTP_ROOT."projects/groupupdatealerts");
@@ -2200,21 +2207,35 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
             }
         }
         $redirect = HTTP_ROOT."projects/manage";
-        if (isset($page) && (intval($page) > 1)) {
+        
+        if (isset($page) && (intval($page) > 1)) 
+        {
             $redirect.="?page=".$page;
         }
         
-        if (!$projuid){
+        if (!$projuid)
+        {
             $this->redirect($redirect);exit;
-        }else{
-            $arr = $this->Project->deleteprojects($projuid);
-            if (isset($arr['succ']) && $arr['succ']){
+        }
+        else
+        {
+            /* @var $projectModel Project */
+            $projectModel = $this->Project;
+            $arr = $projectModel->deleteprojects($projuid);
+            
+            if (isset($arr['succ']) && $arr['succ'])
+            {
                 $this->Session->write('SUCCESS',$arr['msg']);
-            }elseif (isset($arr['error']) && $arr['error']){
+            }
+            elseif (isset($arr['error']) && $arr['error'])
+            {
                 $this->Session->write('ERROR',$arr['msg']);
-            }else{
+            }
+            else
+            {
                 $this->Session->write('ERROR','Oops! Error occured in deletion of project');
             }
+            
             $this->redirect($redirect);exit;
         }
     }
@@ -2419,6 +2440,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         {
             $this->Session->write("ERROR","Error in addition of task type.");
         }
+        
         $this->redirect(HTTP_ROOT."task-type");
     }
     
@@ -2438,13 +2460,16 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
             $this->loadModel("TypeCompany");
 
             $this->TypeCompany->query("DELETE FROM type_companies WHERE company_id=" . SES_COMP);
-            foreach ($this->data['Type'] as $key => $value) {
-            $data['company_id'] = SES_COMP;
-            $data['type_id'] = $value;
+            
+            foreach ($this->data['Type'] as $key => $value) 
+            {
+                $data['company_id'] = SES_COMP;
+                $data['type_id'] = $value;
 
-            $this->TypeCompany->id = '';
-            $this->TypeCompany->save($data);
+                $this->TypeCompany->id = '';
+                $this->TypeCompany->save($data);
             }
+            
             $this->Session->write("SUCCESS","Task type saved successfully.");
         } 
         else 
