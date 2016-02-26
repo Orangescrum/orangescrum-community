@@ -178,17 +178,18 @@ class DataSource extends Object {
 		return false;
 	}
 
-/**
- * Used to create new records. The "C" CRUD.
- *
- * To-be-overridden in subclasses.
- *
- * @param Model $model The Model to be created.
- * @param array $fields An Array of fields to be saved.
- * @param array $values An Array of values to save.
- * @return boolean success
- */
-	public function create(Model $model, $fields = null, $values = null) {
+    /**
+     * Used to create new records. The "C" CRUD.
+     *
+     * To-be-overridden in subclasses.
+     *
+     * @param Model $model The Model to be created.
+     * @param array $fields An Array of fields to be saved.
+     * @param array $values An Array of values to save.
+     * @return boolean success
+     */
+	public function create(Model $model, $fields = null, $values = null) 
+    {
 		return false;
 	}
 

@@ -4,8 +4,8 @@ App::import('Vendor', 's3', array('file' => 's3' . DS . 'S3.php'));
 
 //use ElephantIO\Client as ElephantIOClient;
 
-class PostcaseComponent extends CookieComponent {
-
+class PostcaseComponent extends CookieComponent 
+{
     public $components = array('Session', 'Email', 'Cookie', 'Format', 'Sendgrid');
 
     function casePosting($formdata) {

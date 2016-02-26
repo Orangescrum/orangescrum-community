@@ -1903,18 +1903,25 @@ class Model extends Object implements CakeEventListener
             } 
             else 
             {
-                if (empty($this->data[$this->alias][$this->primaryKey]) && $this->_isUUIDField($this->primaryKey)) {
-                    if (array_key_exists($this->primaryKey, $this->data[$this->alias])) {
+                if (empty($this->data[$this->alias][$this->primaryKey]) && $this->_isUUIDField($this->primaryKey)) 
+                {
+                    if (array_key_exists($this->primaryKey, $this->data[$this->alias])) 
+                    {
                         $j = array_search($this->primaryKey, $fields);
                         $values[$j] = String::uuid();
-                    } else {
+                    } 
+                    else 
+                    {
                         list($fields[], $values[]) = array($this->primaryKey, String::uuid());
                     }
                 }
                 
-                if (!$db->create($this, $fields, $values)) {
+                if (!$db->create($this, $fields, $values)) 
+                {
                     $success = false;
-                } else {
+                } 
+                else 
+                {
                     $created = true;
                 }
             }
