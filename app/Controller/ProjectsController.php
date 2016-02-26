@@ -432,6 +432,8 @@ class ProjectsController extends AppController
      */
     public function add_project()
     {
+        /* @var $projectModel Project */
+        $projectModel = $this->Project;
         $Company = ClassRegistry::init('Company');
         $comp = $Company->find('first', array('fields' => array('Company.name')));
         $userscls = ClassRegistry::init('User');
@@ -508,7 +510,7 @@ class ProjectsController extends AppController
         
         if (isset($this->params['data']['Project']) && $postProject['Project']['validate'] == 1) 
         {
-            $findName = $this->Project->find('first',array('conditions'=>array('Project.name'=>$postProject['Project']['name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
+            $findName = $projectModel->find('first',array('conditions'=>array('Project.name'=>$postProject['Project']['name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
             
             if ($findName) 
             {
@@ -516,7 +518,7 @@ class ProjectsController extends AppController
                 $this->redirect(HTTP_ROOT."projects/manage/");
             }
             
-            $findShrtName = $this->Project->find('first',array('conditions'=>array('Project.short_name'=>$postProject['Project']['short_name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
+            $findShrtName = $projectModel->find('first',array('conditions'=>array('Project.short_name'=>$postProject['Project']['short_name'],'Project.company_id'=>SES_ID),'fields'=>array('Project.id')));
             
             if ($findShrtName) 
             {
@@ -550,9 +552,9 @@ class ProjectsController extends AppController
             $postProject['Project']['dt_created'] = GMT_DATETIME;
             $postProject['Project']['company_id'] = SES_COMP;
             
-            if ($this->Project->save($postProject))
+            if ($projectModel->save($postProject))
             {
-                $prjid = $this->Project->getLastInsertID();
+                $prjid = $projectModel->getLastInsertID();
                 
                 $User = ClassRegistry::init('User');
                 $User->recursive = -1;
@@ -685,11 +687,14 @@ class ProjectsController extends AppController
     
     function check_proj_short_name()
     {
+        /* @var $projectModel Project */
+        $projectModel = $this->Project;
         $this->layout='ajax';
         ob_clean();
+        
         if (isset($this->params['data']['shortname']) && trim($this->params['data']['shortname']))
         {
-            $count = $this->Project->find("count",array("conditions"=>array('Project.short_name'=>trim(strtoupper($this->params['data']['shortname'])),'Project.company_id'=>SES_COMP),'fields'=>'DISTINCT Project.id'));
+            $count = $projectModel->find("count",array("conditions"=>array('Project.short_name'=>trim(strtoupper($this->params['data']['shortname'])),'Project.company_id'=>SES_COMP),'fields'=>'DISTINCT Project.id'));
             $this->set('count',$count);
             $this->set('shortname',trim(strtoupper($this->params['data']['shortname'])));
         }
@@ -698,6 +703,9 @@ class ProjectsController extends AppController
     
     function assign()
     {
+        /* @var $projectModel Project */
+        $projectModel = $this->Project;
+        
         if (isset($this->request->data['ProjectUser']['project_id'])) 
         {
             $projectid = $this->request->data['ProjectUser']['project_id'];
@@ -761,7 +769,7 @@ class ProjectsController extends AppController
             }
             
             $prjid = $this->request->data['ProjectUser']['project_id'];
-            $getProj = $this->Project->find('first', array('conditions' => array('Project.isactive'=>1,'Project.id'=>$prjid),'fields' => array('Project.uniq_id','Project.name')));
+            $getProj = $projectModel->find('first', array('conditions' => array('Project.isactive'=>1,'Project.id'=>$prjid),'fields' => array('Project.uniq_id','Project.name')));
             
             $this->Session->write("SUCCESS","User(s) successfully assigned to '".$getProj['Project']['name']."'");
             $this->redirect(HTTP_ROOT."projects/assign/?pid=".$getProj['Project']['uniq_id']);
@@ -769,14 +777,14 @@ class ProjectsController extends AppController
         
         $pid = NULL; $projId = NULL;
         $memsAvlArr = array(); $custAvlArr = array(); $memsExtArr = array(); $custExtArr = array();
-        $this->Project->recursive = -1;
-        $projArr = $this->Project->find('all', array('conditions' => array('Project.isactive'=>1,'Project.name !='=>'','Project.company_id'=>SES_COMP),'fields' => array('DISTINCT Project.uniq_id,Project.name')));
+        $projectModel->recursive = -1;
+        $projArr = $projectModel->find('all', array('conditions' => array('Project.isactive'=>1,'Project.name !='=>'','Project.company_id'=>SES_COMP),'fields' => array('DISTINCT Project.uniq_id,Project.name')));
         
         if (isset($_GET['pid']) && $_GET['pid'])
         {
             $pid = $_GET['pid'];
             
-            $getProj = $this->Project->find('first', array('conditions' => array('Project.isactive'=>1,'Project.uniq_id'=>$pid,'Project.company_id'=>SES_COMP),'fields' => array('Project.id')));
+            $getProj = $projectModel->find('first', array('conditions' => array('Project.isactive'=>1,'Project.uniq_id'=>$pid,'Project.company_id'=>SES_COMP),'fields' => array('Project.id')));
             if (count($getProj['Project']))
             {
                 $projId = $getProj['Project']['id'];
@@ -2197,6 +2205,9 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
      */
     public function delete_projects($projuid='',$page = NULL)
     {
+        /* @var $projectModel Project */
+        $projectModel = $this->Project;
+            
         if (SES_TYPE>2)
         {
             $grpcount = $this->Project->query('SELECT Project.id FROM projects AS Project WHERE Project.user_id='.$this->Auth->user('id').' AND Project.uniq_id="'.$projuid.'" AND Project.company_id='.SES_COMP.'');
@@ -2219,8 +2230,6 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         }
         else
         {
-            /* @var $projectModel Project */
-            $projectModel = $this->Project;
             $arr = $projectModel->deleteProjects($projuid);
             
             if (isset($arr['succ']) && $arr['succ'])
