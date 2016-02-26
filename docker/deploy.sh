@@ -58,6 +58,9 @@ if [ ! -d DB_DATA_VOLUME_PATH ]; then
     mkdir -p $DB_DATA_VOLUME_PATH
 fi
 
+# Copy the configuration file into the mysql volume
+cp $SCRIPTPATH/mysql-configuration-overrides.cnf $DB_CONFIG_VOLUME_PATH 
+
 
 # Start the MySQL container.
 docker run \
@@ -83,4 +86,3 @@ docker run -d \
 --name="$APP_CONTAINER_NAME" \
 --link=$MYSQL_CONTAINER_NAME:mysql \
 $APP_IMAGE_NAME
-
