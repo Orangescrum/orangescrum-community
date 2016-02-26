@@ -1727,8 +1727,10 @@ class Model extends Object implements CakeEventListener
     public function save($data = null, $validate = true, $fieldList = array()) 
     {
         $defaults = array(
-            'validate' => true, 'fieldList' => array(),
-            'callbacks' => true, 'counterCache' => true
+            'validate' => true, 
+            'fieldList' => array(),
+            'callbacks' => true, 
+            'counterCache' => true
         );
         
         $_whitelist = $this->whitelist;
@@ -1827,59 +1829,79 @@ class Model extends Object implements CakeEventListener
             $this->set($updateCol, $time);
         }
 
-        if ($options['callbacks'] === true || $options['callbacks'] === 'before') {
+        if ($options['callbacks'] === true || $options['callbacks'] === 'before') 
+        {
             $event = new CakeEvent('Model.beforeSave', $this, array($options));
             list($event->break, $event->breakOn) = array(true, array(false, null));
             $this->getEventManager()->dispatch($event);
-            if (!$event->result) {
+            
+            if (!$event->result) 
+            {
                 $this->whitelist = $_whitelist;
                 return false;
             }
         }
-
+        
         $db = $this->getDataSource();
-
-        if (empty($this->data[$this->alias][$this->primaryKey])) {
+        
+        if (empty($this->data[$this->alias][$this->primaryKey])) 
+        {
             unset($this->data[$this->alias][$this->primaryKey]);
         }
+        
         $fields = $values = array();
-
-        foreach ($this->data as $n => $v) {
-            if (isset($this->hasAndBelongsToMany[$n])) {
-                if (isset($v[$n])) {
+        
+        foreach ($this->data as $n => $v) 
+        {
+            if (isset($this->hasAndBelongsToMany[$n])) 
+            {
+                if (isset($v[$n])) 
+                {
                     $v = $v[$n];
                 }
+                
                 $joined[$n] = $v;
-            } elseif ($n === $this->alias) {
-                foreach (array('created', 'updated', 'modified') as $field) {
-                    if (array_key_exists($field, $v) && empty($v[$field])) {
+            } 
+            elseif ($n === $this->alias) 
+            {
+                foreach (array('created', 'updated', 'modified') as $field) 
+                {
+                    if (array_key_exists($field, $v) && empty($v[$field])) 
+                    {
                         unset($v[$field]);
                     }
                 }
-
-                foreach ($v as $x => $y) {
-                    if ($this->hasField($x) && (empty($this->whitelist) || in_array($x, $this->whitelist))) {
+                
+                foreach ($v as $x => $y) 
+                {
+                    if ($this->hasField($x) && (empty($this->whitelist) || in_array($x, $this->whitelist))) 
+                    {
                         list($fields[], $values[]) = array($x, $y);
                     }
                 }
             }
         }
-
+        
         $count = count($fields);
-
-        if (!$exists && $count > 0) {
+        
+        if (!$exists && $count > 0) 
+        {
             $this->id = false;
         }
-
+        
         $success = true;
         $created = false;
-
-        if ($count > 0) {
+        
+        if ($count > 0) 
+        {
             $cache = $this->_prepareUpdateFields(array_combine($fields, $values));
-
-            if (!empty($this->id)) {
+            
+            if (!empty($this->id)) 
+            {
                 $success = (bool)$db->update($this, $fields, $values);
-            } else {
+            } 
+            else 
+            {
                 if (empty($this->data[$this->alias][$this->primaryKey]) && $this->_isUUIDField($this->primaryKey)) {
                     if (array_key_exists($this->primaryKey, $this->data[$this->alias])) {
                         $j = array_search($this->primaryKey, $fields);
@@ -1888,74 +1910,80 @@ class Model extends Object implements CakeEventListener
                         list($fields[], $values[]) = array($this->primaryKey, String::uuid());
                     }
                 }
-
+                
                 if (!$db->create($this, $fields, $values)) {
                     $success = false;
                 } else {
                     $created = true;
                 }
             }
-
+            
             if ($success && $options['counterCache'] && !empty($this->belongsTo)) {
                 $this->updateCounterCache($cache, $created);
             }
         }
-
+        
         if (!empty($joined) && $success === true) {
             $this->_saveMulti($joined, $this->id, $db);
         }
-
+        
         if ($success && $count === 0) {
             $success = false;
         }
-
+        
         if ($success && $count > 0) {
             if (!empty($this->data)) {
                 if ($created) {
                     $this->data[$this->alias][$this->primaryKey] = $this->id;
                 }
             }
-
+            
             if ($options['callbacks'] === true || $options['callbacks'] === 'after') {
                 $event = new CakeEvent('Model.afterSave', $this, array($created, $options));
                 $this->getEventManager()->dispatch($event);
             }
-
+            
             if (!empty($this->data)) {
                 $success = $this->data;
             }
-
+            
             $this->data = false;
             $this->_clearCache();
             $this->validationErrors = array();
         }
-
+        
         $this->whitelist = $_whitelist;
         return $success;
     }
-
-/**
- * Check if the passed in field is a UUID field
- *
- * @param string $field the field to check
- * @return boolean
- */
-    protected function _isUUIDField($field) {
+    
+    
+    /**
+     * Check if the passed in field is a UUID field
+     *
+     * @param string $field the field to check
+     * @return boolean
+     */
+    protected function _isUUIDField($field) 
+    {
         $field = $this->schema($field);
         return $field['length'] == 36 && in_array($field['type'], array('string', 'binary'));
     }
-
-/**
- * Saves model hasAndBelongsToMany data to the database.
- *
- * @param array $joined Data to save
- * @param integer|string $id ID of record in this model
- * @param DataSource $db
- * @return void
- */
-    protected function _saveMulti($joined, $id, $db) {
-        foreach ($joined as $assoc => $data) {
-            if (!isset($this->hasAndBelongsToMany[$assoc])) {
+    
+    
+    /**
+     * Saves model hasAndBelongsToMany data to the database.
+     *
+     * @param array $joined Data to save
+     * @param integer|string $id ID of record in this model
+     * @param DataSource $db
+     * @return void
+     */
+    protected function _saveMulti($joined, $id, $db) 
+    {
+        foreach ($joined as $assoc => $data) 
+        {
+            if (!isset($this->hasAndBelongsToMany[$assoc])) 
+            {
                 continue;
             }
 
@@ -1989,8 +2017,10 @@ class Model extends Object implements CakeEventListener
                 $primaryAdded = true;
             }
 
-            foreach ((array)$data as $row) {
-                if ((is_string($row) && (strlen($row) == 36 || strlen($row) == 16)) || is_numeric($row)) {
+            foreach ((array)$data as $row) 
+            {
+                if ((is_string($row) && (strlen($row) == 36 || strlen($row) == 16)) || is_numeric($row)) 
+                {
                     $newJoins[] = $row;
                     $values = array($id, $row);
 
@@ -2000,13 +2030,17 @@ class Model extends Object implements CakeEventListener
 
                     $newValues[$row] = $values;
                     unset($values);
-                } elseif (isset($row[$habtm['associationForeignKey']])) {
+                } 
+                elseif (isset($row[$habtm['associationForeignKey']])) 
+                {
                     if (!empty($row[$Model->primaryKey])) {
                         $newJoins[] = $row[$habtm['associationForeignKey']];
                     }
 
                     $newData[] = $row;
-                } elseif (isset($row[$join]) && isset($row[$join][$habtm['associationForeignKey']])) {
+                } 
+                elseif (isset($row[$join]) && isset($row[$join][$habtm['associationForeignKey']])) 
+                {
                     if (!empty($row[$join][$Model->primaryKey])) {
                         $newJoins[] = $row[$join][$habtm['associationForeignKey']];
                     }
@@ -2016,7 +2050,9 @@ class Model extends Object implements CakeEventListener
             }
 
             $keepExisting = $habtm['unique'] === 'keepExisting';
-            if ($habtm['unique']) {
+            
+            if ($habtm['unique']) 
+            {
                 $conditions = array(
                     $join . '.' . $habtm['foreignKey'] => $id
                 );
@@ -2077,14 +2113,14 @@ class Model extends Object implements CakeEventListener
         }
     }
 
-/**
- * Updates the counter cache of belongsTo associations after a save or delete operation
- *
- * @param array $keys Optional foreign key data, defaults to the information $this->data
- * @param boolean $created True if a new record was created, otherwise only associations with
- *   'counterScope' defined get updated
- * @return void
- */
+    /**
+     * Updates the counter cache of belongsTo associations after a save or delete operation
+     *
+     * @param array $keys Optional foreign key data, defaults to the information $this->data
+     * @param boolean $created True if a new record was created, otherwise only associations with
+     *   'counterScope' defined get updated
+     * @return void
+     */
     public function updateCounterCache($keys = array(), $created = false) {
         $keys = empty($keys) ? $this->data[$this->alias] : $keys;
         $keys['old'] = isset($keys['old']) ? $keys['old'] : array();
