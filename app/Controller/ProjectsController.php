@@ -36,25 +36,26 @@
 
 App::uses('AppController', 'Controller');
 
-class ProjectsController extends AppController {
+class ProjectsController extends AppController 
+{
     public $name = 'Projects';
     public $components = array('Format','Postcase','Tmzone','Sendgrid');
     
     function beforeRender()
     {
-        if(SES_TYPE == 3) {
+        if (SES_TYPE == 3) {
             //$this->redirect(HTTP_ROOT."dashboard");
         }
-        /*if($this->action === 'index') {
+        /*if ($this->action === 'index') {
             $this->set( 'scaffoldFields', array( 'name', 'short_name', 'isactive', 'dt_created' ) );
         }
-        if($this->action === 'view') {
+        if ($this->action === 'view') {
             $this->set( 'scaffoldFields', array( 'name', 'short_name', 'isactive', 'dt_created','dt_updated' ) );
         }
-        if($this->action === 'edit') {
+        if ($this->action === 'edit') {
             $this->set( 'scaffoldFields', array( 'name', 'short_name') );
         }
-        if($this->action === 'add') {
+        if ($this->action === 'add') {
             $this->set( 'scaffoldFields', array( 'name', 'short_name') );
         }*/
     }
@@ -69,7 +70,7 @@ class ProjectsController extends AppController {
         $name = $this->params['data']['name'];
         $shortname = $this->params['data']['shortname'];
         
-        if(isset($this->params['data']['uniqid'])) {
+        if (isset($this->params['data']['uniqid'])) {
             $uniqid = $this->params['data']['uniqid'];
             $conditions = array('Project.name' => urldecode($name),'Project.company_id'=>SES_COMP,'Project.uniq_id !='=>$uniqid);
         }
@@ -79,11 +80,11 @@ class ProjectsController extends AppController {
         
         $chkName = $this->Project->find('first', array('conditions' => $conditions));
         
-        if(isset($chkName['Project']['id']) && $chkName['Project']['id']) {
+        if (isset($chkName['Project']['id']) && $chkName['Project']['id']) {
             echo "Project";
         }
         else {
-            if(isset($this->params['data']['uniqid'])) {
+            if (isset($this->params['data']['uniqid'])) {
                 $uniqid = $this->params['data']['uniqid'];
                 $conditions = array('Project.short_name' => urldecode($shortname),'Project.company_id'=>SES_COMP,'Project.uniq_id !='=>$uniqid);
             }
@@ -91,7 +92,7 @@ class ProjectsController extends AppController {
                 $conditions = array('Project.short_name' => urldecode($shortname),'Project.company_id'=>SES_COMP);
             }
             $chkShortName = $this->Project->find('first', array('conditions' => $conditions));
-            if(isset($chkShortName['Project']['id']) && $chkShortName['Project']['id']) {
+            if (isset($chkShortName['Project']['id']) && $chkShortName['Project']['id']) {
                 echo "ShortName";
             }
         }
@@ -99,7 +100,8 @@ class ProjectsController extends AppController {
     }
     
     
-    function ajax_edit_project() {
+    function ajax_edit_project() 
+    {
         $this->layout='ajax';
         $uniqid = NULL; $uname = NULL;$projArr = array(); $getTech = array();
         
@@ -133,36 +135,37 @@ class ProjectsController extends AppController {
     }
     
     
-    function settings($img = null) {
+    function settings($img = null) 
+    {
         
-        if(isset($this->params['data']['Project'])) {
+        if (isset($this->params['data']['Project'])) {
             $this->loadModel("ProjectUser");
             $postProject['Project'] = $this->params['data']['Project'];
             $postProject['Project']['name'] = trim($postProject['Project']['name']);
             $postProject['Project']['short_name'] = trim($postProject['Project']['short_name']);
             
-            if($postProject['Project']['validateprj'] == 1) {
+            if ($postProject['Project']['validateprj'] == 1) {
             $prjid = $postProject['Project']['id'];
             $redirect = HTTP_ROOT."projects/manage/";
             $page_lmt = $postProject['Project']['pg'];
-            if(intval($page_lmt) > 1) {
+            if (intval($page_lmt) > 1) {
                 $redirect.="?page=".$page_lmt;
             }
             
             $findName = $this->Project->query("SELECT id FROM projects WHERE name='".addslashes($postProject['Project']['name'])."' AND id!=".$prjid ." AND company_id='".SES_COMP."'");
-            if(count($findName)) {
+            if (count($findName)) {
                 $this->Session->write("ERROR","Project name '".$postProject['Project']['name']."' already exists");
                 $this->redirect($redirect);
             }
             
             $findShrtName = $this->Project->query("SELECT id FROM projects WHERE short_name='".addslashes($postProject['Project']['short_name'])."' AND id!=".$prjid." AND company_id='".SES_COMP."'");
-            if(!empty($findShrtName)) {
+            if (!empty($findShrtName)) {
                 $this->Session->write("ERROR","Project short name '".$postProject['Project']['short_name']."' already exists");
                 $this->redirect($redirect);
             }
             
             $postProject['Project']['dt_updated'] = GMT_DATETIME;
-            if($this->Project->save($postProject)) {
+            if ($this->Project->save($postProject)) {
                 $this->Session->write("SUCCESS","'".strip_tags($postProject['Project']['name'])."' saved successfully");
                 $this->redirect($redirect);
             }
@@ -174,17 +177,17 @@ class ProjectsController extends AppController {
         
         /*$uniqid = NULL; $uname = NULL;
         $projArr = array(); $getTech = array();
-        if(isset($_GET['pid']) && $_GET['pid']) {
+        if (isset($_GET['pid']) && $_GET['pid']) {
             $uniqid = $_GET['pid'];
             $this->Project->recursive = -1;
             //$uniqid = Sanitize::clean($uniqid, array('encode' => false));
             $projArr = $this->Project->find('first', array('conditions' => array('Project.uniq_id'=>$uniqid,'Project.company_id'=>SES_COMP)));
-            if(count($projArr))
+            if (count($projArr))
             {
                 $User = ClassRegistry::init('User');
                 $User->recursive = -1;
                 $getUser = $User->find("first",array('conditions'=>array('User.isactive'=>1,'User.id'=>$projArr['Project']['user_id']),'fields'=>array('User.name')));
-                if(count($getUser)){
+                if (count($getUser)){
                     $uname = $getUser['User']['name'];
                 }
                 
@@ -218,34 +221,34 @@ class ProjectsController extends AppController {
     function manage($projtype=NULL)
     {
         $page_limit = 17;
-        if($projtype == 'inactive') {
+        if ($projtype == 'inactive') {
             $page_limit = 18;
         }
         $this->Project->recursive = -1;
         $pjid = NULL;
-        if(isset($_GET['id']) && $_GET['id']){
+        if (isset($_GET['id']) && $_GET['id']){
             $pjid = $_GET['id'];
         }
-        if(isset($_GET['proj_srch']) && $_GET['proj_srch']){
+        if (isset($_GET['proj_srch']) && $_GET['proj_srch']){
             $pjname = htmlentities(strip_tags($_GET['proj_srch']));
             $this->set('prjsrch','project search');
         }
-        if(isset($_GET['page']) && $_GET['page']) {
+        if (isset($_GET['page']) && $_GET['page']) {
             $page = $_GET['page'];
         }
-        if(trim($pjid)){
+        if (trim($pjid)){
             $project = "Project";
             $getProj = $this->Project->find('first', array('conditions' => array('Project.id'=>$pjid,'Project.company_id'=>SES_COMP),'fields' => array('Project.name','Project.id')));
-            if(isset($getProj['Project']['name']) && $getProj['Project']['name']){
+            if (isset($getProj['Project']['name']) && $getProj['Project']['name']){
                 $project = $getProj['Project']['name'];
             }
-            if($getProj['Project']['id']) {
-                if(isset($_GET['action']) && $_GET['action'] == "activate"){
+            if ($getProj['Project']['id']) {
+                if (isset($_GET['action']) && $_GET['action'] == "activate"){
                     $this->Project->query("UPDATE projects SET isactive='1' WHERE id=".$getProj['Project']['id']);
                     $this->Session->write("SUCCESS","'".$project."' activated successfully");
                     $this->redirect(HTTP_ROOT."projects/manage/");
                 }
-                if(isset($_GET['action']) && $_GET['action'] == "delete"){
+                if (isset($_GET['action']) && $_GET['action'] == "delete"){
                     $this->Project->query("DELETE FROM projects WHERE id=".$getProj['Project']['id']);
                     
                     $ProjectUser = ClassRegistry::init('ProjectUser');
@@ -255,7 +258,7 @@ class ProjectsController extends AppController {
                     $this->Session->write("SUCCESS","'".$project."' deleted successfully");
                     $this->redirect(HTTP_ROOT."projects/manage/");
                 }
-                if(isset($_GET['action']) && $_GET['action'] == "deactivate"){
+                if (isset($_GET['action']) && $_GET['action'] == "deactivate"){
                     $this->Project->query("UPDATE projects SET isactive='2' WHERE id=".$getProj['Project']['id']);
                     $this->Session->write("SUCCESS","'".$project."' deactivated successfully");
                     $this->redirect(HTTP_ROOT."projects/manage/inactive");
@@ -268,25 +271,25 @@ class ProjectsController extends AppController {
         }
         
         $action = ""; $uniqid = ""; $query = "";
-        if(isset($_GET['uniqid']) && $_GET['uniqid']) {
+        if (isset($_GET['uniqid']) && $_GET['uniqid']) {
             $uniqid = $_GET['uniqid'];
         }
         
-        if($projtype == "inactive") {
+        if ($projtype == "inactive") {
             $query = "AND Project.isactive='2'";
         }else {
             $query = "AND Project.isactive='1'";
         }
-        if(isset($_GET['project']) && $_GET['project']) {
+        if (isset($_GET['project']) && $_GET['project']) {
             $query .= " AND Project.uniq_id='".$_GET['project']."'";
         }
         $query .= " AND Project.company_id='".SES_COMP."'";
-        if(isset($_GET['action']) && $_GET['action']) {
+        if (isset($_GET['action']) && $_GET['action']) {
             $action = $_GET['action'];
         }
         $page = 1;
         $pageprev=1;
-        if(isset($_GET['page']) && $_GET['page']){
+        if (isset($_GET['page']) && $_GET['page']){
             $page = $_GET['page'];
         }
         $limit1 = $page*$page_limit-$page_limit;
@@ -295,20 +298,20 @@ class ProjectsController extends AppController {
         $prjselect = $this->Project->query("SELECT name FROM projects AS Project WHERE name!='' ".$query." ORDER BY dt_created DESC");
         $arrprj=array();
         foreach($prjselect as $pjall){
-            if(isset($pjall['Project']['name']) && !empty($pjall['Project']['name'])){
+            if (isset($pjall['Project']['name']) && !empty($pjall['Project']['name'])){
                 array_push($arrprj,substr(trim($pjall['Project']['name']),0,1) );
             }
         }
-        if(isset($_GET['prj']) && $_GET['prj']){
+        if (isset($_GET['prj']) && $_GET['prj']){
             //$_GET['prj'] = Sanitize::clean($_GET['prj'], array('encode' => false));
             $_GET['prj']=chr($_GET['prj']);
             $pj=$_GET['prj']."%";
             $query .= " AND Project.name LIKE '".addslashes($pj)."'";
         }
         
-        if(SES_TYPE == 3) {
+        if (SES_TYPE == 3) {
             $query .= " AND Project.user_id=".$this->Auth->user('id');
-            if($pjname){
+            if ($pjname){
                 $prjAllArr = $this->Project->query("SELECT SQL_CALC_FOUND_ROWS Project.id,uniq_id,name,Project.user_id,project_type,short_name,Project.isactive,dt_updated,(select count(easycases.id) as tot from easycases where easycases.project_id=Project.id and easycases.istype='1' and easycases.isactive='1') as totalcase,(select ROUND(SUM(easycases.hours), 1) as hours from easycases where easycases.project_id=Project.id and easycases.reply_type='0' and easycases.isactive='1') as totalhours,(select count(company_users.id) as tot from company_users, project_users where project_users.user_id = company_users.user_id and project_users.company_id = company_users.company_id and company_users.is_active = 1
     and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.file_size) AS file_size FROM case_files WHERE case_files.project_id=Project.id) AS storage_used FROM projects AS Project WHERE Project.name!='' ".$query." and name LIKE '%".addslashes($pjname)."%' ORDER BY dt_created DESC LIMIT $limit1,$limit2 ");                   
             }else{
@@ -318,7 +321,7 @@ class ProjectsController extends AppController {
             }
         }
         else {
-            if($pjname){
+            if ($pjname){
                 $prjAllArr = $this->Project->query("SELECT SQL_CALC_FOUND_ROWS  id,uniq_id,name,user_id,project_type,short_name,isactive,dt_updated,(select count(easycases.id) as tot from easycases where easycases.project_id=Project.id and easycases.istype='1' and easycases.isactive='1') as totalcase,(select ROUND(SUM(easycases.hours), 1) as hours from easycases where easycases.project_id=Project.id and easycases.reply_type='0' and easycases.isactive='1') as totalhours,(select count(company_users.id) as tot from company_users, project_users where project_users.user_id = company_users.user_id and project_users.company_id = company_users.company_id and company_users.is_active = 1
     and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.file_size) AS file_size  FROM case_files WHERE case_files.project_id=Project.id) AS storage_used FROM projects AS Project WHERE name!='' ".$query." and name LIKE '%".addslashes($pjname)."%' ORDER BY dt_created DESC LIMIT $limit1,$limit2 ");                   
             }else{
@@ -333,21 +336,30 @@ class ProjectsController extends AppController {
         $tot = $this->Project->query("SELECT FOUND_ROWS() as total");
         $CaseCount = $tot[0][0]['total'];
         $active_project_cnt = 0;$inactive_project_cnt=0;
-        if(SES_TYPE == 3) {
+        
+        if (SES_TYPE == 3) 
+        {
             $grpcount = $this->Project->query('SELECT count(Project.id) as prjcnt, Project.isactive FROM projects AS Project WHERE Project.user_id='.$this->Auth->user('id').' AND Project.company_id='.SES_COMP.' GROUP BY Project.isactive'); 
         }
-        else {
+        else 
+        {
             $grpcount = $this->Project->query('SELECT count(Project.id) as prjcnt, Project.isactive FROM projects AS Project WHERE Project.company_id='.SES_COMP.' GROUP BY Project.isactive'); 
         }
-        if($grpcount){
-            foreach($grpcount AS $key=>$val){
-                if($val['Project']['isactive']==1){
+        if ($grpcount)
+        {
+            foreach($grpcount AS $key=>$val)
+            {
+                if ($val['Project']['isactive']==1)
+                {
                     $active_project_cnt = $val['0']['prjcnt'];
-                }elseif($val['Project']['isactive']==2){
+                } 
+                else if ($val['Project']['isactive'] == 2)
+                {
                     $inactive_project_cnt = $val['0']['prjcnt'];
                 }
             }
         }
+        
         $this->set('inactive_project_cnt',$inactive_project_cnt);
         $this->set('active_project_cnt',$active_project_cnt);
         
@@ -439,12 +451,13 @@ class ProjectsController extends AppController {
             }
         }
         
+        
         $memberslist ='';
         if ($postProject['Project']['members'])
         {
             $memberslist = array_unique($postProject['Project']['members']);
         }
-        elseif(!$GLOBALS['project_count'])
+        elseif (!$GLOBALS['project_count'])
         {
             $memberslist[] = SES_ID;
         }
@@ -514,7 +527,7 @@ class ProjectsController extends AppController {
                         $ProjUsr['ProjectUser']['dt_visited'] = GMT_DATETIME;
                         $ProjectUser->saveAll($ProjUsr);
                         $lastid = $lastid+1;
-                        if($this->Auth->user('id')!=$members){
+                        if ($this->Auth->user('id')!=$members){
                             $this->generateMsgAndSendPjMail($prjid,$members,$comp);
                         }
                     }
@@ -528,7 +541,7 @@ class ProjectsController extends AppController {
                     $post_temp['TemplateModuleCase']['company_id']=SES_COMP;
                     $post_temp['TemplateModuleCase']['project_id']=$prjid;
                     $s = ClassRegistry::init('TemplateModuleCase')->save($post_temp);
-
+                    
                     $this->loadModel("ProjectTemplateCase");
                     $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'=>$postProject['Project']['module_id']), 'order'=>'ProjectTemplateCase.sort ASC'));
                     $Easycase = ClassRegistry::init('Easycase');
@@ -576,6 +589,7 @@ class ProjectsController extends AppController {
                 {
                     $inviteduserlist = $this->Postcase->invitenewuser($emailarr,$prjid,$this);
                 }
+                
                 $this->Session->write("SUCCESS","'".strip_tags($postProject['Project']['name'])."' created successfully");
                 
                 setcookie('LAST_CREATED_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
@@ -596,9 +610,9 @@ class ProjectsController extends AppController {
                 }
                 else 
                 {
-                    if ($GLOBALS['project_count']>=1)
+                    if ($GLOBALS['project_count'] >= 1)
                     {
-                        if(count($memberslist)< count($checkMem)){
+                        if (count($memberslist)< count($checkMem)){
                         setcookie('LAST_PROJ',$prjid,time()+3600,'/',DOMAIN_COOKIE,false,false);
                         }
                         $this->redirect(HTTP_ROOT."projects/manage");
@@ -617,43 +631,32 @@ class ProjectsController extends AppController {
         }
     }
     
+    
     function check_proj_short_name()
     {
         $this->layout='ajax';
         ob_clean();
-        if(isset($this->params['data']['shortname']) && trim($this->params['data']['shortname']))
+        if (isset($this->params['data']['shortname']) && trim($this->params['data']['shortname']))
         {
             $count = $this->Project->find("count",array("conditions"=>array('Project.short_name'=>trim(strtoupper($this->params['data']['shortname'])),'Project.company_id'=>SES_COMP),'fields'=>'DISTINCT Project.id'));
             $this->set('count',$count);
             $this->set('shortname',trim(strtoupper($this->params['data']['shortname'])));
         }
     }
+    
+    
     function assign()
     {
-        if(isset($this->request->data['ProjectUser']['project_id'])) {
-
-
-            
-
-
+        if (isset($this->request->data['ProjectUser']['project_id'])) 
+        {
             $projectid = $this->request->data['ProjectUser']['project_id'];
             
             $lists1 = $this->request->data['ProjectUser']['mem_avl'].",";
             $lis1 = explode(",",$lists1);
-
-                
-
             $lists2 = $this->request->data['ProjectUser']['mem_ext'];
-
             $lis2 = explode(",",$lists2);
-
-    
             $lis1 = array_filter($lis1);
             $lis2 = array_filter($lis2);
-
-
-
-            
             $ProjectUser = ClassRegistry::init('ProjectUser');
             $ProjectUser->recursive = -1;
             $getLastId = $ProjectUser->query("SELECT MAX(id) as maxid FROM project_users");
@@ -666,18 +669,18 @@ class ProjectsController extends AppController {
             
             $CaseUserEmail = ClassRegistry::init('CaseUserEmail');
             $CaseUserEmail->recursive = -1;
-            if(count($lis1)) {
+            if (count($lis1)) {
                 foreach($lis1 as $ids1)
                 {
                     $checkAvlMem1 = $ProjectUser->find('count', array('conditions' => array('ProjectUser.user_id'=>$ids1,'ProjectUser.project_id'=>$projectid), 'fields'=>'DISTINCT ProjectUser.id'));
-                    if($checkAvlMem1) {
+                    if ($checkAvlMem1) {
                         $ProjectUser->query("DELETE FROM project_users WHERE user_id=".$ids1." AND project_id=".$projectid);
                         
-                        if(count($getcaseIds))
+                        if (count($getcaseIds))
                         {
                             foreach($getcaseIds as $getid)
                             {
-                                if($getid['Easycase']['id']) {
+                                if ($getid['Easycase']['id']) {
                                     $CaseUserEmail->query("UPDATE case_user_emails SET ismail='0' WHERE user_id=".$ids1." AND easycase_id=".$getid['Easycase']['id']);
                                 }
                             }
@@ -685,19 +688,19 @@ class ProjectsController extends AppController {
                     }
                 }
             }
-            if(count($lis2)) {
+            if (count($lis2)) {
                 foreach($lis2 as $ids2)
                 {
                     $checkAvlMem2 = $ProjectUser->find('count', array('conditions' => array('ProjectUser.user_id'=>$ids2,'ProjectUser.project_id'=>$projectid), 'fields'=>'DISTINCT id'));
-                    if($checkAvlMem2 == 0) {
+                    if ($checkAvlMem2 == 0) {
                         $lastid++;
                         $ProjectUser->query("INSERT INTO project_users SET id='".$lastid."',user_id=".$ids2.",project_id=".$projectid.",company_id='".SES_COMP."',dt_visited='".GMT_DATETIME."'");
                         
-                        if(count($getcaseIds))
+                        if (count($getcaseIds))
                         {
                             foreach($getcaseIds as $getid)
                             {
-                                if($getid['Easycase']['id']) {
+                                if ($getid['Easycase']['id']) {
                                     $CaseUserEmail->query("UPDATE case_user_emails SET ismail='1' WHERE user_id=".$ids2." AND easycase_id=".$getid['Easycase']['id']);
                                 }
                             }
@@ -718,19 +721,19 @@ class ProjectsController extends AppController {
         $this->Project->recursive = -1;
         $projArr = $this->Project->find('all', array('conditions' => array('Project.isactive'=>1,'Project.name !='=>'','Project.company_id'=>SES_COMP),'fields' => array('DISTINCT Project.uniq_id,Project.name')));
         
-        if(isset($_GET['pid']) && $_GET['pid'])
+        if (isset($_GET['pid']) && $_GET['pid'])
         {
             $pid = $_GET['pid'];
             
             $getProj = $this->Project->find('first', array('conditions' => array('Project.isactive'=>1,'Project.uniq_id'=>$pid,'Project.company_id'=>SES_COMP),'fields' => array('Project.id')));
-            if(count($getProj['Project']))
+            if (count($getProj['Project']))
             {
                 $projId = $getProj['Project']['id'];
                 
                 $ProjectUser = ClassRegistry::init('ProjectUser');
                 //$ProjectUser->unbindModel(array('belongsTo' => array('Project')));
                 
-                if(SES_TYPE == 1) {
+                if (SES_TYPE == 1) {
                     $memsAvlArr = $ProjectUser->query("SELECT DISTINCT User.id,User.name,User.email,User.istype,User.short_name,CompanyUser.user_type FROM users AS User, company_users AS CompanyUser WHERE User.id = CompanyUser.user_id AND CompanyUser.company_id='".SES_COMP."' AND User.isactive='1' AND User.name!='' AND NOT EXISTS(SELECT ProjectUser.user_id FROM project_users AS ProjectUser WHERE ProjectUser.user_id=User.id AND ProjectUser.project_id=".$projId.") ORDER BY User.istype ASC,User.name");
                     
                     $memsExtArr = $ProjectUser->query("SELECT DISTINCT User.id,User.name,User.email,User.istype,User.short_name,CompanyUser.user_type FROM users AS User, company_users AS CompanyUser,project_users AS ProjectUser WHERE ProjectUser.user_id=User.id AND User.id = CompanyUser.user_id AND CompanyUser.company_id='".SES_COMP."' AND User.isactive='1' AND User.name!='' AND ProjectUser.project_id=".$projId." ORDER BY User.istype ASC,User.name");
@@ -758,33 +761,33 @@ class ProjectsController extends AppController {
         $page_limit = 15;
         $this->Project->recursive = -1;
         $pjid = NULL;
-        if(isset($_GET['id']) && $_GET['id']){
+        if (isset($_GET['id']) && $_GET['id']){
             $pjid = $_GET['id'];
         }
-        if(isset($_GET['proj_srch']) && $_GET['proj_srch']){
+        if (isset($_GET['proj_srch']) && $_GET['proj_srch']){
             $pjname = htmlentities(strip_tags($_GET['proj_srch']));
             $this->set('prjsrch','project search');
         }
-        if(isset($_GET['page']) && $_GET['page']) {
+        if (isset($_GET['page']) && $_GET['page']) {
             $page = $_GET['page'];
         }
-        if(trim($pjid)){
+        if (trim($pjid)){
             $project = "Project";
             $getProj = $this->Project->find('first', array('conditions' => array('Project.id'=>$pjid,'Project.company_id'=>SES_COMP),'fields' => array('Project.name','Project.id')));
-            if(isset($getProj['Project']['name']) && $getProj['Project']['name']){
+            if (isset($getProj['Project']['name']) && $getProj['Project']['name']){
                 $project = $getProj['Project']['name'];
             }
-            if($getProj['Project']['id']) {
-                if(isset($_GET['action']) && $_GET['action'] == "activate"){
+            if ($getProj['Project']['id']) {
+                if (isset($_GET['action']) && $_GET['action'] == "activate"){
                     $this->Project->query("UPDATE projects SET isactive='1' WHERE id=".$getProj['Project']['id']);
                     $this->Session->write("SUCCESS","'".$project."' activated successfully");
                     $redirect = HTTP_ROOT."projects/manage/inactive/";
-                    if(isset($_GET['pg']) && (intval($_GET['pg']) > 1)){
+                    if (isset($_GET['pg']) && (intval($_GET['pg']) > 1)){
                         $redirect = HTTP_ROOT."projects/manage/inactive/?page=".$_GET['pg'];
                     }
                     $this->redirect($redirect);
                 }
-                if(isset($_GET['action']) && $_GET['action'] == "delete"){
+                if (isset($_GET['action']) && $_GET['action'] == "delete"){
                     $this->Project->query("DELETE FROM projects WHERE id=".$getProj['Project']['id']);
                     
                     $ProjectUser = ClassRegistry::init('ProjectUser');
@@ -794,9 +797,9 @@ class ProjectsController extends AppController {
                     $this->Session->write("SUCCESS","'".$project."' deleted successfully");
                     $this->redirect(HTTP_ROOT."projects/gridview/");
                 }
-                if(isset($_GET['action']) && $_GET['action'] == "deactivate"){
+                if (isset($_GET['action']) && $_GET['action'] == "deactivate"){
                     $redirect = HTTP_ROOT."projects/manage/";
-                    if(isset($_GET['pg']) && (intval($_GET['pg']) > 1)){
+                    if (isset($_GET['pg']) && (intval($_GET['pg']) > 1)){
                         $redirect = HTTP_ROOT."projects/manage/?page=".$_GET['pg'];
                     }
                     $this->Project->query("UPDATE projects SET isactive='2' WHERE id=".$getProj['Project']['id']);
@@ -811,21 +814,21 @@ class ProjectsController extends AppController {
         }
         
         $action = ""; $uniqid = ""; $query = "";
-        if(isset($_GET['uniqid']) && $_GET['uniqid']) {
+        if (isset($_GET['uniqid']) && $_GET['uniqid']) {
             $uniqid = $_GET['uniqid'];
         }
-        if($projtype == "disabled") {
+        if ($projtype == "disabled") {
             $query = "AND isactive='2'";
         }else {
             $query = "AND isactive='1'";
         }
         $query .= " AND company_id='".SES_COMP."'";
-        if(isset($_GET['action']) && $_GET['action']) {
+        if (isset($_GET['action']) && $_GET['action']) {
             $action = $_GET['action'];
         }
         $page = 1;
         $pageprev=1;
-        if(isset($_GET['page']) && $_GET['page']){
+        if (isset($_GET['page']) && $_GET['page']){
             $page = $_GET['page'];
         }
         $limit1 = $page*$page_limit-$page_limit;
@@ -834,18 +837,18 @@ class ProjectsController extends AppController {
         $prjselect = $this->Project->query("SELECT name FROM projects AS Project WHERE name!='' ".$query." ORDER BY name");
         $arrprj=array();
         foreach($prjselect as $pjall){
-            if(isset($pjall['Project']['name']) && !empty($pjall['Project']['name'])){
+            if (isset($pjall['Project']['name']) && !empty($pjall['Project']['name'])){
                 array_push($arrprj,substr(trim($pjall['Project']['name']),0,1) );
             }
         }
-        if(isset($_GET['prj']) && $_GET['prj']){
+        if (isset($_GET['prj']) && $_GET['prj']){
             //$_GET['prj'] = Sanitize::clean($_GET['prj'], array('encode' => false));
             $_GET['prj']=chr($_GET['prj']);
             $pj=$_GET['prj']."%";
             $query .= " AND name LIKE '".addslashes($pj)."'";
         }
           
-        if($pjname){
+        if ($pjname){
             $prjAllArr = $this->Project->query("SELECT SQL_CALC_FOUND_ROWS  id,uniq_id,name,user_id,project_type,short_name,isactive,(select count(easycases.id) as tot from easycases where easycases.project_id=Project.id and easycases.istype='1' and easycases.isactive='1') as totalcase,(select ROUND(SUM(easycases.hours), 1) as hours from easycases where easycases.project_id=Project.id and easycases.istype='2' and easycases.isactive='1') as totalhours,(select count(company_users.id) as tot from company_users, project_users where project_users.user_id = company_users.user_id and project_users.company_id = company_users.company_id and company_users.is_active = 1
 and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.file_size) AS file_size  FROM case_files   WHERE case_files.project_id=Project.id) AS storage_used FROM projects AS Project WHERE name!='' ".$query." and name LIKE '%".addslashes($pjname)."%' ORDER BY name LIMIT $limit1,$limit2 ");                   
         }else{
@@ -938,12 +941,12 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         //Check if insert or update
         $this->loadModel('DailyUpdate');
         $selecteduser = $this->DailyUpdate->getDailyUpdateFields($project['Project']['id']);
-        if(isset($selecteduser['DailyUpdate']) && !empty($selecteduser['DailyUpdate'])){
+        if (isset($selecteduser['DailyUpdate']) && !empty($selecteduser['DailyUpdate'])){
             $this->DailyUpdate->id = $selecteduser['DailyUpdate']['id'];
         }
         
         //Save or update records
-         if($this->DailyUpdate->save($data)){
+         if ($this->DailyUpdate->save($data)){
 
         $this->Session->write("SUCCESS","Group update alert has been saved successfully.");
         }else{
@@ -955,9 +958,9 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
     }
     
     function cancelDailyUpdate() {  
-        if(intval($this->params['pass'][0])) {
+        if (intval($this->params['pass'][0])) {
         $this->loadModel('DailyUpdate');
-        if($this->DailyUpdate->delete($this->params['pass'][0])) {      
+        if ($this->DailyUpdate->delete($this->params['pass'][0])) {      
 
             $this->Session->write("SUCCESS","Group update alert has been saved successfully.");
         }else{
@@ -1044,7 +1047,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         $pjname = urldecode($this->params['data']['pjname']);
         $cntmng = $this->params['data']['cntmng'];
         $query = "";
-        if(isset($this->params['data']['name']) && trim($this->params['data']['name'])) {
+        if (isset($this->params['data']['name']) && trim($this->params['data']['name'])) {
             $srchstr = addslashes($this->params['data']['name']);
             $query = "AND User.name LIKE '%$srchstr%'";
         }
@@ -1053,7 +1056,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
 
         $ProjectUser->unbindModel(array('belongsTo' => array('Project')));
 
-        if(SES_TYPE == 1) {
+        if (SES_TYPE == 1) {
             $memsNotExstArr = $ProjectUser->query("SELECT DISTINCT User.id,User.name,User.email,User.istype,User.short_name,CompanyUser.user_type FROM users AS User, company_users AS CompanyUser WHERE User.id = CompanyUser.user_id AND CompanyUser.company_id='".SES_COMP."' AND CompanyUser.is_active='1' AND User.isactive='1' AND User.name!='' ".$query." AND NOT EXISTS(SELECT ProjectUser.user_id FROM project_users AS ProjectUser WHERE ProjectUser.user_id=User.id AND ProjectUser.project_id=".$projid.") ORDER BY User.name");
              $memsExstArr = $ProjectUser->query("SELECT DISTINCT User.id,User.name,User.email,User.istype,User.short_name,CompanyUser.user_type FROM users AS User, company_users AS CompanyUser WHERE User.id = CompanyUser.user_id AND CompanyUser.company_id='".SES_COMP."' AND CompanyUser.is_active='1' AND User.isactive='1' AND User.name!='' ".$query." AND EXISTS(SELECT ProjectUser.user_id FROM project_users AS ProjectUser WHERE ProjectUser.user_id=User.id AND ProjectUser.project_id=".$projid.") ORDER BY User.name");
         }
@@ -1088,19 +1091,19 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         $CaseUserEmail->recursive = -1;
         
         //$getcaseIds = $Easycase->find("all",array('conditions', array('Easycase.project_id' => $pjid, 'Easycase.istype' => 1), 'fields' => array('Easycase.id')));
-        if(count($userid)) {
+        if (count($userid)) {
             foreach($userid as $id)
             {
                 $checkAvlMem2 = $ProjectUser->find('count', array('conditions' => array('ProjectUser.user_id'=>$id,'ProjectUser.project_id'=>$pjid,'ProjectUser.company_id'=>SES_COMP), 'fields'=>'DISTINCT id'));
-                if($checkAvlMem2 == 0) {
+                if ($checkAvlMem2 == 0) {
                     $lastid++;
                     $ProjectUser->query("INSERT INTO project_users SET id='".$lastid."',user_id=".$id.",project_id=".$pjid.",company_id=".SES_COMP.",dt_visited='".GMT_DATETIME."'");
                     
-                    /*if(count($getcaseIds))
+                    /*if (count($getcaseIds))
                     {
                         foreach($getcaseIds as $getid)
                         {
-                            if($getid['Easycase']['id']) {
+                            if ($getid['Easycase']['id']) {
                                 $CaseUserEmail->query("UPDATE case_user_emails SET ismail='1' WHERE user_id=".$id." AND easycase_id=".$getid['Easycase']['id']);
                             }
                         }
@@ -1108,7 +1111,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
                 }
             }
         }
-        if(count($userid)) {
+        if (count($userid)) {
             $Company = ClassRegistry::init('Company');
             $comp = $Company->find('first', array('fields' => array('Company.name')));
             foreach($userid as $id){
@@ -1120,13 +1123,13 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
     }
     function add_template(){
         //pr($this->request);exit;
-        if(isset($this->request->data['ProjectTemplateCase']) && !empty($this->request->data['ProjectTemplateCase'])){
-            if(isset($this->request->data['submit_template']) && count($this->request->data['ProjectTemplateCase']['title'])){
+        if (isset($this->request->data['ProjectTemplateCase']) && !empty($this->request->data['ProjectTemplateCase'])){
+            if (isset($this->request->data['submit_template']) && count($this->request->data['ProjectTemplateCase']['title'])){
                 $this->loadModel('ProjectTemplateCase');
                 $arr=$this->request->data['ProjectTemplateCase']['title'];
                 $count_arr=0;
                 foreach($arr as $cs){
-                    if(isset($cs) && !empty($cs)){
+                    if (isset($cs) && !empty($cs)){
                         $temp_case['user_id']=SES_ID;
                         $temp_case['company_id']=SES_COMP;
                         $temp_case['template_id']=$this->request->data['ProjectTemplateCase']['template_id'];
@@ -1145,29 +1148,29 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         $this->set('template_mod',$prj);    
     }
     function manage_template(){
-        if(isset($_GET['id']) && !empty($_GET['id'])){
+        if (isset($_GET['id']) && !empty($_GET['id'])){
             $this->loadModel("ProjectTemplate");
             $this->ProjectTemplate->id=$_GET['id'];
             $this->ProjectTemplate->delete();
             ClassRegistry::init('ProjectTemplateCase')->query("Delete FROM project_template_cases WHERE template_id='".$_GET['id']."'");
             $this->Session->write("SUCCESS","Template Deleted successfully");
             $this->redirect(HTTP_ROOT."projects/manage_template/");
-        }else if(isset($this->request->query['act']) && $this->request->query['act']){
+        }else if (isset($this->request->query['act']) && $this->request->query['act']){
             $v=urldecode(trim($this->request->query['act']));
             $this->loadModel("ProjectTemplate");
             $this->ProjectTemplate->id=$v;
-            if($this->ProjectTemplate->saveField("is_active",1)){
+            if ($this->ProjectTemplate->saveField("is_active",1)){
                 $this->Session->write("SUCCESS","Template activated successfully");
                 $this->redirect(HTTP_ROOT."projects/manage_template/");
             }else{
                 $this->Session->write("ERROR","Template can't be activated.Please try again.");
                 $this->redirect(HTTP_ROOT."projects/manage_template/");
             }
-        }else if(isset($this->request->query['inact']) && $this->request->query['inact']){
+        }else if (isset($this->request->query['inact']) && $this->request->query['inact']){
             $v=urldecode(trim($this->request->query['inact']));
             $this->loadModel("ProjectTemplate");
             $this->ProjectTemplate->id=$v;
-            if($this->ProjectTemplate->saveField("is_active",0)){
+            if ($this->ProjectTemplate->saveField("is_active",0)){
                 $this->Session->write("SUCCESS","Template deactivated successfully");
                 $this->redirect(HTTP_ROOT."projects/manage_template/");
             }else{
@@ -1184,16 +1187,16 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         //print_r($this->params['data']['title']);exit;
         $this->layout='ajax';
         $title = $this->params['data']['title'];
-        if(isset($this->params['data']['title']) && !empty($this->params['data']['title'])){
+        if (isset($this->params['data']['title']) && !empty($this->params['data']['title'])){
             $this->loadModel('ProjectTemplate');
             $prj = $this->ProjectTemplate->find('count',array('conditions' => array('ProjectTemplate.module_name' => $this->params['data']['title'],'ProjectTemplate.company_id'=>SES_COMP)));  
-           if($prj == 0){
+           if ($prj == 0){
                 $this->request->data['ProjectTemplate']['user_id'] = SES_ID;
                 $this->request->data['ProjectTemplate']['company_id'] = SES_COMP;
                 $this->request->data['ProjectTemplate']['module_name'] = $this->params['data']['title'];
                 $this->request->data['ProjectTemplate']['is_default'] = 1;
                 $this->request->data['ProjectTemplate']['is_active'] = 1;
-                if($this->ProjectTemplate->save($this->request->data)){
+                if ($this->ProjectTemplate->save($this->request->data)){
                     $last_insert_id = $this->ProjectTemplate->getLastInsertId();
                     echo $title."-".$last_insert_id;
                 }else{
@@ -1208,15 +1211,15 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
     function ajax_add_template_cases(){
         $this->layout='ajax';
         ob_clean();
-        if(isset($this->params['data']['pj_id']) && isset($this->params['data']['temp_mod_id'])){
+        if (isset($this->params['data']['pj_id']) && isset($this->params['data']['temp_mod_id'])){
             $this->loadModel('TemplateModuleCase');
             $prj = $this->TemplateModuleCase->find('count',array('conditions' => array('TemplateModuleCase.company_id'=>SES_COMP,'TemplateModuleCase.project_id'=>$this->params['data']['pj_id'])));
-            if($prj == 0){
+            if ($prj == 0){
                 $this->request->data['TemplateModuleCase']['template_module_id']=$this->params['data']['temp_mod_id'];
                 $this->request->data['TemplateModuleCase']['user_id']=SES_ID;
                 $this->request->data['TemplateModuleCase']['company_id']=SES_COMP;
                 $this->request->data['TemplateModuleCase']['project_id']=$this->params['data']['pj_id'];
-                if($this->TemplateModuleCase->save($this->request->data)){
+                if ($this->TemplateModuleCase->save($this->request->data)){
                     $this->loadModel("ProjectTemplateCase");
                     $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'=>$this->params['data']['temp_mod_id'],'ProjectTemplateCase.company_id'=>SES_COMP)));
                     $Easycase = ClassRegistry::init('Easycase');
@@ -1242,7 +1245,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
                         $caseNoArr = $Easycase->find('first', array('conditions' => array('Easycase.project_id' => $this->params['data']['pj_id']),'fields' => array('MAX(Easycase.case_no) as caseno')));
                         $caseNo = $caseNoArr[0]['caseno']+1;
                         $postCases['Easycase']['case_no'] = $caseNo;
-                        if($Easycase->saveAll($postCases))
+                        if ($Easycase->saveAll($postCases))
                         {
                             $caseid = $Easycase->getLastInsertID();
                             $CaseActivity->recursive = -1;
@@ -1338,7 +1341,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
     function ajax_template_case_listing(){
         $this->layout='ajax';
         //$all_cases=ClassRegistry::init('ProjectTemplateCase')->find('all',array('conditions'=>array('ProjectTemplateCase.template_id'=>$this->params['data']['template_id'],'ProjectTemplateCase.company_id'=> SES_COMP)));
-        if(isset($this->params['data']['rem_template_id']) && $this->params['data']['rem_template_id'])
+        if (isset($this->params['data']['rem_template_id']) && $this->params['data']['rem_template_id'])
         {
             $this->loadModel("ProjectTemplateCase");
             $this->ProjectTemplateCase->id=$this->params['data']['rem_template_id'];
@@ -1351,16 +1354,16 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
         function ajax_template_edit(){
         $this->layout='ajax';
         ob_clean();
-        if(isset($this->params['data']['template_id']) && $this->params['data']['template_id'] && isset($this->params['data']['count']) && $this->params['data']['count'])
+        if (isset($this->params['data']['template_id']) && $this->params['data']['template_id'] && isset($this->params['data']['count']) && $this->params['data']['count'])
         {
             $temp_id=$this->params['data']['template_id'];
             $cnt=$this->params['data']['count'];    
             $ttl=urldecode($this->params['data']['module_name']);
             $res=ClassRegistry::init('ProjectTemplate')->find('all',array('conditions'=>array('module_name'=>$ttl,'company_id'=>SES_COMP)));
-            if(count($res) == 0){
+            if (count($res) == 0){
                 $this->loadModel("ProjectTemplate");
                 $this->ProjectTemplate->id=$temp_id;
-                if($this->ProjectTemplate->saveField("module_name",$ttl)){
+                if ($this->ProjectTemplate->saveField("module_name",$ttl)){
                     echo "<a class='classhover' href='javascript:void(0);'  title='Click here to view tasks' onclick='opencases($cnt);caseListing($cnt,$temp_id)'>$ttl</a>";exit;
                 }else{
                     echo "fail";exit;
@@ -1384,8 +1387,8 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
           $this->layout='ajax';
          $proj_user_id = $this->params['data']['projectuser_id'];
           $email_type = $this->params['data']['type'];
-          if($proj_user_id && $email_type){
-               if($email_type == 'off'){
+          if ($proj_user_id && $email_type){
+               if ($email_type == 'off'){
                     $this->loadModel('ProjectUser');
                     $this->ProjectUser->query("UPDATE project_users SET default_email=0 where id='".$proj_user_id."'");
                }else{
@@ -1398,15 +1401,15 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
 function ajax_save_filter(){
           $this->layout='ajax';
           //For Case Status
-        if(isset($this->params['data']['caseStatus']) && $this->params['data']['caseStatus']){
+        if (isset($this->params['data']['caseStatus']) && $this->params['data']['caseStatus']){
             $case_status = $this->params['data']['caseStatus'];
-        }elseif($_COOKIE['STATUS']){
+        }elseif ($_COOKIE['STATUS']){
             $case_status = $_COOKIE['STATUS'];
         }
 
-        if($case_status && $case_status != "all"){
+        if ($case_status && $case_status != "all"){
             $case_status = strrev($case_status);
-            if(strstr($case_status,"-")){
+            if (strstr($case_status,"-")){
                 $expst = explode("-",$case_status);
                 foreach($expst as $st){
                     $status.= $this->Format->displayStatus($st).", ";
@@ -1421,15 +1424,15 @@ function ajax_save_filter(){
         }
         
           //For case types
-        if(isset($this->params['data']['caseType']) && $this->params['data']['caseType']){
+        if (isset($this->params['data']['caseType']) && $this->params['data']['caseType']){
             $case_types = $this->params['data']['caseType'];
-        }elseif($_COOKIE['CS_TYPES']){
+        }elseif ($_COOKIE['CS_TYPES']){
             $case_types = $_COOKIE['CS_TYPES'];
         }
         $types ='';
-        if($case_types && $case_types != "all"){
+        if ($case_types && $case_types != "all"){
             $case_types = strrev($case_types);
-            if(strstr($case_types,"-")){
+            if (strstr($case_types,"-")){
                 $expst3 = explode("-",$case_types);
                 foreach($expst3 as $st3){
                     $types.= $this->Format->caseBcTypes($st3).", ";
@@ -1444,13 +1447,13 @@ function ajax_save_filter(){
             $arr['case_types'] = 'All';
         }
           //For Priority
-        if(isset($this->params['data']['casePriority']) && $this->params['data']['casePriority']){
+        if (isset($this->params['data']['casePriority']) && $this->params['data']['casePriority']){
             $pri_fil = $this->params['data']['casePriority'];
-        }elseif($_COOKIE['PRIORITY']){
+        }elseif ($_COOKIE['PRIORITY']){
             $pri_fil = $_COOKIE['PRIORITY'];
         }
-        if($pri_fil && $pri_fil != "all"){
-            if(strstr($pri_fil,"-")){
+        if ($pri_fil && $pri_fil != "all"){
+            if (strstr($pri_fil,"-")){
                 $expst2 = explode("-",$pri_fil);
                 foreach($expst2 as $st2){
                     $pri.= $st2.", ";
@@ -1465,13 +1468,13 @@ function ajax_save_filter(){
             $arr['pri'] = 'All';
         }
           //For Case Members 
-        if(isset($this->params['data']['caseMemeber']) && $this->params['data']['caseMemeber']){
+        if (isset($this->params['data']['caseMemeber']) && $this->params['data']['caseMemeber']){
             $case_member = $this->params['data']['caseMemeber'];
-        }elseif($_COOKIE['MEMBERS']){
+        }elseif ($_COOKIE['MEMBERS']){
             $case_member = $_COOKIE['MEMBERS'];
         }
-        if($case_member && $case_member != "all"){
-            if(strstr($case_member,"-")){
+        if ($case_member && $case_member != "all"){
+            if (strstr($case_member,"-")){
                 $expst4 = explode("-",$case_member);
                 foreach($expst4 as $st4){
                     $mems.= $this->Format->caseBcMems($st4).", ";
@@ -1487,26 +1490,26 @@ function ajax_save_filter(){
 
         
         //For Case Date Status .... 
-        if(isset($this->params['data']['caseDate']) && $this->params['data']['caseDate']){
+        if (isset($this->params['data']['caseDate']) && $this->params['data']['caseDate']){
             $date = $this->params['data']['caseDate'];
         }else{
             
                 $date = $this->Cookie->read('DATE');
             
         }
-        if(!empty($date)){
+        if (!empty($date)){
             //$val = 1;
-            if(trim($date) == 'one'){
+            if (trim($date) == 'one'){
                 $arr['date'] = "Past hour";
-            }else if(trim($date) == '24'){
+            }else if (trim($date) == '24'){
                 $arr['date'] = "Past 24Hour";
-            }else if(trim($date) == 'week'){
+            }else if (trim($date) == 'week'){
                 $arr['date'] = "Past Week";
-            }else if(trim($date) == 'month'){
+            }else if (trim($date) == 'month'){
                 $arr['date'] = "Past month";
-            }else if(trim($date) == 'year'){
+            }else if (trim($date) == 'year'){
                 $arr['date'] = "Past Year";
-            }else if(strstr(trim($date),":")){
+            }else if (strstr(trim($date),":")){
                 $arr['date'] = str_replace(":"," - ",$date);
             }
         }else { 
@@ -1543,7 +1546,7 @@ function ajax_save_filter(){
      function ajax_custom_filter_show(){
           $this->layout='ajax';
           $limit_1 = $this->params['data']['limit1'];
-          if(isset($limit_1)){
+          if (isset($limit_1)){
                $limit1 = (int)$limit_1+3;
                $limit2= 3; 
           }else{
@@ -1564,14 +1567,14 @@ function ajax_save_filter(){
      * Dataimport Interface 
      */
     public function importexport($proj_id='') {
-        if(!$proj_id && (!isset($GLOBALS['getallproj'][0]['Project']['uniq_id']) && $GLOBALS['getallproj'][0]['Project']['uniq_id'])){
+        if (!$proj_id && (!isset($GLOBALS['getallproj'][0]['Project']['uniq_id']) && $GLOBALS['getallproj'][0]['Project']['uniq_id'])){
             $this->redirect(HTTP_ROOT.'projects/manage/');exit;
         }else{
-            if(!$proj_id)
+            if (!$proj_id)
                 $proj_id = $GLOBALS['getallproj'][0]['Project']['uniq_id'];
             $this->Project->recursive=-1;
             $proj_details = $this->Project->find('first',array('conditions'=>array('uniq_id'=>$proj_id,'company_id'=>SES_COMP)));
-            if($proj_details && (SES_TYPE<=2)){
+            if ($proj_details && (SES_TYPE<=2)){
                 $this->set('upload_file',1);
                 $this->set('proj_id',$proj_details['Project']['id']);
                 $this->set('proj_uid',$proj_id);
@@ -1597,11 +1600,11 @@ function ajax_save_filter(){
         //$fields_arr = array('milestone title','milestone description','start date','end date','title','description','due date','status','type','assigned to');
         $fields_arr = array('title','description','due date','status','type','assigned to');
         
-        if(isset($_FILES['import_csv'])){
+        if (isset($_FILES['import_csv'])){
             //$mimes = array('application/vnd.ms-excel','text/plain','text/csv','text/tsv','application/octet-stream');
             $ext = pathinfo($_FILES['import_csv']['name'], PATHINFO_EXTENSION);
-            //if(in_array($_FILES['import_csv']['type'],$mimes)){
-            if(strtolower($ext)== 'csv'){
+            //if (in_array($_FILES['import_csv']['type'],$mimes)){
+            if (strtolower($ext)== 'csv'){
               $csv_info = $_FILES['import_csv'];
               //Uploading the csv file to Our server
               $file_name =SES_ID."_".$project_id."_".$csv_info['name']; 
@@ -1610,12 +1613,12 @@ function ajax_save_filter(){
               $row = 1;
               // Counting total rows and Restricting from uploading a file having more then 1000 record
               $linecount = count(file(CSV_PATH."task_milstone/".$file_name));
-              if($linecount>1001){
+              if ($linecount>1001){
                  @unlink($csv_info['tmp_name'], CSV_PATH."task_milstone/".$file_name);
                 $this->Session->write("ERROR","Please split the file and upload again. Your file contain more than 1000 rows");
                 $this->redirect(HTTP_ROOT."projects/importexport/".$project_uid);exit;
               }
-              if($csv_info['size']>2097152){
+              if ($csv_info['size']>2097152){
                 @unlink($csv_info['tmp_name'], CSV_PATH."task_milstone/".$file_name);
                 $this->Session->write("ERROR","Please upload a file with size less then 2MB");
                 $this->redirect(HTTP_ROOT."projects/importexport/".$project_uid);exit;
@@ -1624,12 +1627,12 @@ function ajax_save_filter(){
               if (($handle = fopen(CSV_PATH."task_milstone/".$file_name, "r")) !== FALSE) {
               $i=0;$j=0;
               while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                if(!$i){
+                if (!$i){
                     // Check for column count
-                    if(count($data)>=1){
+                    if (count($data)>=1){
                         // Check for exact number of fields 
                         foreach($data AS $key=>$val){
-                            if(!in_array(strtolower($val),$fields_arr)){
+                            if (!in_array(strtolower($val),$fields_arr)){
                                 @unlink($csv_info['tmp_name'], CSV_PATH."task_milstone/".$file_name);
                                 $this->Session->write("ERROR","Invalid CSV file, <a href='".HTTP_ROOT."projects/download_sample_csvfile' style='text-decoration:underline;color:#0000FF'>Download</a> and check with our sample file");
                                 $this->redirect(HTTP_ROOT."projects/importexport/".$project_uid);exit;
@@ -1650,7 +1653,7 @@ function ajax_save_filter(){
                     
                     // Verifing data
                     $value= $data;
-//                  if($value[$header_arr['title']]){
+//                  if ($value[$header_arr['title']]){
 //                      $mtitle = $value[$header_arr['milestone title']];
 ////                        $milestone_arr[$value[$header_arr['milestone title']]]['title'] = $value[$header_arr['milestone title']];
 ////                        $milestone_arr[$value[$header_arr['milestone title']]]['desc'] = $value[$header_arr['milestone description']];
@@ -1663,31 +1666,31 @@ function ajax_save_filter(){
 //                  }else {
 //                      $mtitle = 'default';
 //                  }
-                    if(isset($value[$header_arr['title']]) && trim($value[$header_arr['title']])){
+                    if (isset($value[$header_arr['title']]) && trim($value[$header_arr['title']])){
                         foreach ($value as $k => $v) {
                             $task_ass[strtolower($fileds[$k])]=$v;
                             
                             // Parsing each data for error in data 
-                            if(strtolower($fileds[$k])=='type' && $v){
-                                if(in_array(strtolower($v), $task_type_arr)){
+                            if (strtolower($fileds[$k])=='type' && $v){
+                                if (in_array(strtolower($v), $task_type_arr)){
                                     $task_error[strtolower($fileds[$k])] = 0;
                                 }else{
                                     $task_error[strtolower($fileds[$k])] = 1;
                                 }
-                            }elseif(strtolower($fileds[$k])=='status' && $v){
-                                if(in_array(strtolower($v), $task_status_arr)){
+                            }elseif (strtolower($fileds[$k])=='status' && $v){
+                                if (in_array(strtolower($v), $task_status_arr)){
                                     $task_error[strtolower($fileds[$k])] = 0;
                                 }else{
                                     $task_error[strtolower($fileds[$k])] = 1;
                                 }
-                            }elseif(strtolower($fileds[$k])=='due date' && $v){
-                                if($this->Format->isValidDateTime($v)){
+                            }elseif (strtolower($fileds[$k])=='due date' && $v){
+                                if ($this->Format->isValidDateTime($v)){
                                     $task_error[strtolower($fileds[$k])] = 0;
                                 }else{
                                     $task_error[strtolower($fileds[$k])] = 1;
                                 }
-                            }elseif(strtolower($fileds[$k])=='assigned to' && strtolower ($v) !='me' && $v){
-                                if(in_array($v,$task_assign_to_users)){
+                            }elseif (strtolower($fileds[$k])=='assigned to' && strtolower ($v) !='me' && $v){
+                                if (in_array($v,$task_assign_to_users)){
                                     $task_error[strtolower($fileds[$k])] = 0;
                                 }else{
                                     $task_error[strtolower($fileds[$k])] = 1;
@@ -1754,18 +1757,18 @@ function ajax_save_filter(){
         $hind =0;
         /*foreach($milestone_arr as $key=>$val){
             $default =0;
-            if($key !='default'){
+            if ($key !='default'){
                 $mst_id = $this->Milestone->find('first',array('conditions'=>array('title'=>$key,'project_id'=>$project_id),array('fileds'=>array('id'))));
-                if(!$mst_id){
+                if (!$mst_id){
                     $milestone['title']= $key;
                     $milestone['description']= (isset($val['desc']) && $val['desc']) ?$val['desc']:'';
                     $start_date = (isset($val['start_date']) && $val['start_date'])?$val['start_date']:'';
-                    if($start_date){
+                    if ($start_date){
                         $start_date = $this->Format->isValidDateTime($start_date)?date('Y-m-d',strtotime($start_date)):'';
                     }           
                     $milestone['start_date']= $start_date?$start_date:GMT_DATE;
                     $end_date = (isset($val['end_date']) && $val['end_date'])?$val['end_date']:'';
-                    if($end_date){
+                    if ($end_date){
                         $end_date = $this->Format->isValidDateTime($end_date)?date('Y-m-d',strtotime($end_date)):'';
                     }           
                     $milestone['end_date']= $end_date?$end_date:GMT_DATE;
@@ -1788,28 +1791,28 @@ function ajax_save_filter(){
             $history[$hind++]['total_task'] = count($task_arr);
             $total_valid_rows = $total_valid_rows ? ($total_valid_rows+count($task_arr)):count($task_arr);
             foreach ($task_arr as $k => $v) {
-                if(!trim($v['title']))continue;
+                if (!trim($v['title']))continue;
                 $easycase['title'] = $v['title'];
                 $easycase['message'] = (isset($v['description']) && $v['description'])?$v['description']:'';
                 $due_date = (isset($v['due date']) && $v['due date'])?$v['due date']:'';
                 //$this->Format->isValidDateTime($due_date);
-                if($due_date){
+                if ($due_date){
                     $due_date = $this->Format->isValidDateTime($due_date)?date('Y-m-d',strtotime($due_date)):'';
                 }               
                 $easycase['due_date'] = $due_date;
-                if($v['status'] && (strtoupper(trim($v['status']))=='WIP')){
+                if ($v['status'] && (strtoupper(trim($v['status']))=='WIP')){
                     $legend =2;
-                }elseif($v['status'] && ((strtolower(trim($v['status']))=='close') || (strtoupper(trim($v['status']))=='CLOSED'))){
+                }elseif ($v['status'] && ((strtolower(trim($v['status']))=='close') || (strtoupper(trim($v['status']))=='CLOSED'))){
                     $legend =3;
-                }elseif($v['status'] && (strtolower(trim($v['status']))=='resolve' || strtolower(trim($v['status']))=='resolved')){
+                }elseif ($v['status'] && (strtolower(trim($v['status']))=='resolve' || strtolower(trim($v['status']))=='resolved')){
                     $legend =5;
                 }else{
                     $legend =1;
                 }
                 $easycase['legend'] = $legend;
                 $easycase['type_id'] = $this->get_type_id($v['type']);
-                if(strtolower($v['assigned to']) !='me' && $v['assigned to']){
-                    if(array_search($v['assigned to'],$task_assign_to_users)){
+                if (strtolower($v['assigned to']) !='me' && $v['assigned to']){
+                    if (array_search($v['assigned to'],$task_assign_to_users)){
                         $easycase['assign_to'] = array_search($v['assigned to'],$task_assign_to_users);
                     }else{
                         $easycase['assign_to'] = SES_ID;
@@ -1829,7 +1832,7 @@ function ajax_save_filter(){
 
                 $this->Easycase->create();
                 $sid = $this->Easycase->save($easycase);
-                /*if(!$default){
+                /*if (!$default){
                         $EasycaseMiles['easycase_id'] = $this->Easycase->getLastInsertID();
                         $EasycaseMiles['milestone_id'] = $milestone_last_insert_id;
                         $EasycaseMiles['project_id']= $project_id;
@@ -1852,23 +1855,23 @@ function ajax_save_filter(){
     
 function get_type_id($type){
     $type = strtolower($type);
-    if($type=='bug'){
+    if ($type=='bug'){
         return 1;
-    }elseif($type=='enhancement' || $type=='enh' ){
+    }elseif ($type=='enhancement' || $type=='enh' ){
         return 3;
-    }elseif($type=='research n do' || $type=='rnd' ){
+    }elseif ($type=='research n do' || $type=='rnd' ){
         return 4;
-    }elseif($type=='quality assurance' || $type=='qa'){
+    }elseif ($type=='quality assurance' || $type=='qa'){
         return 5;
-    }elseif($type=='unit testing' || $type=='unt'){
+    }elseif ($type=='unit testing' || $type=='unt'){
         return 6;
-    }elseif($type=='maintenance' || $type=='mnt'){
+    }elseif ($type=='maintenance' || $type=='mnt'){
         return 7;
-    }elseif($type=='others' || $type=='oth'){
+    }elseif ($type=='others' || $type=='oth'){
         return 8;
-    }elseif($type=='release' || $type=='rel' ){
+    }elseif ($type=='release' || $type=='rel' ){
         return 9;
-    }elseif($type=='update' || $type=='upd' ){
+    }elseif ($type=='update' || $type=='upd' ){
         return 10;
     }else{
         return 2;
@@ -1898,9 +1901,9 @@ function checkfile_existance(){
     if ($handle = opendir($directory)) {
         while (false !== ($entry = readdir($handle))) {
             if ($entry != "." && $entry != "..") {
-                if($file_name == $entry){
+                if ($file_name == $entry){
                     $filesize = filesize($directory.'/'.$file_name);
-                    if($file_info['size'] == $filesize){
+                    if ($file_info['size'] == $filesize){
                         $arr['msg'] = "Already a file with same name and same size of ".  $filesize." bytes exists. Would you like to replace the exsiting file?";
                     }else{
                         $arr['msg'] = "Already file with same name and size of ".$filesize." bytes exists. Would you like to replace the existing file ?";
@@ -1913,7 +1916,7 @@ function checkfile_existance(){
             }
         }
         closedir($handle);
-        if(!$err){
+        if (!$err){
             $arr['success'] =1;
             $arr['msg'] = "";
             $arr['error'] =0;
@@ -1934,17 +1937,17 @@ function project_thumb_view(){
         $this->layout="ajax";
         $this->loadModel('User');
         $list = $this->User->get_email_list();
-        if($list){
+        if ($list){
             foreach ($list as $key=>$val){
-                if(trim($val['User']['email'])!='' && trim(strtolower($val['User']['email']))!='null'){
+                if (trim($val['User']['email'])!='' && trim(strtolower($val['User']['email']))!='null'){
                     $name ="";
-                    if($val['User']['name']){
+                    if ($val['User']['name']){
                         $name = stripcslashes($val['User']['name']);
                     }
-                    if($val['User']['last_name']){
+                    if ($val['User']['last_name']){
                         $name .=" ".stripcslashes($val['User']['last_name']);
                     }
-                    if($name){
+                    if ($name){
                         $email[$val['User']['id']] =$name." <".$val['User']['email'].">";
                     }else{
                         $email[$val['User']['id']]= $val['User']['email'];
@@ -1962,10 +1965,10 @@ function project_thumb_view(){
      * @return  html
      */ 
     function onbording(){
-        if(SES_TYPE>2){
+        if (SES_TYPE>2){
             $this->redirect(HTTP_ROOT);exit;
         }
-        if($GLOBALS['project_count']){
+        if ($GLOBALS['project_count']){
             $projectusercls = ClassRegistry::init('ProjectUser');
             $projectusercls->recursive=-1;
             $projectusers = $projectusercls->find('count',array('conditions'=>array('company_id'=>SES_COMP)));
@@ -1985,7 +1988,7 @@ function project_thumb_view(){
         $id=$this->Auth->user('id');
         $this->loadModel('User');
         $rec=$this->User->findById($id);
-        if(($rec['User']['dt_last_logout']=='' && $rec['User']['show_default_inner'])){
+        if (($rec['User']['dt_last_logout']=='' && $rec['User']['show_default_inner'])){
             $this->set('is_log_out',1);
         }
     }
@@ -2004,24 +2007,24 @@ function project_thumb_view(){
      * @return bool true/false
      */
     function deleteprojects($projuid='',$page = NULL){
-        if(SES_TYPE>2){
+        if (SES_TYPE>2){
             $grpcount = $this->Project->query('SELECT Project.id FROM projects AS Project WHERE Project.user_id='.$this->Auth->user('id').' AND Project.uniq_id="'.$projuid.'" AND Project.company_id='.SES_COMP.'');
-            if(!$grpcount[0]['Project']['id']) {
+            if (!$grpcount[0]['Project']['id']) {
                 $this->redirect(HTTP_ROOT);exit;
             }
         }
         $redirect = HTTP_ROOT."projects/manage";
-        if(isset($page) && (intval($page) > 1)) {
+        if (isset($page) && (intval($page) > 1)) {
             $redirect.="?page=".$page;
         }
         
-        if(!$projuid){
+        if (!$projuid){
             $this->redirect($redirect);exit;
         }else{
             $arr = $this->Project->deleteprojects($projuid);
-            if(isset($arr['succ']) && $arr['succ']){
+            if (isset($arr['succ']) && $arr['succ']){
                 $this->Session->write('SUCCESS',$arr['msg']);
-            }elseif(isset($arr['error']) && $arr['error']){
+            }elseif (isset($arr['error']) && $arr['error']){
                 $this->Session->write('ERROR',$arr['msg']);
             }else{
                 $this->Session->write('ERROR','Oops! Error occured in deletion of project');
@@ -2057,6 +2060,8 @@ function project_thumb_view(){
         }
     
     }
+    
+    
     function generateMsgAndSendPjMail($pjid,$id,$comp)
     {
                 $User_id=$this->Auth->user('id');
@@ -2074,7 +2079,7 @@ function project_thumb_view(){
         $this->loadModel('User');
         $toUsrArr = $this->User->findById($id);
         $to_email = ""; $to_name = "";
-        if(count($toUsrArr)) {
+        if (count($toUsrArr)) {
             $to_email = $toUsrArr['User']['email'];
             $to_name = $frmtHlpr->formatText($toUsrArr['User']['name']);
         }
@@ -2083,7 +2088,7 @@ function project_thumb_view(){
         $this->Project->recursive = -1;
         $prjArr = $this->Project->find('first', array('conditions' => array('Project.id' => $pjid),'fields' => array('Project.name','Project.short_name','Project.uniq_id')));
         $projName = "";  $projUniqId = "";
-        if(count($prjArr)) {
+        if (count($prjArr)) {
             $projName = $frmtHlpr->formatText($prjArr['Project']['name']);
             $projUniqId = $prjArr['Project']['uniq_id'];
         }
@@ -2157,13 +2162,13 @@ function project_thumb_view(){
         $data['seq_order'] = 0;
         
         $this->loadModel("Type");
-        if(isset($data['id']) && $data['id']){      
+        if (isset($data['id']) && $data['id']){      
         }else{
         $this->Type->id = '';
         }
         $this->Type->save($data);
         $id = $this->Type->getLastInsertID();
-        if(isset($data['id']) && $data['id']){      
+        if (isset($data['id']) && $data['id']){      
         $this->Session->write("SUCCESS","Task type '".trim($data['name'])."' updated successfully.");
         }else{
         $this->loadModel("TypeCompany");
@@ -2246,10 +2251,10 @@ function project_thumb_view(){
     }
     function validateTaskType(){
     $jsonArr = array('status'=>'error');
-    if(!empty($this->request['data']['name'])){
+    if (!empty($this->request['data']['name'])){
         $this->loadModel("Type");
         $count_type = $this->Type->find('first',array('conditions' => array('OR'=>array('Type.short_name' => trim($this->request['data']['sort_name']),'Type.name' => trim($this->request['data']['name'])),'Type.id !=' => trim($this->request['data']['id'])),'fields' => array("Type.name","Type.short_name")));
-        if(!$count_type){
+        if (!$count_type){
         $jsonArr['status'] = 'success';
         }
             else
@@ -2259,7 +2264,7 @@ function project_thumb_view(){
             $jsonArr['msg'] = 'sort_name';
         }
                 
-        if(strtolower($count_type['Type']['name']) == strtolower(trim($this->request['data']['name']))){
+        if (strtolower($count_type['Type']['name']) == strtolower(trim($this->request['data']['name']))){
             $jsonArr['msg'] = 'name';
         }
         }
