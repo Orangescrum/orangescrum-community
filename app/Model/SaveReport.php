@@ -1,5 +1,6 @@
 <?php
-class SaveReport extends AppModel{
-	var $name = 'SaveReport';
+
+class SaveReport extends AppModel
+{
+    var $name = 'SaveReport';
 }
-?>

@@ -1,5 +1,6 @@
 <?php
-class CaseComment extends AppModel{
-	var $name = 'CaseComment';
+
+class CaseComment extends AppModel
+{
+    var $name = 'CaseComment';
 }
-?>

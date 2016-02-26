@@ -1,5 +1,6 @@
 <?php
-class LogType extends AppModel{
-	var $name = 'LogType';
+
+class LogType extends AppModel
+{
+    var $name = 'LogType';
 }
-?>

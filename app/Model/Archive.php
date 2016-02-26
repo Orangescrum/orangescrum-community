@@ -1,5 +1,6 @@
 <?php
-class Archive extends AppModel{
-	var $name = 'Archive';
+
+class Archive extends AppModel
+{
+    var $name = 'Archive';
 }
-?>

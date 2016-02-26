@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application model for Cake.
  *
@@ -30,7 +31,7 @@ App::uses('Model', 'Model');
  *
  * @package       app.Model
  */
-class AppModel extends Model 
+class AppModel extends Model
 {
     public function find($type = 'first', $queryData = array())
     {
@@ -39,8 +40,8 @@ class AppModel extends Model
         if ($results || ($type != 'first' && $type != ''))
         {
             return $results;
-        } 
-        else 
+        }
+        else
         {
             return false;
         }

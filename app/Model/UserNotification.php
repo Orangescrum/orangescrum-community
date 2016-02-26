@@ -1,5 +1,6 @@
 <?php
-class UserNotification extends AppModel{
-	var $name = 'UserNotification';
+
+class UserNotification extends AppModel
+{
+    var $name = 'UserNotification';
 }
-?>
