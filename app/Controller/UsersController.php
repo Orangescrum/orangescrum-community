@@ -4357,7 +4357,7 @@ class UsersController extends AppController
      */
     function register_user() 
     {
-        $this->layout = 'ajax';     
+        $this->layout = 'ajax';
         $this->loadModel('Company');
         
         $email = urldecode($this->request->data['email']);  
@@ -4410,7 +4410,7 @@ class UsersController extends AppController
             $companyArray['Company']['seo_url'] = $this->Format->makeSeoUrl($seo_url);
             $companyArray['Company']['subscription_id'] = $subScription['Subscription']['id'];
             $companyArray['Company']['name'] = $company;
-            $companyArray['Company']['logo'] = "";
+            $companyArray['Company']['logo'] = 'default-invoice-logo.png';
             $companyArray['Company']['website'] = "";
             $companyArray['Company']['contact_phone'] = 'NA';
             $message = "success";
@@ -4535,30 +4535,7 @@ class UsersController extends AppController
                             $json_arr['created'] = GMT_DATETIME;
                             $this->Postcase->eventLog($company_id, $comp_usr['CompanyUser']['user_id'], $json_arr, 1);
                             
-                            //here send email to user uncomment.
-                            /*$to = $email;
-                            $from = FROM_EMAIL;
-                            $subject = "Welcome to Orangescrum, " . ucfirst($name) . "!";
-                            $activation_url = PROTOCOL . $comp['Company']['seo_url'] . "." . DOMAIN . "users/confirmation/" . $activation_id;
-                            $web_address = PROTOCOL . $comp['Company']['seo_url'] . "." . DOMAIN;
-                            $this->Email->delivery = EMAIL_DELIVERY;
-                            $this->Email->to = $to;
-                            $this->Email->subject = $subject;
-                            $this->Email->from = $from;
-                            $this->Email->template = 'free_signup';
-                            $this->Email->sendAs = 'html';
-                            $this->set('activation_url', $activation_url);
-                            $this->set('project_limit', $subScription['Subscription']['project_limit']);
-                            $this->set('user_limit', $subScription['Subscription']['user_limit']);
-                            $this->set('storage', $subScription['Subscription']['storage']);
-                            $this->set('expName', ucfirst($name));
-                            $this->set('password', $password);
-                            $this->set('web_address', $web_address);
-                            $this->set('plan_id', $plan_id);
-                            $this->set('free_trail_days', $subScription['Subscription']['free_trail_days']);
-                            $this->set('price', $subScription['Subscription']['price']);
-                            $this->Sendgrid->sendgridsmtp($this->Email);*/
-                            $message = "success";   
+                            $message = "success";
                         }
                     }
                 }
@@ -4572,7 +4549,7 @@ class UsersController extends AppController
         $msg['message'] = 'success';
         
         if ($message != "success") 
-        {    
+        {
             if ($company_id) 
             {
                 $this->loadModel('Company');
