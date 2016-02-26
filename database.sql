@@ -228,11 +228,11 @@ CREATE TABLE IF NOT EXISTS `case_user_views` (
 DROP TABLE IF EXISTS `companies`;
 CREATE TABLE IF NOT EXISTS `companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uniq_id` text,
+  `uniq_id` text NOT NULL,
   `name` varchar(250) NOT NULL,
   `seo_url` varchar(250) NOT NULL,
   `subscription_id` int(11) NOT NULL,
-  `logo` varchar(100) NOT NULL,
+  `logo` varchar(100),
   `website` varchar(100) NOT NULL,
   `contact_phone` varchar(100) NOT NULL,
   `created` datetime NOT NULL,

@@ -3336,6 +3336,7 @@ function done_cropimage(){
 	    $comp['Company']['seo_url'] = $this->Format->makeSeoUrl($seo_url);
 	    $comp['Company']['subscription_id'] = $subScription['Subscription']['id'];
 	    $comp['Company']['name'] = $company;
+		$comp['Company']['logo'] = 'default-invoice-logo.png';
 	    $comp['Company']['contact_phone'] = 'NA';
 	    $message = "success";
 	    try {
