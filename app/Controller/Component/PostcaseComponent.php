@@ -775,7 +775,6 @@ class PostcaseComponent extends CookieComponent {
         </table> 
         </body>";
 
-//return $this->Sendgrid->sendEmail($from,$to,$subject,$message,$type);
         return $this->Sendgrid->sendGridEmail($from, $to, $subject, $message, $type, $fromname);
     }
 

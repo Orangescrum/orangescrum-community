@@ -1760,15 +1760,15 @@ class Model extends Object implements CakeEventListener
         {
             $this->whitelist = array();
         }
-
+        
         $this->set($data);
-
+        
         if (empty($this->data) && !$this->hasField(array('created', 'updated', 'modified'))) 
         {
             $this->whitelist = $_whitelist;
             return false;
         }
-
+        
         foreach (array('created', 'updated', 'modified') as $field) 
         {
             $keyPresentAndEmpty = (
@@ -1776,34 +1776,35 @@ class Model extends Object implements CakeEventListener
                 array_key_exists($field, $this->data[$this->alias]) &&
                 $this->data[$this->alias][$field] === null
             );
-
-            if ($keyPresentAndEmpty) {
+            
+            if ($keyPresentAndEmpty) 
+            {
                 unset($this->data[$this->alias][$field]);
             }
         }
-
+        
         $exists = $this->exists();
         $dateFields = array('modified', 'updated');
-
+        
         if (!$exists) 
         {
             $dateFields[] = 'created';
         }
-
+        
         if (isset($this->data[$this->alias])) 
         {
             $fields = array_keys($this->data[$this->alias]);
         }
-
+        
         if ($options['validate'] && !$this->validates($options)) 
         {
             $this->whitelist = $_whitelist;
             return false;
         }
-
+        
         $db = $this->getDataSource();
         $now = time();
-
+        
         foreach ($dateFields as $updateCol) 
         {
             if (in_array($updateCol, $fields) || !$this->hasField($updateCol)) 
