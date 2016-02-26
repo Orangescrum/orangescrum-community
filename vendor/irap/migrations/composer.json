@@ -1,0 +1,26 @@
+{
+    "name": "irap/migrations",
+    "type": "library",
+    "description": "Package handling Mysql Migrations/versioning.",
+    "keywords": ["mysql", "mysqli","models"],
+    "homepage": "http://www.irap.org/",
+    "license": "none",
+    "authors": [
+        {
+            "name": "Stuart Page",
+            "email": "stuart.page@irap.org",
+            "homepage": "http://irap.org/",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [ { "type": "composer", "url": "http://satis.irap-dev.org/" } ],
+    "require": {
+        "php": ">=5.3.0",
+        "irap/table-creator": "1.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "iRAP\\Migrations\\": ""
+        }
+    }
+}
