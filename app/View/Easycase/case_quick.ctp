@@ -37,7 +37,7 @@ $titleValue = "Daily Update - ".date("m/d");
         
         if (GetContent && id != "New")
         { 
-            //It will check whether data is present or not and Not Reseting the field
+            // It will check whether data is present or not and Not Reseting the field
             if (confirm("Your description will be replaced by this \""+name+"\" Template"))
             {
                 isDataPresent = true;
@@ -74,7 +74,9 @@ $titleValue = "Daily Update - ".date("m/d");
                 
                 $.post(strURL+"ajax_case_template", {"tmpl_id":id}, function(data) {
                     $("#CS_message_ifr").show();
-                    if(data) {
+                    
+                    if (data) 
+                    {
                         tinyMCE.activeEditor.setContent(data);
                     }
                 });
@@ -102,21 +104,25 @@ $titleValue = "Daily Update - ".date("m/d");
             var path=$(this).parent("li").parent("ul").parent("div").prev("div").attr("id");
             $("#"+path).children("a").children("span").html(text);
             
-            if(path =="opt3")
+            if (path =="opt3")
             {
                 var hidden_val=$("#" + path).find("a span.value").html();
                 $("#date_dd").html(hidden_val);
                 $("#CS_due_date").val(hidden_val);
                 
             }
-            else if(path =="opt2"){
-                //alert("Hello");
+            else if (path =="opt2")
+            {
                 $("#CS_priority").val(getSelectedValue("opt2"));
-            }else if(path =="opt4"){
+            }
+            else if (path =="opt4")
+            {
                 $("#CS_milestone").val(getSelectedValue("opt4"));
-            }else if(path =="opt5"){
-                    $("#CS_assign_to").val(getSelectedValue("opt5"));
-               }
+            }
+            else if (path =="opt5")
+            {
+                $("#CS_assign_to").val(getSelectedValue("opt5"));
+            }
             else
             {
                 $("#CS_type_id").val(getSelectedValue("opt1"));
@@ -130,7 +136,7 @@ $titleValue = "Daily Update - ".date("m/d");
                     $("#CS_title").val('<?php echo $titleValue; ?>');
                     document.getElementById("CS_title").style.color='#000';
                 }
-                else if($("#CS_type_id").val() != 10 && $("#CS_title").val() == '<?php echo $titleValue; ?>')
+                else if ($("#CS_type_id").val() != 10 && $("#CS_title").val() == '<?php echo $titleValue; ?>')
                 {
                     document.getElementById("CS_title").value ="";
                 }
@@ -197,9 +203,9 @@ $( "#start_date1" ).datepicker({
 <script type="text/javascript" src="<?php echo JS_PATH; ?>fileupload.js"></script>
 <input type="hidden" name="totfiles" id="totfiles" value="0" readonly="true">
 
-<input type="hidden" id="CS_type_id" value="<?php if(isset($taskdetails) && $taskdetails['type_id']){echo $taskdetails['type_id'];}else{?>2 <?php }?>">
-<input type="hidden" id="CS_priority" value="<?php if(isset($taskdetails) && $taskdetails['priority']){echo $taskdetails['priority'];}else{?>1 <?php }?>">
-<input type="hidden" id="CS_due_date" value="<?php if(isset($taskdetails) && $taskdetails['due_date']){echo date('m/d/Y',strtotime($taskdetails['due_date']));}else{?>No Due Date<?php }?>">
+<input type="hidden" id="CS_type_id" value="<?php if (isset($taskdetails) && $taskdetails['type_id']){echo $taskdetails['type_id'];}else{?>2 <?php }?>">
+<input type="hidden" id="CS_priority" value="<?php if (isset($taskdetails) && $taskdetails['priority']){echo $taskdetails['priority'];}else{?>1 <?php }?>">
+<input type="hidden" id="CS_due_date" value="<?php if (isset($taskdetails) && $taskdetails['due_date']){echo date('m/d/Y',strtotime($taskdetails['due_date']));}else{?>No Due Date<?php }?>">
 <input type="hidden" id="CS_milestone" value="">
 
 <!--<span id="ajxQuickMem" style="display:block"></span>-->
@@ -244,15 +250,27 @@ else
                                     <div class="opt1" id="opt1">
                                         <a href="javascript:jsVoid()" onclick="open_more_opt('more_opt');">
                                             <span class="">
-                                            <?php if(isset($taskdetails) && $taskdetails['type_id']){
-                                                foreach($select as $k=>$v){
-                                                    if($v['Type']['id'] == $taskdetails['type_id']){?>
+                                            <?php 
+                                            if (isset($taskdetails) && $taskdetails['type_id'])
+                                            {
+                                                foreach ($select as $k=>$v)
+                                                {
+                                                    if ($v['Type']['id'] == $taskdetails['type_id'])
+                                                    {
+                                                    ?>
                                                         <img class="flag" src="<?php echo HTTP_IMAGES.'images/types/'.$v['Type']['short_name'].'.png';?>" alt="type" style="padding-top:3px;"/>&nbsp;<?php echo $v['Type']['name'];?>
-                                                <?php break; }
+                                                <?php 
+                                                        break; 
+                                                    }
                                                 }
-                                            }else{?>
+                                            }
+                                            else
+                                            {
+                                                ?>
                                                 <img class="flag" src="<?php echo HTTP_IMAGES.'images/types/dev.png';?>" alt="type" style="padding-top:3px;"/>&nbsp;Development
-                                            <?php }?>
+                                            <?php 
+                                            }
+                                            ?>
                                             </span> 
                                             <i class="caret mtop-10 fr"></i>
                                         </a>
@@ -325,21 +343,16 @@ else
                                 elseif($defaultAssign && $defaultAssign != SES_ID)
                                 {
                                     $userNam = $this->Casequery->getusrname($defaultAssign);
-                                    
                                 ?>
                                     <script type="text/javascript">$('#CS_assign_to').val('<?php echo $defaultAssign;?>');</script>
                                 <?php 
-                                
-                                echo $userNam['User']['name']; 
-                                 
-                                
+                                    echo $userNam['User']['name']; 
                                 }
                                 else
                                 {
                                 ?>
                                 &nbsp;&nbsp;me
                                 <?php 
-                                
                                 } 
                                 ?>
                                 </span>
@@ -356,27 +369,23 @@ else
                                     {
                                         if (SES_ID==$asgnMem['User']['id'])
                                         {
-                                                       echo "<li>
-                                                             <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");' >
-                                                                 <span class='value'>".$asgnMem['User']['id']."
-                                                                 </span>&nbsp;&nbsp;me
-                                                             </a>
-                                                         </li>";
+                                            echo "<li>
+                                                  <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");' >
+                                                      <span class='value'>".$asgnMem['User']['id']."
+                                                      </span>&nbsp;&nbsp;me
+                                                  </a>
+                                              </li>";
                                         }
                                         else
                                         {
-                                                      echo "<li>
-                                                          <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");'>
-                                                              <span class='value'>".$asgnMem['User']['id']."
-                                                              </span>&nbsp;&nbsp;".$this->Format->formatText($asgnMem['User']['name'])."
-                                                          </a>
-                                                      </li>";
-    
-    
+                                            echo "<li>
+                                                <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");'>
+                                                    <span class='value'>".$asgnMem['User']['id']."
+                                                    </span>&nbsp;&nbsp;".$this->Format->formatText($asgnMem['User']['name'])."
+                                                </a>
+                                            </li>";
                                         } 
-                                  
                                     }
-                                     
                                 }
                                 else
                                 { 
@@ -385,7 +394,6 @@ else
                                                  me<span class="value"><?php echo SES_ID; ?></span></a>
                                      </a>
                                 <?php 
-                                       
                                 }
                                 ?>
                                      </ul>
@@ -397,7 +405,6 @@ else
             </td>
         </tr>
     </table>
-    <?php /*?><input type="text" name="data[Easycase][due_date]" id="CS_due_date" class="datepicker small" onchange="checkDate('CS_due_date','<?php echo $curDate; ?>')"/><?php */?>
     
 </div>
 <div class="case_field">
@@ -409,11 +416,16 @@ else
                         <div class="fl dropdown option-toggle p-6">
                             <div class="opt1" id="opt3"><a href="javascript:jsVoid()" onclick="open_more_opt('more_opt3');"> 
                                 <span id="date_dd"> 
-                                <?php if(isset($taskdetails['due_date']) && $taskdetails['due_date']){
+                                <?php 
+                                if (isset($taskdetails['due_date']) && $taskdetails['due_date'])
+                                {
                                     echo date('m/d/Y',strtotime($taskdetails['due_date']));
-                                 }else{?>
-                                    No Due Date
-                                <?php }?>
+                                }
+                                else
+                                {
+                                     echo "No Due Date";
+                                }
+                                ?>
                                 </span>
                                     <i class="caret mtop-10 fr"></i></a></div>
 
@@ -565,25 +577,36 @@ else
                                     </div>
                                     <div style="margin-left:6px" class="fnt999">Max size <?php echo MAX_FILE_SIZE; ?> Mb</div>
                                 </div>
-                                <?php if(isset($user_subscription) && ($user_subscription['is_free'] || ($user_subscription['subscription_id']>1))){?>
-                                <div class="fr drive_con">
-                                    <div class="fr btn-al-mr">
-                                        <button type="button" class="customfile-button" onclick="connectDropbox(0,<?php echo $is_basic_or_free;?>);">
-                                            <span class="icon-drop-box"></span>
-                                            Dropbox
-                                        </button>
+                                <?php 
+                                if 
+                                (
+                                    isset($user_subscription) 
+                                    && (
+                                        $user_subscription['is_free'] 
+                                        || ($user_subscription['subscription_id']>1)
+                                    )
+                                )
+                                {
+                                ?>
+                                    <div class="fr drive_con">
+                                        <div class="fr btn-al-mr">
+                                            <button type="button" class="customfile-button" onclick="connectDropbox(0,<?php echo $is_basic_or_free;?>);">
+                                                <span class="icon-drop-box"></span>
+                                                Dropbox
+                                            </button>
+                                        </div>
+                                        <div class="btn-al-mr">
+                                            <button type="button" class="customfile-button" onclick="googleConnect(0,<?php echo $is_basic_or_free;?>);">
+                                                <span class="icon-google-drive"></span>
+                                                Google Drive
+                                            </button>
+                                            <span id="gloader" style="display: none;">
+                                                <img src="<?php echo HTTP_IMAGES;?>images/del.gif" style="position: absolute;bottom: 95px;margin-left: 125px;"/>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="btn-al-mr">
-                                        <button type="button" class="customfile-button" onclick="googleConnect(0,<?php echo $is_basic_or_free;?>);">
-                                            <span class="icon-google-drive"></span>
-                                            Google Drive
-                                        </button>
-                                        <span id="gloader" style="display: none;">
-                                            <img src="<?php echo HTTP_IMAGES;?>images/del.gif" style="position: absolute;bottom: 95px;margin-left: 125px;"/>
-                                        </span>
-                                    </div>
-                                </div>
-                                <?php }?>
+                                <?php 
+                                }?>
                                 <div class="cb"></div>
                             </form>     
                         </td>
@@ -596,11 +619,21 @@ else
                 </table>
             </td>
         </tr>
-        <?php if($user_subscription['btprofile_id'] || $user_subscription['is_free'] || ($user_subscription['subscription_id']>1 && !$user_subscription['is_cancel']) ){
+        <?php 
+        if 
+        (
+            $user_subscription['btprofile_id'] 
+            || $user_subscription['is_free'] 
+            || ($user_subscription['subscription_id']>1 && !$user_subscription['is_cancel']) 
+        )
+        {
             $is_basic_or_free = 0;
-            } else {
+        } 
+        else 
+        {
             $is_basic_or_free = 1;
-            } ?>
+        } 
+        ?>
         <tr id="drive_tr_0" style="display: none;">
             <td width="250px">&nbsp;</td>
             <td>

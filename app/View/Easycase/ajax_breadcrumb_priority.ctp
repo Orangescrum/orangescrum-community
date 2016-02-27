@@ -1,10 +1,11 @@
 <?php
 $pri = "";
-if(isset($pri_fil) && $pri_fil && $pri_fil != "all")
+if (isset($pri_fil) && $pri_fil && $pri_fil != "all")
 {
-	if(strstr($pri_fil,"-"))
+	if (strstr($pri_fil,"-"))
 	{
-		$expst2 = explode("-",$pri_fil);
+		$expst2 = explode("-", $pri_fil);
+        
 		foreach($expst2 as $st2)
 		{
 			$pri.= $st2.", ";
@@ -15,5 +16,12 @@ if(isset($pri_fil) && $pri_fil && $pri_fil != "all")
 		$pri = $pri_fil.", ";
 	}
 }
-if(trim($pri) != "All," && trim($pri) != "") { echo "(".substr($pri,0,-2).")"; } else { echo "All"; }
-?>
+
+if (trim($pri) != "All," && trim($pri) != "") 
+{ 
+    echo "(".substr($pri,0,-2).")"; 
+} 
+else 
+{ 
+    echo "All"; 
+}

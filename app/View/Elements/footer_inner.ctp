@@ -175,7 +175,8 @@ if(CONTROLLER == "templates" && (PAGE_NAME == "tasks" || PAGE_NAME == "projects"
 ?>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#desc').tinymce({
+        
+        var config = {
 			// Location of TinyMCE script
 			script_url : '<?php echo HTTP_ROOT; ?>js/tinymce/tiny_mce.js',
 			theme : "advanced",
@@ -189,88 +190,138 @@ if(CONTROLLER == "templates" && (PAGE_NAME == "tasks" || PAGE_NAME == "projects"
 			forced_root_block : false,
 			width : "650px",
 			height : "200px",
-		});
-		$('#desc_edit').tinymce({
-			// Location of TinyMCE script
-			script_url : '<?php echo HTTP_ROOT; ?>js/tinymce/tiny_mce.js',
-			theme : "advanced",
-			plugins : "paste",
-			theme_advanced_buttons1 : "bold,italic,strikethrough,underline,|,numlist,bullist,|,indent,outdent",
-			theme_advanced_resizing : false,
-			theme_advanced_statusbar_location : "",
-			paste_text_sticky : true,
-			gecko_spellcheck : true,
-			paste_text_sticky_default : true,
-			forced_root_block : false,
-			width : "650px",
-			height : "200px",
-		});
+		};
+        
+		$('#desc').tinymce(config);
+		$('#desc_edit').tinymce(config);
 	});
 </script>
 <?php
 }
-if(PAGE_NAME == "dashboard" || PAGE_NAME=='milestone' || (CONTROLLER == "archives" && PAGE_NAME == "listall") || PAGE_NAME=='milestonelist') {?>
-<script type="text/javascript" src="<?php echo JS_PATH; ?>dashboard.js"></script>
-<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.prettyPhoto.js"></script>
-<?php }
-if(PAGE_NAME == "mydashboard" || PAGE_NAME=='milestone' || PAGE_NAME=='dashboard' || PAGE_NAME=='milestonelist') {?>
+
+if 
+(
+    PAGE_NAME == "dashboard" 
+    || PAGE_NAME=='milestone' 
+    || (CONTROLLER == "archives" && PAGE_NAME == "listall") 
+    || PAGE_NAME=='milestonelist'
+) 
+{
+?>
+    <script type="text/javascript" src="<?php echo JS_PATH; ?>dashboard.js"></script>
+    <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.prettyPhoto.js"></script>
+<?php 
+}
+
+if 
+(
+    PAGE_NAME == "mydashboard" 
+    || PAGE_NAME=='milestone' 
+    || PAGE_NAME=='dashboard' 
+    || PAGE_NAME=='milestonelist'
+) 
+{
+?>
 	<script type="text/javascript" src="<?php echo HTTP_ROOT;?>js/jquery/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="<?php echo HTTP_ROOT;?>js/jquery/jquery.jscrollpane.min.js"></script>
-<?php } ?>
+<?php 
+} 
+?>
+    
 <script type="text/javascript">
-<?php	if(PAGE_NAME != "dashboard" && PAGE_NAME !='pricing' && PAGE_NAME !='onbording') {?>
-	<?php if(CONTROLLER == "milestones" && PAGE_NAME == "manage") {?>
-			var project = $("#projFil").val();
-	<?php }else{?>
-			var project = 'all';
-	<?php } ?>
-	$.post(HTTP_ROOT+"easycases/ajax_project_size",{"projUniq":project,"pageload":0}, function(data){
-		 if(data){
+<?php
+if (PAGE_NAME != "dashboard" && PAGE_NAME !='pricing' && PAGE_NAME !='onbording') 
+{
+    if (CONTROLLER == "milestones" && PAGE_NAME == "manage") 
+    {
+    ?>
+        var project = $("#projFil").val();
+	<?php 
+    
+    }
+    else
+    {
+    ?>
+        var project = 'all';
+	<?php 
+    
+    } 
+    ?>
+    
+    var postUrl = HTTP_ROOT + "easycases/ajax_project_size";
+    var postData = {"projUniq" : project, "pageload" : 0};
+    
+    var postSuccessCallback = function(data) {
+		 if (data)
+         {
 			$('#csTotalHours').html(data.used_text);
-			if(data.last_activity){
+            
+			if (data.last_activity)
+            {
 				$('#projectaccess').html(data.last_activity);
 				$('#last_project_id').val(data.lastactivity_proj_id);
 				$('#last_project_uniqid').val(data.lastactivity_proj_uid);
-				var url=document.URL.trim();
-				if(isNaN(url.substr(url.lastIndexOf('/')+1)) && (url.substr(url.lastIndexOf('/')+1)).length != 32){
+				
+                var url = document.URL.trim();
+				
+                if (isNaN(url.substr(url.lastIndexOf('/')+1)) && (url.substr(url.lastIndexOf('/')+1)).length != 32)
+                {
 					$('#selproject').val($('#last_project_id').val());
 					$('#project_id').val($('#last_project_id').val());
 				}
-		<?php if(CONTROLLER == "milestones" && PAGE_NAME == "add" && !$milearr['Milestone']['project_id']){	?>
-					$('#selproject').val(data.lastactivity_proj_id);
-					$('#project_id').val(data.lastactivity_proj_id);
-		<?php }	?>
-			}
-		  }
-		},'json');
-<?php }
-if(!$this->Format->isiPad()) { ?>
+                
+                <?php 
+                if (CONTROLLER == "milestones" && PAGE_NAME == "add" && !$milearr['Milestone']['project_id'])
+                {	
+                ?>
+                    $('#selproject').val(data.lastactivity_proj_id);
+                    $('#project_id').val(data.lastactivity_proj_id);
+                <?php 
+                }
+                ?>
+            }
+        }
+    };
+    
+	$.post(postUrl, postData, postSuccessCallback, 'json');
+<?php 
+
+}
+if (!$this->Format->isiPad()) 
+{ 
+?>
+    $(function(){
+        checkuserlogin();
+    });
+<?php 
+} 
+?>
+    
 $(function(){
-	checkuserlogin();
-});
-<?php } ?>
-$(function(){
-	
-	$(".more_in_menu").parent("li").click(function(){
-		if($(".more_menu_li").css("display")=="none"){
+    var clickCallback = function(){
+		if ($(".more_menu_li").css("display")=="none")
+        {
 			$(".more_menu_li").css({display:"block"});
 			$(this).children("a.more_in_menu").text("Less");
 			$(this).addClass("open");
 			$(".cust_rec").css({display:"none"});
 		}
-		else{
+		else
+        {
 			$(".more_menu_li").css({display:"none"});
 			$(this).children("a.more_in_menu").text("More");
 			$(this).removeClass("open");
 			$(".cust_rec").css({display:"block"});
 		}
-	});
-	
-	
+	};
+    
+	$(".more_in_menu").parent("li").click(clickCallback);
 	$('[rel=tooltip]').tipsy({gravity:'s', fade:true});
+    
 	$(".scrollTop").click(function(){
 		$('html, body').animate({ scrollTop: 0 }, 1200);
 	});
+    
 	$('body').click(function() {
 		$(".tipsy").remove();
 	 });
@@ -293,8 +344,6 @@ function showhelp(){
 
 <!-- For multi autocomplete and tagging -->
 <script type="text/javascript" src="<?php echo JS_PATH;?>jquery.fcbkcomplete.js"></script>
-
-<?php /*?>Moved from Create New project ajax request page<?php */?>
 <script type="text/javascript" src="<?php echo JS_PATH;?>wiki.js?v=<?php echo RELEASE; ?>"></script>
 <script type="text/javascript" src="<?php echo JS_PATH;?>jquery.textarea-expander.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>highcharts.js"></script>

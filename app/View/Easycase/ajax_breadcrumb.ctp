@@ -7,14 +7,17 @@
 			<?php
 			$jsSearch = "";
 			$status = "";
-			if(isset($case_status) && $case_status && $case_status != "all")
+            
+			if (isset($case_status) && $case_status && $case_status != "all")
 			{
 				$resVal = 1;
 				$case_status = strrev($case_status);
-				if(strstr($case_status,"-"))
+                
+				if (strstr($case_status,"-"))
 				{
 					$expst = explode("-",$case_status);
-					foreach($expst as $st)
+					
+                    foreach($expst as $st)
 					{
 						$status.= $this->Format->displayStatus($st).", ";
 					}
@@ -24,7 +27,15 @@
 					$status = $this->Format->displayStatus($case_status).", ";
 				}
 			}
-			if($status) { echo substr($status,0,-2); } else { echo "All"; }
+            
+			if ($status) 
+            { 
+                echo substr($status,0,-2); 
+            } 
+            else 
+            { 
+                echo "All"; 
+            }
 			?>
 			&nbsp;
 		</td>
@@ -35,13 +46,16 @@
 		<td align="left">
 			<?php
 			$types = "";
-			if(isset($case_types) && $case_types && $case_types != "all")
+            
+			if (isset($case_types) && $case_types && $case_types != "all")
 			{
 				$resVal = 1;
 				$case_types = strrev($case_types);
-				if(strstr($case_types,"-"))
+				
+                if (strstr($case_types,"-"))
 				{
 					$expst3 = explode("-",$case_types);
+                    
 					foreach($expst3 as $st3)
 					{
 						$types.= $this->Casequery->caseBcTypes($st3).", ";
@@ -52,7 +66,15 @@
 					$types = $this->Casequery->caseBcTypes($case_types).", ";
 				}
 			}
-			if($types) { echo substr($types,0,-2); } else { echo "All"; }
+            
+			if ($types)
+            { 
+                echo substr($types,0,-2); 
+            } 
+            else 
+            { 
+                echo "All"; 
+            }
 			?>
 			&nbsp;
 		</td>
@@ -63,11 +85,19 @@
 		<td align="left">
 			<?php
 			$pri = "";
-			if(isset($pri_fil) && ($pri_fil || $pri_fil == 0) && $pri_fil != "" && $pri_fil != "all")
+            
+			if 
+            (
+                isset($pri_fil) 
+                && ($pri_fil || $pri_fil == 0) 
+                && $pri_fil != "" 
+                && $pri_fil != "all"
+            )
 			{
 				$resVal = 1; $pname = ""; $pname1 = "";
 				$pri_fil = strrev($pri_fil);
-				if(strstr($pri_fil,"-"))
+                
+				if (strstr($pri_fil,"-"))
 				{
 					$expst2 = explode("-",$pri_fil);
 					foreach($expst2 as $st2)
@@ -83,7 +113,15 @@
 					$pri = $pname1.", ";
 				}
 			}
-			if($pri) { echo substr($pri,0,-2); } else { echo "All"; }
+            
+			if ($pri)
+            { 
+                echo substr($pri,0,-2); 
+            } 
+            else 
+            { 
+                echo "All"; 
+            }
 			?>
 			&nbsp;
 		</td>
@@ -94,13 +132,16 @@
 		<td align="left">
 			<?php
 			$mems = "";
-			if(isset($case_member) && $case_member && $case_member != "all")
+            
+			if (isset($case_member) && $case_member && $case_member != "all")
 			{
 				$resVal = 1;
-				if(strstr($case_member,"-"))
+                
+				if (strstr($case_member,"-"))
 				{
 					$expst4 = explode("-",$case_member);
-					foreach($expst4 as $st4)
+					
+                    foreach ($expst4 as $st4)
 					{
 						$mems.= $this->Casequery->caseBcMems($st4).", ";
 					}
@@ -110,7 +151,15 @@
 					$mems = $this->Casequery->caseBcMems($case_member).", ";
 				}
 			}
-			if($mems) { echo substr($mems,0,-2); } else { echo "All"; }
+            
+			if ($mems) 
+            { 
+                echo substr($mems,0,-2); 
+            } 
+            else 
+            { 
+                echo "All"; 
+            }
 			?>
 			&nbsp;
 		</td>
@@ -120,7 +169,7 @@
 		</td>
 		<td align="left">
 			<?php
-			if(isset($case_page) && $case_page && $case_page != 1)
+			if (isset($case_page) && $case_page && $case_page != 1)
 			{
 				$resVal = 1;
 				echo ",&nbsp;Page: <i>".$case_page."</i>";
@@ -129,13 +178,14 @@
 		</td>
 		<td align="left">
 			<?php
-			if(isset($case_search) && $case_search != "")
+			if (isset($case_search) && $case_search != "")
 			{
 				$resVal = 1;
 				echo ",&nbsp;Search: <i>".$case_search."</i>";
 				$jsSearch = "setSearchValue();";
 			}
-			if(isset($resVal) && $resVal)
+            
+			if (isset($resVal) && $resVal)
 			{
 			?>
 				&nbsp;&nbsp;&nbsp;<a href="javascript:jsVoid();" class="button-link" rel="tooltip" title="Reset Filters" onClick="<?php echo $jsSearch; ?>resetAllFilters();ajaxCaseView('case_project.php');" style="padding:0px 4px;font-size:11px;">Reset</a>
