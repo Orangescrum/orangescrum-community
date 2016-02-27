@@ -578,7 +578,15 @@ class Easycase extends AppModel
                     $CSrepcount ++;
                 }
                 
-                $sqlcasedata[$caseKey]['Easycase']['wrap_msg'] = $frmt->html_wordwrap($frmt->formatCms($getdata['Easycase']['message']), 75);
+                $reply = $getdata['Easycase']['message'];
+                
+                # Remove html from loading. If they put in html this will just display it as text
+                # to the user.
+                $strippedReply = htmlspecialchars($reply);
+                
+                # convert markdown to html. This must be performced AFTER htmlspecialchars
+                $convertedReply = \Michelf\Markdown::defaultTransform($strippedReply);
+                $sqlcasedata[$caseKey]['Easycase']['wrap_msg'] = $convertedReply;
             }
             
             $caseDtId = $getdata['Easycase']['id'];

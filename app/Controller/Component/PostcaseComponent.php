@@ -394,15 +394,21 @@ class PostcaseComponent extends CookieComponent
                 }
                 $assignTo.= "<tr><td align='left' style='" . $padd . "'>Due date: <font color='#235889'>" . date("m/d/Y", strtotime($due_date)) . "</font></td></tr>";
             }
+            
             $allfiles = "";
-            if (is_array($fileArray) && count($fileArray)) {
+            
+            if (is_array($fileArray) && count($fileArray)) 
+            {
                 $editRemovedFile = $formdata['editRemovedFile'];
-                if ($editRemovedFile && $formdata['taskid']) {
+                
+                if ($editRemovedFile && $formdata['taskid']) 
+                {
                     $this->removeFiles($editRemovedFile, $formdata['taskid']);
                 }
+                
                 $allfiles = $this->uploadAndInsertFile($fileArray, $caseid, 0, $projId, $domain, $editRemovedFile);
             }
-
+            
             $this->write('STATUS', "", '-365 days');
             $this->write('PRIORITY', "", '-365 days');
             $this->write('CS_TYPES', "", '-365 days');
@@ -415,9 +421,33 @@ class PostcaseComponent extends CookieComponent
         }
 //}
 
-        $ret_res = array('success' => $success, 'pagename' => $pagename, 'formdata' => $formdata['CS_project_id'], 'postParam' => $postParam['Easycase']['postdata'], 'caseUniqId' => $caseUniqId, 'format' => $format, 'allfiles' => $allfiles['allfiles'], 'caseNo' => $caseNo, 'emailTitle' => $emailTitle, 'emailMsg' => $emailMsg, 'casePriority' => $casePriority, 'caseTypeId' => $caseTypeId, 'msg' => $msg, 'emailbody' => $emailbody, 'assignTo' => $assignTo, 'name_email' => $name_email, 'csType' => $csType, 'projId' => $projId, 'caseid' => $caseid, 'caUid' => $caUid, 'caseIstype' => $caseIstype, 'projName' => $projName, "storage_used" => $allfiles['storage'], 'file_upload_error' => $allfiles['file_error']);
-//return $success."|".$pagename."|".$formdata['CS_project_id']."|".$postParam['Easycase']['postdata']."|".$caseUniqId."|".$format;
-//pr($ret_res);exit;
+        $ret_res = array(
+            'success' => $success, 
+            'pagename' => $pagename, 
+            'formdata' => $formdata['CS_project_id'], 
+            'postParam' => $postParam['Easycase']['postdata'], 
+            'caseUniqId' => $caseUniqId, 
+            'format' => $format, 
+            'allfiles' => $allfiles['allfiles'], 
+            'caseNo' => $caseNo, 
+            'emailTitle' => $emailTitle, 
+            'emailMsg' => $emailMsg, 
+            'casePriority' => $casePriority, 
+            'caseTypeId' => $caseTypeId, 
+            'msg' => $msg, 
+            'emailbody' => $emailbody, 
+            'assignTo' => $assignTo, 
+            'name_email' => $name_email, 
+            'csType' => $csType, 
+            'projId' => $projId, 
+            'caseid' => $caseid, 
+            'caUid' => $caUid, 
+            'caseIstype' => $caseIstype, 
+            'projName' => $projName, 
+            "storage_used" => $allfiles['storage'], 
+            'file_upload_error' => $allfiles['file_error']
+        );
+        
         return json_encode($ret_res);
     }
 
