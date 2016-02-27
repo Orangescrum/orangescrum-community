@@ -22,58 +22,79 @@ $titleValue = "Daily Update - ".date("m/d");
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
     
+    
     function showTemplates(id,name) 
     {
         var isDataPresent = false;
         $(".selected_val").html(htmlEntities(name));
         var GetContent = tinyMCE.activeEditor.getContent();
         
-        if (!GetContent){ //The data will be load first time
+        if (!GetContent)
+        { 
+            // The data will be load first time
             isDataPresent = true;
         }
         
-        if(GetContent && id != "New"){ //It will check whether data is present or not and Not Reseting the field
-            if(confirm("Your description will be replaced by this \""+name+"\" Template")){
+        if (GetContent && id != "New")
+        { 
+            //It will check whether data is present or not and Not Reseting the field
+            if (confirm("Your description will be replaced by this \""+name+"\" Template"))
+            {
                 isDataPresent = true;
-            }else{
+            }
+            else
+            {
                 isDataPresent = false;
             }
         }   
         
-        if(id == 'New'){
+        if (id == 'New')
+        {
             tinyMCE.activeEditor.setContent('');
         }
         
-        if(isDataPresent == true){
-            if(name == ''){
+        if (isDataPresent == true)
+        {
+            if (name == '')
+            {
                    document.getElementById("defaultoption").style.display='none';
-            }else{
+            }
+            else
+            {
                    document.getElementById("defaultoption").style.display='block';
             }
+            
             tinyMCE.activeEditor.setContent('');
             
-            if(id != "New") {
+            if (id != "New") 
+            {
                 var strURL = HTTP_ROOT+"easycases/";
                 document.getElementById('CS_message_ifr').disable = true;
                 $("#CS_message_ifr").hide();
-                $.post(strURL+"ajax_case_template",{"tmpl_id":id},function(data) {
+                
+                $.post(strURL+"ajax_case_template", {"tmpl_id":id}, function(data) {
                     $("#CS_message_ifr").show();
                     if(data) {
                         tinyMCE.activeEditor.setContent(data);
                     }
                 });
             }
+            
             $('#openpopup_tmpl').css({display:"none"});
-        }else{
+        }
+        else
+        {
             return false;
         }   
     }
-    function hide_pri(val) {
+    
+    
+    function hide_pri(val) 
+    {
         document.getElementById("CS_title").value = val;
     }
-    /*$("#tinymce body").click(function() {
-        $("#case_tmpl").hide();
-    });*/
+    
+    
     $(document).ready(function() {
         
         $(".more_opt ul li a").click(function() {
@@ -100,10 +121,9 @@ $titleValue = "Daily Update - ".date("m/d");
             {
                 $("#CS_type_id").val(getSelectedValue("opt1"));
                 $('#task_priority_td').show();
-//              $("#hd1").show();
-//              $("#hd2").show();
                 
-                if($("#CS_type_id").val() == 10){
+                if ($("#CS_type_id").val() == 10)
+                {
 //                  $("#hd1").hide();
 //                  $("#hd2").hide();
                     $('#task_priority_td').hide();
@@ -118,9 +138,12 @@ $titleValue = "Daily Update - ".date("m/d");
             $("#"+path).next("div").children("ul").hide();
         });
         
-        function getSelectedValue(id) {
+        
+        function getSelectedValue(id) 
+        {
             return $("#" + id).find("a span.value").html();
         }
+        
         
         $(document).bind('click', function(e) {
             var $clicked = $(e.target);
@@ -129,9 +152,8 @@ $titleValue = "Daily Update - ".date("m/d");
             }
         });
     });
-    /*function open_more_opt(more_opt){//alert(more_opt);
-        $("#"+more_opt).children("ul").toggle();
-    }*/
+    
+    
     function open_more_opt(more_opt){
         $('.more_opt').filter(':not(#'+more_opt+')').children('ul').hide();
         $("#"+more_opt).children("ul").toggle();
@@ -190,15 +212,25 @@ $( "#start_date1" ).datepicker({
 </div>
 <div class="">
 <div class="case_field">
-    <?php
-    $today = $this->Tmzone->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,GMT_DATETIME,"date");
-    $curDate = date("m/d/Y",strtotime($today));
-    if($user_subscription['btprofile_id'] || $user_subscription['is_free'] || ($user_subscription['subscription_id']>1 && !$user_subscription['is_cancel']) ){
-            $is_basic_or_free = 0;
-        }else{
-            $is_basic_or_free = 1;
-        }
-    ?>
+<?php
+$today = $this->Tmzone->GetDateTime(SES_TIMEZONE,TZ_GMT,TZ_DST,TZ_CODE,GMT_DATETIME,"date");
+$curDate = date("m/d/Y",strtotime($today));
+
+if 
+(
+    $user_subscription['btprofile_id'] 
+    || $user_subscription['is_free'] 
+    || ($user_subscription['subscription_id'] > 1 && !$user_subscription['is_cancel']) 
+)
+{
+    $is_basic_or_free = 0;
+}
+else
+{
+    $is_basic_or_free = 1;
+}
+
+?>
     <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td>
@@ -228,12 +260,16 @@ $( "#start_date1" ).datepicker({
                                 <div class="more_opt" id="more_opt">
                                     <ul>
                                         <?php
-                                        foreach($select as $k=>$v){
-                                            foreach($v as $key=>$value){
-                                                foreach($value as $key1=>$result){
-                                                    if($key1=='name'&& $key1='short_name'){
-                                                        //$im = $value['short_name'].".png";
-                                                        $im1= $this->Format->todo_typ_src($value['short_name'],$value['name']);;
+                                        foreach ($select as $k=>$v)
+                                        {
+                                            foreach ($v as $key=>$value)
+                                            {
+                                                foreach ($value as $key1=>$result)
+                                                {
+                                                    if ($key1=='name'&& $key1='short_name')
+                                                    {
+                                                        $im1= $this->Format->todo_typ_src($value['short_name'],$value['name']);
+                                                        
                                                         echo "<li>
                                                                 <a href='javascript:jsVoid()'>
                                                                     <img class='flag' src='".$im1."' alt='' />
@@ -241,10 +277,11 @@ $( "#start_date1" ).datepicker({
                                                                     </span>".$value['name']."
                                                                 </a>
                                                             </li>";
-                                                 }
-                                              }
+                                                    }
+                                                }
                                             }
-                                        }?>
+                                        }
+                                        ?>
                                      </ul>
                                 </div>
                             </div>
@@ -269,39 +306,65 @@ $( "#start_date1" ).datepicker({
                                 <a href="javascript:jsVoid()" onclick="open_more_opt('more_opt5');">
                                 <span>
                                 <?php  
-                                if($taskdetails['assign_to']){
-                                    
-                                    if($taskdetails['assign_to']== SES_ID){
+                                if ($taskdetails['assign_to'])
+                                { 
+                                    if ($taskdetails['assign_to']== SES_ID)
+                                    {
                                         echo "me";
-                                    }else{
+                                    }
+                                    else
+                                    {
                                         $userNam =$this->Casequery->getusrname($taskdetails['assign_to']);
                                         echo $userNam['User']['name'];
-                                    }?>
+                                    }
+                                    ?>
                                     <script type="text/javascript">$('#CS_assign_to').val('<?php echo $taskdetails['assign_to'];?>');</script>
-                                <?php }elseif($defaultAssign && $defaultAssign != SES_ID){
-                                    $userNam = $this->Casequery->getusrname($defaultAssign);?>
+                                <?php 
+                                
+                                }
+                                elseif($defaultAssign && $defaultAssign != SES_ID)
+                                {
+                                    $userNam = $this->Casequery->getusrname($defaultAssign);
+                                    
+                                ?>
                                     <script type="text/javascript">$('#CS_assign_to').val('<?php echo $defaultAssign;?>');</script>
-                                <?php echo $userNam['User']['name']; ?>
-                                <?php }else{?>&nbsp;&nbsp;me<?php } ?>
+                                <?php 
+                                
+                                echo $userNam['User']['name']; 
+                                 
+                                
+                                }
+                                else
+                                {
+                                ?>
+                                &nbsp;&nbsp;me
+                                <?php 
+                                
+                                } 
+                                ?>
                                 </span>
                                 <i class="caret mtop-10 fr"></i>
                                 </a>
                             </div>
                             <div class="more_opt" id="more_opt5">
                             <ul>
-                                <?php if(count($quickMem))
-                                   {
-                                            foreach($quickMem as $asgnMem)
-                                      {
-                                                 if(SES_ID==$asgnMem['User']['id'])
-                                           {
+                                <?php 
+                                
+                                if (count($quickMem))
+                                {
+                                    foreach($quickMem as $asgnMem)
+                                    {
+                                        if (SES_ID==$asgnMem['User']['id'])
+                                        {
                                                        echo "<li>
                                                              <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");' >
                                                                  <span class='value'>".$asgnMem['User']['id']."
                                                                  </span>&nbsp;&nbsp;me
                                                              </a>
                                                          </li>";
-                                                 }else{
+                                        }
+                                        else
+                                        {
                                                       echo "<li>
                                                           <a href='javascript:jsVoid()' onclick='notified_users(".$asgnMem['User']['id'].");'>
                                                               <span class='value'>".$asgnMem['User']['id']."
@@ -310,16 +373,21 @@ $( "#start_date1" ).datepicker({
                                                       </li>";
     
     
-                                                 } 
+                                        } 
                                   
-                                           }
+                                    }
                                      
-                                       }else{ ?>
+                                }
+                                else
+                                { 
+                                ?>
                                             <a href="javascript:jsVoid()" onclick="open_more_opt('more_opt5');">
                                                  me<span class="value"><?php echo SES_ID; ?></span></a>
                                      </a>
-                                       <?php }
-                                        ?>
+                                <?php 
+                                       
+                                }
+                                ?>
                                      </ul>
                                 </div>
                             </div>
@@ -380,51 +448,16 @@ $( "#start_date1" ).datepicker({
                             <div class="fl prio_radio y_low" onclick="check_priority(this);" ><input type="radio" name="task_priority" value="2" id="priority_low" <?php if(isset($taskdetails['priority']) && $taskdetails['priority']==2){?>checked="checked"<?php }?> />&nbsp;Low&nbsp;&nbsp;</div>
                             <div class="fl prio_radio g_mid" onclick="check_priority(this);"><input type="radio" name="task_priority" value="1" id="priority_mid"  <?php if(!isset($taskdetails['priority'])){?>checked="checked"<?php }elseif($taskdetails['priority']==1){?>checked="checked"<?php }?>  />&nbsp;Medium&nbsp;&nbsp;</div>
                             <div class="fl prio_radio h_red" onclick="check_priority(this);"><input type="radio" name="task_priority" value="0" id="priority_high" <?php if(isset($taskdetails['priority']) && $taskdetails['priority']==0){?>checked="checked"<?php }?> />&nbsp;High&nbsp;&nbsp;</div>
-<!--                            <span id="hd2">
-                                <div class="fl dropdown option-toggle p-6">
-                                    <div class="opt1" id="opt2">
-                                        <a href="javascript:jsVoid()" onclick="open_more_opt('more_opt2');">
-                                            <span><font style='color:#28AF51;font-size:12px;'>&nbsp;MEDIUM</font></span>
-                                            <i class="caret mtop-10 fr"></i>
-                                        </a>
-                                    </div>
-                                    <div class="more_opt" id="more_opt2">
-                                       <ul>
-                                          <li>
-                                            <a href="javascript:jsVoid()"><font style='color:#AD9227;font-size:12px;'>&nbsp;LOW</font>
-                                                    <span class="value">2</span>
-                                            </a>
-                                            </li>
-                                          <li>
-                                            <a href="javascript:jsVoid()"><font style='color:#28AF51;font-size:12px;'>&nbsp;MEDIUM</font>
-                                                    <span class="value">1</span>
-                                            </a>
-                                            </li>
-                                          <li>
-                                            <a href="javascript:jsVoid()"><font style='color:#AE432E;font-size:12px;'>&nbsp;HIGH</font>
-                                                    <span class="value">0</span>
-                                            </a>
-                                          </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </span>-->
                         </td>
                         <td style="display:none;" id="tmpl_open">
                         
                             <div class="dropdown fl" style="width:310px;text-align:right;position:absolute;margin-top: 39px;z-index:1;">
-                                <!--<div data-toggle="dropdown">
-                                    <span><a href="javascript:void(0);" onclick="showpopup('openpopup_tmpl')" class="popup_link_tmpl" style="color:#5191BD;text-decoration:underline;">Choose Template</a></span>
-                                </div>
-                                    <ul class="dropdown-menu sett_dropdown-caret" style="left:198px;">
-                                        <li class="pop_arrow_new" style="margin-top:-12px;"></li>
-                                        <li id="defaultoption" style="display:none;border-bottom:1px solid #DDDDDD;padding:0px 0px 0px 0px;text-align:left;width:100%;">
-                                            <a href="javascript:void(0);" onclick="showTemplates('New','')"><b><i>Set to default</i></b></a>
-                                        </li>
-                                        
                                         <?php
-                                        if(count($getTmpl)) {
-                                            foreach($getTmpl as $tmpl) { ?>
+                                        if (count($getTmpl)) 
+                                        {
+                                            foreach($getTmpl as $tmpl) 
+                                            { 
+                                            ?>
                                                 <li style="display:block;text-align:left;">
                                                     <a href="javascript:void(0);" onclick="showTemplates(<?php echo $tmpl['CaseTemplate']['id']; ?>,'<?php echo $tmpl['CaseTemplate']['name']; ?>')"><?php echo ucfirst($tmpl['CaseTemplate']['name']); ?></a>
                                                 </li>
@@ -432,7 +465,8 @@ $( "#start_date1" ).datepicker({
                                             <?php
                                             }
                                         }
-                                        else { ?>
+                                        else 
+                                        { ?>
                                             <li style="display:block;text-align:left;">
                                                 <a href="<?php echo HTTP_ROOT."users/add_template/"; ?>" target="_blank">yet to create</a>
                                             </li>   
@@ -590,66 +624,101 @@ $( "#start_date1" ).datepicker({
     var API_KEY = "<?php echo API_KEY; ?>";
     var DOMAIN_COOKIE = "<?php echo DOMAIN_COOKIE; ?>";
 </script>
+
 <script type="text/javascript" src="<?php echo JS_PATH; ?>google_drive_v1.js"></script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>tinymce/jquery.tinymce.js"></script>
 <script src="https://www.google.com/jsapi?key=<?php echo API_KEY; ?>"></script>
 <script src="https://apis.google.com/js/client.js"></script>
 <!-- Google drive ends-->
 <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="<?php echo DROPBOX_KEY;?>"></script>
+
 <script type="text/javascript">
-    function show_follower(){
-        if(document.getElementById('ajxMem').style.display == 'none'){
+    function show_follower()
+    {
+        if (document.getElementById('ajxMem').style.display == 'none')
+        {
             document.getElementById('ajxMem').style.display = 'block';
-        }else{
+        }
+        else
+        {
             document.getElementById('ajxMem').style.display = 'none';
         }
     }
-    function validate_quick_case(){
-        if(document.getElementById("title_txt").value==''){
+    
+    
+    function validate_quick_case()
+    {
+        if (document.getElementById("title_txt").value=='')
+        {
             alert("Title Field Can Not Be Left Blank");
             return false;
-        }else{
+        }
+        else
+        {
             return true;
         }
     }
     
-    function showpopup(id) {
-        if($('#'+id).css("display") == "block"){
+    
+    function showpopup(id) 
+    {
+        if ($('#'+id).css("display") == "block")
+        {
             $('#'+id).css({display:"none"});
         }
-        else{
+        else
+        {
             $('#'+id).css({display:"block"});
         }
     }
-
-    function notified_users(uid){
+    
+    
+    function notified_users(uid)
+    {
         $('#chk_'+uid).attr('checked','checked');
     }
-    function numericDecimal(e) {
+    
+    
+    function numericDecimal(e) 
+    {
         var unicode = e.charCode ? e.charCode : e.keyCode;
-        if( unicode != 8 ){
-            if(unicode < 9 || unicode > 9 && unicode < 46 || unicode > 57 || unicode == 47) {
-                if(unicode == 37 || unicode == 38) {
+        if (unicode != 8)
+        {
+            if (unicode < 9 || unicode > 9 && unicode < 46 || unicode > 57 || unicode == 47) 
+            {
+                if (unicode == 37 || unicode == 38) 
+                {
                     return true;
-                }else {
+                }
+                else
+                {
                     return false;
                 }
-            }else {
+            }
+            else
+            {
                 return true;
             }
-        }else{
+        }
+        else
+        {
             return true;
         }
     }
-    function closecase() {
+    
+    
+    function closecase() 
+    {
         $("#new_case_more_div").slideUp(200);
         $("#more_tsk_opt_div").show();
         $("#less_tsk_opt_div").hide();
         //$("#wrapper").css({minHeight:"550px"});
         scrolltop();
-
     }
-    function check_priority(obj){
+    
+    
+    function check_priority(obj)
+    {
         $(obj).find('input:radio').attr('checked','checked');
         var pvalue = $(obj).find('input:radio').val();
         $("#CS_priority").val(pvalue);
