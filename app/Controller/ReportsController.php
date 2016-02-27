@@ -781,7 +781,7 @@ class ReportsController extends AppController
                 }
             }
             
-            // Calculating Prevous week storage usage	
+            // Calculating Prevous week storage usage   
             if ($prev_wk_ecase_idlist)
             {
                 $prev_wk_ecase_idlist = trim($prev_wk_ecase_idlist, ',');

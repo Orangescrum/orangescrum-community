@@ -178,7 +178,7 @@ class TemplatesController extends AppController
         if (isset($this->params['data']['title']) && !empty($this->params['data']['title']))
         {
             $this->loadModel('ProjectTemplate');
-            $prj = $this->ProjectTemplate->find('count',array('conditions' => array('ProjectTemplate.module_name' => $this->params['data']['title'],'ProjectTemplate.company_id'=>SES_COMP)));	
+            $prj = $this->ProjectTemplate->find('count',array('conditions' => array('ProjectTemplate.module_name' => $this->params['data']['title'],'ProjectTemplate.company_id'=>SES_COMP)));  
             if ($prj == 0)
             {
                 $this->request->data['ProjectTemplate']['user_id'] = SES_ID;
@@ -268,7 +268,7 @@ class TemplatesController extends AppController
             $this->loadModel("ProjectTemplateCase");
             $this->ProjectTemplateCase->id=$this->params['data']['case_id'];
             $this->ProjectTemplateCase->template_id=$this->params['data']['templateId'];
-            $this->ProjectTemplateCase->delete();	
+            $this->ProjectTemplateCase->delete();   
             
             $res = ClassRegistry::init('ProjectTemplate')->find('first',array('conditions'=>array('id'=>$this->params['data']['templateId'],'company_id'=>SES_COMP), 'fields'=>array('module_name')));
             //echo "<pre>";print_r($res);echo $res['ProjectTemplate']['module_name'];exit;
@@ -474,7 +474,7 @@ class TemplatesController extends AppController
         $this->set('caseCount',$found_rows[0][0]['total']);
         $this->set('page_limit',$page_limit);
         $this->set('casePage',$page);
-        $this->set('pageprev',$pageprev);	
+        $this->set('pageprev',$pageprev);   
         $this->set('TempalteArray',$TempalteArray);
     }
     
@@ -518,7 +518,7 @@ class TemplatesController extends AppController
                     && $this->request->data['tempId'] == ''
                 ) //Coding for ADD the task templates
                 {
-                   $task = $this->CaseTemplate->find('count',array('conditions' => array('CaseTemplate.user_id' =>$this->Auth->User('id'), 'CaseTemplate.name' => $this->params->data['title'],'CaseTemplate.company_id'=>SES_COMP)));	
+                   $task = $this->CaseTemplate->find('count',array('conditions' => array('CaseTemplate.user_id' =>$this->Auth->User('id'), 'CaseTemplate.name' => $this->params->data['title'],'CaseTemplate.company_id'=>SES_COMP)));  
                     
                     if ($task == 0)
                     {
@@ -534,7 +534,7 @@ class TemplatesController extends AppController
                     else
                     {
                         echo "4";
-                    }	
+                    }   
                 }
                 else
                 { 
@@ -581,7 +581,7 @@ class TemplatesController extends AppController
             else
             {
                 $this->redirect(HTTP_ROOT."templates/tasks");
-            }	
+            }   
         }
         else
         {
@@ -607,7 +607,7 @@ class TemplatesController extends AppController
             else
             {
                 $this->redirect(HTTP_ROOT."templates/tasks");
-            }	
+            }   
         }
         else
         {

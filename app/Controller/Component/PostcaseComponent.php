@@ -68,17 +68,17 @@ class PostcaseComponent extends CookieComponent
                         $filesize = number_format(($fl[1] / 1024), 2, '.', '');
                         if (strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited' || ($usedspace <= $GLOBALS['Userlimitation']['storage'])) {
                             $usedspace +=$filesize;
-			    if(USE_S3 == 0){
-				if(file_exists(DIR_CASE_FILES.$file)) {
-					$chk++;
-				}
-			    }else{
-				$s3 = new S3(awsAccessKey, awsSecretKey);
-				$info = $s3->getObjectInfo(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP . $file);
-				if ($info) {
-				    $chk++;
-				}
-			    }                            
+                if(USE_S3 == 0){
+                if(file_exists(DIR_CASE_FILES.$file)) {
+                    $chk++;
+                }
+                }else{
+                $s3 = new S3(awsAccessKey, awsSecretKey);
+                $info = $s3->getObjectInfo(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP . $file);
+                if ($info) {
+                    $chk++;
+                }
+                }                            
                         }
                     }
                 }
@@ -285,11 +285,11 @@ class PostcaseComponent extends CookieComponent
         $postParam['Easycase']['title'] = $this->Format->convert_ascii(trim($postParam['Easycase']['title']));
         $postParam['Easycase']['message'] = $this->Format->convert_ascii(trim($postParam['Easycase']['message']));
 
-		if($formdata['user_auth_key']) {
-		 	$postParam['Easycase']['user_id'] = $formdata['CS_user_id'];
-			$postParam['Easycase']['estimated_hours'] = 0;
-		}
-		
+        if($formdata['user_auth_key']) {
+            $postParam['Easycase']['user_id'] = $formdata['CS_user_id'];
+            $postParam['Easycase']['estimated_hours'] = 0;
+        }
+        
 //return pr($postParam);
         if ($Easycase->save($postParam)) {
             $Project = ClassRegistry::init('Project');
@@ -523,7 +523,7 @@ class PostcaseComponent extends CookieComponent
                 $res['file_error'] = 0;
                 if ((strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited') || (($fkb / 1024) < $GLOBALS['Userlimitation']['storage'])) {
                     $fkb += $sizeinkb;
-		###### Insert to case file table
+        ###### Insert to case file table
                     $csFiles['user_id'] = SES_ID;
                     $csFiles['project_id'] = $projId;
                     $csFiles['company_id'] = SES_COMP;
@@ -532,14 +532,14 @@ class PostcaseComponent extends CookieComponent
                     $csFiles['file_size'] = $sizeinkb;
                     $csFiles['comment_id'] = $cmnt;
                     if($CaseFile->saveAll($csFiles)){
-			if(USE_S3){
-			    $s3 = new S3(awsAccessKey, awsSecretKey);
-			    $ret_res = $s3->copyObject(BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER_TEMP.$filename,BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER.$filename,S3::ACL_PRIVATE);
-			    if($ret_res){
-				//$s3->deleteObject(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP.$filename, S3::ACL_PRIVATE);
-			    }
-			}
-		    }
+            if(USE_S3){
+                $s3 = new S3(awsAccessKey, awsSecretKey);
+                $ret_res = $s3->copyObject(BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER_TEMP.$filename,BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER.$filename,S3::ACL_PRIVATE);
+                if($ret_res){
+                //$s3->deleteObject(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP.$filename, S3::ACL_PRIVATE);
+                }
+            }
+            }
                     $allfiles.= "<a href='" . $domain . "users/login/?file=" . $filename . "' target='_blank' style='text-decoration:underline;color:#0571B5;line-height:24px;'>" . $filename . "</a> <font style='color:#989898;font-size:12px;'>(" . number_format($sizeinkb, 1) . " kb)</font><br/>";
                 } else {
                     $res['file_error'] = 1;
@@ -769,7 +769,7 @@ class PostcaseComponent extends CookieComponent
         <p>
         " . $allfiles . "
         </p>
-        </td>	  
+        </td>     
         </tr>
         " . $assignTo . "
         </table>
@@ -783,7 +783,7 @@ class PostcaseComponent extends CookieComponent
         This email notification is sent by " . $by_name . " to " . $name_email . "
         </p>
 
-        </td>	  
+        </td>     
         </tr>
         </table>
         <table bgcolor='#F0F0F0' border='0' cellspacing='0' cellpadding='10' width='100%' style='border-top:2px solid #F0F0F0;margin-top:5px;border-bottom:3px solid #2489B3'>
@@ -929,7 +929,7 @@ This is a reminder to post your today's updates to Orangescrum. Just reply to th
 <td align='left' style='font:14px Arial;padding:15px 10px;border-top:1px solid #E1E1E1'>
 Thanks,<br/>
 Team Orangescrum
-</td>	  
+</td>     
 </tr>
 </table></td></tr>
 <tr><td>
@@ -1050,7 +1050,7 @@ Team Orangescrum
                             $fromName = ucfirst($loggedin_users['User']['name']);
                             $fromEmail = $loggedin_users['User']['email'];
                             $ext_user = '';
-//			    
+//              
                             if (@$findEmail['User']['id']) {
                                 $subject = $fromName . " invited you to join " . CMP_SITE . " on Orangescrum";
                                 $ext_user = 1;

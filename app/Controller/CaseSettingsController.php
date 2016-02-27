@@ -68,7 +68,7 @@ class CaseSettingsController extends AppController
         $this->loadModel('Project');
         $this->loadModel('ProjectUser');
         $res =$this->Project->query("SELECT users.name,users.id,projects.uniq_id FROM users, project_users, projects WHERE projects.id =".$pjid." AND projects.id = project_users.project_id AND project_users.user_id = users.id");
-        $this->set('res',$res);	
+        $this->set('res',$res);
         $this->loadModel('Type');
         $typ = $this->Type->find('all');
         $this->set('typ',$typ);
@@ -92,7 +92,7 @@ class CaseSettingsController extends AppController
             if ($this->CaseSetting->save($this->params['data']))
             {
                 $this->Session->write("SUCCESS","Project added successfully");
-            }	
+            }
         }
         else
         {
