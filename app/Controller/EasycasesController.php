@@ -768,7 +768,16 @@ class EasycasesController extends AppController
             $message = "exceed";
         }
         
-        echo '{"name":"' . $displayname . '","sizeinkb":"' . $sizeinkb . '","filename":"' . $newFileName . $updateData . '","message":"' . $message . '","storageExceeds":"' . $storageExceeds . '","totalStorage":"' . $totalStorage . '"}';
+        $outputArray = array(
+            "name" => $displayname,
+            "sizeinkb" => $sizeinkb,
+            "filename" => $newFileName . $updateData,
+            "message" => $message,
+            "storageExceeds" => $storageExceeds,
+            "totalStorage" => $totalStorage
+        );
+        
+        print json_encode($outputArray);
         exit;
     }
     
@@ -2180,7 +2189,7 @@ class EasycasesController extends AppController
                 $allMemsArr[$k]['User']['name'] = $this->Format->formatText($getAllMems['User']['name']);
                 
                 unset(
-                        $allMemsArr[$k]['User']['email'], $allMemsArr[$k]['User']['istype'], $allMemsArr[$k]['User']['short_name'], $allMemsArr[$k]['User']['uniq_id']
+                    $allMemsArr[$k]['User']['email'], $allMemsArr[$k]['User']['istype'], $allMemsArr[$k]['User']['short_name'], $allMemsArr[$k]['User']['uniq_id']
                 );
                 
                 $allMems[$getAllMems['User']['id']] = $allMemsArr[$k];
@@ -2235,6 +2244,8 @@ class EasycasesController extends AppController
         $tz = $view->loadHelper('Tmzone');
         $dt = $view->loadHelper('Datetime');
         $cq = $view->loadHelper('Casequery');
+        
+        /* @var $frmt FormatHelper */
         $frmt = $view->loadHelper('Format');
         
         $sqlcasedata1 = $this->Easycase->formatReplies($sqlcasedata, $allUserArr, $frmt, $cq, $tz, $dt);
@@ -2517,8 +2528,21 @@ class EasycasesController extends AppController
         }
         
         #  get case message
-        $caseMsgRep = $frmt->formatCms($caseMsgRep);
-        $caseMsgRep = preg_replace('/<script.*>.*<\/script>/ims', '', $frmt->html_wordwrap($caseMsgRep, 80));
+        if (false)
+        {
+            $caseMsgRep = $frmt->formatCms($caseMsgRep);
+            #$caseMsgRep = $frmt->html_wordwrap($caseMsgRep, 80);
+            $caseMsgRep = preg_replace('/<script.*>.*<\/script>/ims', '', $frmt->html_wordwrap($caseMsgRep, 80));
+        }
+        
+        # Remove html from loading. If they put in html this will just display it as text
+        # to the user.
+        $caseMsgRep = htmlspecialchars($caseMsgRep);
+        
+        # convert markdown to html. This must be performced AFTER htmlspecialchars
+        $caseMsgRep = \Michelf\Markdown::defaultTransform($caseMsgRep);
+        
+        
         
         if ($post_id == SES_ID)
         {
