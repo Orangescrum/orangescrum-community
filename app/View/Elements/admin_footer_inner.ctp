@@ -17,22 +17,22 @@ if(CONTROLLER == "osadmins" && PAGE_NAME == "company_user_details"){?>
 <script>
 $(document).ready(function() {
   $('#example').dataTable({
-	"aLengthMenu": [[10, 50, 100], [10,50, 100]],
-	"iDisplayLength": 10,
-	"iDisplayStart" : 0,
-	"aaSorting": [[ 0, "asc" ]],
+    "aLengthMenu": [[10, 50, 100], [10,50, 100]],
+    "iDisplayLength": 10,
+    "iDisplayStart" : 0,
+    "aaSorting": [[ 0, "asc" ]],
         "sPaginationType": "full_numbers",
-	"aoColumns": [ 
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null
-			
-		    ]
-	});
+    "aoColumns": [ 
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+            
+            ]
+    });
 } );
 </script>
 <?php } 
@@ -45,42 +45,42 @@ if(CONTROLLER == "osadmins" && PAGE_NAME == "company_project_details"){?>
 <script>
 $(document).ready(function() {
    $('#example').dataTable({
-	"aLengthMenu": [[10, 50, 100], [10,50, 100]],
-	"iDisplayLength": 10,
-	"iDisplayStart" : 0,
-	"aaSorting": [[ 0, "asc" ]],
+    "aLengthMenu": [[10, 50, 100], [10,50, 100]],
+    "iDisplayLength": 10,
+    "iDisplayStart" : 0,
+    "aaSorting": [[ 0, "asc" ]],
         "sPaginationType": "full_numbers",
-	"aoColumns": [ 
-			null,
-			null,
-			null,
-			null,
-			null,
-			null	
-		    ]
-	});
+    "aoColumns": [ 
+            null,
+            null,
+            null,
+            null,
+            null,
+            null    
+            ]
+    });
 } );
 </script>
 <?php } ?>
 <script type="text/javascript">
 $(document).keydown(function(e) {
-	var nofocus = 0;
-	if(e.keyCode == 27) {
-		hide_popoup();
-		disablePopup();
-	}
+    var nofocus = 0;
+    if(e.keyCode == 27) {
+        hide_popoup();
+        disablePopup();
+    }
 });
 $(".popup_link").click(function(){
-	if($(this).next(".popup").is(":visible")){
-		$(".popup_option").hide();
-		$(".popup").hide();
-		$(this).next(".popup").hide();
-	}
-	else{
-		$(".popup_option").hide();
-		$(".popup").hide();
-		$(this).next(".popup").show();
-	}
+    if($(this).next(".popup").is(":visible")){
+        $(".popup_option").hide();
+        $(".popup").hide();
+        $(this).next(".popup").hide();
+    }
+    else{
+        $(".popup_option").hide();
+        $(".popup").hide();
+        $(this).next(".popup").show();
+    }
 });
 </script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery/jquery-ui.min.1.8.10.js"></script>

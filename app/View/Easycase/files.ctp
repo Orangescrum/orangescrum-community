@@ -1,5 +1,5 @@
 <table width="98%" class="tsk_tbl arc_tbl files_tbl" id="task">
-	<tr style="" class="tab_tr">
+    <tr style="" class="tab_tr">
         <td width="1%">&nbsp;</td>
         <td width="1%">
             <div class="fl">Task</div><!--<div class="tsk_sort fl"></div>-->

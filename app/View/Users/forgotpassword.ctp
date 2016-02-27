@@ -1,16 +1,16 @@
 <!--[if lt IE 10]>
-	<style type="text/css">
-		.lbl_ie{font-family: myriadpro-regular;font-size:18px;margin:10px 20px -8px;color:#636363;display:block}
-		.login_box{border:1px solid #ccc}
-	</style>
+    <style type="text/css">
+        .lbl_ie{font-family: myriadpro-regular;font-size:18px;margin:10px 20px -8px;color:#636363;display:block}
+        .login_box{border:1px solid #ccc}
+    </style>
 <![endif]-->
 <?php if(isset($passemail) && !empty($passemail)){}else{$passemail='10';}?>
 <?php if(isset($chkemail) && !empty($chkemail)){$chkemail='10';}else{$chkemail='11';}?>
 <div class="top_m_cont_land">
     <div id="wrapper">
-    	<div style="display:table-cell; height:100%; min-height:100%; vertical-align:middle">
-        	<div style="position:relative">
-            	<div class="bg_logo_inner"></div>
+        <div style="display:table-cell; height:100%; min-height:100%; vertical-align:middle">
+            <div style="position:relative">
+                <div class="bg_logo_inner"></div>
                 <div class="logo_landing"> 
                     <a href="<?php echo HTTPS_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png?v=<?php echo RELEASE; ?>"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
                 </div>
@@ -31,7 +31,7 @@
                                             </tr> 
                                             <tr>
                                               <td>
-                                              	<h6>To reset your password, type the full email address you use to sign in to your Orangescrum Account.</h6>
+                                                <h6>To reset your password, type the full email address you use to sign in to your Orangescrum Account.</h6>
                                               </td>
                                             </tr>
                                                 <td align="center">
@@ -40,7 +40,7 @@
                                             </tr>
                                             <tr>
                                             <td>
-												<label class="lbl_ie">Email ID</label>
+                                                <label class="lbl_ie">Email ID</label>
                                                 <?php echo $this->Form->text('email',array('size'=>'60','id'=>'email','maxlength'=>'100','placeholder'=>'Email ID','title'=>'Email ID','class'=>'textbox')); ?>
                                             </td>
                                             </tr>
@@ -58,7 +58,7 @@
                                                     </div>
                                                     <div class="cb"></div>
                                                     <span id="fgload" style="display:none;padding-left:20px;margin-top:10px;">
-                                                  	  <img src="<?php echo HTTP_IMAGES; ?>images/feed.gif?v=<?php echo RELEASE; ?>" alt="Loading" title="Loading"/>
+                                                      <img src="<?php echo HTTP_IMAGES; ?>images/feed.gif?v=<?php echo RELEASE; ?>" alt="Loading" title="Loading"/>
                                                     </span>
                                                     <?php if(isset($pass_succ) && empty($pass_succ)) { ?>
                                                     <h6 style="font-size:13px; margin-bottom:6px;">
@@ -85,7 +85,7 @@
                                         <td align="center" valign="bottom" colspan="2">
                                         <span id="err_pass" style="font:normal 14px PT Sans;color:#FF0000;"></span>
                                         </td>
-                                        </tr>    	
+                                        </tr>       
                                         <tr height="5px"><td>
                                         <?php echo $this->Form->password('newpass',array('size'=>'60','id'=>'newpass','maxlength'=>'15','onKeyPress'=>'return noSpace(event)','autocomplete'=>'off','placeholder'=>'New Password','title'=>'New Password','class'=>'textbox')); ?>
                                         
@@ -118,18 +118,18 @@
                                     <?php if($chkemail=="10"){?>
                                         <table cellpadding="0" cellpadding="0" border="0" width="100%" style="font:normal 12px verdana;color:#FFF;">
                                         <tr>
-											<td>
-											<div style=" margin-top:0px; margin-bottom:10px"><h2 style="color:#379B37; font-size:20px;">Your Password is successfully changed.<h3></div>
-											<div><img src="<?php echo HTTP_ROOT; ?>img/images/login_header_shadow.png?v=<?php echo RELEASE; ?>"></div>
-											</td>
-											</tr>
-											<tr>
-											<td>
-	<h2 style="color:#000; font-size:20px;"><a href="<?php echo HTTP_ROOT;?>users/login" style="color:blue;text-decoration:underline;">Login</a> with your new pasword</a></h2>
-											</span>
-											</td>
+                                            <td>
+                                            <div style=" margin-top:0px; margin-bottom:10px"><h2 style="color:#379B37; font-size:20px;">Your Password is successfully changed.<h3></div>
+                                            <div><img src="<?php echo HTTP_ROOT; ?>img/images/login_header_shadow.png?v=<?php echo RELEASE; ?>"></div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+    <h2 style="color:#000; font-size:20px;"><a href="<?php echo HTTP_ROOT;?>users/login" style="color:blue;text-decoration:underline;">Login</a> with your new pasword</a></h2>
+                                            </span>
+                                            </td>
                                         </tr>
-										
+                                        
                                         </table>
                                     <?php }?>        
                                 </td>
@@ -145,36 +145,36 @@
 <script>
 function validpwd(txtEmail)
 {
-	var email = document.getElementById(txtEmail).value;
-	var done = 1;
-	if(email.trim() == "")
-	{
-		err = "Please enter your email.";
-		done = 0;
-	}
-	else
-	{
-		var emailRegEx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		if(!email.match(emailRegEx))
-		{
-			err = "Invalid 'E-mail' address!";
-			done = 0;
-		}
-	}
-	if(done == 0)
-	{
-		document.getElementById('error').style.display='block';
-		document.getElementById('error').innerHTML=err;
-		return false;
-	}
-	else
-	{
-		document.getElementById('error').style.display='none';
-		document.getElementById('fgpass').style.display='none';
-		document.getElementById('fgload').style.display='block';
-		return true;
-	}
-	
+    var email = document.getElementById(txtEmail).value;
+    var done = 1;
+    if(email.trim() == "")
+    {
+        err = "Please enter your email.";
+        done = 0;
+    }
+    else
+    {
+        var emailRegEx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!email.match(emailRegEx))
+        {
+            err = "Invalid 'E-mail' address!";
+            done = 0;
+        }
+    }
+    if(done == 0)
+    {
+        document.getElementById('error').style.display='block';
+        document.getElementById('error').innerHTML=err;
+        return false;
+    }
+    else
+    {
+        document.getElementById('error').style.display='none';
+        document.getElementById('fgpass').style.display='none';
+        document.getElementById('fgload').style.display='block';
+        return true;
+    }
+    
 }
 </script>
 <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery/jquery.min.1.5.1.js"></script>
@@ -182,7 +182,7 @@ function validpwd(txtEmail)
 <script>
 $(document).ready(function() 
 {
-	$('#newpass').pstrength();
+    $('#newpass').pstrength();
 });
 
 function addLoadEvent(func) {
@@ -197,35 +197,35 @@ function addLoadEvent(func) {
   }
 }
 function prepareInputsForHints() {
-	var inputs = document.getElementsByTagName("input");
-	for (var i=0; i<inputs.length; i++){
-		// test to see if the hint span exists first
-		if (inputs[i].parentNode.getElementsByTagName("span")[0]) {
-			// the span exists!  on focus, show the hint
-			inputs[i].onfocus = function () {
-				document.getElementById('hints').style.display='block';
-				this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
-			}
-			// when the cursor moves away from the field, hide the hint
-			inputs[i].onblur = function () {
-				//alert(this.parentNode.getElementsByTagName("span")[0].style.display);
-				document.getElementById('hints').style.display='none';
-				this.parentNode.getElementsByTagName("span")[0].style.display = "none";
-			}
-		}
-	}
-	// repeat the same tests as above for selects
-	var selects = document.getElementsByTagName("select");
-	for (var k=0; k<selects.length; k++){
-		if (selects[k].parentNode.getElementsByTagName("span")[0]) {
-			selects[k].onfocus = function () {
-				this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
-			}
-			selects[k].onblur = function () {
-				this.parentNode.getElementsByTagName("span")[0].style.display = "none";
-			}
-		}
-	}
+    var inputs = document.getElementsByTagName("input");
+    for (var i=0; i<inputs.length; i++){
+        // test to see if the hint span exists first
+        if (inputs[i].parentNode.getElementsByTagName("span")[0]) {
+            // the span exists!  on focus, show the hint
+            inputs[i].onfocus = function () {
+                document.getElementById('hints').style.display='block';
+                this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+            }
+            // when the cursor moves away from the field, hide the hint
+            inputs[i].onblur = function () {
+                //alert(this.parentNode.getElementsByTagName("span")[0].style.display);
+                document.getElementById('hints').style.display='none';
+                this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+            }
+        }
+    }
+    // repeat the same tests as above for selects
+    var selects = document.getElementsByTagName("select");
+    for (var k=0; k<selects.length; k++){
+        if (selects[k].parentNode.getElementsByTagName("span")[0]) {
+            selects[k].onfocus = function () {
+                this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+            }
+            selects[k].onblur = function () {
+                this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+            }
+        }
+    }
 }
 function MM_swapImgRestore() { //v3.0
   var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
@@ -252,47 +252,47 @@ addLoadEvent(prepareInputsForHints);
 
 
 function validatepass()
-{	
-	var newpass = document.getElementById('newpass');
-	var repass = document.getElementById('repass');
-	var errMsg; var done = 1;
-	if(newpass.value.trim() == "")
-	{
-		errMsg = "Password cannot be  blank!";
-		newpass.focus();
-		done = 0;
-	}
-	else if(newpass.value.length < 6 || newpass.value.length > 15)
-	{
-		errMsg = "Password should be between 6-15 characters!";
-		newpass.focus();
-		done = 0;
-	}
-	else if(repass.value.trim() == "")
-	{
-		errMsg = "Re-Type Password cannot be  blank!";
-		repass.focus();
-		done = 0;
-	}
-	else if(repass.value != newpass.value)
-	{
-		errMsg = "Passwords do not match!";
-		repass.focus();
-		done = 0;
-	}
-	if(done == 0)
-	{
-		document.getElementById('err_pass').style.display='block';
-		document.getElementById('err_pass').innerHTML=errMsg;
-		return false;
-	}
-	else
-	{
-		document.getElementById('err_pass').style.display='none';
-		document.getElementById('savpass').style.display='none';
-		document.getElementById('savload').style.display='block';
-		return true;
-	}
+{   
+    var newpass = document.getElementById('newpass');
+    var repass = document.getElementById('repass');
+    var errMsg; var done = 1;
+    if(newpass.value.trim() == "")
+    {
+        errMsg = "Password cannot be  blank!";
+        newpass.focus();
+        done = 0;
+    }
+    else if(newpass.value.length < 6 || newpass.value.length > 15)
+    {
+        errMsg = "Password should be between 6-15 characters!";
+        newpass.focus();
+        done = 0;
+    }
+    else if(repass.value.trim() == "")
+    {
+        errMsg = "Re-Type Password cannot be  blank!";
+        repass.focus();
+        done = 0;
+    }
+    else if(repass.value != newpass.value)
+    {
+        errMsg = "Passwords do not match!";
+        repass.focus();
+        done = 0;
+    }
+    if(done == 0)
+    {
+        document.getElementById('err_pass').style.display='block';
+        document.getElementById('err_pass').innerHTML=errMsg;
+        return false;
+    }
+    else
+    {
+        document.getElementById('err_pass').style.display='none';
+        document.getElementById('savpass').style.display='none';
+        document.getElementById('savload').style.display='block';
+        return true;
+    }
 }
 function noSpace(e)
 {

@@ -3,38 +3,38 @@
 </div>
 <div class="page-wrapper">
     <div class="col-lg-9 fl m-left-20 activity_ipad">
-	<div id="activities"></div>
-	<div style="display:none;" id="more_loader" class="morebar">
-	    <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
-	</div>
+    <div id="activities"></div>
+    <div style="display:none;" id="more_loader" class="morebar">
+        <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
+    </div>
     </div>
   
     <div class="col-lg-3 fl act_rt_div">
-	<div class="tab tab_comon tab_task">
-	    <ul class="nav-tabs activ_line mod_wide">
-		<li class="active">
-		    <a href="javascript:void(0);" id="myTab" onclick="myactivities('myTab', 'delegatedTab');">
-			<div class="fl" >My</div>
-			<div class="cbt"></div>
-		    </a>
-		</li>
-		<li id="file_li">
-		    <a href="javascript:void(0);"  id="delegatedTab" onclick="delegateactivities('myTab', 'delegatedTab');">
-			<div class="fl">Delegated</div>
-			<div class="cbt"></div>
-		    </a>
-		</li>
-		<div class="cbt"></div>
-	    </ul>
-	</div>
-	<div class="cb"></div>
-	
-	<div id="Upcoming"></div>		
-	<div id="moreOverdueloader" class="moreOverdueloader">Loading Tasks...</div>
-	<hr/>
-	<div id="Overdue"></div>
-	<hr/>
-	<div id="PieChart" style="display: none;"></div>
+    <div class="tab tab_comon tab_task">
+        <ul class="nav-tabs activ_line mod_wide">
+        <li class="active">
+            <a href="javascript:void(0);" id="myTab" onclick="myactivities('myTab', 'delegatedTab');">
+            <div class="fl" >My</div>
+            <div class="cbt"></div>
+            </a>
+        </li>
+        <li id="file_li">
+            <a href="javascript:void(0);"  id="delegatedTab" onclick="delegateactivities('myTab', 'delegatedTab');">
+            <div class="fl">Delegated</div>
+            <div class="cbt"></div>
+            </a>
+        </li>
+        <div class="cbt"></div>
+        </ul>
+    </div>
+    <div class="cb"></div>
+    
+    <div id="Upcoming"></div>       
+    <div id="moreOverdueloader" class="moreOverdueloader">Loading Tasks...</div>
+    <hr/>
+    <div id="Overdue"></div>
+    <hr/>
+    <div id="PieChart" style="display: none;"></div>
     </div>
     <div class="cb"></div>
     

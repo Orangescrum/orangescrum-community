@@ -3,11 +3,11 @@
 <script>
 $(function () {
     var chart;
-	var dt = <?php echo $dt_arr;?>;
-	var ydata = <?php echo $carr;?>;
-	var tikinterval = <?php echo $tinterval;?>; 
-	var yourLabels = <?php echo $yarr;?>;
-	$(document).ready(function() {
+    var dt = <?php echo $dt_arr;?>;
+    var ydata = <?php echo $carr;?>;
+    var tikinterval = <?php echo $tinterval;?>; 
+    var yourLabels = <?php echo $yarr;?>;
+    $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'tasktrend',
@@ -22,16 +22,16 @@ $(function () {
                 x: -20
             },
             xAxis: {
-				type:'datetime',
+                type:'datetime',
                 categories: eval(dt),
-				showFirstLabel:true,
+                showFirstLabel:true,
                 showLastLabel:true,
                 tickInterval:tikinterval
             },
             yAxis: {
-				min:0,
-				allowDecimals:false,
-				title: {
+                min:0,
+                allowDecimals:false,
+                title: {
                     text: 'Tasks Count'
                 },
                 plotLines: [{
@@ -50,7 +50,7 @@ $(function () {
                 line: {
                     events: {
                         legendItemClick: function () {
-                           	return false;
+                            return false;
                             }
                         },
                         showInLegend: true
@@ -64,7 +64,7 @@ $(function () {
                 y: 100,
                 borderWidth: 0
             },
-			series: eval(ydata),
+            series: eval(ydata),
         });
     });   
 });

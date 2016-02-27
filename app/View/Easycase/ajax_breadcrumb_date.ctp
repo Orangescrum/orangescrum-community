@@ -2,30 +2,30 @@
 $types = "";
 if (isset($Date) && !empty($Date))
 {
-	if (trim($Date) == 'one')
+    if (trim($Date) == 'one')
     {
-		echo "Past hour";
-	}
+        echo "Past hour";
+    }
     else if (trim($Date) == '24')
     {
-		echo "Past 24Hour";
-	}
+        echo "Past 24Hour";
+    }
     else if(trim($Date) == 'week')
     {
-		echo "Past Week";
-	}
+        echo "Past Week";
+    }
     else if(trim($Date) == 'month')
     {
-		echo "Past month";
-	}
+        echo "Past month";
+    }
     else if(trim($Date) == 'year')
     {
-		echo "Past Year";
-	}
+        echo "Past Year";
+    }
     else if(strstr(trim($Date),":"))
     {
-		echo str_replace(":"," - ",$Date);
-	}
+        echo str_replace(":"," - ",$Date);
+    }
 }
 else 
 { 

@@ -1,203 +1,203 @@
 <?php ?>
 <style type="text/css">
-	#show_milestonelist .kanban-main .kanban-child{width:353px}
-	#show_milestonelist .kbtask_div{width:95%}
+    #show_milestonelist .kanban-main .kanban-child{width:353px}
+    #show_milestonelist .kbtask_div{width:95%}
 </style>
 <div id="detail_section"></div>
 <div class="page-wrapper task_section" style="text-align: center;" id="filter_section">
-	<div class="row"   id="filter_div_menu">
-	<div class="filters">
-<!--		<i class="db-filter-icon fl"></i>
-		<div class="fl ftext">Filters:&nbsp;</div>-->
-		<div class="fl task_section case-filter-menu " data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_all_filters');">
-			<button type="button" class="btn tsk-menu-filter-btn flt-txt">
-					<i class="icon_flt_img"></i>
-					Filters
-					<i class="icon-filter-right"></i>
-			</button>
-			<ul class="dropdown-menu" id="dropdown_menu_all_filters" style="position: absolute;">
-				<li class="pop_arrow_new"></li>
-				<li>
-					<a href="javascript:jsVoid();" title="Time" data-toggle="dropdown" onclick="allfiltervalue('date');"> Time</a>
-					<div class="dropdown_status" id="dropdown_menu_date_div">
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_date"></ul>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Due Date" data-toggle="dropdown" onclick="allfiltervalue('duedate');"> Due Date</a>
-					<div class="dropdown_status" id="dropdown_menu_duedate_div">
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_duedate"></ul>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Status" data-toggle="dropdown" onclick="allfiltervalue('status');">Status</a>
-					<div class="dropdown_status" id="dropdown_menu_status_div">
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_status"></ul>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Types" data-toggle="dropdown" onclick="allfiltervalue('types');">Types</a>
-					<div class="dropdown_status" id="dropdown_menu_types_div" >
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_types"></ul>
-					</div>
+    <div class="row"   id="filter_div_menu">
+    <div class="filters">
+<!--        <i class="db-filter-icon fl"></i>
+        <div class="fl ftext">Filters:&nbsp;</div>-->
+        <div class="fl task_section case-filter-menu " data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_all_filters');">
+            <button type="button" class="btn tsk-menu-filter-btn flt-txt">
+                    <i class="icon_flt_img"></i>
+                    Filters
+                    <i class="icon-filter-right"></i>
+            </button>
+            <ul class="dropdown-menu" id="dropdown_menu_all_filters" style="position: absolute;">
+                <li class="pop_arrow_new"></li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Time" data-toggle="dropdown" onclick="allfiltervalue('date');"> Time</a>
+                    <div class="dropdown_status" id="dropdown_menu_date_div">
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_date"></ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Due Date" data-toggle="dropdown" onclick="allfiltervalue('duedate');"> Due Date</a>
+                    <div class="dropdown_status" id="dropdown_menu_duedate_div">
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_duedate"></ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Status" data-toggle="dropdown" onclick="allfiltervalue('status');">Status</a>
+                    <div class="dropdown_status" id="dropdown_menu_status_div">
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_status"></ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Types" data-toggle="dropdown" onclick="allfiltervalue('types');">Types</a>
+                    <div class="dropdown_status" id="dropdown_menu_types_div" >
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_types"></ul>
+                    </div>
 
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="allfiltervalue('priority');">Priority</a>
-					<div class="dropdown_status" id="dropdown_menu_priority_div" >
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_priority"></ul>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Users" data-toggle="dropdown" onclick="allfiltervalue('users');">Created by </a>
-					<div class="dropdown_status" id="dropdown_menu_users_div" >
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_users"></ul>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Assign To" data-toggle="dropdown" onclick="allfiltervalue('assignto');">Assign To</a>
-					<div class="dropdown_status" id="dropdown_menu_assignto_div" >
-						<i class="status_arrow_new"></i>
-						<ul class="dropdown-menu" id="dropdown_menu_assignto"></ul>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="fl" id="filtered_items" style="padding-left:10px;" ></div>
-		<!-- Filter options ends-->
-		<div class="filter_btn_section fl" id="savereset_filter">
-<!--				<div style="display:none;" id="savefilter_btn" class="fl"  >
-					<div class="db-filter-save-icon fl" onClick="showSaveFilter();" title="Save Filter" rel="tooltip"></div>
-					 <div id="inner_save_filter" class="sml_popup_bg">
-						<div>
-							<div class="popup_title smal">
-								<span>Save Custom Filter</span>
-							</div>
-							<div class="popup_form smal_form">
-							    <table cellpadding="0" cellspacing="0" class="col-lg-12" id="inner_save_filter_td">
-									<tr>
-										<td colspan="2">
-											<span id="loaderpj" style="display:block;">
-												<center>
-												<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." />
-												</center>
-											</span>
-										</td>
-									</tr>
-							    </table>
-							</div>
-						</div>
-					 </div>
-				</div>-->
-				<div class="fl db-filter-reset-icon" style="display:none;" id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"></div>
-		   </div>
-			<div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
-			<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt" >
-					<i class="icon_groupby_img"></i>Group by<i class="icon-filter-right"></i>
-			</button>
-			<ul class="dropdown-menu" id="dropdown_menu_groupby_filters" style="position: absolute;">
-				<li class="pop_arrow_new"></li>
-<!--				<li>
-					<a href="javascript:jsVoid();" title="Time" data-toggle="dropdown" onclick="groupby('crtdate');"> Created Date</a>
-				</li>-->
-				<li>
-					<a href="javascript:jsVoid();" title="Due Date" data-toggle="dropdown" onclick="groupby('duedate');"> Due Date</a>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Status" data-toggle="dropdown" onclick="groupby('status');">Status</a>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('priority');">Priority</a>
-				</li>
-				<li>
-					<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('assignto');">Assigned to</a>
-				</li>
-			</ul>
-		</div>
-		<div class="fl" id="groupby_items"></div>
-		<div class="fl task_section case-filter-menu tasksortby-div " data-toggle="dropdown" >
-		<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt sortby_btn <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disable-btn<?php }?> " onclick="openfilter_popup(0,'dropdown_menu_sortby_filters');" <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disabled="disabled"<?php }?>>
-				<i class="icon_sortby_img"></i>Sort by<i class="icon-filter-right"></i>
-		</button>
-		<ul class="dropdown-menu" id="dropdown_menu_sortby_filters" style="position: absolute;">
-			<li class="pop_arrow_new"></li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('title');">Title</a>
-			</li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseno');">Task#</a>
-			</li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('duedate');"> Due Date</a>
-			</li>
-			<li>
-				<a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseAt');">Assigned to</a>
-			</li>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="allfiltervalue('priority');">Priority</a>
+                    <div class="dropdown_status" id="dropdown_menu_priority_div" >
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_priority"></ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Users" data-toggle="dropdown" onclick="allfiltervalue('users');">Created by </a>
+                    <div class="dropdown_status" id="dropdown_menu_users_div" >
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_users"></ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Assign To" data-toggle="dropdown" onclick="allfiltervalue('assignto');">Assign To</a>
+                    <div class="dropdown_status" id="dropdown_menu_assignto_div" >
+                        <i class="status_arrow_new"></i>
+                        <ul class="dropdown-menu" id="dropdown_menu_assignto"></ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="fl" id="filtered_items" style="padding-left:10px;" ></div>
+        <!-- Filter options ends-->
+        <div class="filter_btn_section fl" id="savereset_filter">
+<!--                <div style="display:none;" id="savefilter_btn" class="fl"  >
+                    <div class="db-filter-save-icon fl" onClick="showSaveFilter();" title="Save Filter" rel="tooltip"></div>
+                     <div id="inner_save_filter" class="sml_popup_bg">
+                        <div>
+                            <div class="popup_title smal">
+                                <span>Save Custom Filter</span>
+                            </div>
+                            <div class="popup_form smal_form">
+                                <table cellpadding="0" cellspacing="0" class="col-lg-12" id="inner_save_filter_td">
+                                    <tr>
+                                        <td colspan="2">
+                                            <span id="loaderpj" style="display:block;">
+                                                <center>
+                                                <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." />
+                                                </center>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                     </div>
+                </div>-->
+                <div class="fl db-filter-reset-icon" style="display:none;" id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"></div>
+           </div>
+            <div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
+            <button type="button" class="btn tsk-menu-sortgroup-btn flt-txt" >
+                    <i class="icon_groupby_img"></i>Group by<i class="icon-filter-right"></i>
+            </button>
+            <ul class="dropdown-menu" id="dropdown_menu_groupby_filters" style="position: absolute;">
+                <li class="pop_arrow_new"></li>
+<!--                <li>
+                    <a href="javascript:jsVoid();" title="Time" data-toggle="dropdown" onclick="groupby('crtdate');"> Created Date</a>
+                </li>-->
+                <li>
+                    <a href="javascript:jsVoid();" title="Due Date" data-toggle="dropdown" onclick="groupby('duedate');"> Due Date</a>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Status" data-toggle="dropdown" onclick="groupby('status');">Status</a>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('priority');">Priority</a>
+                </li>
+                <li>
+                    <a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="groupby('assignto');">Assigned to</a>
+                </li>
+            </ul>
+        </div>
+        <div class="fl" id="groupby_items"></div>
+        <div class="fl task_section case-filter-menu tasksortby-div " data-toggle="dropdown" >
+        <button type="button" class="btn tsk-menu-sortgroup-btn flt-txt sortby_btn <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disable-btn<?php }?> " onclick="openfilter_popup(0,'dropdown_menu_sortby_filters');" <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disabled="disabled"<?php }?>>
+                <i class="icon_sortby_img"></i>Sort by<i class="icon-filter-right"></i>
+        </button>
+        <ul class="dropdown-menu" id="dropdown_menu_sortby_filters" style="position: absolute;">
+            <li class="pop_arrow_new"></li>
+            <li>
+                <a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('title');">Title</a>
+            </li>
+            <li>
+                <a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseno');">Task#</a>
+            </li>
+            <li>
+                <a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('duedate');"> Due Date</a>
+            </li>
+            <li>
+                <a href="javascript:jsVoid();"  data-toggle="dropdown" onclick="ajaxSorting('caseAt');">Assigned to</a>
+            </li>
 
-		</ul>
-	</div>
-	<div class="fl" id="sortby_items"></div>
-		   <div class="cb"></div>
-	  </div>
-	</div>
-	<div class="cb"></div>
-	<!-- /.row --><!-- Task filters -->
+        </ul>
+    </div>
+    <div class="fl" id="sortby_items"></div>
+           <div class="cb"></div>
+      </div>
+    </div>
+    <div class="cb"></div>
+    <!-- /.row --><!-- Task filters -->
 </div><!-- /.page-wrapper -->
 <table cellpadding="0" cellspacing="0" width="96%" class="task_section dashbod_tbl_m10 fixed_layout">
     <tr>
 <td id="topaction" class="">
-	    <!--Tabs section starts -->
-	    <div style="display:block;border:0px solid #FF0000;" class="tab" id="topactions">
-		<ul id="myTab4" class="nav-tabs">
+        <!--Tabs section starts -->
+        <div style="display:block;border:0px solid #FF0000;" class="tab" id="topactions">
+        <ul id="myTab4" class="nav-tabs">
 
-		<?php
-		if (ACT_TAB_ID && ACT_TAB_ID > 1) {
-		    $tablists = Configure::read('DTAB');
-		    foreach ($tablists AS $tabkey => $tabvalue) {
-			if ($tabkey & ACT_TAB_ID) {
-			    $default_actv = "";
-			    if($tabvalue["fkeyword"] == "cases") { $tab_spn_id = "tskTabAllCnt"; $default_actv = "active";}
-				elseif($tabvalue["fkeyword"] == "assigntome") { $tab_spn_id = "tskTabMyCnt"; }
-				elseif($tabvalue["fkeyword"] == "delegateto") { $tab_spn_id = "tskTabDegCnt"; }
-				elseif($tabvalue["fkeyword"] == "highpriority") { $tab_spn_id = "tskTabHPriCnt"; }
-				elseif($tabvalue["fkeyword"] == "overdue") { $tab_spn_id = "tskTabOverdueCnt"; }
-			    ?>
-			<li class="<?php echo $default_actv;?>">
-				<a class="cattab"  id="<?php echo $tabvalue["fkeyword"]; ?>_id" onclick="caseMenuFileter('<?php echo $tabvalue["fkeyword"]; ?>', 'dashboard', 'cases', '');" data-toggle="tab">
-				<div class="fl <?php echo $tabvalue["fkeyword"];?>"></div>
-				<div class="fl"><?php echo $tabvalue["ftext"]; ?><span id="<?php echo $tab_spn_id;?>"></span></div>
-				<div class="cbt"></div>
-			    </a>
-			</li>
-			<?php } ?>
-		    <?php } ?>
-			<li class="pop_li">
+        <?php
+        if (ACT_TAB_ID && ACT_TAB_ID > 1) {
+            $tablists = Configure::read('DTAB');
+            foreach ($tablists AS $tabkey => $tabvalue) {
+            if ($tabkey & ACT_TAB_ID) {
+                $default_actv = "";
+                if($tabvalue["fkeyword"] == "cases") { $tab_spn_id = "tskTabAllCnt"; $default_actv = "active";}
+                elseif($tabvalue["fkeyword"] == "assigntome") { $tab_spn_id = "tskTabMyCnt"; }
+                elseif($tabvalue["fkeyword"] == "delegateto") { $tab_spn_id = "tskTabDegCnt"; }
+                elseif($tabvalue["fkeyword"] == "highpriority") { $tab_spn_id = "tskTabHPriCnt"; }
+                elseif($tabvalue["fkeyword"] == "overdue") { $tab_spn_id = "tskTabOverdueCnt"; }
+                ?>
+            <li class="<?php echo $default_actv;?>">
+                <a class="cattab"  id="<?php echo $tabvalue["fkeyword"]; ?>_id" onclick="caseMenuFileter('<?php echo $tabvalue["fkeyword"]; ?>', 'dashboard', 'cases', '');" data-toggle="tab">
+                <div class="fl <?php echo $tabvalue["fkeyword"];?>"></div>
+                <div class="fl"><?php echo $tabvalue["ftext"]; ?><span id="<?php echo $tab_spn_id;?>"></span></div>
+                <div class="cbt"></div>
+                </a>
+            </li>
+            <?php } ?>
+            <?php } ?>
+            <li class="pop_li">
 
-			    <a href="javascript:void(0);" class="select_button_ftop" onclick="newcategorytab();" rel="tooltip" title="Tab Settings">
-				<div class="tab_pop">+</div>
-			    </a>
-			</li>
-			<div style="clear:both"></div>
-		<?php } ?>
-		</ul>
-	    </div>
-	     <!--Tabs section ends -->
-	</td>
+                <a href="javascript:void(0);" class="select_button_ftop" onclick="newcategorytab();" rel="tooltip" title="Tab Settings">
+                <div class="tab_pop">+</div>
+                </a>
+            </li>
+            <div style="clear:both"></div>
+        <?php } ?>
+        </ul>
+        </div>
+         <!--Tabs section ends -->
+    </td>
     </tr>
     <tr>
         <td>
         <!--Task listing section starts here-->
-			<div id="caseViewSpanUnclick">
-				<div id="caseViewDetails" style="display:none"></div>
-				<div id="caseViewSpan" style="display:block"></div>
-				<div id="task_paginate" style="display:block"></div>
-			</div>
+            <div id="caseViewSpanUnclick">
+                <div id="caseViewDetails" style="display:none"></div>
+                <div id="caseViewSpan" style="display:block"></div>
+                <div id="task_paginate" style="display:block"></div>
+            </div>
         <!--Task listing section ends here-->
         </td>
     </tr>
@@ -210,43 +210,43 @@
 <div id="kanban_list" class="kanban_section kanban_resp" style="display:block"></div>
 <div id="calendar_view" class="calendar_section calendar_resp" style="display:block;margin-top: 12px;"></div>
 <div id="caseLoader">
-	<div class="loadingdata">Loading...</div>
+    <div class="loadingdata">Loading...</div>
 </div>
 
 <!--Task activities section start here-->
 <div class="page-wrapper" id="actvt_section" style="display:none">
     <div class="col-lg-9 fl m-left-20 activity_ipad">
-		<div id="activities"></div>
-		<div style="display:none;" id="more_loader" class="morebar">
-			<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/>
-		</div>
+        <div id="activities"></div>
+        <div style="display:none;" id="more_loader" class="morebar">
+            <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/>
+        </div>
     </div>
-	<div class="col-lg-3 fl act_rt_div">
-	<div class="tab tab_comon tab_task">
-	    <ul class="nav-tabs activ_line mod_wide">
-		<li class="active">
-		    <a href="javascript:void(0);" id="myTab" onclick="myactivities('myTab', 'delegatedTab');">
-			<div class="fl" >My</div>
-			<div class="cbt"></div>
-		    </a>
-		</li>
-		<li id="file_li">
-		    <a href="javascript:void(0);"  id="delegatedTab" onclick="delegateactivities('myTab', 'delegatedTab');">
-			<div class="fl">Delegated</div>
-			<div class="cbt"></div>
-		    </a>
-		</li>
-		<div class="cbt"></div>
-	    </ul>
-	</div>
-	<div class="cb"></div>
+    <div class="col-lg-3 fl act_rt_div">
+    <div class="tab tab_comon tab_task">
+        <ul class="nav-tabs activ_line mod_wide">
+        <li class="active">
+            <a href="javascript:void(0);" id="myTab" onclick="myactivities('myTab', 'delegatedTab');">
+            <div class="fl" >My</div>
+            <div class="cbt"></div>
+            </a>
+        </li>
+        <li id="file_li">
+            <a href="javascript:void(0);"  id="delegatedTab" onclick="delegateactivities('myTab', 'delegatedTab');">
+            <div class="fl">Delegated</div>
+            <div class="cbt"></div>
+            </a>
+        </li>
+        <div class="cbt"></div>
+        </ul>
+    </div>
+    <div class="cb"></div>
 
-	<div id="Upcoming"></div>
-	<div id="moreOverdueloader" class="moreOverdueloader">Loading Tasks...</div>
-	<hr/>
-	<div id="Overdue"></div>
-	<hr/>
-	<div id="PieChart" style="display: none;"></div>
+    <div id="Upcoming"></div>
+    <div id="moreOverdueloader" class="moreOverdueloader">Loading Tasks...</div>
+    <hr/>
+    <div id="Overdue"></div>
+    <hr/>
+    <div id="PieChart" style="display: none;"></div>
     </div>
     <div class="cb"></div>
 </div>
@@ -422,35 +422,35 @@
 <input type="hidden" id="view_type" value="kanban">
 <input type="hidden" id="search_text">
 <script type="text/javascript">
-	$(document).ready(function(event){
-		$(document).click(function(e){
-			if($(e.target).is(".filter_opn")){
-				e.preventDefault();
-				e.stopPropagation();
-			}else{
-				$('#dropdown_menu_all_filters').hide();
-				$('#dropdown_menu_sortby_filters').hide();
-				$('#dropdown_menu_groupby_filters').hide();
-				$('.dropdown_status').hide();
-				//$(".case-filter-menu").css({"position":'fixed'});
-			}
-		});
-	});
-	$(".proj_mng_div .contain").hover(function(){
-		$(this).find(".proj_mng").stop(true,true).animate({bottom:"0px",opacity:1},400);
-	},function(){
-		$(this).find(".proj_mng").stop(true,true).animate({bottom:"-42px",opacity:0},400);
-	});
-	$(document).on('click','.milestonenextprev .prev',function(){
-		//$('#milestoneLimit').val(parseInt($('#milestoneLimit').val())-6);
+    $(document).ready(function(event){
+        $(document).click(function(e){
+            if($(e.target).is(".filter_opn")){
+                e.preventDefault();
+                e.stopPropagation();
+            }else{
+                $('#dropdown_menu_all_filters').hide();
+                $('#dropdown_menu_sortby_filters').hide();
+                $('#dropdown_menu_groupby_filters').hide();
+                $('.dropdown_status').hide();
+                //$(".case-filter-menu").css({"position":'fixed'});
+            }
+        });
+    });
+    $(".proj_mng_div .contain").hover(function(){
+        $(this).find(".proj_mng").stop(true,true).animate({bottom:"0px",opacity:1},400);
+    },function(){
+        $(this).find(".proj_mng").stop(true,true).animate({bottom:"-42px",opacity:0},400);
+    });
+    $(document).on('click','.milestonenextprev .prev',function(){
+        //$('#milestoneLimit').val(parseInt($('#milestoneLimit').val())-6);
                 var isActive=($('#storeIsActive').val()!='')?$('#storeIsActive').val():1;
                 var search_key=$('#search_text').val();
-		showMilestoneList('prev',isActive,1,search_key);
-	});
-	$(document).on('click','.milestonenextprev .next',function(){
+        showMilestoneList('prev',isActive,1,search_key);
+    });
+    $(document).on('click','.milestonenextprev .next',function(){
             var isActive=($('#storeIsActive').val()!='')?$('#storeIsActive').val():1;
                 var search_key=$('#search_text').val();
-		showMilestoneList('next',isActive,1,search_key);
-	});
-	
+        showMilestoneList('next',isActive,1,search_key);
+    });
+    
 </script>

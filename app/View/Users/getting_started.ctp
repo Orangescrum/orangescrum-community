@@ -76,13 +76,13 @@
     <div class="get_det">
         <div class="fl get_img get_tsk_bg" style="cursor:pointer;background:#FFAAD4" onclick="window.location='<?php echo HTTP_ROOT; ?>task-type'">
             <div class="get_email" style="background:none;color:#FFF;width:auto;font-weight:bold;font-size:15px;height:55px;">
-            	Custom<br/>Task Type
+                Custom<br/>Task Type
             </div>
         </div>
         <div class="get_text fl">
             <div class="get_title"></div>
             <ul style="padding:5px 15px;margin-top:0px;">
-            	<li>
+                <li>
                     You can categorize your Task usign the Task Types.
                 </li>
                 <li>
@@ -120,9 +120,9 @@
         <div class="cb"></div>
     </div>
     <?php
-	if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
-	?>
-   	<div class="get_hd_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>email_notifications'">Desktop Notification</div>
+    if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
+    ?>
+    <div class="get_hd_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>email_notifications'">Desktop Notification</div>
     <div class="get_det">
         <div class="fl get_img get_not_bg" style="cursor:pointer" onclick="window.location='<?php echo HTTP_ROOT; ?>email_notifications'">
             <div class="get_not" style="background:url('<?php echo HTTP_ROOT; ?>img/bell.png');height:25px;width:27px;"></div>
@@ -146,16 +146,16 @@
         <div class="cb"></div>
     </div>
     <?php
-	}
-	?>
+    }
+    ?>
     <div class="get_hd_bg">Settings</div>
     <div class="get_det">
-		<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/profile" style="font-size: 14px;">
+        <a class="get_title" href="<?php echo HTTP_ROOT; ?>users/profile" style="font-size: 14px;">
         <div class="fl get_img get_tm_bg">
             <div class="get_time"></div>
             <div class="get_img_txt">Setting</div>
         </div>
-	</a>
+    </a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Timezone & Profile','/users/profile',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">
@@ -170,12 +170,12 @@
         <div class="cb"></div>
     </div>
     <div class="get_det">
-	<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_notifications" style="font-size: 14px;">
+    <a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_notifications" style="font-size: 14px;">
         <div class="fl get_img get_not_bg">
             <div class="get_not"></div>
             <div class="get_img_txt">Notification</div>
         </div>
-	</a>
+    </a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Notifications','/users/email_notifications',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">
@@ -193,12 +193,12 @@
         <div class="cb"></div>
     </div>
     <div class="get_det" style="border-bottom:none">
-	<a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_reports" style="font-size: 14px;">
+    <a class="get_title" href="<?php echo HTTP_ROOT; ?>users/email_reports" style="font-size: 14px;">
         <div class="fl get_img get_emlrpt_bg">
             <div class="get_emlrpt"></div>
             <div class="get_img_txt">Reports</div>
         </div>
-	</a>
+    </a>
         <div class="get_text fl">
             <div class="get_title"><?php echo $this->Html->link('Email Reports','/users/email_reports',array('class'=>'get_title'));?></div>
             <ul style="padding:5px 15px;margin-top:0px;">
