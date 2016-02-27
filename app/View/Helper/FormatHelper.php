@@ -414,34 +414,56 @@ class FormatHelper extends AppHelper {
 		$disp_type = HTTP_IMAGES."images/types/".$type.".png'";
 		return $disp_type;
 	}
-	######## WordWrap #######
-	function html_wordwrap($str, $width , $break = "\n", $cut = false)
-	{
-		//same functionality as wordwrap, but ignore html tags
-		$unused_char = $this->find_unused_char($str); //get a single character that is not used in the string
-		$tags_arr = $this->get_tags_array($str);
-		$q = '?';
-		$str1 = ''; //the string to be wrapped (will not contain tags)
-		$element_lengths = array(); //an array containing the string lengths of each element
-		foreach($tags_arr as $tag_or_words)
-		{
-			if(preg_match("/<.*$q>/", $tag_or_words)) continue;
-			$str1 .= $tag_or_words;
-			$element_lengths[] = strlen($tag_or_words);
-		}
-		$str1 = wordwrap($str1, $width, $unused_char, $cut);
-		foreach($tags_arr as &$tag_or_words)
-		{
-			if(preg_match("/<.*$q>/", $tag_or_words)) continue;
-			$tag_or_words = substr($str1, 0, $element_lengths[0]);
-			$str1 = substr($str1, $element_lengths[0]);
-			array_shift($element_lengths); //delete the first array element - we have used it now so we do not need it
-		}
-		$str2 = implode('', $tags_arr);
-		$str3 = str_replace($unused_char, $break, $str2);
-		return $str3;
-	}
-	function get_tags_array($str)
+    
+    
+	/**
+     * Same functionality as wordwrap, but ignore html tags
+     * @param type $str
+     * @param type $width
+     * @param type $break
+     * @param type $cut
+     * @return type
+     */
+    function html_wordwrap($str, $width , $break = "\n", $cut = false)
+    {
+        $unused_char = $this->find_unused_char($str); //get a single character that is not used in the string
+        $tags_arr = $this->get_tags_array($str);
+        $q = '?';
+        $str1 = ''; //the string to be wrapped (will not contain tags)
+        $element_lengths = array(); //an array containing the string lengths of each element
+
+        foreach ($tags_arr as $tag_or_words)
+        {
+            if (preg_match("/<.*$q>/", $tag_or_words))
+            {
+                continue;
+            }
+            
+            $str1 .= $tag_or_words;
+            $element_lengths[] = strlen($tag_or_words);
+        }
+        
+        $str1 = wordwrap($str1, $width, $unused_char, $cut);
+        
+        foreach ($tags_arr as &$tag_or_words)
+        {
+            if (preg_match("/<.*$q>/", $tag_or_words))
+            {
+                continue;
+            }
+            
+            $tag_or_words = substr($str1, 0, $element_lengths[0]);
+            $str1 = substr($str1, $element_lengths[0]);
+            array_shift($element_lengths); //delete the first array element - we have used it now so we do not need it
+        }
+        
+        $str2 = implode('', $tags_arr);
+        $str3 = str_replace($unused_char, $break, $str2);
+        return $str3;
+    }
+    
+    
+    function get_tags_array($str)
 	{
 		//given a string, return a sequential array with html tags in their own elements
 		$q = '?';
