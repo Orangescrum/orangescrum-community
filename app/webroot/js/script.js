@@ -76,17 +76,10 @@ function parseUrlHash(hash) {
     var urlVars = {};
     var params = (hash.substr(0)).split("/");
     return params;
-    /*for (i = 0; i < params.length; i++) {
-     var a = params[i].split("=");
-     urlVars[a[0]] = a[1];
-     }
-     return urlVars;*/
 }
 
 /* Routing on Task & Files Menu */
 function checkHashLoad(type) {
-    //    alert(parseUrlHash(urlHash));
-    //    alert(type);
     // Add for switching between compact view and List view
     if (type == "compactTask") {
         $('#lviewtype').val('compact');
@@ -104,7 +97,6 @@ function checkHashLoad(type) {
                 easycase.showFiles(hashtag);
             }
         } else if (type == "files") {
-            //$('#casePage').val("1");
             casePage = 1;
         }
         if (type == 'task' || type == 'kanban' || type == 'activities' || type == 'milestone' || hashtag == 'task' || hashtag == 'milestone' || hashtag == 'kanban' || hashtag == 'activities') {
@@ -123,7 +115,6 @@ function checkHashLoad(type) {
                 easycase.showKanbanTaskList(hashtag);
             }
         } else if (type == "kanban") {
-            //$('#casePage').val("1");
             casePage = 1;
         }
         if (type == "milestone") {
@@ -134,20 +125,17 @@ function checkHashLoad(type) {
                 ManageMilestoneList();
             }
         } else if (type == "kanban") {
-            //$('#casePage').val("1");
             casePage = 1;
         }
         if ((type == "tasks" || type == "compactTask") && hashtag == "tasks") {
             $('#ajaxViewProjects').html('');
             $('#ajaxViewProjects').hide();
             if (CONTROLLER == 'easycases' && PAGE_NAME == 'dashboard') {
-                //refreshTasks = 1;
                 $('.case-filter-menu').hide();
                 $("#widgethideshow").show();
                 easycase.showTaskLists(hashtag);
             }
         } else if (type == "tasks") {
-            //$('#casePage').val("1");
             casePage = 1;
         }
 
@@ -209,7 +197,6 @@ function routeOSHash() {
                 }
                 break;
             case 'files':
-                //ajaxFileView('case_files');
                 if (CONTROLLER == 'easycases' && PAGE_NAME == 'dashboard') {
                     $("#case_search").attr("placeholder", "Search Files");
                     $('.customFilter').html('');
@@ -361,7 +348,6 @@ function closePopup() {
         $('#profilephoto').imgAreaSelect({
             hide: true
         });
-        //$('#up_files1').html('');
         $('#up_files_usr').html('');
     }
     $(".popup_overlay").css({
@@ -793,10 +779,6 @@ function newProject() {
     $(".add_usr_prj").hide();
     openPopup();
     $(".new_project").show();
-    /*$('#inner_proj').html('');
-     var strURL = HTTP_ROOT+"projects/ajax_new_project";
-     $.post(strURL, {}, function(data) {
-     if (data) {*/
     $(".loader_dv").hide();
 
     //setting default form field value
@@ -805,14 +787,11 @@ function newProject() {
     $('#inner_proj #members_list, #inner_proj #txt_Proj, #inner_proj #txt_shortProj').val('');
 
     $('#inner_proj').show();
-    //$('#inner_proj').html(data);
     $("#txt_Proj").focus();
     if (!memberListLoaded) {
         getMemeberList();
     }
     memberListLoaded = 1;
-    /*}
-     });*/
 }
 
 
@@ -893,12 +872,6 @@ function creatask() {
         $('.loader_dv_edit').hide();
     }
     $('#editRemovedFile').val('');
-    /*var projFil = $('#projFil').val();
-     $.post(HTTP_ROOT+"easycases/ajax_quickcase_mem",{"projUniq":projFil,"pageload":0}, function(data){
-     if(data) {
-     $('#ajxQuickMem').html(data);
-     }
-     });*/
     var mid = '';
     if (arguments[0] && $('#main-title-holder_' + arguments[0] + ' a').text() != '') {
         mid = arguments[0];
@@ -931,23 +904,11 @@ function creatask() {
         display: "block"
     });
 
-    /*if($('#new_case_more_div').is(':visible')){
-     $('#less_tsk_opt_div').show();
-     $('#more_tsk_opt_div').hide();
-     }else{
-     $('#less_tsk_opt_div').hide();
-     $('#more_tsk_opt_div').show();
-     }*/
-
-    /*if(!getCookie("crtdtsk_less") || getCookie("crtdtsk_less")!=1){
-     opencase();
-     }*/
     $("#footersection").hide();
 
     scrollPageTop();
     $('#CS_title').focus();
     openEditor('');
-//milstoneonTask();
 }
 
 function reloadTaskDetail(caseid) {
@@ -1030,16 +991,10 @@ function editask(csuid, projUid, projName) {
                 "pageload": 0
             }, function (data) {
                 if (data) {
-                    //$('#ajxQuickMem').html(data);
                     PUSERS = data.quickMem;
                     defaultAssign = data.defaultAssign;
                     dassign = data.dassign;
                     case_quick(res.data);
-                    //$('#prjchange_loader').hide();
-                    //$("#new_case_more_div").slideDown();
-                    //$("#more_tsk_opt_div").hide();
-                    //$("#less_tsk_opt_div").show();
-                    //scrollPageTop();
 
                     $('#CS_title').val(res.data.title);
                     $('#easycase_uid').val(csuid);
@@ -1075,31 +1030,6 @@ function editask(csuid, projUid, projName) {
                     $('#CS_milestone').html(res.data.milestone_id);
                 }
             });
-
-
-            // Moreoption content
-            /*$('#loadquick').show();
-             $.post(HTTP_ROOT+"easycases/case_quick",{'newcase':1,'sel_myproj':projFil,'csuniqid':csuid},function(data1){
-             $('#prjchange_loader').hide();
-             $("#new_case_more_div").slideDown(300);
-             $("#new_case_more_div").html(data1);
-             $("#more_tsk_opt_div").hide();
-             $("#less_tsk_opt_div").show();
-             $('[rel=tooltip], #main-nav span, .loader').tipsy({gravity:'s', fade:true});
-             $('#loadquick').hide();
-             $("#usedstorage").val($("#storageusedqc").val());
-             openEditor();
-             //Popup show
-             if(CONTROLLER == 'easycases' && PAGE_NAME == 'dashboard'){
-             $(".menu-files").removeClass('active');
-             $(".menu-cases").addClass('active');
-             $("#widgethideshow").hide();
-             }
-             $('#easycase_uid').val(csuid);
-             $('#CSeasycaseid').val(easycaseid);
-             $('.popup_overlay').hide();
-             $('.loader_dv_edit').hide();
-             });*/
         }, 'json');
     }
 }
@@ -1483,11 +1413,6 @@ function newUser() {
     $(".add_prj_usr").hide();
     openPopup();
     $(".new_user").show();
-    /*$('#inner_user').html('');
-     var strURL = HTTP_ROOT + "users/new_user";
-     
-     $.post(strURL, {}, function(data) {
-     if (data) {*/
     $(".loader_dv").hide();
 
     //setting default form field value
@@ -1497,11 +1422,8 @@ function newUser() {
     $('#sel_Typ').val(3);
 
     $('#inner_user').show();
-    //$('#inner_user').html(data);
     $("#txt_email").focus();
     getAutocompleteTag("sel_custprj", "users/getProjects", "340px", "Type to select projects");
-    /*}
-     });*/
 }
 
 //Multiple autocomplete with tagging.
@@ -1640,11 +1562,9 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
 
 /*search sliding*/
 function sch_slide() {
-    //$(".search_top").onClick(function(){
     $(".search_top").animate({
         width: '380px'
     }, 400);
-    // });
     $(".search_top").blur(function () {
         $(this).animate({
             width: '150px'
@@ -1753,7 +1673,6 @@ function search_project_menu(page, val, e) {
         if (key == 40) { // Down key
             if (!$('#' + menu_div_id + ' > a').length || $('#' + menu_div_id + '> a').filter('.popup_selected').is(':last-child')) {
                 $current = $('#ajaxViewProject > a').eq(0);
-                //$current.addClass('popup_selected');
             } else {
 
                 if ($('#' + menu_div_id + '> a').hasClass('popup_selected')) {
@@ -1772,7 +1691,7 @@ function search_project_menu(page, val, e) {
         $('#' + menu_div_id + ' > a').removeClass('popup_selected');
         $current.addClass('popup_selected');
     } else {
-        var caseMenuFilters = $('#caseMenuFilters').val();//alert(caseMenuFilters);
+        var caseMenuFilters = $('#caseMenuFilters').val();
         var strURL = HTTP_ROOT + "users/";
         if (val != "") {
             $('#load_find_dashboard').show();
@@ -1815,7 +1734,6 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
             $('#caseTypes').val("all"); // Filter by case Types
             $('#caseMember').val("all");  // Filter by Member
             $('#caseAssignTo').val("all");  // Filter by AssignTo
-            //$('#casePage').val("1"); // Pagination
             $('#case_srch').val("");
             $('#caseDateFil').val("");
             $('#status_all').attr('checked', 'checked');
@@ -1855,7 +1773,6 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
             remember_filters('reset', 'all');
         }
     } else {
-        //$('#casePage').val("1");
         casePage = 1;
     }
     casePage = 1;
@@ -1898,11 +1815,6 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
                     } else {
                         easycase.refreshTaskList();
                     }
-                    /*if($('#caseMenuFilters').val()=='kanban'){
-                     easycase.showKanbanTaskList('kanban');
-                     }else{
-                     ajaxCaseView('case_project');
-                     }*/
                 }
             }
         } else if (page == "milestone") {
@@ -1914,7 +1826,6 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
             $('#totalMlstCnt').val('0');
             updateProj(radio, projId);
             showMilestoneList();
-            //window.location.href = HTTP_ROOT + 'milestones/milestonelist';
         } else {
             window.location = HTTP_ROOT + 'dashboard/?project=' + projId;
         }
@@ -1932,7 +1843,6 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
             updateProj1('all');
             if (document.getElementById('caseMenuFilters').value == "files") {
                 easycase.showFiles("files");
-                //ajaxFileView('case_files');
             } else {
                 if ($('#caseMenuFilters').val() == 'milestonelist') {
                     $('#milestoneLimit').val('0');
@@ -2010,46 +1920,24 @@ function displayMenuProjects(page, limit, filter) {
 //Switch Project dropdown ends
 //Tab Bucket starts
 function caseMenuFileter(value, page, filters, caseid) {
-    //setMenuClass(value);//Not impl
     var url = HTTP_ROOT;
     var durl = document.URL;
     if (page == "dashboard") {
-        //document.getElementById('casePage').value = 1;
         casePage = 1;
         document.getElementById('caseMenuFilters').value = value;
-        /*if (value == "files") {//Not impl
-         if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
-         window.location = url + "dashboard?filters=" + value;
-         } else {
-         ajaxFileView('case_files');
-         document.getElementById('pageheading').innerHTML = 'Files';
-         }
-         
-         }
-         else*/ if (value == "assigntome") {
+        
+        if (value == "assigntome") {
             if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
                 window.location = url + "dashboard?filters=" + value;
             } else {
                 ajaxCaseView('case_project');
-                //document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Assigned To Me';
             }
         }
-        /*else if (value == "closecase") {//Not Impl
-         resetAllFilters('filters');
-         if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
-         window.location = url + "dashboard?filters=" + value;
-         } else {
-         ajaxCaseView('case_project');
-         document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Closed';
-         }
-         }*/
         else if (value == "overdue") {
-            //resetAllFilters('filters');
             if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
                 window.location = url + "dashboard?filters=" + value;
             } else {
                 ajaxCaseView('case_project');
-                //document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Bug';
             }
         }
         else if (value == "delegateto") {
@@ -2057,43 +1945,22 @@ function caseMenuFileter(value, page, filters, caseid) {
                 window.location = url + "dashboard?filters=" + value;
             } else {
                 ajaxCaseView('case_project');
-                //document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Delegated To Others';
             }
         }
-        /*else if (value == "latest") { //Not impl
-         if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
-         window.location = url + "dashboard?filters=" + value;
-         } else {
-         ajaxCaseView('case_project');
-         document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'Recent';
-         }
-         
-         }*/
         else if (value == "highpriority") {
             if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
                 window.location = url + "dashboard?filters=" + value;
             } else {
                 ajaxCaseView('case_project');
-                //document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'High Priority';
             }
 
         }
-        /*else if (value == "milestone") { //Not impl
-         if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
-         window.location = url + "dashboard?filters=" + value;
-         } else {
-         ajaxCaseView('case_project');
-         document.getElementById('pageheading').innerHTML = 'Milestone';
-         }
-         }*/
         else {
             if ((durl.indexOf('?case=') != -1) && (durl.indexOf('&project=') != -1)) {
                 window.location = url + "dashboard?filters=" + value;
             } else {
                 ajaxCaseView('case_project');
-                //document.getElementById('pageheading').innerHTML = 'Tasks' + img + 'All';
             }
-
         }
 
         strUrl = url + "easycases/";
@@ -2103,7 +1970,7 @@ function caseMenuFileter(value, page, filters, caseid) {
         if (value) {
             window.location = url + "dashboard?filters=" + value;
         }
-        else { //alert('dashboard');
+        else {
             window.location = url + "dashboard";
         }
     }
@@ -2200,15 +2067,6 @@ function checkPasswordMatch(a, b, c, d) {
                 document.getElementById(a).focus();
                 done = 0;
             }
-            /*else if (pass_new.length < 6) {
-             errMsg = "Password should be between 6-15 characters!";
-             document.getElementById(a).focus();
-             done = 0;
-             } else if (pass_new.length > 15) {
-             errMsg = "Password should be between 6-15 characters!";
-             document.getElementById(a).focus();
-             done = 0;
-             }*/
             else if (retypr_pass.trim() == "") {
                 errMsg = "Confirm Password cannot be  blank!";
                 document.getElementById(b).focus();
@@ -2234,15 +2092,6 @@ function checkPasswordMatch(a, b, c, d) {
             document.getElementById(a).focus();
             done = 0;
         }
-        /*else if (pass_new.length < 6) {
-         errMsg = "Password should be between 6-15 characters!";
-         document.getElementById(a).focus();
-         done = 0;
-         } else if (pass_new.length > 15) {
-         errMsg = "Password should be between 6-15 characters!";
-         document.getElementById(a).focus();
-         done = 0;
-         }*/
         else if (retypr_pass.trim() == "") {
             errMsg = "Confirm Password cannot be  blank!";
             document.getElementById(b).focus();
@@ -2266,7 +2115,6 @@ function checkPasswordMatch(a, b, c, d) {
 //Profile image Starts
 function openProfilePopup() {
     $("#upldphoto").trigger('click');
-//loadprofilePopup();
 }
 
 function loadprofilePopup() {
@@ -2278,7 +2126,6 @@ function loadprofilePopup() {
     });
     $(".prof_img").show();
 
-    //$('#up_files1').html('');
     $('#up_files_usr').html('');
     $("#actConfirmbtn").hide();
     $("#inactConfirmbtn").show();
@@ -2294,7 +2141,6 @@ function profilePopupCancel() {
     $('#profilephoto').imgAreaSelect({
         hide: true
     });
-    //$('#up_files1').html('');
     $('#up_files_usr').html('');
     closePopup();
 }
@@ -2314,8 +2160,6 @@ $(function () {
         }
     });
     $('#file_upload1').fileUploadUI({
-        //uploadTable: $('#up_files1'),
-        //downloadTable: $('#up_files1'),
         uploadTable: $('#up_files_usr'),
         downloadTable: $('#up_files_usr'),
         buildUploadRow: function (files, index) {
@@ -2338,7 +2182,6 @@ $(function () {
                     }
 
                     var imgNm = HTTP_ROOT + "files/profile/orig/" + file.filename;
-                    //$('#up_files1').html('<img src="' + imgNm + '" id="profilephoto">');
                     $(' #up_files_usr').html('<img src="' + imgNm + '" id="profilephoto">');
                     $("#imgName1").val(file.filename);
                     $("#profLoader").hide();
@@ -2407,7 +2250,6 @@ function profilePopupClose() {
     $('#profilephoto').imgAreaSelect({
         hide: true
     });
-    //$('#up_files1').html('');
     $('#up_files_usr').html('');
     closePopup();
 }
@@ -2430,15 +2272,10 @@ function doneCropImage() {
         }, function (res) {
             if (res) {
                 profilePopupClose();
-                /*if ($("#existProfImg").length) {
-                 $("#existProfImg").hide();
-                 }*/
                 $("#defaultUserImg").hide();
                 $('#profilephoto').imgAreaSelect({
                     hide: true
                 });
-                //$("#profDiv").html('');
-                //$("#profDiv").html('<img src="' + url + 'files/profile/thumb/' + res + '" alt="testimg">');
                 $("#imgName1").val(res);
                 $("#submit_Profile").trigger('click');
                 $('#file_confirm_btn_loader').hide();
@@ -2496,7 +2333,7 @@ function EditTaskTemp(tempId, tasktempname, pagenum) {
         "tempId": tempId,
         "pagenum": pagenum
     }, function (data) {
-        if (data) { //alert(data['CaseTemplate']['id']);
+        if (data) { 
             $(".loader_dv_task").hide();
             $("#tasktemptitle_edit").val(data['CaseTemplate']['name']);
             $("#desc_edit").val(data['CaseTemplate']['description']);
@@ -2509,7 +2346,6 @@ function EditTaskTemp(tempId, tasktempname, pagenum) {
             $(".popup_bg").css({
                 "width": '850px'
             });
-            //$('#inner_prj_edit').html(data);
         }
     }, 'json');
 }
@@ -3138,7 +2974,6 @@ function ajaxCaseSearch() {
         $('#ajax_search').show();
     }
 
-    //$('#casePage').val('1');
     casePage = 1;
     $('#closesrch').hide();
 
@@ -3194,16 +3029,13 @@ function searchTasks(caseno, uniq_id) {
 function searchFile(file_id, uniq_id, file_srch) {
     $("#ajax_search").hide();
     $("#case_search").val("");
-    //if (file_id.trim() != "") {
     if (uniq_id.trim() != "") {
         var projFil = uniq_id.trim();
     } else {
         var projFil = $('#projFil').val();
     }
     var strURL = HTTP_ROOT + "easycases/";
-    //$('#casePage').val(1);
     casePage = 1;
-    //var casePage = $('#casePage').val(); // Pagination
     $('#caseLoader').show();
     var projIsChange = $('#projIsChange').val();
     var fileUrl = strURL + "case_files";
@@ -3236,9 +3068,6 @@ function searchFile(file_id, uniq_id, file_srch) {
         })
     });
     remember_filters('ALL_PROJECT', '');
-    /*}else{
-     $('#case_search').focus();
-     }*/
 }
 function searchMilestone(file_id, uniq_id, file_srch, isActive) {
     if (!file_srch) {
@@ -3246,7 +3075,6 @@ function searchMilestone(file_id, uniq_id, file_srch, isActive) {
     }
     isActive = (isActive != '') ? isActive : 1;
     $('#search_text').val(file_srch);
-    //    $('#filter_section').show();
     $('#milestone_content').css('margin-top', '50px');
     $('#show_search').html("Search Results for:<span> " + file_srch + '</span>');
     $('#resetting').html(' &nbsp;<a href="javascript:void(0);" onclick="resetMilestoneSearch();"> Reset </a>');
@@ -3260,34 +3088,12 @@ function searchMilestone(file_id, uniq_id, file_srch, isActive) {
     }
     $('#caseLoader').show();
     if ($('#view_type').val() == 'kanban') {
-        //              var strURL = HTTP_ROOT+"milestones/";
-        //                casePage = 1;
 
         var projIsChange = $('#projIsChange').val();
         //    var fileUrl = strURL+"ajax_milestonelist";
         search_key = file_srch;
         showMilestoneList(3, isActive, '', file_srch);
-        //    $.post(fileUrl,{
-        //        "projFil":projFil,
-        //        "projIsChange":projIsChange,
-        //        "casePage":casePage,
-        //        "caseFileId":file_id,
-        //        "file_srch":search_key,
-        //        'isActive':isActive
-        //    },function(res) {
-        //        if(res){
-        //            res.isActive=isActive;
-        //            $('#srch_load1').hide();
-        //            $('#caseLoader').hide();
-        ////            $("#caseFileDv").show();
-        //            var params = parseUrlHash(urlHash);
-        //            if(params!= "milestonelist") {
-        //                parent.location.hash = "milestonelist";
-        //            }
-        //            var result = document.getElementById('show_milestonelist');
-        //            result.innerHTML = tmpl("milestonelist_tmpl",res);
-        //          }
-        //    });
+        
     } else {
         if ($('#storeIsActivegrid').val() == '' || $('#storeIsActivegrid').val() == 1) {
             ManageMilestoneList(1, file_srch);
@@ -3297,18 +3103,6 @@ function searchMilestone(file_id, uniq_id, file_srch, isActive) {
         }
     }
     $('#srch_load1').hide();
-//            scrollPageTop($("#caseFileDv"));
-
-//        loadCaseMenu(strURL+"ajax_case_menu", {
-//            "projUniq":uniq_id,
-//            "pageload":0,
-//            "page":"dashboard"
-//        })
-
-//    remember_filters('ALL_PROJECT','');
-    /*}else{
-     $('#case_search').focus();
-     }*/
 }
 function validateSearch() {
     $('#ajax_search').hide();
@@ -3350,7 +3144,6 @@ function goForSearch(e, click) {
     var done = 0;
     if (e) {
         var unicode = e.charCode ? e.charCode : e.keyCode;
-        //        return false;
         if (unicode == 13) {
             if (focusedRow !== null) {
                 if ($('.ajx-srch-tbl tr').hasClass("selctd-srch")) {
@@ -3451,7 +3244,6 @@ function submitCompany() {
     var phone = $("#contact_phone").val();
     var errMsg;
     var done = 1;
-    //var regUrl = "^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)";
     var regUrl = /^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/i;
     var rxAlphaNum = /^([0-9\(\)-]+)$/;
 
@@ -3696,11 +3488,9 @@ function arrayRemove(str, rmvstr) {
         for (var i = 0; i < array.length; i++) {
             var ToCamelCaseTitle = toTitleCase(array[i]); //Function is require to camelcase the name of the remaining projects
             string = string + ", " + ToCamelCaseTitle;
-            //string = string +", "+array[i].charAt(0).toUpperCase()+ array[i].slice(1);
         }
         if (string) {
             string = string.replace(', ', '');
-            //string = shortLength(string,20)
         }
     }
     return string;
@@ -3729,18 +3519,14 @@ function removeprojects() {
 
     project_name = project_name.replace(', ', '');
     remaining_projects = arrayRemove(all_project, project_name);
-    //alert(project_name);alert(all_project);
     if (done) {
         if (confirm("Are you sure you want to remove '" + project_name + "' from '" + rmv_user_name + "'?")) {
             $('#inner_usr_prj_rmv input:checked').each(function () {
                 if ($(this).attr('id') !== 'checkAllprojects') {
                     var listid = $(this).attr('id');
                     var project_id = $(this).attr('value');
-                    //var listing = $("#"+listid).parents("tr").attr('id');
                     var listing = $(this).parents("tr").attr('id');
-                    //$("#" + listid).prop('checked',false);
                     $(this).prop('checked', false);
-                    //$("#" + listing).fadeOut(1000);
                     $(this).parents("tr").fadeOut(1000);
                     $(this).parents("tr").remove();
                     enableAddPrjBtns('.removePrjFromuser');
@@ -3753,7 +3539,6 @@ function removeprojects() {
                         "is_invite_user": is_invite_user
                     }, function (data) {
                         if (data) {
-                            //$("#" + listing).remove();
 
                         }
                     });
@@ -3768,7 +3553,6 @@ function removeprojects() {
                 closePopup();//remaining_projects
             }
             /* Require to display the Remaining projects on the project delete starts here */
-            //alert(remaining_projects);
             if (remaining_projects) {
                 $("#rmv_allprj_" + user_id).val(remaining_projects);
                 $("#remain_prj_" + user_id).html("Projects: <span class='fnt13'>" + shortLength(remaining_projects, 20) + "</span>");
@@ -4015,56 +3799,6 @@ function delegateactivities(myTab, delegatedTab) {
         loadUpcoming('delegated');
     }
 }
-/*function loadActivity(type) {
- var displayed = $("#displayed").val();
- var prj_id = $("#prjid").val();
- var limit1, limit2, projid;
- if(type == "more") {
- limit1 = displayed;
- limit2 = 10;
- projid = prj_id;
- } else {
- limit1 = 0;
- limit2 = 29;
- projid = prj_id;
- }
- if(type == "more") {
- $(".morebar").show();
- } else {
- $("#moreloader").show();
- }
- var strURL = HTTP_ROOT+"users/ajax_activity/";
- $("#PieChart").hide();
- $.post(strURL,{'type':type,'limit1':limit1,'limit2':limit2,'projid':projid}, function(res){
- 
- if(type == "more") {
- $(".morebar").hide();
- var data = tmpl("ajax_activity_tmpl", res);
- $("#activities").append(data);
- $("img.lazy").lazyload({ placeholder : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" });
- var displayed = $("#displayed").val();
- var newdisplayed = (parseInt(displayed)+1)+10;
- $("#displayed").val(newdisplayed);
- if(prj_id == 'all') {
- $(".prj_dvs").show();
- }
- } else {
- $("#moreloader").hide();
- var result = document.getElementById('activities');
- result.innerHTML = tmpl("ajax_activity_tmpl", res);
- $("img.lazy").lazyload({ placeholder : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" });
- if(prj_id == 'all') {
- $(".prj_dvs").show();
- }
- }
- setStatus();
- var totalact = $("#totalact").val();
- if(parseInt(totalact) > 0) {
- $('#PieChart').load(HTTP_ROOT+'users/activity_pichart',{'pjid':projid});
- $("#PieChart").show();
- }
- });
- }*/
 
 var globalTimeoutArcCase = null;
 var globalTimeoutArcFile = null;
@@ -4094,7 +3828,6 @@ $(document).ready(function () {
             } else if (usersListData == 1) {
                 var totalUsersData = $("#total_users_count").val();
                 var displayedUsersData = $("#displayed_users_count").val();
-                //alert(totalUsersData);alert(displayedUsersData);
                 if (parseInt(totalUsersData) > parseInt(displayedUsersData)) {
                     if (globalTimeoutUsers != null)
                         clearTimeout(globalTimeoutUsers);
@@ -4141,28 +3874,8 @@ function setStatus() {
         $("#" + id).html(status);
     });
 }
-/*function loadOverdue(type) {
- $("#moreOverdueloader").show();
- $("#Overdue").html('');
- var prj_id = $("#prjid").val();
- var projid = prj_id;
- var strURL = HTTP_ROOT+"users/ajax_overdue/";
- $.post(strURL,{'type':type,'projid':projid}, function(res){
- $("#Overdue").html(res);
- $("#moreOverdueloader").hide();
- });
- }
- function loadUpcoming(type) {
- $("#moreOverdueloader").show();
- $("#Upcoming").html('');
- var prj_id = $("#prjid").val();
- var projid = prj_id;
- var strURL = HTTP_ROOT+"users/ajax_upcoming/";
- $.post(strURL,{'type':type,'projid':projid}, function(res){
- $("#Upcoming").html(res);
- $("#moreOverdueloader").hide();
- });
- }*/
+
+
 function loadMembers(type) {
     var prj_id = $("#prjid").val();
     var projid = prj_id;
@@ -4310,17 +4023,6 @@ function validateDailyMail() {
         errMsg = "Please select project.";
         done = 0;
     }
-    /*if(parseInt(is_project_members)){
-     if ($('.prj_users:checked').length){
-     done = 1;
-     }else{
-     errMsg = "Please choose atleast one user.";
-     done = 0;
-     }
-     }else{
-     errMsg = "No users assigned to this Project!";
-     done = 0;
-     }*/
 
     if ($('.prj_users:checked').length == 0) {
         errMsg = "Please choose atleast one user.";
@@ -4361,7 +4063,7 @@ function openEditor(editormessage) {
     $("#divNewCase").hide();
     $("#divNewCaseLoader").show();
     (function ($) {
-        if (typeof (tinymce) != "undefined") {//console.log('Inside remove123---');
+        if (typeof (tinymce) != "undefined") {
             tinymce.execCommand('mceRemoveControl', true, 'CS_message'); // remove any existing references
         }
 
@@ -4384,7 +4086,6 @@ function openEditor(editormessage) {
             oninit: function () {
                 $("#divNewCaseLoader").hide();
                 $("#divNewCase").show();
-                //$('#CS_message').tinymce().focus();
                 $('#CS_message').val(editormessage);
                 $('#CS_message').tinymce().setContent(editormessage);
                 $("#tmpl_open").show();
@@ -4507,7 +4208,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             var plane = "plane" + CS_id;
             if ($('#' + html).is(":visible")) {
                 var txa_comments = "txa_comments" + CS_id;
-                CS_message = $('#' + txa_comments).html();//document.getElementById(txa_comments).value;
+                CS_message = $('#' + txa_comments).html();
             } else {
                 var txa_plane = "txa_plane" + CS_id;
                 CS_message = nl2br($.trim(document.getElementById(txa_plane).value));
@@ -4575,12 +4276,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
         try {
             if (done == 1) {
                 if ((typeof (gFileupload) != 'undefined') && gFileupload == 0) {
-                    /*if(confirm("Files upload is in progress... Are you sure you want to post?")){
-                     done = 1;
-                     gFileupload = 1;
-                     }else{
-                     done = 0;
-                     }*/
                     alert('Oops! File upload is in Progress');
                     document.getElementById('quickcase').style.display = 'block';
                     return false;
@@ -4619,12 +4314,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     var total_size = parseFloat(storage_used) + parseFloat(file_size / 1024);
                     total_size = total_size.toFixed('2');
                     done = 1;
-                    /*if(parseFloat(total_size) <= parseFloat(storage_max)){
-                     done = 1;
-                     }else{
-                     done = 0;
-                     alert("Storage limit exceeded!\nUpgrade your account to get more storage.\n\nOR, remove any of the attached file.");
-                     }*/
                 }
             }
         }
@@ -4741,7 +4430,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
 
                         document.getElementById('quickcase').style.display = 'block';
                         document.getElementById('quickloading').style.display = 'none';
-                        //document.getElementById('new_case_more_div').innerHTML="";
                         document.getElementById('CS_title').value = "";
                         if (CONTROLLER == 'easycases' && PAGE_NAME == 'dashboard') {
                             crt_popup_close();
@@ -4766,7 +4454,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         }
                         var CS_project_id = document.getElementById('CS_project_id').value;
                     } else {
-                        //updateCaseListing(CS_id,cnt,postdata,dtls,CS_assign_to,data.format,CS_legend,prelegend);
                         easycase.refreshTaskList(uniqid);
 
                         showTopErrSucc('success', 'Your reply is posted.');
@@ -4843,10 +4530,8 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                             'milestoneIds': milestoneIds,
                             'checktype': checktype
                         }, function (data) {
-                            //$.post(url,{"projUniq":CS_project_id,"pageload":1,"caseMenuFilters":caseMenuFilters}, function(data)
                             if (data) {
 
-                                //$('#ajaxCaseStatus').html(data);
                                 $('#ajaxCaseStatus').html(tmpl("case_widget_tmpl", data));
 
                                 $('[rel=tooltip], #main-nav span, .loader').tipsy({
@@ -4901,13 +4586,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     //check size
                     check_proj_size();
 
-                    /*$.post(HTTP_ROOT+"easycases/ajax_case_menu",{"projUniq":CS_project_id,"pageload":1,"page":"dashboard"}, function(res){
-                     if(res) {
-                     $('#ajaxMenucaseNo').html(res);
-                     $('[rel=tooltip], #main-nav span, .loader').tipsy({gravity:'s', fade:true});
-                     }
-                     });*/
-
 
                 }
 
@@ -4925,7 +4603,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                 $('#defaultmem').show();
 
             }, 'json');
-            //ajaxCaseView('case_project.php');
         }
         else {
             return false;
@@ -4937,7 +4614,6 @@ function blur_txt() {
         color: "#666666"
     });
     if ($("#CS_title").val() == "") {
-        //$("#CS_title").val("Add a task here and hit enter...");
     }
     if ($("#CS_title").val() != "Add a task here and hit enter...") {
         $("#CS_title").css({
@@ -4948,7 +4624,6 @@ function blur_txt() {
 function checkAllProj() {
     var projFil = document.getElementById('CS_project_id').value; // Project Uniq ID
     if (projFil == 'all') {
-        //alert('Oops! you have not selected any project.');
         document.getElementById('projAllmsg').style.display = 'block';
         return false;
     } else {
@@ -5009,7 +4684,6 @@ function search_project_easypost(val, e) {
         if (key == 40) { // Down key
             if (!$('#' + menu_div_id + ' > a').length || $('#' + menu_div_id + '> a').filter('.popup_selected').is(':last-child')) {
                 $current = $('#ajaxaftersrchc > a').eq(0);
-                //$current.addClass('popup_selected');
             } else {
                 if ($('#' + menu_div_id + '> a').hasClass('popup_selected')) {
                     $current = $('#' + menu_div_id + '> a').filter('.popup_selected').next('hr').next('a');
@@ -5049,23 +4723,6 @@ function search_project_easypost(val, e) {
     }
 
 
-
-//	var strURL = HTTP_ROOT+"users/";
-//	if(val!=""){
-//	     $('#load_find_addtask').show();
-//	     $.post(strURL+"search_project_menu",{"val":val}, function(data){
-//		       if(data) {
-//			     $('#ajaxaftersrchc').show();
-//			     $('#ajaxbeforesrchc').hide();
-//			     $('#ajaxaftersrchc').html(data);
-//			     $('#load_find_addtask').hide();
-//		       }
-//	     });
-//     }else{
-//	     $('#ajaxaftersrchc').hide();
-//	     $('#ajaxbeforesrchc').show();
-//	     $('#load_find_addtask').hide();
-//	}
 }
 function createCookie(name, value, days, domain) {
     var expires;
@@ -5107,10 +4764,6 @@ function hideEditFile(id, div, storage, caseFileId) {
         var newstorage = usedstorage - storage;
         $("#usedstorage").val(newstorage);
     }
-    //	$.post(strURL+"fileremove",{"filename":x},function(data) {
-    //		if(data) {
-    //		}
-    //	});
     var remfile = $('#editRemovedFile').val();
     if (remfile) {
         $('#editRemovedFile').val(remfile + "," + caseFileId);
@@ -5185,8 +4838,6 @@ function removeAllReply(CS_id) {
     } else {
         $('#' + CS_id + 'chkAllRep').removeAttr("checked");
     }
-//		var allchk = CS_id+'chkAllRep';
-//		document.getElementById(allchk).checked = false;
 }
 function showHideMemDtls(cls) {
     if ($('.' + cls).css('display') == 'none') {
@@ -5242,10 +4893,6 @@ function showProjectName(name, id, mid) {
             }
         });
         $('#prjchange_loader').hide();
-        /*if(!getCookie("crtdtsk_less") || getCookie("crtdtsk_less")!=1){
-         opencase();
-         }*/
-        //scrollPageTop();
     } else {
         // Quick case User Listing
         var url = HTTP_ROOT + "easycases/ajax_quickcase_mem";
@@ -5257,13 +4904,8 @@ function showProjectName(name, id, mid) {
                 PUSERS = data.quickMem;
                 defaultAssign = data.defaultAssign;
                 dassign = data.dassign;
-                //$('#ajxQuickMem').html(data);
                 case_quick();
                 $('#prjchange_loader').hide();
-                /*if(!getCookie("crtdtsk_less") || getCookie("crtdtsk_less")!=1){
-                 opencase();
-                 }*/
-                //scrollPageTop();
             }
         });
     }
@@ -5272,71 +4914,17 @@ function showProjectName(name, id, mid) {
     } else {
         milstoneonTask();
     }
-// Quick case User Listing
-    /*var url = HTTP_ROOT+"easycases/ajax_default_email";
-     $.post(url,{"projUniq":id,"pageload":0}, function(data){
-     if(data) {
-     $('#displayMembers').html(data);
-     if($('#totaldefault').val() != 0) {
-     $('#defaultmem').show();
-     }
-     else {
-     $('#defaultmem').hide();
-     }
-     }
-     });*/
-//opencase('changeproj');
 }
 // Quick case
 function opencase(type) {
-    /*if($('#new_case_more_div').html() == "" || type == "changeproj") {
-     $('#loadquick').show();
-     
-     var sel_myproj = $("#CS_project_id").val();
-     var url = HTTP_ROOT;
-     casequick = url+"easycases/";
-     $.post(casequick+"case_quick",{newcase:1,sel_myproj:sel_myproj},function(res){
-     $('#prjchange_loader').hide();
-     $("#new_case_more_div").slideDown(300);
-     $("#new_case_more_div").html(res);
-     $("#more_tsk_opt_div").hide();
-     $("#less_tsk_opt_div").show();
-     $('[rel=tooltip], #main-nav span, .loader').tipsy({gravity:'s', fade:true});
-     $('#loadquick').hide();
-     $("#usedstorage").val($("#storageusedqc").val());
-     //$("#new_case_more_div").slideDown(300);
-     //$("#wrapper").css({minHeight:"960px"});
-     });
-     }else {
-     if($('#new_case_more_div').is(":visible")){
-     $("#new_case_more_div").slideUp();
-     $("#more_tsk_opt_div").show();
-     $("#less_tsk_opt_div").show();
-     $('[rel=tooltip], #main-nav span, .loader').tipsy({gravity:'s', fade:true});
-     //$("#wrapper").css({minHeight:"960px"});
-     }else{
-     $("#new_case_more_div").slideDown();
-     $("#more_tsk_opt_div").hide();
-     $("#less_tsk_opt_div").show();
-     //$("#wrapper").css({minHeight:"960px"});
-     }
-     }*/
-    /*if(typeof type != 'undefined' && type=='click'){
-     createCookie("crtdtsk_less", '1', -365, DOMAIN_COOKIE);
-     }*/
     $("#new_case_more_div").slideDown();
     $("#more_tsk_opt_div").hide();
     $("#less_tsk_opt_div").show();
-//scrollPageTop();
 }
 // Create Task Scroll top
 function scrolltop() {
     scrollPageTop();
 }
-//function select_notify_member(){
-//	 $('#custm_email_list_div').show();
-//	 getAutocompleteTag("custom_email_list", "users/getProjects", "340px", "Type to select projects");
-//}
 // Daily Update Alerts ends
 
 function scrollPageTop(el) {
@@ -5421,7 +5009,6 @@ function notifyMe(title, desc, icon) {
     //https://developer.mozilla.org/en/docs/Web/API/notification
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
-        //alert("This browser does not support desktop notification");
     }
 
     // Let's check if the user is okay to get some notification
@@ -5435,7 +5022,6 @@ function notifyMe(title, desc, icon) {
     // So we have to check for NOT 'denied' instead of 'default'
     else if (Notification.permission !== 'denied') {
         Notification.requestPermission(function (permission) {
-            //alert(permission);
             // Whatever the user answers, we make sure we store the information
             if (!('permission' in Notification)) {
                 Notification.permission = permission;
@@ -5487,9 +5073,7 @@ function closecase() {
     $("#new_case_more_div").slideUp(200);
     $("#more_tsk_opt_div").show();
     $("#less_tsk_opt_div").hide();
-    //$("#wrapper").css({minHeight:"550px"});
     scrollPageTop();
-//createCookie("crtdtsk_less", '1', 365, DOMAIN_COOKIE);
 }
 function open_more_opt(more_opt) {
     $('.more_opt').filter(':not(#' + more_opt + ')').children('ul').hide();
@@ -5609,7 +5193,6 @@ function delMilestone(obj, name, uniqid) {
         var name = decodeURIComponent($(obj).attr("data-name"));
     }
     if (confirm("Are you sure you want to delete milestone '" + name + "' ?")) {
-        //window.location.href = HTTP_ROOT+"milestones/delete_milestone/"+uniqid;
         var loc = HTTP_ROOT + "milestones/delete_milestone/";
         $.post(loc, {
             'uniqid': uniqid
@@ -5660,7 +5243,6 @@ function milestoneArchive(obj, uniqid, title) {
                 }
             }
         }, 'json');
-        //window.location = loc;
     }
     refreshMilestone = 1;
     return false;
@@ -5699,7 +5281,6 @@ function milestoneRestore(obj, uniqid, title) {
             }
         }, 'json');
         refreshMilestone = 1;
-        //window.location = loc;
     } else {
         return false;
     }
@@ -5935,9 +5516,6 @@ function assignCaseToMilestone(el) {
                 } else if ($('#caseMenuFilters').val() == 'kanban') {
                     easycase.showKanbanTaskList();
                 }
-                /*if(PAGE_NAME=='milestonelist'){
-                 window.location.reload();
-                 }*/
             }
         });
     } else {
@@ -5952,9 +5530,6 @@ function view_project_milestone() {
         $("#mlstnpopup").show();
     }
     var project_id = $('#project_id').val();
-    /*if ($('#ajaxViewMilestonesCP').html()) {
-     $('#loader_mlsmenu').hide();
-     } else {*/
     $('#ajaxViewMilestones').html('');
     $('#loader_mlsmenu').show();
     $.post(HTTP_ROOT + "milestones/ajax_milestone_menu", {
@@ -5965,7 +5540,6 @@ function view_project_milestone() {
             $('#loader_mlsmenu').hide();
         }
     });
-//}
 }
 
 function caseMilestone(pjid, pname, page) {
@@ -6020,7 +5594,6 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
         $('#mlstab_cmpl_kanban').removeClass('active')
         $('#mlstab_act_kanban').addClass('active')
     }
-    //var morecontent ='';var newTask_limit=0;var inProgressTask_limit=0;var resolvedTask_limit=0;var closedTask_limit=0;
     $('#mlview_btn,mkbview_btn').tipsy({
         gravity: 'n',
         fade: true
@@ -6047,8 +5620,6 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
     var case_date = $('#caseDateFil').val(); // Search by Date
     var case_due_date = $('#casedueDateFil').val(); // Search by Date
     var case_srch = $('#case_srch').val();
-    //displayMenuProjects('dashboard', '6', 'files');
-    //var caseId = document.getElementById('caseId').value; // Close a case
 
     var mlimit = ((isActive == 0 || isActive == 1) && pointer != 1) ? 0 : $('#milestoneLimit').val();
     var mURL = HTTP_ROOT + "milestones/ajax_milestonelist";
@@ -6074,7 +5645,6 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
         'isActive': isActive,
         'file_srch': search_key
     }, function (res) {
-        //	   alert(JSON.stringify(res));
         if (res) {
             res.isActive = isActive;
             refreshMilestone = 0;
@@ -6112,10 +5682,7 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
             }
 
             var result = document.getElementById('show_milestonelist');
-            //			alert(JSON.stringify(res));
             result.innerHTML = tmpl("milestonelist_tmpl", res);
-            //                       alert('here');
-            //scrollPageTop($("#kanban_list"));
 
             var settings = {
                 autoReinitialise: true
@@ -6171,7 +5738,6 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
             });
             var clearCaseSearch = $('#clearCaseSearch').val();
             $('#clearCaseSearch').val("");
-            //resetBreadcrumbFilters(HTTP_ROOT+'easycases/',caseStatus,priFil,caseTypes,caseMember,caseAssignTo,0,case_date,case_due_date,casePage,caseSearch,clearCaseSearch,'kanban','');
 
             $('[rel=tooltip]').tipsy({
                 gravity: 's',
@@ -6185,7 +5751,6 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
         remember_filters('ALL_PROJECT', '');
     }
     $('#manage_milestonelist').css('display', 'block');
-//$('#filter_section').show();
 }
 /* Code for Milestone Kanban View starts */
 ManageMilestoneList = function (mlsttype, search_key) {
@@ -6251,7 +5816,6 @@ ManageMilestoneList = function (mlsttype, search_key) {
                 }, 400);
             });
             $('#clearCaseSearch').val("");
-            //resetBreadcrumbFilters(HTTP_ROOT+'easycases/',caseStatus,priFil,caseTypes,caseMember,caseAssignTo,0,case_date,case_due_date,casePage,caseSearch,clearCaseSearch,'kanban','');
             $('[rel=tooltip]').tipsy({
                 gravity: 's',
                 fade: true
@@ -6273,7 +5837,6 @@ function trackclick(msg) {
 
 //Dashboard page Starts
 $(function () {
-    //$( ".sortable" ).disableSelection();
     $(".sortable").sortable({
         connectWith: ".sortable",
         handle: ".portlet-header",
@@ -6305,8 +5868,6 @@ function CaseDashboard(pjid, pname) {
 }
 
 function loadDashboardPage(projid) {
-    //var order = $("#seq_order").attr("data-order");
-    //var sequency = order.split(",");
 
     if (projid == 'all') {
         remember_filters('ALL_PROJECT', 'all');
@@ -6561,7 +6122,6 @@ function showTasks(arg) {
     } else if (arg == 'activities') {
         action = 'activities';
     }
-    //createCookie("ALL_PROJECT", 'all', 365, DOMAIN_COOKIE);
     window.location = HTTP_ROOT + 'dashboard#' + action;
 }
 //Dashboard page Ends
@@ -6707,7 +6267,6 @@ function removeTaskFromMilestone(obj) {
         "margin-top": "6px"
     });
     $("#rmv_case_loader").show();
-    //$("#mlstnpopup").hide();
     $("#addtsk").css({
         'cursor': 'default'
     });
@@ -6757,18 +6316,7 @@ function removecaseFromMilestone(obj) {
                 if (data == "success") {
                     var total_tasks = parseInt(caseid.length) + parseInt($("#tot_tasks_rt" + milestone_id).text());
                     $("#tot_tasks" + milestone_id).html(total_tasks);
-                    /*if (el && el.id == "addtskncont") {
-                     $("#addtsk").css({'cursor': 'default'});
-                     $("#addtskncont").css({'cursor': 'default'});
-                     $("#tsk_name").val('');
-                     $.post(HTTP_ROOT + 'milestones/remove_case', {"mstid": milestone_id, "projid": project_id,}, function(data) {
-                     if (data) {
-                     $('#inner_mlstn_case').html(data);
-                     }
-                     });
-                     }else {*/
                     closePopup();
-                    //}
                     $('#tskloader').hide();
                     $("#confirmbtntsk").show();
                     showTopErrSucc('success', 'Task removed successfully.');
@@ -6779,9 +6327,6 @@ function removecaseFromMilestone(obj) {
                     } else if ($('#caseMenuFilters').val() == 'kanban') {
                         easycase.showKanbanTaskList();
                     }
-                    /*if(PAGE_NAME=='milestonelist'){
-                     window.location.reload();
-                     }*/
                 }
             });
         } else {
@@ -6824,13 +6369,6 @@ function calendarView(type) {
         easycase.routerHideShow('calendar');
         var type = 'calendar';
         var params = parseUrlHash(urlHash);
-        /*var milestone_uid = $('#milestoneUid').val();
-         if(params[1]){
-         milestone_uid = params[1];
-         $('#milestoneUid').val(params[1]);
-         if(($('#caseMenuFilters').val() =='milestone') || ($('#caseMenuFilters').val()=='milestonelist'))
-         $('#refMilestone').val($('#caseMenuFilters').val());
-         }*/
         $('#select_view div').tipsy({
             gravity: 'n',
             fade: true
@@ -6838,15 +6376,11 @@ function calendarView(type) {
         var globalkanbantimeout = null;
         var morecontent = '';
         if (type == 'calendar') {
-            //crt_popup_close();
             $('#select_view div').removeClass('disable');
             $('#calendar_btn').addClass('disable');
-            //easycase.routerHideShow('calendar');
             $("#caseMenuFilters").val('calendar');
-            //$(".menu-cases").addClass('active');
             $(".menu-files").removeClass('active');
             $(".menu-milestone").removeClass('active');
-            //$("#brdcrmb-cse-hdr").html('Tasks');
             milestone_uid = '';
         }
         var strURL = HTTP_ROOT + "easycases/";
@@ -6864,12 +6398,9 @@ function calendarView(type) {
         var case_date = $('#caseDateFil').val(); // Search by Date
         var case_due_date = $('#casedueDateFil').val(); // Search by Date
         var case_srch = $('#case_srch').val();
-        //displayMenuProjects('dashboard', '6', 'files');
         var caseId = document.getElementById('caseId').value; // Close a case
         var strURL = HTTP_ROOT + "easycases/";
         var tskURL = strURL + "calendarView";
-        //easycase.routerHideShow('calendar');
-        //$('#caseLoader').show();
         $.post(tskURL, {
             "projFil": projFil,
             "projIsChange": projIsChange,
@@ -6887,8 +6418,6 @@ function calendarView(type) {
             'morecontent': '',
             'milestoneUid': milestone_uid
         }, function (res) {
-            //$.post(tskURL,{},function(res){
-            //$('#caseLoader').hide();
             $('#calendar_view').show();
             $('#calendar_view').html(res);
             loadCaseMenu(strURL + "ajax_case_menu", {
