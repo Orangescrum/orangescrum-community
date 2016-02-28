@@ -4,6 +4,7 @@ $(document).keydown(function (evt) {
         closePopup();
     }
 });
+
 $(document).ready(function () {
     //Assign & Remove Project check box events on manage project section
     checkboxCheckUncheck('#checkAllprojects', '.removePrjFromuser', '.tr_all', 'tr_active');
@@ -57,10 +58,13 @@ function trackLogin() {
     });
 }
 
+
 function getHash(window) {
     var match = (window || this).location.href.match(/#(.*)$/);
     return match ? match[1] : '';
 }
+
+
 function checkUrl() {
     if (curr_location === (window || this).location.href) {
         return false;
@@ -72,11 +76,13 @@ function checkUrl() {
     }
 }
 
+
 function parseUrlHash(hash) {
     var urlVars = {};
     var params = (hash.substr(0)).split("/");
     return params;
 }
+
 
 /* Routing on Task & Files Menu */
 function checkHashLoad(type) {
@@ -150,6 +156,7 @@ function checkHashLoad(type) {
     }
 }
 /* End */
+
 
 function routeOSHash() {
     $('#show_search_kanban').html('');
@@ -343,6 +350,7 @@ function routeOSHash() {
     }
 }
 
+
 function closePopup() {
     if ($('#pagename').val() == 'profile') {
         $('#profilephoto').imgAreaSelect({
@@ -363,6 +371,7 @@ function closePopup() {
 
 }
 
+
 function closePopupEdit() {
     $(".popup_overlay").css({
         display: "block"
@@ -378,6 +387,8 @@ function closePopupEdit() {
     $(".remove_from_task").show();
     $(".task_project_edit").hide();
 }
+
+
 function openPopup() {
     $(".popup_overlay").css({
         display: "block"
@@ -405,6 +416,8 @@ $(".more_in_menu").click(function ()
         }
     }
 });
+
+
 function ReportMenu(uniq) {
     var url = HTTP_ROOT;
     if (!uniq) {
@@ -418,6 +431,7 @@ function ReportMenu(uniq) {
 
 }
 
+
 function hoursreport(uniq) {
     var url = HTTP_ROOT;
     if (!uniq) {
@@ -430,6 +444,7 @@ function hoursreport(uniq) {
     }
 }
 
+
 function ReportGlideMenu(uniq) {
     var url = HTTP_ROOT;
     if (!uniq) {
@@ -441,6 +456,7 @@ function ReportGlideMenu(uniq) {
         });
     }
 }
+
 
 function validatechart(type) {
     document.getElementById('apply_btn').style.display = 'none';
@@ -636,11 +652,15 @@ function validatechart(type) {
         }
     }
 }
+
+
 function scrolltotop() {
     $('html, body').animate({
         scrollTop: $(".popup_bg").offset().top - 200
     }, 1000);
 }
+
+
 var time;
 function showTopErrSucc(type, msg) {
     $("#topmostdiv").show();
@@ -663,12 +683,15 @@ function showTopErrSucc(type, msg) {
     time = setTimeout(removeMsg, 6000);
 }
 
+
 function showSaveFilter() {
     $(".sml_popup_bg").css({
         display: "block"
     });
     saveAllFilters();
 }
+
+
 function saveAllFilters() {
     var caseStatus = $('#caseStatus').val();
     var caseType = $('#caseTypes').val();
@@ -693,6 +716,7 @@ function saveAllFilters() {
         }
     });
 }
+
 
 function submitfilter() {
     $(".eror_txt").hide();
@@ -754,26 +778,36 @@ $(document).keypress(function (evt) {
     }
 });
 
+
 function jsVoid() {
 
 }
+
 
 function removeMsg() {
     $('#upperDiv').fadeOut(300);
     $("#btnDiv").hide();
 }
+
+
 function removeMsg_err() {
     $('#upperDiv_err').fadeOut(300);
     $("#btnDiv").hide();
 }
+
+
 function removeMsg_alert() {
     $('#upperDiv_alert').fadeOut(300);
     $("#btnDiv").hide();
 }
+
+
 function removeMsg_not() {
     $('#upperDiv_not').fadeOut(300);
     $("#btnDiv").hide();
 }
+
+
 var memberListLoaded = 0;
 function newProject() {
     $(".add_usr_prj").hide();
@@ -834,6 +868,7 @@ function getMemeberList() {
     }, 'json');
 }
 
+
 function addremoveadmin(obj) {
     var projectuserid = $(obj).val();
     var projectusername = $('#puser' + projectuserid).text();
@@ -845,6 +880,7 @@ function addremoveadmin(obj) {
         $("#select_default_assign option[value='" + projectuserid + "']").remove();
     }
 }
+
 
 function creatask() {
     if ($("#caseLoader").is(':visible')) {
@@ -911,9 +947,11 @@ function creatask() {
     openEditor('');
 }
 
+
 function reloadTaskDetail(caseid) {
     easycase.ajaxCaseDetails(caseid, 'case', 0);
 }
+
 
 function restoreTaskDetail(caseid, caseNo) {
     if (confirm("Are you sure you want to restore task #" + caseNo + " ?")) {
@@ -929,6 +967,7 @@ function restoreTaskDetail(caseid, caseNo) {
         });
     }
 }
+
 
 function editask(csuid, projUid, projName) {
     if (typeof csuid == 'undefined') {
@@ -1033,6 +1072,8 @@ function editask(csuid, projUid, projName) {
         }, 'json');
     }
 }
+
+
 function case_quick(easycase) { // add assignto, user checkboxs,
     var i = k = 0, chked = "", defaultAsgnName = '', defaultAsgn = parseInt(defaultAssign);
     $('#ajxQuickMem #viewmemdtls, #more_opt5 ul').html('');
@@ -1166,6 +1207,8 @@ function case_quick(easycase) { // add assignto, user checkboxs,
     }
     addTaskEvents(); //add evens for dropdown, date and others
 }
+
+
 function crt_popup_close() {//return;
     $("#footersection").show();
     $(".crt_tsk").animate({
@@ -1225,6 +1268,7 @@ function view_btn_case(id) {
     }
 }
 
+
 function noSpace(e) {
     var unicode = e.charCode ? e.charCode : e.keyCode;
     if (unicode != 8) {
@@ -1238,6 +1282,7 @@ function noSpace(e) {
     }
 }
 
+
 function addUserToProject() {
     var prj_id = getCookie('LAST_PROJ');
     if (parseInt(prj_id)) {
@@ -1248,6 +1293,7 @@ function addUserToProject() {
         }
     }
 }
+
 
 function projectAdd(txtProj, shortname, loader, btn)
 {
@@ -1409,6 +1455,7 @@ function projectAdd(txtProj, shortname, loader, btn)
     return false;
 }
 
+
 function newUser() {
     $(".add_prj_usr").hide();
     openPopup();
@@ -1426,6 +1473,7 @@ function newUser() {
     getAutocompleteTag("sel_custprj", "users/getProjects", "340px", "Type to select projects");
 }
 
+
 //Multiple autocomplete with tagging.
 //Tutorial site - https://github.com/emposha/FCBKcomplete
 function getAutocompleteTag(id, url, width, plchlder) {
@@ -1442,6 +1490,7 @@ function getAutocompleteTag(id, url, width, plchlder) {
         complete_text: plchlder
     });
 }
+
 
 function memberCustomer(txtEmailid, selprj, loader, btn) {
     var email_id = document.getElementById(txtEmailid).value;
@@ -1560,6 +1609,7 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
     return false;
 }
 
+
 /*search sliding*/
 function sch_slide() {
     $(".search_top").animate({
@@ -1572,6 +1622,7 @@ function sch_slide() {
     });
 }
 /*search slding ends*/
+
 
 function getCookie(c_name) {
     if (document.cookie.length > 0) {
@@ -1613,6 +1664,7 @@ $(document).keypress(function (e) {
         }
     }
 });
+
 
 function view_project_menu(page) {
     if (typeof page == 'undefined') {
@@ -1657,6 +1709,7 @@ function view_project_menu(page) {
         $('#ajaxViewProjects').show();
     }
 }
+
 
 function search_project_menu(page, val, e) {
     var key = e.keyCode;
@@ -1715,6 +1768,7 @@ function search_project_menu(page, val, e) {
         }
     }
 }
+
 
 function updateAllProj(radio, projId, page, all, pname, srch) {
     // Code added for reset filteration during switch project---- Start
@@ -1872,6 +1926,7 @@ function updateAllProj(radio, projId, page, all, pname, srch) {
     }
 }
 
+
 function CaseActivity(pjid, pname) {
     $('#pname_dashboard').html(decodeURIComponent(pname));
     $('#prjid').val(pjid);
@@ -1888,6 +1943,7 @@ function CaseActivity(pjid, pname) {
     loadUpcoming('my');
 }
 
+
 function updateProj(id, uniq) {
     document.getElementById('projFil').value = uniq;
     document.getElementById('CS_project_id').value = uniq;
@@ -1895,10 +1951,12 @@ function updateProj(id, uniq) {
     $('#curr_active_project').val(uniq);
 }
 
+
 function updateProj1(all) {
     document.getElementById('projFil').value = 'all';
     $("#ajaxViewProjects").slideUp(300);
 }
+
 
 function displayMenuProjects(page, limit, filter) {
     var strURL = HTTP_ROOT + "users/project_menu";
@@ -1917,6 +1975,8 @@ function displayMenuProjects(page, limit, filter) {
         }
     });
 }
+
+
 //Switch Project dropdown ends
 //Tab Bucket starts
 function caseMenuFileter(value, page, filters, caseid) {
@@ -1976,6 +2036,7 @@ function caseMenuFileter(value, page, filters, caseid) {
     }
 }
 
+
 function newcategorytab() {
     $('#inner_select_tab').html('');
     openPopup();
@@ -1989,6 +2050,7 @@ function newcategorytab() {
         $('#inner_select_tab').html(res);
     });
 }
+
 
 function savecategorytab() {
     var total_tab_value = 0;
@@ -2018,6 +2080,8 @@ $('.ctab_td').hover(function () {
         'background': ''
     });
 });
+
+
 //Tab Bucket ends
 //Profile Starts
 function submitProfile() {
@@ -2050,9 +2114,11 @@ function submitProfile() {
     }
 }
 
+
 function cancelProfile(url) {
     window.location.href = url;
 }
+
 
 function checkPasswordMatch(a, b, c, d) {
     var errMsg;
@@ -2112,10 +2178,12 @@ function checkPasswordMatch(a, b, c, d) {
 }
 //Profile Ends
 
+
 //Profile image Starts
 function openProfilePopup() {
     $("#upldphoto").trigger('click');
 }
+
 
 function loadprofilePopup() {
     $(".popup_overlay").css({
@@ -2131,12 +2199,17 @@ function loadprofilePopup() {
     $("#inactConfirmbtn").show();
 }
 
+
 function showEditDeleteImg() {
     $("#editDeleteImg").show();
 }
+
+
 function hideEditDeleteImg() {
     $("#editDeleteImg").hide();
 }
+
+
 function profilePopupCancel() {
     $('#profilephoto').imgAreaSelect({
         hide: true
@@ -2144,6 +2217,7 @@ function profilePopupCancel() {
     $('#up_files_usr').html('');
     closePopup();
 }
+
 
 $(function () {
     $('#upldphoto').change(function () {
@@ -2229,12 +2303,16 @@ $(function () {
         }
     });
 });
+
+
 function setInfo(i, e) {
     $('#x').val(e.x1);
     $('#y').val(e.y1);
     $('#w').val(e.width);
     $('#h').val(e.height);
 }
+
+
 function preview(img, selection) {
     if (!selection.width || !selection.height)
         return;
@@ -2246,6 +2324,8 @@ function preview(img, selection) {
     $('#w').val(selection.width);
     $('#h').val(selection.height);
 }
+
+
 function profilePopupClose() {
     $('#profilephoto').imgAreaSelect({
         hide: true
@@ -2253,6 +2333,7 @@ function profilePopupClose() {
     $('#up_files_usr').html('');
     closePopup();
 }
+
 
 function doneCropImage() {
     var x = $('#x').val();
@@ -2286,17 +2367,23 @@ function doneCropImage() {
 }
 //Profile image ends
 
+
 function checkuserlogin() {
     setInterval('checkloginstatus()', 5000);
 }
+
+
 function checkloginstatus() {
     if (!getCookie('USER_UNIQ') || !getCookie('USERTYP') || !getCookie('USERTZ')) {
         window.location.href = HTTP_ROOT + 'users/logout/';
     }
 }
+
+
 String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/g, "");
 }
+
 
 //Manage project Starts
 $(".icon-edit-usr").click(function () {
@@ -2317,12 +2404,15 @@ $(".icon-edit-usr").click(function () {
     });
 });
 
+
 function viewTemplateCases() {
     var temp_id = $('#sel_Typ').val();
     var url = HTTP_ROOT + "templates/view_templates/" + temp_id;
     var win = window.open(url, '_blank');
     win.focus();
 }
+
+
 function EditTaskTemp(tempId, tasktempname, pagenum) {
     openPopup();
     $(".edt_task_temp").show();
@@ -2349,6 +2439,8 @@ function EditTaskTemp(tempId, tasktempname, pagenum) {
         }
     }, 'json');
 }
+
+
 function submitProject(proj, shrt) {
     var done = 1;
     var msg = "";
@@ -2431,6 +2523,7 @@ function submitProject(proj, shrt) {
     return false;
 }
 
+
 $(".del_prj").click(function () {
     var prj_unq_id = $(this).attr('data-prj-id');
     var prj_nm = $(this).attr('data-prj-name');
@@ -2511,6 +2604,7 @@ $(".icon-remove-usr").click(function () {
     });
 });
 
+
 function removeusers() {
     var done = 0;
     var user_name = '';
@@ -2572,6 +2666,7 @@ function removeusers() {
     }
 }
 
+
 function selectremuserAll(arg, i) {
     if (parseInt(arg)) {
         if ($('#remcheckAll').is(":checked")) {
@@ -2608,6 +2703,7 @@ function selectremuserAll(arg, i) {
     enableAddUsrBtns('.rem-usr-prj');
 }
 
+
 function searchremuserkey() {
     var name = $('#rmname').val();
     var project_id = $('#pjid').val();
@@ -2630,6 +2726,7 @@ function searchremuserkey() {
     }
 }
 
+
 function setemail(obj, type, id, type2) {
     var strURL = HTTP_ROOT + 'projects/update_email_notification';
     $.post(strURL, {
@@ -2648,6 +2745,7 @@ $(".icon-add-usr").click(function () {
     var prj_name = $(this).attr('data-prj-name');
     add_user(prj_id, prj_name);
 });
+
 
 function add_user(prj_id, prj_name) {
     openPopup();
@@ -2700,6 +2798,7 @@ $(".create_task_temp").click(function () {
     });
 });
 
+
 function searchListWithInt(type, int) {
     if (_searchInterval) {
         clearInterval(_searchInterval);
@@ -2719,6 +2818,7 @@ function searchListWithInt(type, int) {
         }
     }, int);
 }
+
 
 function searchuserkey() {
     var name = $('#name').val();
@@ -2750,6 +2850,7 @@ function searchuserkey() {
         });
     }
 }
+
 
 function assignuser(el) {
     var userid = new Array();
@@ -2815,6 +2916,8 @@ function assignuser(el) {
         });
     }
 }
+
+
 var hduserid = new Array();
 function selectuserAll(arg, i, usernm) {
     if (parseInt(arg)) {
@@ -2897,6 +3000,7 @@ function selectuserAll(arg, i, usernm) {
     enableAddUsrBtns('.ad-usr-prj');
 }
 
+
 //Manage project Ends
 function getPage() {
     var type = "tasks";
@@ -2964,6 +3068,8 @@ $("#case_search").keyup(function (e) {
         }
     }
 });
+
+
 function ajaxCaseSearch() {
     var srch = $("#case_search").val();
     srch = srch.trim();
@@ -2996,6 +3102,7 @@ function ajaxCaseSearch() {
     });
 }
 
+
 function searchProject(role, uniq_id, proj_srch) {
     $("#ajax_search").hide();
     if (proj_srch) {
@@ -3005,6 +3112,7 @@ function searchProject(role, uniq_id, proj_srch) {
     }
 }
 
+
 function searchUser(role, uniq_id, user_srch) {
     $("#ajax_search").hide();
     if (user_srch) {
@@ -3013,6 +3121,7 @@ function searchUser(role, uniq_id, user_srch) {
         window.location = HTTP_ROOT + 'users/manage/?role=' + role + '&user=' + uniq_id;
     }
 }
+
 
 function searchTasks(caseno, uniq_id) {
     var url = HTTP_ROOT;
@@ -3025,6 +3134,7 @@ function searchTasks(caseno, uniq_id) {
         $('#case_search').focus();
     }
 }
+
 
 function searchFile(file_id, uniq_id, file_srch) {
     $("#ajax_search").hide();
@@ -3069,6 +3179,8 @@ function searchFile(file_id, uniq_id, file_srch) {
     });
     remember_filters('ALL_PROJECT', '');
 }
+
+
 function searchMilestone(file_id, uniq_id, file_srch, isActive) {
     if (!file_srch) {
         return false;
@@ -3104,6 +3216,8 @@ function searchMilestone(file_id, uniq_id, file_srch, isActive) {
     }
     $('#srch_load1').hide();
 }
+
+
 function validateSearch() {
     $('#ajax_search').hide();
     var srch = $("#case_search").val();
@@ -3128,6 +3242,7 @@ function validateSearch() {
     }
 }
 
+
 function onKeyPress(e, id) {
     var unicode = e.charCode ? e.charCode : e.keyCode;
     if (unicode != 13) {
@@ -3139,6 +3254,7 @@ function onKeyPress(e, id) {
         }
     }
 }
+
 
 function goForSearch(e, click) {
     var done = 0;
@@ -3199,11 +3315,13 @@ function goForSearch(e, click) {
     }
 }
 
+
 function hideupdatebtn() {
     $('#subprof1').hide();
     $('#subprof2').show();
     return true;
 }
+
 
 function validateemailrpt() {
     var errMsg;
@@ -3235,6 +3353,7 @@ function validateemailrpt() {
         return false;
     }
 }
+
 
 function submitCompany() {
     $('#subprof1').hide();
@@ -3278,6 +3397,7 @@ function submitCompany() {
 }
 //Search for tasks, Projects, Users in header inner ends
 
+
 //Manage users starts
 function filterUserRole(role, user_srch) {
     var url = HTTP_ROOT + "users/manage/?role=" + role;
@@ -3286,6 +3406,7 @@ function filterUserRole(role, user_srch) {
     }
     window.location = url;
 }
+
 
 function addProjectToUser() {
     var usr_id = getCookie('LAST_INVITE_USER');
@@ -3311,6 +3432,7 @@ $(".icon-assign-usr").click(function () {
     var is_invited_user = $("#is_invited_user").val();
     add_project(usr_id, usr_name, is_invited_user);
 });
+
 
 function add_project(usr_id, usr_name, is_invite_user) {
     openPopup();
@@ -3342,6 +3464,8 @@ function add_project(usr_id, usr_name, is_invite_user) {
         }
     });
 }
+
+
 function searchprojkey() {
     var name = $('#proj_name').val();
     var user_id = '';
@@ -3403,6 +3527,7 @@ $(".icon-remprj-usr").click(function () {
     });
 });
 
+
 function grantOrRemoveModerator(obj) {
     var usr_id = $(obj).attr('data-usr-id');
     var usr_name = $(obj).attr('data-usr-name');
@@ -3444,6 +3569,8 @@ function grantOrRemoveModerator(obj) {
         });
     }
 }
+
+
 function searchremprjkey() {
     var name = $('#rmprjname').val();
     var user_id = $('#usrid').val();
@@ -3467,6 +3594,7 @@ function searchremprjkey() {
         });
     }
 }
+
 
 function arrayRemove(str, rmvstr) {
     var array = new Array();
@@ -3496,12 +3624,14 @@ function arrayRemove(str, rmvstr) {
     return string;
 }
 
+
 //Function is require to camelcase the name of the remaining projects
 function toTitleCase(str) {
     return str.replace(/(?:^|\s)\w/g, function (match) {
         return match.toUpperCase();
     });
 }
+
 
 function removeprojects() {
     var done = 0;
@@ -3567,6 +3697,7 @@ function removeprojects() {
         }
     }
 }
+
 
 function assignproject(el) {
     var projectid = new Array();
@@ -3638,6 +3769,8 @@ function assignproject(el) {
         });
     }
 }
+
+
 var hdprojectid = new Array();
 var hdproject_name = '';
 function checkboxCheckUncheck(chkAll, chkOne, row, active_class) {
@@ -3711,6 +3844,7 @@ function checkboxCheckUncheck(chkAll, chkOne, row, active_class) {
     });
 }
 
+
 function enableAddPrjBtns(chkOne) {
     if (chkOne == '.AddPrjToUser') {
         if ($(chkOne + ':checked').length) {
@@ -3729,6 +3863,8 @@ function enableAddPrjBtns(chkOne) {
         }
     }
 }
+
+
 function enableAddUsrBtns(chkOne) {
     if (chkOne == '.ad-usr-prj') {
         if ($(chkOne + ':checked').length) {
@@ -3746,6 +3882,8 @@ function enableAddUsrBtns(chkOne) {
         }
     }
 }
+
+
 function resend_invitation(qrst, email) {
     if (confirm('Are you sure you want to Resend Invitation email to \'' + email + '\' ?')) {
         $("#projectLoader").show();
@@ -3782,6 +3920,7 @@ $(".proj_mng_div .contain").hover(function () {
 });
 //Manage users ends
 
+
 //Activity starts
 function myactivities(myTab, delegatedTab) {
     if ($('#' + delegatedTab).parents("li").hasClass('active') == true) {
@@ -3791,6 +3930,8 @@ function myactivities(myTab, delegatedTab) {
         loadUpcoming('my');
     }
 }
+
+
 function delegateactivities(myTab, delegatedTab) {
     if ($('#' + myTab).parents("li").hasClass('active') == true) {
         $('#' + myTab).parents("li").removeClass('active');
@@ -3845,6 +3986,7 @@ $(document).ready(function () {
         }
     });
 });
+
 
 function setStatus() {
     $("td div[id^='allStatus']").each(function (res) {
@@ -3905,6 +4047,7 @@ $(".support-popup").click(function () {
     $("#url_sendding").val(document.URL);
 });
 
+
 function postSupport() {
     var geturl = $("#url_sendding").val().trim();
     var support_name = $("#support_name").val().trim();
@@ -3961,7 +4104,6 @@ function postSupport() {
 
 
 // Daily Update Alerts starts
-
 function getProjectMembers(obj) {
     var strURL = HTTP_ROOT + "projects/projectMembers";
     $("#loading_sel").show();
@@ -4001,6 +4143,8 @@ function getProjectMembers(obj) {
         $("#loading_sel").hide();
     });
 }
+
+
 function checkUncheckAll(arg) {
     if (parseInt(arg)) {
         if ($('#user_all').is(":checked")) {
@@ -4017,6 +4161,8 @@ function checkUncheckAll(arg) {
     }
     $("#err_msg_spn").hide();
 }
+
+
 function validateDailyMail() {
     var done = 1;
     if ($.trim($("#project_id").val()) == '') {
@@ -4043,13 +4189,19 @@ function validateDailyMail() {
         $('#dailyUpdateForm').submit();
     }
 }
+
+
 function showError(msg) {
     $("#err_msg_spn").html(msg);
     $("#err_msg_spn").show();
 }
+
+
 function hideErr() {
     $("#err_msg_spn").hide();
 }
+
+
 function cancel_daily_update() {
     if (confirm("Are you sure you want to cancel Daily Catch-Up alert for this project?")) {
         $('#subprof1').hide();
@@ -4059,6 +4211,8 @@ function cancel_daily_update() {
         window.location.href = HTTP_ROOT + path + daily_update_id;
     }
 }
+
+
 function openEditor(editormessage) {
     $("#divNewCase").hide();
     $("#divNewCaseLoader").show();
@@ -4094,6 +4248,8 @@ function openEditor(editormessage) {
 
     })($);
 }
+
+
 function createTaskTemplatePlugin() {
     if (typeof (tinymce) != "undefined") {
         // Creates a new plugin class and a custom listbox
@@ -4131,6 +4287,8 @@ function createTaskTemplatePlugin() {
         tinymce.PluginManager.add('tasktemplate', tinymce.plugins.TaskTemplatePlugin);
     }
 }
+
+
 function showTemplates(id, name) {
     tinyPrevContent = tinyMCE.activeEditor.getContent();
     tinyMCE.activeEditor.setContent('');
@@ -4148,6 +4306,8 @@ function showTemplates(id, name) {
         });
     }
 }
+
+
 function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend, pid) {
     var description = '';
     var title = '';
@@ -4609,6 +4769,8 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
         }
     }
 }
+
+
 function blur_txt() {
     $("#CS_title").css({
         color: "#666666"
@@ -4621,6 +4783,8 @@ function blur_txt() {
         });
     }
 }
+
+
 function checkAllProj() {
     var projFil = document.getElementById('CS_project_id').value; // Project Uniq ID
     if (projFil == 'all') {
@@ -4631,6 +4795,8 @@ function checkAllProj() {
         return true;
     }
 }
+
+
 function focus_txt() {
     $("#CS_title").css({
         color: "#000"
@@ -4639,6 +4805,8 @@ function focus_txt() {
         $("#CS_title").val("");
     }
 }
+
+
 function onEnterPostCase(e)
 {
     var unicode = e.charCode ? e.charCode : e.keyCode;
@@ -4646,6 +4814,8 @@ function onEnterPostCase(e)
         submitAddNewCase('Post', 0);
     }
 }
+
+
 function checktitle_value() {
     var tasktitle = $.trim($('#CS_title').val());
     if (tasktitle == "" || tasktitle == "Add a task here and hit enter...") {
@@ -4653,6 +4823,8 @@ function checktitle_value() {
         $('#CS_title').css('border-color', '');
     }
 }
+
+
 function check_proj_size() {
     if ($('#add_new_popup').is(":visible")) {
         var sizeUrl = HTTP_ROOT + "easycases/";
@@ -4669,6 +4841,8 @@ function check_proj_size() {
         });
     }
 }
+
+
 function search_project_easypost(val, e) {
 
     var key = e.keyCode;
@@ -4724,6 +4898,8 @@ function search_project_easypost(val, e) {
 
 
 }
+
+
 function createCookie(name, value, days, domain) {
     var expires;
     if (days) {
@@ -4738,6 +4914,8 @@ function createCookie(name, value, days, domain) {
         var domain = '';
     document.cookie = name + "=" + value + expires + "; path=/" + domain;
 }
+
+
 function removeFile(id, div, storage) {
     var x = document.getElementById(id).value;
     document.getElementById(id).value = '';
@@ -4755,6 +4933,8 @@ function removeFile(id, div, storage) {
     });
     $('#' + div).parent().parent().remove();
 }
+
+
 function hideEditFile(id, div, storage, caseFileId) {
     var x = document.getElementById(id).value;
     document.getElementById(id).value = '';
@@ -4773,6 +4953,8 @@ function hideEditFile(id, div, storage, caseFileId) {
 
     $('#' + div).parent().parent().hide();
 }
+
+
 function cancelReplyFile(file_name) {
     if (reply_total_files.length) {
         reply_total_files.pop(file_name);
@@ -4782,6 +4964,8 @@ function cancelReplyFile(file_name) {
         gFileupload = 1;
     }
 }
+
+
 function removefile() {
     open_pop(this);
     var pjid = document.getElementById('pjid').value;
@@ -4817,6 +5001,8 @@ function removefile() {
         alert("No file selected!");
     }
 }
+
+
 function checkedAllRes() {
     if ($('#chked_all').is(":checked")) {
         $('.viewmemdtls_cls').show();
@@ -4825,6 +5011,8 @@ function checkedAllRes() {
         $('.notify_cls').removeAttr("checked");
     }
 }
+
+
 function removeAll() {
     if (!$('input.notify_cls[type=checkbox]:not(:checked)').length) {
         $('#chked_all').attr("checked", "checked");
@@ -4832,6 +5020,8 @@ function removeAll() {
         $('#chked_all').removeAttr("checked");
     }
 }
+
+
 function removeAllReply(CS_id) {
     if (!$('input.chk_fl[type=checkbox]:not(:checked)').length) {
         $('#' + CS_id + 'chkAllRep').attr("checked", "checked");
@@ -4839,6 +5029,8 @@ function removeAllReply(CS_id) {
         $('#' + CS_id + 'chkAllRep').removeAttr("checked");
     }
 }
+
+
 function showHideMemDtls(cls) {
     if ($('.' + cls).css('display') == 'none') {
         $('.' + cls).slideDown(200);
@@ -4848,6 +5040,8 @@ function showHideMemDtls(cls) {
     }
     $('#defaultmem').slideUp();
 }
+
+
 function show_prjlist(event) {
     if ($('.more_opt').find('ul').is(":visible")) {
         $('.more_opt').find('ul').hide();
@@ -4858,6 +5052,8 @@ function show_prjlist(event) {
     $('#ajaxbeforesrchc').show();
     $('#ctask_input_id').focus();
 }
+
+
 $(document).ready(function (event) {
     $(document).click(function (e) {
         $('#openpopup').hide();
@@ -4867,6 +5063,8 @@ $(document).ready(function (event) {
         event.stopPropagation();
     });
 });
+
+
 function showProjectName(name, id, mid) {
     $('#prjchange_loader').show();
     $('#ctask_popup a').css({
@@ -4915,18 +5113,23 @@ function showProjectName(name, id, mid) {
         milstoneonTask();
     }
 }
+
+
 // Quick case
 function opencase(type) {
     $("#new_case_more_div").slideDown();
     $("#more_tsk_opt_div").hide();
     $("#less_tsk_opt_div").show();
 }
+
+
 // Create Task Scroll top
 function scrolltop() {
     scrollPageTop();
 }
-// Daily Update Alerts ends
 
+
+// Daily Update Alerts ends
 function scrollPageTop(el) {
     if (typeof el !== 'undefined' && el) {
         $('html, body').animate({
@@ -4938,6 +5141,8 @@ function scrollPageTop(el) {
         });
     }
 }
+
+
 function removePubnubMsg() {
     $('#punnubdiv').fadeOut(300);
     $("#pub_counter").val(0);
@@ -4945,6 +5150,8 @@ function removePubnubMsg() {
     ioMsgClicked = 1;
     easycase.refreshTaskList();
 }
+
+
 //chrome desktop notification function
 function notify(title, desc) {
     if (DESK_NOTIFY) {
@@ -4980,11 +5187,15 @@ function notify(title, desc) {
         }
     }
 }
+
+
 function allowChromeDskNotify(check) {
     if ((DESK_NOTIFY || check) && window.webkitNotifications && window.webkitNotifications.checkPermission() != 0) {
         window.webkitNotifications.requestPermission();
     }
 }
+
+
 function getImNotifyMsg(projShName, caseNum, caseTtl, caseTyp) {
     var action = '';
     switch (caseTyp) {
@@ -5005,6 +5216,8 @@ function getImNotifyMsg(projShName, caseNum, caseTtl, caseTyp) {
     }
     return action + ': ' + projShName + '# ' + caseNum + ' - ' + caseTtl;
 }
+
+
 function notifyMe(title, desc, icon) {
     //https://developer.mozilla.org/en/docs/Web/API/notification
     // Let's check if the browser supports notifications
@@ -5039,6 +5252,7 @@ function notifyMe(title, desc, icon) {
 }
 //end chrome desktop notification function
 
+
 //JS function from case_quick.ctp
 function numericDecimal(e) {
     var unicode = e.charCode ? e.charCode : e.keyCode;
@@ -5061,27 +5275,39 @@ function numericDecimal(e) {
         return true;
     }
 }
+
+
 function notified_users(uid) {
     $('#chk_' + uid).attr('checked', 'checked');
 }
+
+
 function check_priority(obj) {
     $(obj).find('input:radio').attr('checked', 'checked');
     var pvalue = $(obj).find('input:radio').val();
     $("#CS_priority").val(pvalue);
 }
+
+
 function closecase() {
     $("#new_case_more_div").slideUp(200);
     $("#more_tsk_opt_div").show();
     $("#less_tsk_opt_div").hide();
     scrollPageTop();
 }
+
+
 function open_more_opt(more_opt) {
     $('.more_opt').filter(':not(#' + more_opt + ')').children('ul').hide();
     $("#" + more_opt).children("ul").toggle();
 }
+
+
 function getSelectedValue(id) {
     return $("#" + id).find("a span.value").html();
 }
+
+
 function addTaskEvents() {
     $(".more_opt ul li a").click(function () {
         var text = $(this).html();
@@ -5141,6 +5367,7 @@ function addTaskEvents() {
 }
 //END JS function from case_quick.ctp
 
+
 //Milestone starts
 function addEditMilestone(obj, mileuniqid, mid, name, cnt, mlstfrom) {
     if (typeof mlstfrom == 'undefined') {
@@ -5187,6 +5414,8 @@ function addEditMilestone(obj, mileuniqid, mid, name, cnt, mlstfrom) {
         }
     });
 }
+
+
 function delMilestone(obj, name, uniqid) {
     if (obj) {
         var uniqid = $(obj).attr("data-uid");
@@ -5212,6 +5441,7 @@ function delMilestone(obj, name, uniqid) {
     }
     return false;
 }
+
 
 function milestoneArchive(obj, uniqid, title) {
     if (obj) {
@@ -5247,6 +5477,7 @@ function milestoneArchive(obj, uniqid, title) {
     refreshMilestone = 1;
     return false;
 }
+
 
 function milestoneRestore(obj, uniqid, title) {
     if (obj) {
@@ -5285,6 +5516,7 @@ function milestoneRestore(obj, uniqid, title) {
         return false;
     }
 }
+
 
 function addTaskToMilestone(obj, mstid, projid, cnt) {
     $('.showhidebtn').addClass('btn_blue_inactive');
@@ -5331,6 +5563,7 @@ function addTaskToMilestone(obj, mstid, projid, cnt) {
     });
 }
 
+
 function searchMilestoneCase() {
     var project_id = '';
     var milestone_id = '';
@@ -5363,6 +5596,7 @@ function searchMilestoneCase() {
         });
     }
 }
+
 
 function selectMilestones(arg, i, chkall) {
     $("#addtsk").css({
@@ -5436,6 +5670,7 @@ function selectMilestones(arg, i, chkall) {
     }
 }
 
+
 function switchMilestone(obj, milestone_id, project_id) {
     if (project_id && milestone_id) {
         $('#milestone_id').val(milestone_id);
@@ -5460,6 +5695,7 @@ function switchMilestone(obj, milestone_id, project_id) {
         });
     }
 }
+
 
 function assignCaseToMilestone(el) {
     $("#mlstnpopup").hide();
@@ -5523,6 +5759,7 @@ function assignCaseToMilestone(el) {
     }
 }
 
+
 function view_project_milestone() {
     if ($('#mlstnpopup').is(':visible')) {
         $("#mlstnpopup").hide();
@@ -5541,6 +5778,7 @@ function view_project_milestone() {
         }
     });
 }
+
 
 function caseMilestone(pjid, pname, page) {
     if (typeof (page) == 'undefined') {
@@ -5752,6 +5990,8 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
     }
     $('#manage_milestonelist').css('display', 'block');
 }
+
+
 /* Code for Milestone Kanban View starts */
 ManageMilestoneList = function (mlsttype, search_key) {
     $('#view_type').val('grid');
@@ -5828,12 +6068,15 @@ ManageMilestoneList = function (mlsttype, search_key) {
         remember_filters('ALL_PROJECT', '');
     }
 }
+
+
 function trackclick(msg) {
     if (SITENAME == 'Orangescrum.com') {
         console.log("Google Track Event: " + msg);
         _gaq.push(['_trackEvent', 'Help and Support', msg, msg]);
     }
 }
+
 
 //Dashboard page Starts
 $(function () {
@@ -5853,6 +6096,7 @@ $(function () {
     });
 });
 
+
 function CaseDashboard(pjid, pname) {
     $('#curr_active_project').val(pjid);
     $('#CS_project_id').val(pjid);
@@ -5866,6 +6110,7 @@ function CaseDashboard(pjid, pname) {
     $(".dropdown-menu.lft").hide();
     loadDashboardPage(pjid);
 }
+
 
 function loadDashboardPage(projid) {
 
@@ -5915,6 +6160,7 @@ function loadDashboardPage(projid) {
     loadSeqDashboardAjax(sequency, projid);
 }
 
+
 function showTaskStatus(obj, projid) {
     if ($("#task_type").html() !== '') {
         $("#task_type").html('');
@@ -5931,6 +6177,7 @@ function showTaskStatus(obj, projid) {
         }
     });
 }
+
 
 function loadSeqDashboardAjax(sequency, projid) {
     //Remove recent_projects from array to prevent ajax call when a project is switched
@@ -5955,6 +6202,7 @@ function loadSeqDashboardAjax(sequency, projid) {
     });
 }
 
+
 function cmnDashboard(id, res) {
     if (id == 'task_type') {
         iniChartTskProgress(id, res);
@@ -5972,6 +6220,8 @@ function cmnDashboard(id, res) {
         });
     }
 }
+
+
 function iniChartTskProgress(id, res) {
     $("#" + id + "_ldr").hide();
     $("#" + id + '_msg').html(res.sts_msg);
@@ -6108,6 +6358,8 @@ function iniChartTskProgress(id, res) {
             }]
     });
 }
+
+
 function showTasks(arg) {
     //Reset cookies
     remember_filters("reset", "all");
@@ -6124,8 +6376,9 @@ function showTasks(arg) {
     }
     window.location = HTTP_ROOT + 'dashboard#' + action;
 }
-//Dashboard page Ends
 
+
+//Dashboard page Ends
 function remember_filters(name, value) {
     if (name == 'reset') {
         createCookie('STATUS', '', -1, DOMAIN_COOKIE);
@@ -6149,6 +6402,8 @@ function remember_filters(name, value) {
         createCookie(name, value, -1, DOMAIN_COOKIE);
     }
 }
+
+
 /* Assigned Project */
 function deleteAssignedProject(id, userId, name, isInvite) {
     if (id) {
@@ -6174,6 +6429,8 @@ function deleteAssignedProject(id, userId, name, isInvite) {
         }
     }
 }
+
+
 function removeProjectName(pid, id, chkAll, chkOne, row, active_class) {
     if ($("#prjloader").is(':visible')) {
         return false;
@@ -6190,6 +6447,8 @@ function removeProjectName(pid, id, chkAll, chkOne, row, active_class) {
     }
 
 }
+
+
 /* Existing Users in a particular project */
 function deleteUsersInProject(userId, projectId, name) {
     if (userId) {
@@ -6224,6 +6483,8 @@ function deleteUsersInProject(userId, projectId, name) {
         }
     }
 }
+
+
 function removeUserName(uid, id) {
     if ($("#userloader").is(':visible')) {
         return false;
@@ -6241,6 +6502,8 @@ function removeUserName(uid, id) {
     }
 
 }
+
+
 function removeArrayElement(array, itemToRemove) {
     for (var i = 0; i < array.length; i++) {
         if (array[i] === itemToRemove) {
@@ -6249,6 +6512,8 @@ function removeArrayElement(array, itemToRemove) {
         }
     }
 }
+
+
 //Remove task from milestone
 function removeTaskFromMilestone(obj) {
     if (obj) {
@@ -6290,6 +6555,7 @@ function removeTaskFromMilestone(obj) {
         }
     });
 }
+
 
 //Remove task from milestone
 function removecaseFromMilestone(obj) {
@@ -6334,6 +6600,8 @@ function removecaseFromMilestone(obj) {
         }
     }
 }
+
+
 // Milestone list appended in the Create Task
 function milstoneonTask(mlstname, mlstid) {
     $.post(HTTP_ROOT + 'milestones/milestone_list', {
@@ -6362,6 +6630,8 @@ function milstoneonTask(mlstname, mlstid) {
         }
     }, 'json');
 }
+
+
 function calendarView(type) {
     var filterV = $('#caseMenuFilters').val();
     if ((type == 'hash' && urlHash == 'calendar') || (type == 'calendar' && urlHash == 'calendar') || (filterV == 'calendar' && type == 'calendar')) {
@@ -6434,6 +6704,8 @@ function calendarView(type) {
     }
 
 }
+
+
 resetMilestoneSearch = function () {
     $('#search_text').val('');
     $('#show_search').html('');
@@ -6454,6 +6726,8 @@ resetMilestoneSearch = function () {
         }
     }
 }
+
+
 searchMilestoneTasks = function (srch) {
     var params = parseUrlHash(urlHash);
     if (!srch) {
@@ -6466,6 +6740,8 @@ searchMilestoneTasks = function (srch) {
     easycase.showKanbanTaskList(params[0], srch);
     $('#srch_load1').hide();
 }
+
+
 resetKanbanSearch = function () {
     $('#show_search_kanban').html('');
     $('#resetting_kanban').html('');
@@ -6473,11 +6749,15 @@ resetKanbanSearch = function () {
     var params = parseUrlHash(urlHash);
     easycase.showKanbanTaskList(params[0]);
 }
+
+
 function quickEditMilestone(mid) {
     $('#edit-link_' + mid).hide();
     $('#edit-save_' + mid).show();
     $('#milstone_edit_' + mid).focus();
 }
+
+
 function saveMilesatoneTitle(mid) {
     var title = $('#milstone_edit_' + mid).val();
     if (title.trim() != '') {
@@ -6497,6 +6777,7 @@ function saveMilesatoneTitle(mid) {
     }
 }
 
+
 function addNewTaskType() {
     openPopup();
     $('#newtask_btn').text('Add');
@@ -6513,6 +6794,7 @@ function addNewTaskType() {
 
     $("#task_type_nm").focus();
 }
+
 
 function validateTaskType() {
     var msg = "";
@@ -6570,6 +6852,7 @@ function validateTaskType() {
     }
 }
 
+
 function saveTaskType() {
     var isTaskIds = 0;
     $(".all_tt").each(function () {
@@ -6590,6 +6873,7 @@ function saveTaskType() {
         return false;
     }
 }
+
 
 function deleteTaskType(obj) {
     var nm = $(obj).attr("data-name");
@@ -6612,6 +6896,8 @@ function deleteTaskType(obj) {
         });
     }
 }
+
+
 function editTaskType(obj) {
     var nm = $(obj).attr("data-name");
     var id = $(obj).attr("data-id");
