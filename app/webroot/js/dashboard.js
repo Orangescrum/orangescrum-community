@@ -573,16 +573,13 @@ function validateComments(id, uniqid, legend, ses_type, pid)
     var planetext = "txa_plane" + id;
     var html = "html" + id;
     var text = "plane" + id;
-
     var pj = "";
     var msg = "";
     var err = "";
     
     if (document.getElementById(html).style.display == 'block') 
     {
-
         var text = tinyMCE.get(msgid).getContent();
-
         var ed = tinyMCE.get(msgid);
         ed.selection.select(ed.getBody(), true);
         var data = ed.selection.getContent({format: 'text'});
@@ -937,6 +934,7 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
 easycase.loadTinyMce = function (csAtId) {
     $("#htmlloader" + csAtId).show();
     var tiny_mce_url = HTTP_ROOT + 'js/tinymce/tiny_mce.js';
+    
     $('#txa_comments' + csAtId).tinymce({
         // Location of TinyMCE script
         script_url: tiny_mce_url,
@@ -978,70 +976,96 @@ easycase.showTaskDetail = function (task_data) {
 
 
 easycase.showTaskLists = function (page) {
-    if (refreshTasks == 1) {
+    if (refreshTasks == 1) 
+    {
         $("#caseMenuFilters").val('');
     }
+    
     $(".menu-files").removeClass('active');
     $(".menu-milestone").removeClass('active');
     $(".menu-cases").addClass('active');
-    // || $(".crt_tsk").is(':visible')
-    if (($('#caseViewSpan').html() && refreshTasks == 0)) {
+    
+    if (($('#caseViewSpan').html() && refreshTasks == 0)) 
+    {
         easycase.routerHideShow(page);
         scrollPageTop();
-    } else {
+    } 
+    else 
+    {
         easycase.refreshTaskList();
     }
     displayMenuProjects('dashboard', '6', '');
-    //crt_popup_close();
 };
 
 
 easycase.detailPageinate = function () {
-    if (urlHash) {
+    if (urlHash) 
+    {
         var params = parseUrlHash(urlHash);
-        if (params[1]) {
-            if ($('.case-title[data-task="' + params[1] + '"]').length) {
+        
+        if (params[1]) 
+        {
+            if ($('.case-title[data-task="' + params[1] + '"]').length) 
+            {
                 var prevId = $('.case-title[data-task="' + params[1] + '"]').parents('.tr_all[id^="curRow"]').attr('id');
-                if ($('#' + prevId).nextAll('.tr_all[id^="curRow"]').length) {
+                
+                if ($('#' + prevId).nextAll('.tr_all[id^="curRow"]').length) 
+                {
                     //enable next
                     $('.task_detail_head .next').removeClass('disable');
                     $('.task_detail_head .next').attr('disabled', false);
-                } else {
+                } 
+                else 
+                {
                     //disable next
                     $('.task_detail_head .next').addClass('disable');
                     $('.task_detail_head .next').attr('disabled', true);
                 }
 
-                if ($('#' + prevId).prevAll('.tr_all[id^="curRow"]').length) {
+                if ($('#' + prevId).prevAll('.tr_all[id^="curRow"]').length) 
+                {
                     //enable next
                     $('.task_detail_head .prev').removeClass('disable');
                     $('.task_detail_head .prev').attr('disabled', false);
-                } else {
+                } 
+                else 
+                {
                     //disable next
                     $('.task_detail_head .prev').addClass('disable');
                     $('.task_detail_head .prev').attr('disabled', true);
                 }
-            } else {
+            } 
+            else 
+            {
                 $('.task_detail_head .next, .task_detail_head .prev').addClass('disable');
                 $('.task_detail_head .next, .task_detail_head .prev').attr('disabled', true);
             }
         }
     }
+    
     $('.task_detail_head .next, .task_detail_head .prev').tipsy({gravity: 'n', fade: true});
 };
 
 
 easycase.rollNext = function (el) {
-    if (urlHash) {
+    if (urlHash) 
+    {
         var params = parseUrlHash(urlHash);
-        if (params[1]) {
-            if ($('.case-title[data-task="' + params[1] + '"]').length) {
+        
+        if (params[1]) 
+        {
+            if ($('.case-title[data-task="' + params[1] + '"]').length) 
+            {
                 var prevId = $('.case-title[data-task="' + params[1] + '"]').parents('.tr_all[id^="curRow"]').attr('id');
-                if ($('#' + prevId).nextAll('.tr_all[id^="curRow"]').length) {
+                
+                if ($('#' + prevId).nextAll('.tr_all[id^="curRow"]').length) 
+                {
                     var nextId = $('#' + prevId).nextAll('.tr_all[id^="curRow"]').attr('id');
                     window.location.hash = 'details/' + $('#' + nextId).find('.case-title[id^="titlehtml"]').attr('data-task');
                 }
-            } else {
+            } 
+            else 
+            {
                 window.location.hash = 'tasks';
             }
         }
@@ -1050,17 +1074,24 @@ easycase.rollNext = function (el) {
 
 
 easycase.rollPrev = function (el) {
-    if (urlHash) {
+    if (urlHash) 
+    {
         var params = parseUrlHash(urlHash);
-        if (params[1]) {
-            if ($('.case-title[data-task="' + params[1] + '"]').length) {
+        
+        if (params[1]) 
+        {
+            if ($('.case-title[data-task="' + params[1] + '"]').length) 
+            {
                 var prevId = $('.case-title[data-task="' + params[1] + '"]').parents('.tr_all[id^="curRow"]').attr('id');
-
-                if ($('#' + prevId).prevAll('.tr_all[id^="curRow"]').length) {
+                
+                if ($('#' + prevId).prevAll('.tr_all[id^="curRow"]').length) 
+                {
                     var nextId = $('#' + prevId).prevAll('.tr_all[id^="curRow"]').attr('id');
                     window.location.hash = 'details/' + $('#' + nextId).find('.case-title[id^="titlehtml"]').attr('data-task');
                 }
-            } else {
+            } 
+            else 
+            {
                 window.location.hash = 'tasks';
             }
         }
@@ -1073,10 +1104,14 @@ easycase.showActivities = function () {
     $('#select_view div').removeClass('disable');
     $('#actvt_btn').addClass('disable');
     $("#caseMenuFilters").val('activities');
-    if ($('#activities').html() && refreshActvt == 0) {
+    
+    if ($('#activities').html() && refreshActvt == 0) 
+    {
         easycase.routerHideShow('activities');
         scrollPageTop();
-    } else {
+    } 
+    else 
+    {
         loadActivity('');
         loadOverdue('my');
         loadUpcoming('my');
