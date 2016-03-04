@@ -1,38 +1,35 @@
 $(document).on('click', '.task_action_bar .next', function(){
 	easycase.rollNext(this);
 });
+
 $(document).on('click', '.task_action_bar .prev', function(){
 	easycase.rollPrev(this);
 });
+
 $(document).on('click','[id^="showhtml"]', function(){
 	var task_data = $(this).attr('data-task').split('|');
 	var csAtId = task_data[0];
 	
 	$('#showhtml'+csAtId).hide();
 	$('#hidhtml'+csAtId).show();
-	//$('#mem'+csAtId).fadeIn(400);
-	//$('#viewmemdtls'+csAtId).fadeIn(400);
-	//$('#viewatachment'+csAtId).fadeIn(400);
 });
+
 $(document).on('click','[id^="mor_toggle"]', function(){
 	var csAtId = $(this).attr('data-csatid');
 	$('#mor_toggle'+csAtId).hide()
 	$('#less_toggle'+csAtId).show();
 	$('#tskmore_'+csAtId).slideDown(350);
-	
-	//createCookie("crtdtsk_less", '1', -365, DOMAIN_COOKIE);
 });
+
 $(document).on('click','[id^="less_toggle"]', function(){
 	var csAtId = $(this).attr('data-csatid');
 	$('#mor_toggle'+csAtId).show()
 	$('#less_toggle'+csAtId).hide();
 	$('#tskmore_'+csAtId).slideUp(350);
-	
-	//createCookie("crtdtsk_less", '1', 365, DOMAIN_COOKIE);
 });
+
 $(document).on('click', '.task_detail .ftsk_more', function(){
-	//$(this).parents('.task_due_dt').find('.tsk_files_more,.ftsk_more').toggle("slow");
-	if($(this).parents('.task_due_dt').find('.tsk_files_more').css('display')=='none') {
+	if ($(this).parents('.task_due_dt').find('.tsk_files_more').css('display')=='none') {
 		$(this).parents('.task_due_dt').find('.tsk_files_more').css('display','block');
 		$(this).children('.more_in_menu').html('Less');
 		$(this).addClass("open");
@@ -789,16 +786,10 @@ easycase.ajaxCaseDetails = function(caseUniqId,type,dtls){
 			}
 			
 			easycase.detailPageinate();
-			bindPrettyview("prettyPhoto");//This calls for images on task post and reply of case details
-			bindPrettyview("prettyImg");//This calls for file list showing in right side bar of case details
+			bindPrettyview("prettyPhoto"); //This calls for images on task post and reply of case details
+			bindPrettyview("prettyImg"); //This calls for file list showing in right side bar of case details
 			
 			fuploadUI(data.csAtId);
-			
-			/*if(!getCookie("crtdtsk_less") || getCookie("crtdtsk_less")!=1){
-				$('#mor_toggle'+data.csAtId).hide()
-				$('#less_toggle'+data.csAtId).show();
-				$('#tskmore_'+data.csAtId).slideDown(350);
-			}*/
 			
 			var params = parseUrlHash(urlHash);
 			if(params[0] != "details") {
