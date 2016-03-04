@@ -567,6 +567,15 @@ function select_reply_user(cs_autoid, obj)
 }
 
 
+/**
+ * Callback executed when the user clicks "Post" to submit a comment on a task.
+ * @param {type} id
+ * @param {type} uniqid
+ * @param {type} legend
+ * @param {type} ses_type
+ * @param {type} pid
+ * @returns {Boolean}
+ */
 function validateComments(id, uniqid, legend, ses_type, pid) 
 {
     var msgid = "txa_comments" + id;
