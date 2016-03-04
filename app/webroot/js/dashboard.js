@@ -588,12 +588,9 @@ function validateComments(id, uniqid, legend, ses_type, pid)
     
     if (document.getElementById(html).style.display == 'block') 
     {
-        var text = tinyMCE.get(msgid).getContent();
-        var ed = tinyMCE.get(msgid);
-        ed.selection.select(ed.getBody(), true);
-        var data = ed.selection.getContent({format: 'text'});
+        var text = $('#' + msgid).val();
         
-        if (data.trim() == "") 
+        if (text.trim() == "") 
         {
             var err = "Nothing to post!";
             document.getElementById(msgid).focus();
@@ -900,7 +897,7 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
             {
             }
             
-            easycase.loadTinyMce(data.csAtId);
+            //easycase.loadTinyMce(data.csAtId);
             $('[rel=tooltip]').tipsy({gravity: 's', fade: true});
             $("img.lazy").lazyload({placeholder: "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="});
             

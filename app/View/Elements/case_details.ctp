@@ -269,26 +269,27 @@ if(showQuickAct && taskTyp.id != 10){
             </div>
             <div class="fl col-lg-10">
                 <i class="icon-reply-yelow"></i>
-                <div class="fr">
-                    <div class="fl">
-                    <a href="javascript:void(0);" id="custom<%= csAtId %>"  onclick="changeToRte(<%= '\''+csAtId+'\'' %>,<%= '\''+csUniqId+'\'' %>)" style="display:none">HTML Editor</a>
-                    <a href="javascript:void(0);" id="txt<%= csAtId %>" onclick="changeToRte(<%= '\''+csAtId+'\'' %>,<%= '\''+csUniqId+'\'' %>)" style="display:block">Text Editor</a>
-                    </div>
-                    <div class="rep_st_icn"></div>
-                </div>
                 <div class="cb"></div>
                 <div class="col-lg-12 fl">
                     <div class="fl lbl-font16" id="hidstatus<%= csAtId %>" style="margin:-2px 16px 5px 0">Write your Reply:&nbsp;</div>
                     <div class="col-lg-9 w80p fl">
                 <span id="html<%= csAtId %>" style="display:block;">
                     <span id="hidhtml<%= csAtId %>" style="display:none;">
-                        <textarea name="data[Easycase][message]" id="<%= 'txa_comments'+csAtId %>" rows="2" class="col-lg-12"></textarea>
-                        <span id="htmlloader<%= csAtId %>" style="color:#999999; display: none; float:left;">
-                            Loading...
-                        </span>
+                        <textarea 
+                            name="data[Easycase][message]" 
+                            id="<%= 'txa_comments'+csAtId %>" 
+                            rows="4" 
+                            class="col-lg-12"
+                        ></textarea>
                     </span>
                     <span id="showhtml<%= csAtId %>" data-task="<%= csAtId %>">
-                        <textarea name="data[Easycase][message]" id="<%= 'txa_comments'+csAtId %>" rows="2" class="reply_txt_ipad col-lg-12" style="color:#C8C8C8"></textarea>
+                        <textarea 
+                            name="data[Easycase][message]" 
+                            id="<%= 'txa_comments'+csAtId %>" 
+                            rows="4" 
+                            class="reply_txt_ipad col-lg-12" 
+                            style="color:#C8C8C8"
+                        ></textarea>
                     </span>
                 </span>
                 <span id="plane<%= csAtId %>" style="display:none;">

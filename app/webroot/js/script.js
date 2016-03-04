@@ -5726,7 +5726,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             if ($('#' + html).is(":visible")) 
             {
                 var txa_comments = "txa_comments" + CS_id;
-                CS_message = $('#' + txa_comments).html();
+                CS_message = $('#' + txa_comments).val();
             }
             else
             {
