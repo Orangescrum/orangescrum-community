@@ -85,7 +85,6 @@ class TemplatesController extends AppController
         $this->loadModel("ProjectTemplate");
         
         $template_name = $this->ProjectTemplate->find('first', array('conditions' => array('ProjectTemplate.id'=>$templateId,'ProjectTemplate.company_id' => SES_COMP)));
-        //echo "<pre>";print_r($template_name);exit;
         $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'  => $templateId,'ProjectTemplateCase.company_id' => SES_COMP), 'order' => 'ProjectTemplateCase.sort ASC'));
         
         if (count($pjtemp) > 0)
@@ -116,7 +115,6 @@ class TemplatesController extends AppController
             $this->loadModel("ProjectTemplate");
             $this->ProjectTemplate->id=$_GET['id'];
             $this->ProjectTemplate->delete();
-            //ClassRegistry::init('ProjectTemplateCase')->query("Delete FROM project_template_cases WHERE template_id='".$_GET['id']."'");
             $this->Session->write("SUCCESS","Template Deleted successfully");
             $this->redirect(HTTP_ROOT."templates/projects/");
         }
@@ -155,7 +153,6 @@ class TemplatesController extends AppController
             }
         }
         
-        //$proj_temp = ClassRegistry::init('ProjectTemplate')->find('all',array('conditions'=>array('ProjectTemplate.company_id'=>SES_COMP)));
         $proj_temp = ClassRegistry::init('ProjectTemplate')->query("select * from `project_templates` where `company_id`='".SES_COMP."' order by `created` DESC LIMIT $limit1, $limit2");
         $total_proj_count = ClassRegistry::init('ProjectTemplate')->find('count',array('conditions'=>array('ProjectTemplate.company_id'=>SES_COMP)));
         
@@ -171,7 +168,6 @@ class TemplatesController extends AppController
     
     function ajax_add_template_module()
     {
-        //print_r($this->params['data']['title']);exit;
         $this->layout='ajax';
         $title = $this->params['data']['title'];
         
@@ -190,7 +186,6 @@ class TemplatesController extends AppController
                 if ($this->ProjectTemplate->save($this->request->data))
                 {
                     $last_insert_id = $this->ProjectTemplate->getLastInsertId();
-                    //echo $title."-".$last_insert_id;
                     echo "1";
                 }
                 else
@@ -216,7 +211,6 @@ class TemplatesController extends AppController
         $this->loadModel("Project");
         
         $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'  => $this->params['data']['temp_id'],'ProjectTemplateCase.company_id' => SES_COMP), 'order' => 'ProjectTemplateCase.sort ASC'));
-        //echo "<pre>";print_r($pjtemp);exit;
         
         if (count($pjtemp) > 0)
         {
@@ -241,7 +235,6 @@ class TemplatesController extends AppController
         $this->loadModel("Project");
         
         $pjtemp = $this->ProjectTemplateCase->find('all', array('conditions'=> array('ProjectTemplateCase.template_id'  => $this->params['data']['temp_id'],'ProjectTemplateCase.company_id' => SES_COMP), 'order' => 'ProjectTemplateCase.sort ASC'));
-        //echo "<pre>";print_r($pjtemp);exit;
         
         if (count($pjtemp) > 0)
         {
@@ -271,7 +264,6 @@ class TemplatesController extends AppController
             $this->ProjectTemplateCase->delete();   
             
             $res = ClassRegistry::init('ProjectTemplate')->find('first',array('conditions'=>array('id'=>$this->params['data']['templateId'],'company_id'=>SES_COMP), 'fields'=>array('module_name')));
-            //echo "<pre>";print_r($res);echo $res['ProjectTemplate']['module_name'];exit;
             echo "removed****".$res['ProjectTemplate']['module_name'];exit;
         }
     }
@@ -318,7 +310,7 @@ class TemplatesController extends AppController
     {
         $this->layout='ajax';
         ob_clean();
-        //echo "<pre>";print_r($this->params['data']);exit;
+        
         if (isset($this->params['data']['pj_id']) && isset($this->params['data']['temp_mod_id']))
         {
             $this->loadModel('TemplateModuleCase');
@@ -390,7 +382,6 @@ class TemplatesController extends AppController
     function add_template()
     {
         $this->layout='ajax';
-        //echo "<pre>";print_r($this->data);exit;
         $this->set('temp_id', $this->data['temp_id']);
         $this->set('temp_name', $this->data['temp_name']);
     }
@@ -398,7 +389,6 @@ class TemplatesController extends AppController
     
     function add_template_task()
     {
-        //echo "<pre>";print_r($this->request);exit;
         if (isset($this->request->data['ProjectTemplateCase']) && !empty($this->request->data['ProjectTemplateCase']))
         {
             if (isset($this->request->data['submit_template']) && count($this->request->data['ProjectTemplateCase']['title']))
@@ -464,13 +454,10 @@ class TemplatesController extends AppController
         
         $limit1 = $page*$page_limit-$page_limit;
         $limit2 = $page_limit;
-        //$query = "SELECT SQL_CALC_FOUND_ROWS * FROM case_templates WHERE case_templates.company_id='".SES_COMP."' AND (case_templates.user_id='".SES_ID."' OR case_templates.user_id='0') ORDER BY created DESC LIMIT ".$limit1.",".$limit2;
         $query = "SELECT SQL_CALC_FOUND_ROWS * FROM case_templates WHERE case_templates.company_id='".SES_COMP."' AND (1) ORDER BY created DESC LIMIT ".$limit1.",".$limit2;
         $TempalteArray = $this->CaseTemplate->query($query);
         
         $found_rows = $this->CaseTemplate->query("SELECT FOUND_ROWS() as total");
-        //echo "<pre>";print_r($TempalteArray);exit;
-        //$limit = $limit1.",".$limit2;
         $this->set('caseCount',$found_rows[0][0]['total']);
         $this->set('page_limit',$page_limit);
         $this->set('casePage',$page);
@@ -497,15 +484,12 @@ class TemplatesController extends AppController
     {
         $this->layout='ajax';
         $this->loadModel("CaseTemplate");
-        //echo "<pre>";print_r($this->request['data']);exit;
         
         if (isset($this->request['data']['tempId']) && $this->request['data']['tempId'])
         {
             $res = $this->CaseTemplate->find('first', array('conditions'=> array('CaseTemplate.id'=>$this->request['data']['tempId'])));
             $res['CaseTemplate']['pageNum'] = $this->request['data']['pagenum'];
-            //echo "<pre>";print_r($res);exit;
             print json_encode($res);exit;
-            //$this->set('TempalteArray',$res);
         }
         else
         {
