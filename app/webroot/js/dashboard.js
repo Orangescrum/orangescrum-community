@@ -837,7 +837,12 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
     var strURL = HTTP_ROOT + "easycases/case_details";
     $('#caseLoader').show();
     
-    $.post(strURL, {"caseUniqId": caseUniqId, "details": dtls}, function (data) {
+    var postData = {
+        "caseUniqId" : caseUniqId, 
+        "details": dtls
+    };
+    
+    var postCallback = function (data) {
         if (data) 
         {
             totalReplies = data.total;
@@ -878,8 +883,8 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
             }
             
             easycase.detailPageinate();
-            bindPrettyview("prettyPhoto"); //This calls for images on task post and reply of case details
-            bindPrettyview("prettyImg"); //This calls for file list showing in right side bar of case details
+            bindPrettyview("prettyPhoto"); // This calls for images on task post and reply of case details
+            bindPrettyview("prettyImg"); // This calls for file list showing in right side bar of case details
             
             fuploadUI(data.csAtId);
             
@@ -911,9 +916,9 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
             $(".slide_rht_con").animate({marginLeft: "0px"}, "fast");
             $(".crt_slide").css({display: "none"});
 
-            // Custome Date range in due date 
-            $("div [id^='det_set_due_date_']").each(function (i) {
-                $(this).datepicker({
+            // Custom Date range in due date 
+            $("div [id^='det_set_due_date_']").each(function(i) {
+                var datePickerConfig = {
                     altField: "#CS_due_date",
                     showOn: "button",
                     buttonImage: HTTP_IMAGES + "images/calendar.png",
@@ -926,7 +931,9 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
                         var caseId = $(this).parents('.cstm-dt-option').attr('data-csatid');
                         detChangeDueDate(caseId, dateText, '', caseUniqId, data.csNoRep);
                     }
-                });
+                };
+                
+                $(this).datepicker(datePickerConfig);
             });
         } 
         else 
@@ -936,7 +943,9 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
         
         $('#caseLoader').hide();
         scrollToRep = null;
-    });
+    };
+    
+    $.post(strURL, postData, postCallback);
 };
 
 
