@@ -528,17 +528,11 @@ function checkedAllResReply(CS_id) {
 			$(this).removeAttr("checked");
 		});
 	}
-	/*for(var i=0;i < res;i++) {
-		var chkids = CS_id+"chk_"+i;
-		if(document.getElementById(allchk).checked == true) {
-			document.getElementById(chkids).checked = true;
-		}
-		else {
-			document.getElementById(chkids).checked = false;	
-		}
-	}*/
 }
-function changeToRte(id) {
+
+
+function changeToRte(id) 
+{
 	var custom = 'custom'+id;
 	var txt = 'txt'+id;
 	var html = 'html'+id;
@@ -568,9 +562,13 @@ function changeToRte(id) {
 	document.getElementById(showhtml).style.display = 'none';
 	document.getElementById(hidhtml).style.display = 'block';
 }
+
+
 function valforlegend(id,leg){
 	document.getElementById(leg).value=id;	
 }
+
+
 function select_reply_user(cs_autoid,obj){
 	uid =$(obj).val();
 	$('#'+cs_autoid+'chk_'+uid).attr('checked','checked');

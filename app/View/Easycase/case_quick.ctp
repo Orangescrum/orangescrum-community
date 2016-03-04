@@ -23,7 +23,7 @@ $titleValue = "Daily Update - ".date("m/d");
     }
     
     
-    function showTemplates(id,name) 
+    function showTemplates(id, name) 
     {
         var isDataPresent = false;
         $(".selected_val").html(htmlEntities(name));
@@ -467,18 +467,19 @@ else
                                         <?php
                                         if (count($getTmpl)) 
                                         {
-                                            foreach($getTmpl as $tmpl) 
+                                            foreach ($getTmpl as $tmpl) 
                                             { 
                                             ?>
                                                 <li style="display:block;text-align:left;">
-                                                    <a href="javascript:void(0);" onclick="showTemplates(<?php echo $tmpl['CaseTemplate']['id']; ?>,'<?php echo $tmpl['CaseTemplate']['name']; ?>')"><?php echo ucfirst($tmpl['CaseTemplate']['name']); ?></a>
+                                                    <a href="javascript:void(0);" onclick="showTemplates(<?php echo $tmpl['CaseTemplate']['id']; ?>, '<?php echo $tmpl['CaseTemplate']['name']; ?>')"><?php echo ucfirst($tmpl['CaseTemplate']['name']); ?></a>
                                                 </li>
                                                 <li class="divider" style="margin:0;padding:0;"></li>
                                             <?php
                                             }
                                         }
                                         else 
-                                        { ?>
+                                        { 
+                                        ?>
                                             <li style="display:block;text-align:left;">
                                                 <a href="<?php echo HTTP_ROOT."users/add_template/"; ?>" target="_blank">yet to create</a>
                                             </li>   
