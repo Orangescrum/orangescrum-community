@@ -3049,13 +3049,15 @@ $("#attach").blur(function(){
     if ($("#attach").val()=="")
     $("#fake_txt").val("Attach File");
 });
- 
+
+
 function assignval(){ 
     $("#fake_txt").val($("#attach").val());
 }
 $("#srch_close").click(function(){
     $(this).next(".srchbox").val("");
 });
+
 
 function openEditor() 
 {

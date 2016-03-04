@@ -1233,7 +1233,6 @@ function creatask()
 
     scrollPageTop();
     $('#CS_title').focus();
-    openEditor('');
 }
 
 
@@ -5566,52 +5565,6 @@ function cancel_daily_update()
 }
 
 
-/**
- * Function executed when user clicks "new task" and is responsible for loading in the
- * tinymce textbox.
- * @param {type} editormessage
- */
-function openEditor(editormessage) 
-{
-    $("#divNewCase").hide();
-    $("#divNewCaseLoader").show();
-    
-    (function ($) {
-        if (typeof (tinymce) != "undefined") 
-        {
-            tinymce.execCommand('mceRemoveControl', true, 'CS_message'); // remove any existing references
-        }
-        
-        createTaskTemplatePlugin();
-        
-        var tinymceConfig = {
-            // Location of TinyMCE script
-            script_url: HTTP_ROOT + 'js/tinymce/tiny_mce.js',
-            theme: "advanced",
-            plugins: "paste, -tasktemplate", // - tells TinyMCE to skip the loading of the plugin
-            theme_advanced_buttons1: "bold,italic,strikethrough,underline,|,numlist,bullist,|,indent,outdent,|,tasktemplate",
-            theme_advanced_resizing: false,
-            theme_advanced_statusbar_location: "",
-            paste_text_sticky: true,
-            gecko_spellcheck: true,
-            paste_text_sticky_default: true,
-            forced_root_block: false,
-            width: "600px",
-            height: "200px",
-            oninit: function () {
-                $("#divNewCaseLoader").hide();
-                $("#divNewCase").show();
-                $('#CS_message').val(editormessage);
-                $('#CS_message').tinymce().setContent(editormessage);
-                $("#tmpl_open").show();
-            }
-        };
-        
-        $('#CS_message').tinymce(tinymceConfig);
-    })($);
-}
-
-
 function createTaskTemplatePlugin() 
 {
     if (typeof (tinymce) != "undefined") 
@@ -5703,21 +5656,14 @@ function showTemplates(id, name)
  * @returns {Boolean} */
 function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend, pid)
 {
-    var description = '';
-    var title = '';
-    var id = tinyMCE.activeEditor.editorId;
-    description = tinymce.activeEditor.getContent();
-
+    var title = title = $('#CS_title').val();
+    var description = $('#CS_message').val();
+    
     var res = description.match(/attach/gi);
     var res2 = description.match(/screenshot/gi);
     var res3 = description.match(/screen-shot/gi);
     var res4 = description.match(/screen shot/gi);
-
-    if (id == 'CS_message')
-    {
-        title = $('#CS_title').val();
-    }
-
+    
     var res1 = title.match(/attach/gi);
     var res5 = title.match(/screenshot/gi);
     var res6 = title.match(/screen shot/gi);
@@ -5725,7 +5671,11 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
     var conf = 0;
     var attachment = $("#table1 input[type=checkbox]:checked").length;
 
-    if ((res1 || res || res2 || res3 || res4 || res5 || res6 || res7) && !attachment)
+    if 
+    (
+        (res1 || res || res2 || res3 || res4 || res5 || res6 || res7) 
+        && !attachment
+    )
     {
         conf = confirm('Did you mean to add an attachment or screenshot to this Task?');
     }
@@ -5776,12 +5726,12 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             if ($('#' + html).is(":visible")) 
             {
                 var txa_comments = "txa_comments" + CS_id;
-                CS_message = $('#' + txa_comments).html();//document.getElementById(txa_comments).value;
+                CS_message = $('#' + txa_comments).html();
             }
             else
             {
                 var txa_plane = "txa_plane" + CS_id;
-                CS_message = nl2br($.trim(document.getElementById(txa_plane).value));
+                CS_message = $.trim(document.getElementById(txa_plane).value);
             }
             
             var editortype = "editortype" + CS_id;
@@ -5934,7 +5884,11 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
         {
         }
         
-        if ((done == 1 && emailUser.length != "0") || (done == 1 && confirm("Are you sure you want to proceed without notifying anyone?"))) 
+        if 
+        (
+            (done == 1 && emailUser.length != "0") 
+            || (done == 1 && confirm("Are you sure you want to proceed without notifying anyone?"))
+        ) 
         {
             if (!CS_id) 
             {
@@ -5947,7 +5901,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     
                     try 
                     {
-                        CS_message = tinyMCE.activeEditor.getContent();
+                        CS_message = $('#CS_message').val();
                     } 
                     catch (e) 
                     {
@@ -6052,7 +6006,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                             
                             document.getElementById('CS_assign_to').value = '';
                             document.getElementById('pageheading').innerHTML = 'Tasks';
-                            tinyMCE.activeEditor.setContent('');
+                            $('#CS_message').val('');
                         }
                         catch (e) 
                         {

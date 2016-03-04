@@ -173,15 +173,23 @@
     <div class="case_field">
         <span>
             <div class="fl lbl-m-wid">Description:</div>
-            <div id="divNewCase" class="col-lg-9 createtask fl rht-con">
-                <textarea name="data[Easycase][message]" id="CS_message" onfocus="openEditor()" rows="2" style="resize:none" class="form-control" placeholder="Enter Description..."><?php if(isset($taskdetails['message']) && $taskdetails['message']){echo $taskdetails['message']; }?></textarea>
-            </div>
             
             <!-- This is the description field for creating a new task and gets replaced by a tinymce textbox -->
-            <div id="divNewCaseLoader" style="display:none;padding:20px ;text-align: center;color:#999999;">
-                Loading...
+            <div id="divNewCase" class="col-lg-9 createtask fl rht-con">
+                <textarea 
+                    name="data[Easycase][message]" 
+                    id="CS_message" 
+                    rows="2" 
+                    style="resize:none" 
+                    class="form-control" 
+                    placeholder="Enter Description..."
+                ><?php 
+                    if (isset($taskdetails['message']) && $taskdetails['message'])
+                    {
+                        echo $taskdetails['message']; 
+                    }
+                ?></textarea>
             </div>
-            
         </span>
     </div>
     <div class="cb"></div>
