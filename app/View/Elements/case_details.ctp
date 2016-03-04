@@ -22,7 +22,6 @@ if(showQuickAct && taskTyp.id != 10){
                     <% if(cntdta) { %>
                     <span>&nbsp;<i class="icon-twit-count"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<%= total %>)</span>
                     <% } %>
-                    <?php /*?>Last updated by <font>Tom Foolery</font> 12 hours ago <span>&nbsp;<i class="icon-twit-count"></i>&nbsp;&nbsp;&nbsp;&nbsp;(40)</span><?php */?>
                 </div>
           </div>
           <div class="col-lg-12 task_details_title"> 
@@ -116,12 +115,6 @@ if(showQuickAct && taskTyp.id != 10){
                  </div>
                  <div class="col-lg-4 task_elements">
                     <table cellpadding="0" cellspacing="0">
-                        <?php /*?><tr>
-                            <td>Milestone:</td>
-                            <td><b>
-                            <%= mistn?shortLength(mistn,20):'<i class="no_due_dt">None</i>' %>
-                            </b></td>
-                        </tr><?php */?>
                         <tr>
                             <td>Project:</td>
                             <td>
@@ -536,7 +529,14 @@ if(showQuickAct && taskTyp.id != 10){
                 <div class="col-lg-12 m-top-20">
                     <div class="fl lbl-font16 lbl_cs_det"></div>
                     <span id="postcomments<%= csAtId %>">
-                        <button class="btn btn_blue" type="button" name="data[Easycase][postdata]" onclick="return validateComments(<%= '\''+csAtId+'\',\''+csUniqId+'\',\''+csLgndRep+'\',\''+SES_TYPE+'\',\''+csProjIdRep+'\'' %>);"><i class="icon-big-tick"></i>Post</button>
+                        <button 
+                            class="btn btn_blue" 
+                            type="button" 
+                            name="data[Easycase][postdata]" 
+                            onclick="return validateComments(<%= '\''+csAtId+'\',\''+csUniqId+'\',\''+csLgndRep+'\',\''+SES_TYPE+'\',\''+csProjIdRep+'\'' %>);"
+                        >
+                            <i class="icon-big-tick"></i>Post
+                        </button>
                         <span class="or_cancel">or</span>
                         <button class="task_detail_back or_cancel" type="reset" id="rset"><i class="icon-big-cross"></i>Cancel</button>
                     </span>
@@ -545,77 +545,12 @@ if(showQuickAct && taskTyp.id != 10){
                     </span>
                     <input type="hidden" value="<%= total %>" id="hidtotrp<%= csAtId %>" />
                     
-
-
-                </div>          
+                </div>
             </div>
             <div class="cb"></div>
         </div>
         <% } %>
-        <?php /*?><div class="reply_task_block">
-            <div class="fl">
-                <% if(asgnPic && asgnPic!=0) { %>
-                <img data-src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<%= asgnPic %>&sizex=60&sizey=60&quality=100" src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=user.png&sizex=60&sizey=60&quality=100" class="lazy round_profile_img asignto" width="60" height="60" title="<%= asgnTo %>"/>
-                <% } else { %>
-                <img src="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=user.png&sizex=60&sizey=60&quality=100" class="round_profile_img asignto" title="<%= asgnTo %>" width="60" height="60" />
-                <% } %>
-            </div>
-            <div class="fl col-lg-10">
-                <i class="icon-reply-yelow"></i>
-                <textarea class="col-lg-12" placeholder="Enter your Comment"></textarea>
-                <div class="cb"></div>
-                <div class="col-lg-12 m-top-20">
-                    <div class="lbl-font16">Email this reply to: <input type="checkbox"> All User <a href="">Or, Loop-in some selective users.</a></div>
-                </div>
-                <div class="cb"></div>
-                <div class="col-lg-12 m-top-20 fl">
-                    <a href="javascript:jsVoid();" class="wink">
-                        <button class="btn gry_btn task_con" type="button">
-                        <i class="icon-task-priority"></i>
-                        </button>
-                    </a>                
-                    <a href="javascript:jsVoid();" class="wink">
-                        <button class="btn gry_btn task_con" type="button">
-                        <i class="icon-task-asign"></i>
-                        </button>
-                    </a>
-                    <div class="btn gry_btn time_spent" style="margin-right:-5px;">
-                        <i class="icon-task-time"></i>
-                        <input type="text" class="form-control fr" placeholder="0.0" />
-                    </div>
-                    <div class="btn gry_btn time_spent">
-                        <i class="icon-reply-cmpl"></i>
-                        <input type="text" class="form-control fr" placeholder="50" />
-                    </div>
-                    
-                    <div class="col-lg-5 m-top-20 fr" style="text-align:right">
-                        <a href="javascript:jsVoid();" class="wink">
-                            <button class="btn gry_btn task_con" type="button">
-                            <i class="icon-attach-hide m-106"></i>
-                            </button>
-                        </a>
-                        <a href="javascript:jsVoid();" class="wink">
-                            <button class="btn gry_btn task_con" type="button">
-                            <i class="icon-gdrive m-10"></i>
-                            </button>
-                        </a>
-                        <a href="javascript:jsVoid();" class="wink">
-                            <button class="btn gry_btn task_con" type="button">
-                            <i class="icon-dbox m-8"></i>
-                            </button>
-                        </a>                    
-                    </div>
-                </div>
-                <div class="cb"></div>
-                <div class="col-lg-12 m-top-20">                
-                    <button class="btn btn_blue" type="submit"><i class="icon-big-tick"></i>Post</button>
-                    <button class="btn btn_grey" type="reset" id="rset" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>
-                    <a href="javascript:jsVoid();" onclick="slide_form_more();"><div class="fr mor_toggle">More Options<b class="caret"></b></div></a>
-                    <a href="javascript:jsVoid();" onclick="slide_form_less();"><div class="fr less_toggle" style="display:none">Less Options<b class="caret"></b></div></a>
-                </div>              
-            </div>
-            <div class="cb"></div>
-        </div><?php */?>
+        
     </div><!-- /.page-wrapper -->
     </div>
     <div class="col-lg-3 fl col_task case_det_rt">
@@ -638,14 +573,6 @@ if(showQuickAct && taskTyp.id != 10){
             </div>
         </a>
         <% } %>
-        <?php /*?>
-        <% if(csLgndRep == 1 && csTypRep!= 10) { %>
-        <a href="javascript:void(0);" onclick="startCase(<%= '\'' + csAtId + '\'' %>, <%= '\'' + csNoRep + '\'' %>, <%= '\'' + csUniqId + '\'' %>);">
-            <div class="btn gry_btn smal30" rel="tooltip" title="Start">
-                <i class="act_icon act_start_task fl"></i>
-            </div>
-        </a>
-        <% } %><?php */?>
         <% if(is_active && (SES_TYPE == 1 || SES_TYPE == 2 || ((csLgndRep == 1 || csLgndRep == 2 || csLgndRep == 4) && ( SES_ID == csUsrDtls)))) { %>
         <a href="javascript:void(0);" onclick="archiveCase(<%= '\'' + csAtId + '\'' %>, <%= '\'' + csNoRep + '\'' %>, <%= '\'' + csProjIdRep + '\'' %>, <%= '\'t_' + csUniqId + '\'' %>);">
             <div class="btn gry_btn smal30" rel="tooltip" title="Archive">
