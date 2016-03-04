@@ -963,6 +963,8 @@ easycase.loadTinyMce = function (csAtId) {
             $("#htmlloader" + csAtId).hide();
         }
     };
+    
+    $('#txa_comments' + csAtId).tinymce(config);
 };
 
 
@@ -3513,7 +3515,7 @@ function editmessage(obj, id, projid)
             }
         };
         
-        //$('#edit_reply_txtbox' + id).tinymce(config);
+        $('#edit_reply_txtbox' + id).tinymce(config);
     });
 }
 
