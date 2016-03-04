@@ -38,20 +38,33 @@
                                     <div class="opt1" id="opt1">
                                         <a href="javascript:jsVoid()" onclick="open_more_opt('more_opt');">
                                             <span id="ctsk_type">
-                                            <?php if(isset($taskdetails) && $taskdetails['type_id']){
-                                                foreach($select as $k=>$v){
-                                                    if($v['Type']['id'] == $taskdetails['type_id']){
-                                                        if (trim($v['Type']['short_name']) && file_exists(WWW_ROOT."img/images/types/".$v['Type']['short_name'].".png")) {
-                                                        $imgicn = HTTP_IMAGES.'images/types/'.$v['Type']['short_name'].'.png';
-                                                        } else {
-                                                        //$imgicn = HTTP_IMAGES.'images/types/default.png';
+                                            <?php
+                                            if (isset($taskdetails) && $taskdetails['type_id'])
+                                            {
+                                                foreach ($select as $k => $v)
+                                                {
+                                                    if ($v['Type']['id'] == $taskdetails['type_id'])
+                                                    {
+                                                        if (trim($v['Type']['short_name']) && file_exists(WWW_ROOT . "img/images/types/" . $v['Type']['short_name'] . ".png"))
+                                                        {
+                                                            $imgicn = HTTP_IMAGES . 'images/types/' . $v['Type']['short_name'] . '.png';
                                                         }
-                                                        if (trim($imgicn)){ ?>
-                                                        <img class="flag" src="<?php echo $imgicn;?>" alt="type" style="padding-top:3px;"/>&nbsp;<?php echo $v['Type']['name'];?>
-                                                        <?php } else { ?>
-                                                        <?php echo $v['Type']['name'];?>
+                                                        else
+                                                        {
+                                                            //$imgicn = HTTP_IMAGES.'images/types/default.png';
+                                                        }
+                                                        if (trim($imgicn))
+                                                        {
+                                                            ?>
+                                                                <img class="flag" src="<?php echo $imgicn; ?>" alt="type" style="padding-top:3px;"/>&nbsp;<?php echo $v['Type']['name']; ?>
+                                                        <?php }
+                                                        else
+                                                        { ?>
+                                                            <?php echo $v['Type']['name']; ?>
                                                         <?php } ?>
-                                                <?php break; }
+                                                        <?php
+                                                        break;
+                                                    }
                                                 }
                                             }else{
                                                 if (isset($GLOBALS['TYPE_DEFAULT']) && $GLOBALS['TYPE_DEFAULT']==1) {?>
@@ -67,46 +80,57 @@
                                     <div class="more_opt" id="more_opt">
                                         <ul>
                                             <?php
-                                            foreach($GLOBALS['TYPE'] as $k=>$v){
-                                                foreach($v as $key=>$value){
-                                                    foreach($value as $key1=>$result){
-                                                        if($key1=='name'&& $key1='short_name'){
+                                            foreach ($GLOBALS['TYPE'] as $k => $v)
+                                            {
+                                                foreach ($v as $key => $value)
+                                                {
+                                                    foreach ($value as $key1 => $result)
+                                                    {
+                                                        if ($key1 == 'name' && $key1 = 'short_name')
+                                                        {
                                                             //$im = $value['short_name'].".png";
-                                                            if (trim($value['short_name']) && file_exists(WWW_ROOT."img/images/types/".$value['short_name'].".png")) {
-                                                                $im1= $this->Format->todo_typ_src($value['short_name'],$value['name']);
-                                                            } else {
+                                                            if (trim($value['short_name']) && file_exists(WWW_ROOT . "img/images/types/" . $value['short_name'] . ".png"))
+                                                            {
+                                                                $im1 = $this->Format->todo_typ_src($value['short_name'], $value['name']);
+                                                            }
+                                                            else
+                                                            {
                                                                 $im1 = '';
                                                                 //$im1 = HTTP_IMAGES.'images/types/default.png';
                                                             }
-                                                            if (trim($im1)) {
+                                                            if (trim($im1))
+                                                            {
                                                                 echo "<li>
                                                                     <a href='javascript:jsVoid()'>
-                                                                        <img class='flag' src='".$im1."' alt='' />
-                                                                        <span class='value'>".$value['id']."
-                                                                        </span>".$value['name']."
-                                                                    </a>
-                                                                </li>";
-                                                            } else {
-                                                                echo "<li>
-                                                                    <a href='javascript:jsVoid()'>
-                                                                        <span style='padding-left: 27px;'></span>
-                                                                        <span class='value'>".$value['id']."
-                                                                        </span>".$value['name']."
+                                                                        <img class='flag' src='" . $im1 . "' alt='' />
+                                                                        <span class='value'>" . $value['id'] . "
+                                                                        </span>" . $value['name'] . "
                                                                     </a>
                                                                 </li>";
                                                             }
-                                                     }
-                                                  }
+                                                            else
+                                                            {
+                                                                echo "<li>
+                                                                    <a href='javascript:jsVoid()'>
+                                                                        <span style='padding-left: 27px;'></span>
+                                                                        <span class='value'>" . $value['id'] . "
+                                                                        </span>" . $value['name'] . "
+                                                                    </a>
+                                                                </li>";
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                            }?>
-                                         </ul>
+                                            }
+                                            ?>
+                                        </ul>
                                     </div>
                                 </div>
                                 <?php
-                                if(SES_TYPE == 1 || SES_TYPE == 2 || IS_MODERATOR == 1)
+                                if (SES_TYPE == 1 || SES_TYPE == 2 || IS_MODERATOR == 1)
                                 {
                                 ?>
-                                <span style="position:relative;top:4px;"><a href="<?php echo HTTP_ROOT."task-type"; ?>" style="color:#06C;text-decoration:underline;font-size:12px;padding-left:5px;" target="_blank">Add New</a></span>
+                                    <span style="position:relative;top:4px;"><a href="<?php echo HTTP_ROOT . "task-type"; ?>" style="color:#06C;text-decoration:underline;font-size:12px;padding-left:5px;" target="_blank">Add New</a></span>
                                 <?php
                                 }
                                 ?>
@@ -183,10 +207,10 @@
                     style="resize:none" 
                     class="form-control" 
                     placeholder="Enter Description..."
-                ><?php 
+                    ><?php
                     if (isset($taskdetails['message']) && $taskdetails['message'])
                     {
-                        echo $taskdetails['message']; 
+                        echo $taskdetails['message'];
                     }
                 ?></textarea>
             </div>
@@ -212,12 +236,6 @@
                         </tr>
                     </table>
                 </td>
-
-
-
-
-
-
 
                 <td align="right">
                     <table cellpadding="0" cellspacing="0">
@@ -246,20 +264,20 @@
                     <div class="fl lbl-m-wid">Attachment(s):</div>
                 </td>
                 <td align="left">
-                                    <table cellpadding="0" cellspacing="0" style="width:100%">
+                    <table cellpadding="0" cellspacing="0" style="width:100%">
                         <tr>
                             <td>
-                                <form id="file_upload" action="<?php echo HTTP_ROOT."easycases/fileupload/"; ?>" method="POST" enctype="multipart/form-data">
+                                <form id="file_upload" action="<?php echo HTTP_ROOT . "easycases/fileupload/"; ?>" method="POST" enctype="multipart/form-data">
                                     <div class="fl" style="margin:10px 0;">
                                         <div id="holder" style="">
-                                        <div class="customfile-button" style="right:0">
-                                            <input class="customfile-input fl" name="data[Easycase][case_files]" type="file" multiple=""  style="width:233px;height:74px;"/>
-                                            <input name="data[Easycase][usedstorage]" type="hidden" id="usedstorage" value=""/>
-                                            <input name="data[Easycase][allowusage]" type="hidden" id="allowusage" value="<?php echo $user_subscription['storage']; ?>"/>
-                                            <div class="att_fl fl" style="margin-right:5px"></div><div class="fr">Select multiple files to upload...</div>
-                                        </div>
-                                        <div style="margin-left:4px;color:#F48B02;font-size:13px;" class="fnt999">Drag and Drop files to Upload</div>
-                                        <div style="margin-left:6px" class="fnt999">Max size <?php echo MAX_FILE_SIZE; ?> Mb</div>
+                                            <div class="customfile-button" style="right:0">
+                                                <input class="customfile-input fl" name="data[Easycase][case_files]" type="file" multiple=""  style="width:233px;height:74px;"/>
+                                                <input name="data[Easycase][usedstorage]" type="hidden" id="usedstorage" value=""/>
+                                                <input name="data[Easycase][allowusage]" type="hidden" id="allowusage" value="<?php echo $user_subscription['storage']; ?>"/>
+                                                <div class="att_fl fl" style="margin-right:5px"></div><div class="fr">Select multiple files to upload...</div>
+                                            </div>
+                                            <div style="margin-left:4px;color:#F48B02;font-size:13px;" class="fnt999">Drag and Drop files to Upload</div>
+                                            <div style="margin-left:6px" class="fnt999">Max size <?php echo MAX_FILE_SIZE; ?> Mb</div>
                                         </div>                                  
                                     </div>
                                     <?php if(USE_DROPBOX == 1 || USE_GOOGLE == 1){?>
@@ -300,10 +318,10 @@
             <tr id="drive_tr_0" style="display: none;">
                 <td>&nbsp;</td>
                 <td>
-                <form id="cloud_storage_form_0" name="cloud_storage_form_0"  action="javascript:void(0)" method="POST">
-                    <div style="float: left;margin-top: 7px;" id="cloud_storage_files_0"></div>
-                </form>
-                <div style="clear: both;margin-bottom: 3px;"></div>
+                    <form id="cloud_storage_form_0" name="cloud_storage_form_0"  action="javascript:void(0)" method="POST">
+                        <div style="float: left;margin-top: 7px;" id="cloud_storage_files_0"></div>
+                    </form>
+                    <div style="clear: both;margin-bottom: 3px;"></div>
                 </td>
             </tr>
         </table>
@@ -311,26 +329,29 @@
     <div class="cb"></div>
 </div>
 <script>
-var holder = document.getElementById('holder'),
-    tests = {
-      dnd: 'draggable' in document.createElement('span')
-    };
+    var holder = document.getElementById('holder'),
+            tests = {
+                dnd: 'draggable' in document.createElement('span')
+            };
 
-if (tests.dnd) {
-  holder.ondragover = function () { this.className = 'hover'; return false; };
-  holder.ondrop = function (e) {
-    $('#holder').removeClass('hover');
-    if($.trim(e.dataTransfer.files[0].type) === "" || e.dataTransfer.files[0].size === 0) {
-        alert('File "'+e.dataTransfer.files[0].name+'" has no extension!\nPlease upload files with extension.');
-        e.stopPropagation();
-        e.preventDefault();
+    if (tests.dnd) {
+        holder.ondragover = function () {
+            this.className = 'hover';
+            return false;
+        };
+        holder.ondrop = function (e) {
+            $('#holder').removeClass('hover');
+            if ($.trim(e.dataTransfer.files[0].type) === "" || e.dataTransfer.files[0].size === 0) {
+                alert('File "' + e.dataTransfer.files[0].name + '" has no extension!\nPlease upload files with extension.');
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            return false;
+        };
     }
-    return false;
-  };
-}
-$(function(){
-    $('#holder').mouseout(function(){
-    $('#holder').removeClass('hover');
+    $(function () {
+        $('#holder').mouseout(function () {
+            $('#holder').removeClass('hover');
+        });
     });
-});
 </script>
