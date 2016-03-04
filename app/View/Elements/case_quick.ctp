@@ -203,8 +203,7 @@
                 <textarea 
                     name="data[Easycase][message]" 
                     id="CS_message" 
-                    rows="2" 
-                    style="resize:none" 
+                    rows="4"
                     class="form-control" 
                     placeholder="Enter Description..."
                     ><?php
