@@ -738,7 +738,8 @@ function showedittextpopup(id, projid)
         $('#edit_textmesg' + id).css('background-image', 'url("' + HTTP_ROOT + 'img/html5/icons/fb_edit.png")');
         $('#edit_desc_' + id).html(res);
         var tiny_mce_url = url + 'js/tinymce/tiny_mce.js';
-        $('#edit_reply_txtbox' + id).tinymce({
+        
+        var config = {
             // Location of TinyMCE script
             theme: "advanced",
             plugins: "paste",
@@ -755,7 +756,9 @@ function showedittextpopup(id, projid)
             oninit: function () {
                 $('#edit_reply_txtbox' + id).tinymce().focus();
             }
-        });
+        };
+        
+        $('#edit_reply_txtbox' + id).tinymce(config);
     });
 }
 
@@ -1024,7 +1027,8 @@ function editmessage(obj, id, projid)
         $('#editpopup' + id).css('background-image', 'url("' + HTTP_ROOT + 'img/images/edit_reply.png")');
         $('#casereplyid_' + id).html(res);
         var tiny_mce_url = url + 'js/tinymce/tiny_mce.js';
-        $('#edit_reply_txtbox' + id).tinymce({
+        
+        var config = {
             // Location of TinyMCE script
             theme: "advanced",
             plugins: "paste",
@@ -1041,7 +1045,9 @@ function editmessage(obj, id, projid)
             oninit: function () {
                 $('#edit_reply_txtbox' + id).tinymce().focus();
             }
-        });
+        };
+        
+        $('#edit_reply_txtbox' + id).tinymce(config);
     });
 }
 

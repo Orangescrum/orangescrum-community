@@ -3064,7 +3064,8 @@ function openEditor()
     
     (function($) {
         var pageurl = document.getElementById('pageurl').value;
-        $('#CS_message').tinymce({
+        
+        var config = {
             // Location of TinyMCE script
             script_url : pageurl+'js/tinymce/tiny_mce.js',
             theme : "advanced",
@@ -3084,7 +3085,9 @@ function openEditor()
                 $('#CS_message').tinymce().focus();
                 $("#tmpl_open").show();
             }
-        });
+        };
+        
+        $('#CS_message').tinymce(config);
     })($);  
 }
 
