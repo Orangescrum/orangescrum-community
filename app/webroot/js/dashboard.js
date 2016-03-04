@@ -955,19 +955,19 @@ easycase.loadTinyMce = function (csAtId) {
     
     var config = {
         // Location of TinyMCE script
-        script_url: tiny_mce_url,
-        theme: "advanced",
-        plugins: "paste",
-        theme_advanced_buttons1: "bold,italic,strikethrough,underline,|,numlist,bullist,|,indent,outdent",
-        theme_advanced_resizing: false,
-        theme_advanced_statusbar_location: "",
-        paste_text_sticky: true,
-        gecko_spellcheck: true,
-        paste_text_sticky_default: true,
-        forced_root_block: false,
-        width: "100%",
-        height: "200px",
-        oninit: function () {
+        'script_url' : tiny_mce_url,
+        'theme' : "advanced",
+        'plugins' : "paste",
+        'theme_advanced_buttons1' : "bold,italic,strikethrough,underline,|,numlist,bullist,|,indent,outdent",
+        'theme_advanced_resizing' : false,
+        'theme_advanced_statusbar_location' : "",
+        'paste_text_sticky' : true,
+        'gecko_spellcheck' : true,
+        'paste_text_sticky_default' : true,
+        'forced_root_block' : false,
+        'width' : "100%",
+        'height' : "200px",
+        'oninit' : function () {
             $('#txa_comments' + csAtId).tinymce().focus();
             $("#htmlloader" + csAtId).hide();
         }
