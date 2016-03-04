@@ -656,7 +656,7 @@ easycase.getStatus = function (type, legend) {
     {
         return '<div class="label resolved">Resolved</div>';
     }
-}
+};
 
 
 easycase.imageTypeIcon = function (format) {
@@ -689,7 +689,7 @@ easycase.imageTypeIcon = function (format) {
     }
     
     return format;
-}
+};
 
 
 easycase.getColorStatus = function (type, legend) {
@@ -718,7 +718,7 @@ easycase.getColorStatus = function (type, legend) {
     {
         return '<b class="resolved">Resolved</b>';
     }
-}
+};
 
 
 easycase.getPriority = function (casePriority) {
@@ -821,7 +821,7 @@ easycase.refreshTaskList = function (dtlsid, details)
         refreshTasks = 1;
         window.location.hash = 'tasks';
     }
-}
+};
 
 
 easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
@@ -928,7 +928,7 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
         $('#caseLoader').hide();
         scrollToRep = null;
     });
-}
+};
 
 
 easycase.loadTinyMce = function (csAtId) {
@@ -954,8 +954,6 @@ easycase.loadTinyMce = function (csAtId) {
             $("#htmlloader" + csAtId).hide();
         }
     };
-    
-    $('#txa_comments' + csAtId).tinymce(config);
 };
 
 
@@ -3506,7 +3504,7 @@ function editmessage(obj, id, projid)
             }
         };
         
-        $('#edit_reply_txtbox' + id).tinymce(config);
+        //$('#edit_reply_txtbox' + id).tinymce(config);
     });
 }
 
