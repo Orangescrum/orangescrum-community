@@ -5566,18 +5566,24 @@ function cancel_daily_update()
 }
 
 
+/**
+ * Function executed when user clicks "new task" and is responsible for loading in the
+ * tinymce textbox.
+ * @param {type} editormessage
+ */
 function openEditor(editormessage) 
 {
     $("#divNewCase").hide();
     $("#divNewCaseLoader").show();
+    
     (function ($) {
         if (typeof (tinymce) != "undefined") 
         {
             tinymce.execCommand('mceRemoveControl', true, 'CS_message'); // remove any existing references
         }
-
+        
         createTaskTemplatePlugin();
-
+        
         var tinymceConfig = {
             // Location of TinyMCE script
             script_url: HTTP_ROOT + 'js/tinymce/tiny_mce.js',
@@ -5602,7 +5608,6 @@ function openEditor(editormessage)
         };
         
         $('#CS_message').tinymce(tinymceConfig);
-
     })($);
 }
 
