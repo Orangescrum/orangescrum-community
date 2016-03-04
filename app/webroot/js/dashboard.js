@@ -867,25 +867,25 @@ easycase.ajaxCaseDetails = function (caseUniqId, type, dtls) {
                     $('#holder_detl').removeClass('hover');
                 });
             }
-
+            
             easycase.detailPageinate();
             bindPrettyview("prettyPhoto"); //This calls for images on task post and reply of case details
             bindPrettyview("prettyImg"); //This calls for file list showing in right side bar of case details
-
+            
             fuploadUI(data.csAtId);
-
+            
             var params = parseUrlHash(urlHash);
             if (params[0] != "details") {
                 parent.location.hash = "details" + "/" + caseUniqId;
             }
-
+            
             if (dtls == 0) 
             {
             }
             else 
             {
             }
-
+            
             easycase.loadTinyMce(data.csAtId);
             $('[rel=tooltip]').tipsy({gravity: 's', fade: true});
             $("img.lazy").lazyload({placeholder: "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="});
@@ -935,7 +935,7 @@ easycase.loadTinyMce = function (csAtId) {
     $("#htmlloader" + csAtId).show();
     var tiny_mce_url = HTTP_ROOT + 'js/tinymce/tiny_mce.js';
     
-    $('#txa_comments' + csAtId).tinymce({
+    var config = {
         // Location of TinyMCE script
         script_url: tiny_mce_url,
         theme: "advanced",
@@ -953,7 +953,9 @@ easycase.loadTinyMce = function (csAtId) {
             $('#txa_comments' + csAtId).tinymce().focus();
             $("#htmlloader" + csAtId).hide();
         }
-    });
+    };
+    
+    $('#txa_comments' + csAtId).tinymce(config);
 };
 
 
@@ -3484,7 +3486,8 @@ function editmessage(obj, id, projid)
         $('#editpopup' + id + ' .icon-edit').removeClass('loading');
         $('#casereplyid_' + id).html(res);
         var tiny_mce_url = HTTP_ROOT + 'js/tinymce/tiny_mce.js';
-        $('#edit_reply_txtbox' + id).tinymce({
+        
+        var config = {
             // Location of TinyMCE script
             theme: "advanced",
             plugins: "paste",
@@ -3501,7 +3504,9 @@ function editmessage(obj, id, projid)
             oninit: function () {
                 $('#edit_reply_txtbox' + id).tinymce().focus();
             }
-        });
+        };
+        
+        $('#edit_reply_txtbox' + id).tinymce(config);
     });
 }
 
@@ -3511,7 +3516,15 @@ function save_editedvalue_reply(caseno, id, proj_id, repUniqId)
     var message = $('#edit_reply_txtbox' + id).val();
     $('#edit_btn' + id).hide();
     $('#edit_loader' + id).show();
-    $.post(HTTP_ROOT + "easycases/save_editedvalue", {'id': id, 'message': message, 'caseno': caseno, proj_id: proj_id}, function (res) {
+    
+    var postData = {
+        'id': id, 
+        'message': message, 
+        'caseno': caseno, 
+        "proj_id": proj_id
+    };
+    
+    var postCallback = function (res) {
         if (res == 0) 
         {
             showTopErrSucc('error', "Message cann't be left blank");
@@ -3526,7 +3539,9 @@ function save_editedvalue_reply(caseno, id, proj_id, repUniqId)
             showTopErrSucc('success', 'Your reply edited successfully.');
             easycase.refreshTaskList(repUniqId);
         }
-    });
+    };
+    
+    $.post(HTTP_ROOT + "easycases/save_editedvalue", postData, postCallback);
 }
 
 
@@ -3556,13 +3571,13 @@ function groupby(gbtype)
 function removeFileFrmFiles(file_id)
 {
     var url = HTTP_ROOT + "archives/file_remove";
-
+    
     if (confirm("Are you sure you want to remove?"))
     {
         var val = new Array();
         val.push(file_id);
         var name = $('file_remove_' + file_id).attr("data-name");
-
+        
         $.post(url, {"val": val}, function (data) {
             showTopErrSucc('success', "File '" + name + "' is removed.");
             easycase.showFiles('files');
