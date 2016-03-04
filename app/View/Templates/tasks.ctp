@@ -189,12 +189,15 @@
 <script language="javascript" type="text/javascript">
 function deltemplate(id, name)
 {
-    var conf = confirm("Are you sure to delete the template '"+ name +"'?");
-    if(conf == true) {
-        var strURL = HTTP_ROOT+'templates/temptaskdelete/'+id;
+    var conf = confirm("Are you sure to delete the template '" + name + "'?");
+    
+    if (conf == true) 
+    {
+        var strURL = HTTP_ROOT + 'templates/delete/'+id;
         window.location = strURL;
     }
-    else {
+    else 
+    {
         return false;
     }
 }

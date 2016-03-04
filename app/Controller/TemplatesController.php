@@ -479,7 +479,11 @@ class TemplatesController extends AppController
     }
     
     
-    function temptaskdelete($tempId)
+    /**
+     * Handle the users request to delete a task template.
+     * @param int $tempId - the ID of the task template to delete.
+     */
+    function delete($tempId)
     {
         $this->loadModel("CaseTemplate");
         $this->CaseTemplate->id = $tempId;
