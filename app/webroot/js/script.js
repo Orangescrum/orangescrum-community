@@ -5690,6 +5690,17 @@ function showTemplates(id, name)
 }
 
 
+/**
+ * Callback executed when the user tries to submit a new task. 
+ * @param {type} postdata
+ * @param {type} CS_id
+ * @param {type} uniqid
+ * @param {type} cnt
+ * @param {type} dtls
+ * @param {type} status
+ * @param {type} prelegend
+ * @param {type} pid
+ * @returns {Boolean} */
 function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend, pid)
 {
     var description = '';
@@ -5734,30 +5745,36 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
         var task_uid = 0;
         var taskid = 0;
 
-        if (CS_id) {
+        if (CS_id) 
+        {
             var CS_legend = $("#legend" + CS_id).val();
         }
+        
         var done = 1;
-        if (CS_id) {
+        
+        if (CS_id) 
+        {
             var project_id = "CS_project_id" + CS_id;
             var istype = "CS_istype" + CS_id;
             var title = "CS_title" + CS_id;
-
+            
             var CS_project_id = document.getElementById(project_id).value;
             var CS_istype = document.getElementById(istype).value;
             var CS_title = document.getElementById(title).value;
-
+            
             var type_id = "CS_type_id" + CS_id;
             var priority = "CS_priority" + CS_id;
             var case_no = "CS_case_no" + CS_id;
-
+            
             var CS_type_id = $('#' + type_id).val();
             var CS_priority = $('#' + priority).val();
             var CS_case_no = $('#' + case_no).val();
-
+            
             var html = "html" + CS_id;
             var plane = "plane" + CS_id;
-            if ($('#' + html).is(":visible")) {
+            
+            if ($('#' + html).is(":visible")) 
+            {
                 var txa_comments = "txa_comments" + CS_id;
                 CS_message = $('#' + txa_comments).html();//document.getElementById(txa_comments).value;
             }
@@ -5766,12 +5783,13 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                 var txa_plane = "txa_plane" + CS_id;
                 CS_message = nl2br($.trim(document.getElementById(txa_plane).value));
             }
+            
             var editortype = "editortype" + CS_id;
             var datatype = document.getElementById(editortype).value;
-
+            
             var totfiles = "totfiles" + CS_id;
             var hidalluser = "hidtotresreply" + CS_id;
-
+            
             var assign_to = "CS_assign_to" + CS_id;
             var CS_assign_to = document.getElementById(assign_to).value;
         }
@@ -5783,12 +5801,16 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             var totfiles = "totfiles";
             var hidalluser = "hidtotproj";
             var datatype = 0;
-            if ($('#easycase_uid').val()) {
+            
+            if ($('#easycase_uid').val()) 
+            {
                 task_uid = $('#easycase_uid').val();
                 taskid = $('#CSeasycaseid').val();
             }
+            
             $('#projAllmsg').hide();
-            if (CS_project_id == 'all') 
+            
+            if (CS_project_id == 'all')
             {
                 $('#projAllmsg').show();
                 $('#ctask_popup a').css({
@@ -5797,7 +5819,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                 alert('Oops! No project selected.');
                 return false;
             }
-
+            
             if (!CS_id) 
             {
                 if (CS_project_id == "") 
@@ -5817,7 +5839,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                 }
             }
         }
-
+        
         var emailUser = Array();
         var allUser = Array();
         var allFiles = Array();
@@ -5864,7 +5886,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             {
                 editRemovedFile = $('#editRemovedFile').val();
             }
-
+            
             var totfiles = document.getElementById(totfiles).value;
             
             if (parseInt(totfiles) && done == 1) 
@@ -5911,7 +5933,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
         catch (e) 
         {
         }
-
+        
         if ((done == 1 && emailUser.length != "0") || (done == 1 && confirm("Are you sure you want to proceed without notifying anyone?"))) 
         {
             if (!CS_id) 
@@ -5988,32 +6010,32 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
             var tskURL = (cloud_storages) ? strURL + "ajaxpostcase?" + cloud_storages : strURL + "ajaxpostcase";
             
             var postData = {
-                pid: pid,
-                CS_project_id: CS_project_id,
-                CS_istype: CS_istype,
-                CS_title: CS_title,
-                CS_type_id: CS_type_id,
-                CS_priority: CS_priority,
-                CS_message: CS_message,
-                CS_assign_to: CS_assign_to,
-                CS_due_date: CS_due_date,
-                CS_milestone: CS_milestone,
-                postdata: postdata,
-                pagename: pagename,
-                emailUser: emailUser,
-                allUser: allUser,
-                allFiles: allFiles,
-                CS_id: CS_id,
-                CS_case_no: CS_case_no,
-                datatype: datatype,
-                CS_legend: CS_legend,
-                prelegend: prelegend,
-                'hours': cs_hours,
-                'estimated_hours': est_hours,
-                'completed': completed,
-                'taskid': taskid,
-                'task_uid': task_uid,
-                'editRemovedFile': editRemovedFile
+                "pid"             : pid,
+                "CS_project_id"   : CS_project_id,
+                "CS_istype"       : CS_istype,
+                "CS_title"        : CS_title,
+                "CS_type_id"      : CS_type_id,
+                "CS_priority"     : CS_priority,
+                "CS_message"      : CS_message,
+                "CS_assign_to"    : CS_assign_to,
+                "CS_due_date"     : CS_due_date,
+                "CS_milestone"    : CS_milestone,
+                "postdata"        : postdata,
+                "pagename"        : pagename,
+                "emailUser"       : emailUser,
+                "allUser"         : allUser,
+                "allFiles"        : allFiles,
+                "CS_id"           : CS_id,
+                "CS_case_no"      : CS_case_no,
+                "datatype"        : datatype,
+                "CS_legend"       : CS_legend,
+                "prelegend"       : prelegend,
+                "hours"           : cs_hours,
+                "estimated_hours" : est_hours,
+                "completed"       : completed,
+                "taskid"          : taskid,
+                "task_uid"        : task_uid,
+                "editRemovedFile" : editRemovedFile
             };
             
             var postCallback = function (data) {
@@ -6049,7 +6071,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         $('#drive_tr_0').remove();
                         $('#usedstorage').val('');
                         $('#up_files').empty();
-
+                        
                         if (data.storage_used) 
                         {
                             var clr = 'red';
@@ -6063,7 +6085,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                             var str = "<font style='color:" + clr + "'> <span id='used_storage'>" + data.storage_used + "</span>/<b><span id='max_storage'>" + max_storage + "</span> Mb</b></font>";
                             $("#storage_spn").html(str);
                         }
-
+                        
                         document.getElementById('quickcase').style.display = 'block';
                         document.getElementById('quickloading').style.display = 'none';
                         document.getElementById('CS_title').value = "";
@@ -6072,7 +6094,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         {
                             crt_popup_close();
                         }
-
+                        
                         if (data.pagename == "dashboard") 
                         {
                             updateAllProj('proj' + data.formdata, data.formdata, data.pagename, '0', data.projName);
@@ -6103,9 +6125,9 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     else
                     {
                         easycase.refreshTaskList(uniqid);
-
+                        
                         showTopErrSucc('success', 'Your reply is posted.');
-
+                        
                         if (data.storage_used) 
                         {
                             var clr = 'red';
@@ -6119,7 +6141,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                             var str = "<font style='color:" + clr + "'> <span id='used_storage'>" + data.storage_used + "</span>/<b><span id='max_storage'>" + max_storage + "</span> Mb</b></font>";
                             $("#storage_spn").html(str);
                         }
-
+                        
                         try 
                         {
                             if (!CS_legend) 
@@ -6153,7 +6175,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         catch (e) 
                         {
                         }
-
+                        
                         var project_id = "CS_project_id" + CS_id;
                         var CS_project_id = document.getElementById(project_id).value;
                         
@@ -6162,16 +6184,17 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         };
                         
                         var postCallback = function (res) {
-                            if (res) {
+                            if (res) 
+                            {
                                 $('#showUpdAssign' + CS_id).html(res);
                             }
                         };
                         
                         $.post(HTTP_ROOT + "easycases/update_assignto", postData, postCallback);
-
+                        
                         var caseMenuFilters = document.getElementById('caseMenuFilters').value;
                         var url = HTTP_ROOT + "easycases/ajax_case_status";
-
+                        
                         var case_date = $("#caseDateFil").val();
                         var caseStatus = $("#caseStatus").val();
                         var caseTypes = $("#caseTypes").val();
@@ -6183,26 +6206,25 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         var checktype = $("#checktype").val();
                         
                         var postData2 = {
-                            "projUniq": CS_project_id,
-                            "pageload": 1,
-                            "caseMenuFilters": caseMenuFilters,
-                            'case_date': case_date,
-                            'caseStatus': caseStatus,
-                            'caseTypes': caseTypes,
-                            'priFil': priFil,
-                            'caseMember': caseMember,
-                            'caseAssignTo': caseAssignTo,
-                            'caseSearch': caseSearch,
-                            'milestoneIds': milestoneIds,
-                            'checktype': checktype
+                            "projUniq"          : CS_project_id,
+                            "pageload"          : 1,
+                            "caseMenuFilters"   : caseMenuFilters,
+                            "case_date"         : case_date,
+                            "caseStatus"        : caseStatus,
+                            "caseTypes"         : caseTypes,
+                            "priFil"            : priFil,
+                            "caseMember"        : caseMember,
+                            "caseAssignTo"      : caseAssignTo,
+                            "caseSearch"        : caseSearch,
+                            "milestoneIds"      : milestoneIds,
+                            "checktype"         : checktype
                         };
                         
                         var postCallback2 = function (data) {
                             if (data) 
                             {
-
                                 $('#ajaxCaseStatus').html(tmpl("case_widget_tmpl", data));
-
+                                
                                 $('[rel=tooltip], #main-nav span, .loader').tipsy({
                                     gravity: 's',
                                     fade: true
@@ -6211,7 +6233,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                                     gravity: 'e',
                                     fade: true
                                 });
-
+                                
                                 $('.close-widget').click(
                                     function () {
                                         $(this).parent().fadeTo(350, 0, function () {
@@ -6220,7 +6242,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                                         return false;
                                     }
                                 );
-
+                                
                                 if (document.getElementById('reset_btn').style.display != 'none') 
                                 {
                                     $('#upperDiv_alert').fadeIn();
@@ -6235,27 +6257,27 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                         
                         $.post(url, postData2, postCallback2);
                     }
-
+                    
                     if (data.caseNo) 
                     {
                         var url_ajax = strURL + "ajaxemail";
                         
                         var postData = {
-                            'projId': data.projId,
-                            'emailUser': emailUser,
-                            "allfiles": data.allfiles,
-                            'caseNo': data.caseNo,
-                            'emailTitle': data.emailTitle,
-                            'emailMsg': data.emailMsg,
-                            'casePriority': data.casePriority,
-                            'caseTypeId': data.caseTypeId,
-                            'msg': data.msg,
-                            'emailbody': data.emailbody,
-                            'caseIstype': data.caseIstype,
-                            'csType': data.csType,
-                            'caUid': data.caUid,
-                            'caseid': data.caseid,
-                            'caseUniqId': data.caseUniqId
+                            'projId'        : data.projId,
+                            'emailUser'     : emailUser,
+                            "allfiles"      : data.allfiles,
+                            'caseNo'        : data.caseNo,
+                            'emailTitle'    : data.emailTitle,
+                            'emailMsg'      : data.emailMsg,
+                            'casePriority'  : data.casePriority,
+                            'caseTypeId'    : data.caseTypeId,
+                            'msg'           : data.msg,
+                            'emailbody'     : data.emailbody,
+                            'caseIstype'    : data.caseIstype,
+                            'csType'        : data.csType,
+                            'caUid'         : data.caUid,
+                            'caseid'        : data.caseid,
+                            'caseUniqId'    : data.caseUniqId
                         };
                         
                         $.post(url_ajax, postData);
@@ -6264,7 +6286,7 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     //check size
                     check_proj_size();
                 }
-
+                
                 loadCaseMenu(HTTP_ROOT + "easycases/ajax_case_menu", {
                     "projUniq": CS_project_id,
                     "pageload": 1,
@@ -6274,7 +6296,6 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                 var projUpdateTop = $("#projUpdateTop").html();
                 $("#pname_dashboard").html(projUpdateTop);
                 $('#defaultmem').show();
-
             };
             
             $.post(tskURL, postData, postCallback, 'json');
