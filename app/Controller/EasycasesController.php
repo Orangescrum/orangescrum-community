@@ -2540,7 +2540,11 @@ class EasycasesController extends AppController
         $caseMsgRep = htmlspecialchars($caseMsgRep);
         
         # convert markdown to html. This must be performced AFTER htmlspecialchars
-        $caseMsgRep = \Michelf\Markdown::defaultTransform($caseMsgRep);
+        # Since we have already run htmlspecialchars, we need to configure the parser to not
+        # run this method on code blocks by setting the code_block_content_func to return the input
+        $parser = new \Michelf\MarkdownExtra();
+        $parser->code_block_content_func = function($input){ return $input; };
+        $caseMsgRep = $parser->transform($caseMsgRep);
         
         if ($post_id == SES_ID)
         {
@@ -2553,7 +2557,7 @@ class EasycasesController extends AppController
         
         $crtdBy = $this->Format->formatText($usrName);
         $frmtCrtdDt = $dt->dateFormatOutputdateTime_day($locDT1, $curDateTz);
-
+        
         # get cases sort order
         $thread_sortorder = isset($_COOKIE['REPLY_SORT_ORDER']) ? trim($_COOKIE['REPLY_SORT_ORDER']) : 'DESC';
         

@@ -585,7 +585,13 @@ class Easycase extends AppModel
                 $strippedReply = htmlspecialchars($reply);
                 
                 # convert markdown to html. This must be performced AFTER htmlspecialchars
-                $convertedReply = \Michelf\Markdown::defaultTransform($strippedReply);
+                # Since we have already run htmlspecialchars, we need to configure the parser to not
+                # run this method on code blocks by setting the code_block_content_func to return 
+                # the input.
+                $parser = new \Michelf\MarkdownExtra();
+                $parser->code_block_content_func = function($input){ return $input; };
+                $convertedReply = $parser->transform($strippedReply);
+                
                 $sqlcasedata[$caseKey]['Easycase']['wrap_msg'] = $convertedReply;
             }
             
