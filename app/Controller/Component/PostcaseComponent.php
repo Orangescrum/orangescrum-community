@@ -1,14 +1,18 @@
 <?php
+
 App::import('Component', 'Cookie');
 App::import('Vendor', 's3', array('file' => 's3' . DS . 'S3.php'));
 
 //use ElephantIO\Client as ElephantIOClient;
 
-class PostcaseComponent extends CookieComponent 
+class PostcaseComponent extends CookieComponent
 {
+
     public $components = array('Session', 'Email', 'Cookie', 'Format', 'Sendgrid');
 
-    function casePosting($formdata) {
+
+    function casePosting($formdata)
+    {
         $pagename = $formdata['pagename'];
         $postParam['Easycase']['isactive'] = 1;
         $postParam['Easycase']['project_id'] = $formdata['CS_project_id'];
@@ -24,24 +28,31 @@ class PostcaseComponent extends CookieComponent
         $postParam['Easycase']['is_chrome_extension'] = (isset($formdata['is_chrome_extension'])) ? $formdata['is_chrome_extension'] : 0;
         $prelegend = $formdata['prelegend'];
 
-        if (isset($formdata['datatype']) && $formdata['datatype'] == 1) {
+        if (isset($formdata['datatype']) && $formdata['datatype'] == 1)
+        {
             $postParam['Easycase']['message'] = $formdata['CS_message'];
-        } else {
+        }
+        else
+        {
             $postParam['Easycase']['message'] = $formdata['CS_message'];
         }
         $postParam['Easycase']['due_date'] = $formdata['CS_due_date'];
         $postParam['Easycase']['postdata'] = $formdata['postdata'];
 
-        if ($postParam['Easycase']['due_date'] == "No Due Date") {
+        if ($postParam['Easycase']['due_date'] == "No Due Date")
+        {
             $postParam['Easycase']['due_date'] = NULL;
         }
-        if (isset($formdata['CS_milestone']) && $formdata['CS_milestone']) {
+        if (isset($formdata['CS_milestone']) && $formdata['CS_milestone'])
+        {
             $milestone_id = $formdata['CS_milestone'];
         }
-        if (isset($formdata['CS_id']) && $formdata['CS_id']) {
+        if (isset($formdata['CS_id']) && $formdata['CS_id'])
+        {
             $caseid = $formdata['CS_id'];
         }
-        if (isset($formdata['CS_case_no']) && $formdata['CS_case_no']) {
+        if (isset($formdata['CS_case_no']) && $formdata['CS_case_no'])
+        {
             $postParam['Easycase']['case_no'] = $formdata['CS_case_no'];
         }
         $emailUser = $formdata['emailUser'];
@@ -58,59 +69,81 @@ class PostcaseComponent extends CookieComponent
         $update = 0;
 ######## Check File Exists and Size
         $chk = 0;
-        if (is_array($fileArray) && count($fileArray)) {
+        if (is_array($fileArray) && count($fileArray))
+        {
             $usedspace = $GLOBALS['usedspace'];
-            foreach ($fileArray as $filename) {
-                if ($filename && strstr($filename, "|")) {
+            foreach ($fileArray as $filename)
+            {
+                if ($filename && strstr($filename, "|"))
+                {
                     $fl = explode("|", $filename);
-                    if (isset($fl['0'])) {
+                    if (isset($fl['0']))
+                    {
                         $file = $fl['0'];
                         $filesize = number_format(($fl[1] / 1024), 2, '.', '');
-                        if (strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited' || ($usedspace <= $GLOBALS['Userlimitation']['storage'])) {
+                        if (strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited' || ($usedspace <= $GLOBALS['Userlimitation']['storage']))
+                        {
                             $usedspace +=$filesize;
-                if(USE_S3 == 0){
-                if(file_exists(DIR_CASE_FILES.$file)) {
-                    $chk++;
-                }
-                }else{
-                $s3 = new S3(awsAccessKey, awsSecretKey);
-                $info = $s3->getObjectInfo(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP . $file);
-                if ($info) {
-                    $chk++;
-                }
-                }                            
+                            if (USE_S3 == 0)
+                            {
+                                if (file_exists(DIR_CASE_FILES . $file))
+                                {
+                                    $chk++;
+                                }
+                            }
+                            else
+                            {
+                                $s3 = new S3(awsAccessKey, awsSecretKey);
+                                $info = $s3->getObjectInfo(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP . $file);
+                                if ($info)
+                                {
+                                    $chk++;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 ###### Get Ptoject Id
-        if ($formdata['CS_project_id'] != "all") {
+        if ($formdata['CS_project_id'] != "all")
+        {
             $Project = ClassRegistry::init('Project');
             $Project->recursive = -1;
             $prjArr = $Project->find('first', array('conditions' => array('Project.uniq_id' => $formdata['CS_project_id']), 'fields' => array('Project.id', 'Project.name')));
             $projId = $prjArr['Project']['id'];
 //$projName = urlencode($prjArr['Project']['name']);
             $projName = $prjArr['Project']['name'];
-        } else {
+        }
+        else
+        {
             $projId = $formdata['pid'];
             $projName = 'All';
         }
 
 ####### Case Format
-        if (isset($cloud_storages) && !empty($cloud_storages)) { //By Orangescrum
+        if (isset($cloud_storages) && !empty($cloud_storages))
+        { //By Orangescrum
             $postParam['Easycase']['format'] = 1;
             $format = 1;
-        } else {
-            if (!$formdata['task_uid']) {
-                if ($chk == 0) {
+        }
+        else
+        {
+            if (!$formdata['task_uid'])
+            {
+                if ($chk == 0)
+                {
                     $postParam['Easycase']['format'] = 2;
                     $format = 2;
-                } else {
+                }
+                else
+                {
                     $postParam['Easycase']['format'] = 1;
                     $format = 1;
                 }
-            } elseif ($chk != 0) {
+            }
+            elseif ($chk != 0)
+            {
                 $postParam['Easycase']['format'] = 1;
                 $format = 1;
             }
@@ -119,22 +152,28 @@ class PostcaseComponent extends CookieComponent
         $emailTitle = $this->Format->convert_ascii($postParam['Easycase']['title']);
         $caseIstype = $postParam['Easycase']['istype'];
 
-        if ($caseIstype == 1) {
+        if ($caseIstype == 1)
+        {
 ####### Case Type (if not selected it is "2", if type is update priority is NULL)
-            if ($postParam['Easycase']['type_id'] == 10) {
+            if ($postParam['Easycase']['type_id'] == 10)
+            {
                 $postParam['Easycase']['priority'] = NULL;
             }
             $casePriority = $postParam['Easycase']['priority'];
             $caseTypeId = $postParam['Easycase']['type_id'];
 
 ####### Case Message (can be NULL)
-            if ($postParam['Easycase']['message'] == "Enter Description...") {
+            if ($postParam['Easycase']['message'] == "Enter Description...")
+            {
                 $postParam['Easycase']['message'] = "";
             }
 ####### Due Date (can be NULL, change Date format)
-            if ($postParam['Easycase']['due_date']) {
+            if ($postParam['Easycase']['due_date'])
+            {
                 $postParam['Easycase']['due_date'] = date("Y-m-d", strtotime($postParam['Easycase']['due_date']));
-            } else {
+            }
+            else
+            {
                 $postParam['Easycase']['due_date'] = NULL;
             }
 
@@ -142,7 +181,8 @@ class PostcaseComponent extends CookieComponent
             $postParam['Easycase']['legend'] = 1;
 
 ###### Get Case#
-            if ($formdata['task_uid'] && $formdata['taskid']) {
+            if ($formdata['task_uid'] && $formdata['taskid'])
+            {
                 $emailbody = "Updated a task: ";
                 $userCaseView = 1;
                 $csType = "New";
@@ -165,12 +205,17 @@ class PostcaseComponent extends CookieComponent
                 $Easycase->id = $easy_id;
                 $Easycase->saveField('updated_by', SES_ID);
                 $Easycase->id = '';
-            } else {
-                if ($update == 0) {
+            }
+            else
+            {
+                if ($update == 0)
+                {
                     $caseNoArr = $Easycase->find('first', array('conditions' => array('Easycase.project_id' => $projId), 'fields' => array('MAX(Easycase.case_no) as caseno')));
                     $caseNo = $caseNoArr[0]['caseno'] + 1;
                     $postParam['Easycase']['case_no'] = $caseNo;
-                } else {
+                }
+                else
+                {
                     $caseNo = $postParam['Easycase']['case_no'];
                 }
 ##### Status & Email Settings
@@ -178,29 +223,39 @@ class PostcaseComponent extends CookieComponent
                 $postParam['Easycase']['legend'] = 1;
                 $msg = "<font color='#737373'><b>Status: </b></font><font color='#763532'>NEW</font>";
 
-                if ($update == 0) {
+                if ($update == 0)
+                {
                     $userCaseView = 1;
                     $csType = "New";
                     $emailbody = "posted a new Task";
                 }
-                if ($postParam['Easycase']['type_id'] == 10) {
+                if ($postParam['Easycase']['type_id'] == 10)
+                {
                     $msg = "";
                 }
             }
-        } else {
+        }
+        else
+        {
             $postParam['Easycase']['title'] = "";
             $caseTypeId = $postParam['Easycase']['type_id'];
             $casePriority = $postParam['Easycase']['priority'];
             $caseNo = $postParam['Easycase']['case_no'];
 
 ##### Status
-            if ($postParam['Easycase']['legend'] == "") {
+            if ($postParam['Easycase']['legend'] == "")
+            {
                 
-            } else {
-                if ($postParam['Easycase']['legend'] == 3) {
+            }
+            else
+            {
+                if ($postParam['Easycase']['legend'] == 3)
+                {
                     $postParam['Easycase']['status'] = 2;
                     $status = 2;
-                } else {
+                }
+                else
+                {
                     $postParam['Easycase']['status'] = 1;
                     $status = 1;
                 }
@@ -210,29 +265,34 @@ class PostcaseComponent extends CookieComponent
                 $userCaseView = $postParam['Easycase']['legend'];
 
 ##### Email Settings
-                if ($postParam['Easycase']['legend'] == 3) {
+                if ($postParam['Easycase']['legend'] == 3)
+                {
                     $msg = "<font color='#737373' style='font-weight:bold'>Status:</font> <font color='green'>CLOSED</font>";
                     $csType = "Close";
                     $emailbody = "<font color='green'>CLOSED</font> the Task";
                 }
-                if ($postParam['Easycase']['legend'] == 1) {
+                if ($postParam['Easycase']['legend'] == 1)
+                {
                     $userCaseView = 2;
                     $csType = "Replied";
                     $msg = "<font color='#737373' style='font-weight:bold'>Status:</font> <font color='#EF6807' >REPLIED</font>";
                     $emailbody = "responded on the Task";
                 }
-                if ($postParam['Easycase']['legend'] == 2) {
+                if ($postParam['Easycase']['legend'] == 2)
+                {
                     $csType = "WIP";
                     $msg = "<font color='#737373' style='font-weight:bold'>Status:</font> <font color='#EF6807'>In Progress</font>";
                     $emailbody = "responded on the Task";
                 }
-                if ($postParam['Easycase']['legend'] == 5) {
+                if ($postParam['Easycase']['legend'] == 5)
+                {
 
                     $csType = "Resolved";
                     $msg = "<font color='#737373' style='font-weight:bold'>Status:</font> <font color='#EF6807'>RESOLVED</font>";
                     $emailbody = "<font color='#EF6807'>RESOLVED</font> the Task";
                 }
-                if ($postParam['Easycase']['legend'] == 4) {
+                if ($postParam['Easycase']['legend'] == 4)
+                {
                     $csType = "Started";
                     $msg = "<font color='#737373' style='font-weight:bold'>Status:</font> <font color='#55A0C7'>STARTED</font>";
                     $emailbody = "<font color='#55A0C7'>STARTED</font> the Task";
@@ -241,12 +301,14 @@ class PostcaseComponent extends CookieComponent
 #### Update the status and legend of original case
             $dtcreated = GMT_DATETIME;
             $updquery = "";
-            if ($postParam['Easycase']['assign_to']) {
+            if ($postParam['Easycase']['assign_to'])
+            {
                 $updquery = ",assign_to='" . $postParam['Easycase']['assign_to'] . "'";
             }
             $updquery .= ",priority='" . $postParam['Easycase']['priority'] . "'";
             $qryFrmt = "";
-            if ($format == 1) {
+            if ($format == 1)
+            {
                 $qryFrmt = "format='" . $format . "',";
             }
 
@@ -260,23 +322,31 @@ class PostcaseComponent extends CookieComponent
         }
         $emailMsg = $postParam['Easycase']['message'];
 
-        if ($update == 0 && !$formdata['task_uid']) {
+        if ($update == 0 && !$formdata['task_uid'])
+        {
             $caseUniqId = md5(uniqid());
             $postParam['Easycase']['uniq_id'] = $caseUniqId;
             $postParam['Easycase']['actual_dt_created'] = GMT_DATETIME;
             $postParam['Easycase']['isactive'] = 1;
-            if (isset($formdata['CS_user_id']) && $formdata['CS_user_id']) {
+            if (isset($formdata['CS_user_id']) && $formdata['CS_user_id'])
+            {
                 $postParam['Easycase']['user_id'] = $formdata['CS_user_id']; //it is used when reading from mail
-            } else {
+            }
+            else
+            {
                 $postParam['Easycase']['user_id'] = SES_ID;
             }
             $postParam['Easycase']['user_short_name'] = "";
             $postParam['Easycase']['assign_short_name'] = "";
-        } elseif ($formdata['task_uid']) {
+        }
+        elseif ($formdata['task_uid'])
+        {
             $caseUniqId = $postParam['Easycase']['uniq_id'];
             $postParam['Easycase']['id'] = $formdata['taskid'];
             $postParam['Easycase']['uniq_id'] = $formdata['task_uid'];
-        } else {
+        }
+        else
+        {
             $caseUniqId = $postParam['Easycase']['uniq_id'];
         }
         $postParam['Easycase']['dt_created'] = GMT_DATETIME;
@@ -285,13 +355,15 @@ class PostcaseComponent extends CookieComponent
         $postParam['Easycase']['title'] = $this->Format->convert_ascii(trim($postParam['Easycase']['title']));
         $postParam['Easycase']['message'] = $this->Format->convert_ascii(trim($postParam['Easycase']['message']));
 
-        if($formdata['user_auth_key']) {
+        if ($formdata['user_auth_key'])
+        {
             $postParam['Easycase']['user_id'] = $formdata['CS_user_id'];
             $postParam['Easycase']['estimated_hours'] = 0;
         }
-        
+
 //return pr($postParam);
-        if ($Easycase->save($postParam)) {
+        if ($Easycase->save($postParam))
+        {
             $Project = ClassRegistry::init('Project');
             $ProjectUser = ClassRegistry::init('ProjectUser');
             $ProjectUser->recursive = -1;
@@ -301,11 +373,13 @@ class PostcaseComponent extends CookieComponent
             $prjuniqid = $prjuniq[0]['projects']['uniq_id']; //print_r($prjuniq);
             $projShName = strtoupper($prjuniq[0]['projects']['short_name']);
 
-            if (isset($postParam['Easycase']['assign_to']) && !empty($postParam['Easycase']['assign_to'])) {
+            if (isset($postParam['Easycase']['assign_to']) && !empty($postParam['Easycase']['assign_to']))
+            {
 //$Project->query("UPDATE projects SET default_assign='".$postParam['Easycase']['assign_to']."' WHERE id='".$projId."'");
             }
 
-            if ($caseIstype == 2) { //if($postParam['Easycase']['message'] != '' && $caseIstype == 2)
+            if ($caseIstype == 2)
+            { //if($postParam['Easycase']['message'] != '' && $caseIstype == 2)
 //socket.io implement start
                 $channel_name = $prjuniqid;
                 $pname = $this->Format->getProjectName($projId);
@@ -313,7 +387,9 @@ class PostcaseComponent extends CookieComponent
 
                 $this->iotoserver(array('channel' => $channel_name, 'message' => 'Updated.~~' . SES_ID . '~~' . $postParam['Easycase']['case_no'] . '~~' . 'UPD' . '~~' . $emailTitle . '~~' . $projShName));
 //socket.io implement end
-            } else {
+            }
+            else
+            {
 //socket.io implement start
                 $channel_name = $prjuniqid;
                 $pname = $this->Format->getProjectName($projId);
@@ -323,17 +399,22 @@ class PostcaseComponent extends CookieComponent
 //socket.io implement end
             }
 //return pr($Easycase->getLastInsertID());
-            if (isset($milestone_id) && $milestone_id) {
+            if (isset($milestone_id) && $milestone_id)
+            {
 
                 $EasycaseMilestone = ClassRegistry::init('EasycaseMilestone');
                 $EasycaseMilestone->recursive = -1;
-                if ($formdata['task_uid']) {
+                if ($formdata['task_uid'])
+                {
                     $milestone_dtls = $EasycaseMilestone->find('first', array('conditions' => array('easycase_id' => $formdata['taskid'], 'project_id' => $projId)));
-                    if ($milestone_dtls) {
+                    if ($milestone_dtls)
+                    {
                         $EasycaseMiles['id'] = $milestone_dtls['EasycaseMilestone']['id'];
                     }
                     $EasycaseMiles['easycase_id'] = $formdata['taskid'];
-                } else {
+                }
+                else
+                {
                     $EasycaseMiles['easycase_id'] = $Easycase->getLastInsertID();
                 }
                 $EasycaseMiles['milestone_id'] = $milestone_id;
@@ -342,73 +423,87 @@ class PostcaseComponent extends CookieComponent
                 $EasycaseMiles['dt_created'] = GMT_DATETIME;
                 $EasycaseMilestone->saveAll($EasycaseMiles);
             }
-            if ($update == 0) {
-                if ($formdata['task_uid']) {
+            if ($update == 0)
+            {
+                if ($formdata['task_uid'])
+                {
                     $caseid = $formdata['taskid'];
-                } else {
+                }
+                else
+                {
                     $caseid = $Easycase->getLastInsertID();
                 }
             }
-            if ($caseIstype == 1) {
+            if ($caseIstype == 1)
+            {
                 $ProjectUser = ClassRegistry::init('ProjectUser');
                 $ProjectUser->recursive = -1;
                 $ProjectUser->query("UPDATE project_users SET dt_visited='" . GMT_DATETIME . "' WHERE project_id=" . $projId . " AND user_id=" . SES_ID);
             }
 
 //By Orangescrum
-            if (isset($cloud_storages) && !empty($cloud_storages)) {
+            if (isset($cloud_storages) && !empty($cloud_storages))
+            {
                 $this->fileInfo($cloud_storages, $projId, $caseid);
             }
 
             $isUserModule = 0;
 
-            if ($update == 1 || $formdata['task_uid']) {
+            if ($update == 1 || $formdata['task_uid'])
+            {
                 $CaseUserEmail = ClassRegistry::init('CaseUserEmail');
                 $CaseUserEmail->query("DELETE FROM case_user_emails WHERE easycase_id=" . $caseid);
             }
 
             $caUid = "";
             $assignTo = "";
-            if ($postParam['Easycase']['assign_to']) {
+            if ($postParam['Easycase']['assign_to'])
+            {
                 $caUid = $postParam['Easycase']['assign_to'];
             }
 
             $due_date = "";
             $padd = "";
-            if ($postParam['Easycase']['due_date']) {
+            if ($postParam['Easycase']['due_date'])
+            {
                 $due_date = $postParam['Easycase']['due_date'];
             }
-            if ($caUid && $caUid != SES_ID) {
-                if ($isUserModule == 0) {
+            if ($caUid && $caUid != SES_ID)
+            {
+                if ($isUserModule == 0)
+                {
                     $User = ClassRegistry::init('User');
                     $User->recursive = -1;
                 }
                 $usrDtls2 = $User->find('first', array('conditions' => array('User.id' => $caUid, 'User.isactive' => 1), 'fields' => array('User.name')));
-                if (count($usrDtls2) && $usrDtls2['User']['name']) {
+                if (count($usrDtls2) && $usrDtls2['User']['name'])
+                {
                     $assignTo = "<tr><td align='left' style='color:#235889;line-height:20px;padding-top:10px'>This task is assigned to <i>" . $usrDtls2['User']['name'] . "</i></td></tr>";
                 }
             }
-            if ($due_date != "NULL" && $due_date != "0000-00-00" && $due_date != "") {
-                if (!$assignTo) {
+            if ($due_date != "NULL" && $due_date != "0000-00-00" && $due_date != "")
+            {
+                if (!$assignTo)
+                {
                     $padd = "padding-top:10px;";
                 }
                 $assignTo.= "<tr><td align='left' style='" . $padd . "'>Due date: <font color='#235889'>" . date("m/d/Y", strtotime($due_date)) . "</font></td></tr>";
             }
-            
+
             $allfiles = "";
-            
-            if (is_array($fileArray) && count($fileArray)) 
+
+            if (is_array($fileArray) && count($fileArray))
             {
                 $editRemovedFile = $formdata['editRemovedFile'];
-                
-                if ($editRemovedFile && $formdata['taskid']) 
+
+                if ($editRemovedFile && $formdata['taskid'])
                 {
                     $this->removeFiles($editRemovedFile, $formdata['taskid']);
                 }
-                
+
                 $allfiles = $this->uploadAndInsertFile($fileArray, $caseid, 0, $projId, $domain, $editRemovedFile);
             }
-            
+
             $this->write('STATUS', "", '-365 days');
             $this->write('PRIORITY', "", '-365 days');
             $this->write('CS_TYPES', "", '-365 days');
@@ -422,34 +517,35 @@ class PostcaseComponent extends CookieComponent
 //}
 
         $ret_res = array(
-            'success' => $success, 
-            'pagename' => $pagename, 
-            'formdata' => $formdata['CS_project_id'], 
-            'postParam' => $postParam['Easycase']['postdata'], 
-            'caseUniqId' => $caseUniqId, 
-            'format' => $format, 
-            'allfiles' => $allfiles['allfiles'], 
-            'caseNo' => $caseNo, 
-            'emailTitle' => $emailTitle, 
-            'emailMsg' => $emailMsg, 
-            'casePriority' => $casePriority, 
-            'caseTypeId' => $caseTypeId, 
-            'msg' => $msg, 
-            'emailbody' => $emailbody, 
-            'assignTo' => $assignTo, 
-            'name_email' => $name_email, 
-            'csType' => $csType, 
-            'projId' => $projId, 
-            'caseid' => $caseid, 
-            'caUid' => $caUid, 
-            'caseIstype' => $caseIstype, 
-            'projName' => $projName, 
-            "storage_used" => $allfiles['storage'], 
+            'success' => $success,
+            'pagename' => $pagename,
+            'formdata' => $formdata['CS_project_id'],
+            'postParam' => $postParam['Easycase']['postdata'],
+            'caseUniqId' => $caseUniqId,
+            'format' => $format,
+            'allfiles' => $allfiles['allfiles'],
+            'caseNo' => $caseNo,
+            'emailTitle' => $emailTitle,
+            'emailMsg' => $emailMsg,
+            'casePriority' => $casePriority,
+            'caseTypeId' => $caseTypeId,
+            'msg' => $msg,
+            'emailbody' => $emailbody,
+            'assignTo' => $assignTo,
+            'name_email' => $name_email,
+            'csType' => $csType,
+            'projId' => $projId,
+            'caseid' => $caseid,
+            'caUid' => $caUid,
+            'caseIstype' => $caseIstype,
+            'projName' => $projName,
+            "storage_used" => $allfiles['storage'],
             'file_upload_error' => $allfiles['file_error']
         );
-        
+
         return json_encode($ret_res);
     }
+
 
     /**
      * This method keeps file's information of google drive and dropbox.
@@ -459,7 +555,8 @@ class PostcaseComponent extends CookieComponent
      * @params array, projectid, easycaseid
      * @return
      */
-    function fileInfo($files, $project_id, $case_id) {
+    function fileInfo($files, $project_id, $case_id)
+    {
         $Case_file = ClassRegistry::init('CaseFile');
         $Case_file->recursive = -1;
 
@@ -473,7 +570,8 @@ class PostcaseComponent extends CookieComponent
         $caseFile['company_id'] = SES_COMP;
         $caseFile['isactive'] = 1;
 
-        foreach ($files as $key => $value) {
+        foreach ($files as $key => $value)
+        {
             $caseFileDrives['file_info'] = $value;
             $file = json_decode($value, true);
             $caseFile['file'] = $file['title'];
@@ -484,7 +582,9 @@ class PostcaseComponent extends CookieComponent
         }
     }
 
-    function uploadAndInsertFile($files, $caseid, $cmnt, $projId, $domain = HTTP_ROOT) {
+
+    function uploadAndInsertFile($files, $caseid, $cmnt, $projId, $domain = HTTP_ROOT)
+    {
         $CaseFile = ClassRegistry::init('CaseFile');
         $CaseFile->recursive = -1;
         $CaseFile->cacheQueries = false;
@@ -496,34 +596,44 @@ class PostcaseComponent extends CookieComponent
         $sizeinkb = 0;
         $fileid = 0;
         $filecount = 0;
-        foreach ($files as $file) {
-            if ($file && strstr($file, "|")) {
+        foreach ($files as $file)
+        {
+            if ($file && strstr($file, "|"))
+            {
 
                 $fl = explode("|", $file);
-                if (isset($fl['0'])) {
+                if (isset($fl['0']))
+                {
                     $filename = $fl['0'];
                 }
-                if (isset($fl['1'])) {
+                if (isset($fl['1']))
+                {
                     $sizeinkb = $fl['1'];
                 }
-                if (isset($fl['2'])) {
+                if (isset($fl['2']))
+                {
                     $fileid = $fl['2'];
                 }
-                if (isset($fl['3'])) {
+                if (isset($fl['3']))
+                {
                     $filecount = $fl['3'];
                 }
-                if ($filecount && $fileid) {
+                if ($filecount && $fileid)
+                {
 ###### Update case file table for same file
                     $csFile['id'] = $fileid;
                     $csFile['count'] = $filecount;
                     $CaseFile->saveAll($csFile);
-                } elseif ($fileid) {
+                }
+                elseif ($fileid)
+                {
                     continue;
                 }
                 $res['file_error'] = 0;
-                if ((strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited') || (($fkb / 1024) < $GLOBALS['Userlimitation']['storage'])) {
+                if ((strtolower($GLOBALS['Userlimitation']['storage']) == 'unlimited') || (($fkb / 1024) < $GLOBALS['Userlimitation']['storage']))
+                {
                     $fkb += $sizeinkb;
-        ###### Insert to case file table
+                    ###### Insert to case file table
                     $csFiles['user_id'] = SES_ID;
                     $csFiles['project_id'] = $projId;
                     $csFiles['company_id'] = SES_COMP;
@@ -531,17 +641,22 @@ class PostcaseComponent extends CookieComponent
                     $csFiles['file'] = $filename;
                     $csFiles['file_size'] = $sizeinkb;
                     $csFiles['comment_id'] = $cmnt;
-                    if($CaseFile->saveAll($csFiles)){
-            if(USE_S3){
-                $s3 = new S3(awsAccessKey, awsSecretKey);
-                $ret_res = $s3->copyObject(BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER_TEMP.$filename,BUCKET_NAME,DIR_CASE_FILES_S3_FOLDER.$filename,S3::ACL_PRIVATE);
-                if($ret_res){
-                //$s3->deleteObject(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP.$filename, S3::ACL_PRIVATE);
-                }
-            }
-            }
+                    if ($CaseFile->saveAll($csFiles))
+                    {
+                        if (USE_S3)
+                        {
+                            $s3 = new S3(awsAccessKey, awsSecretKey);
+                            $ret_res = $s3->copyObject(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP . $filename, BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER . $filename, S3::ACL_PRIVATE);
+                            if ($ret_res)
+                            {
+                                //$s3->deleteObject(BUCKET_NAME, DIR_CASE_FILES_S3_FOLDER_TEMP.$filename, S3::ACL_PRIVATE);
+                            }
+                        }
+                    }
                     $allfiles.= "<a href='" . $domain . "users/login/?file=" . $filename . "' target='_blank' style='text-decoration:underline;color:#0571B5;line-height:24px;'>" . $filename . "</a> <font style='color:#989898;font-size:12px;'>(" . number_format($sizeinkb, 1) . " kb)</font><br/>";
-                } else {
+                }
+                else
+                {
                     $res['file_error'] = 1;
                     $res['efile'][] = $file;
                 }
@@ -553,8 +668,11 @@ class PostcaseComponent extends CookieComponent
         return $res;
     }
 
-    function uploadFile($tmp_name, $name, $file_path) {
-        if ($name) {
+
+    function uploadFile($tmp_name, $name, $file_path)
+    {
+        if ($name)
+        {
 // Remove all non-ASCII special characters
             $output = preg_replace('/[^(\x20-\x7F)]*/', '', $name);
 
@@ -591,12 +709,15 @@ class PostcaseComponent extends CookieComponent
             $CaseFile->recursive = -1;
 
             $checkFile = $CaseFile->query("SELECT id,count FROM case_files as CaseFile WHERE file='$oldname'");
-            if (count($checkFile) >= 1) {
+            if (count($checkFile) >= 1)
+            {
                 $newCount = $checkFile['0']['CaseFile']['count'] + 1;
 
                 $newFileName = $onlyfile . "(" . $newCount . ")." . $ext1;
                 $updateData = "|" . $checkFile['0']['CaseFile']['id'] . "|" . $newCount;
-            } else {
+            }
+            else
+            {
                 $newFileName = $oldname;
                 $updateData = "";
             }
@@ -604,12 +725,16 @@ class PostcaseComponent extends CookieComponent
             $file = $file_path . $newFileName;
             copy($tmp_name, $file);
             return $newFileName . $updateData;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
 
-    function sendEmail($from, $to, $subject, $message, $type) {
+
+    function sendEmail($from, $to, $subject, $message, $type)
+    {
         $to = emailText($to);
         $subject = emailText($subject);
         $message = emailText($message);
@@ -626,7 +751,9 @@ class PostcaseComponent extends CookieComponent
         mail($to, $subject, $message, $headers);
     }
 
-    function generateMsgAndSendMail($uid, $allfiles, $hid_caseno, $case_title, $respond, $hid_proj, $hid_priority, $hid_type, $msg, $emailbody, $assignTo, $name_email, $case_uniq_id, $type, $toEmail = NULL, $toName = NULL, $domain = HTTP_ROOT) {
+
+    function generateMsgAndSendMail($uid, $allfiles, $hid_caseno, $case_title, $respond, $hid_proj, $hid_priority, $hid_type, $msg, $emailbody, $assignTo, $name_email, $case_uniq_id, $type, $toEmail = NULL, $toName = NULL, $domain = HTTP_ROOT)
+    {
         App::import('helper', 'Casequery');
         $csQuery = new CasequeryHelper(new View(null));
 
@@ -636,13 +763,17 @@ class PostcaseComponent extends CookieComponent
 ##### get User Details
         $to = "";
         $to_name = "";
-        if (!$toEmail) {
+        if (!$toEmail)
+        {
             $toUsrArr = $csQuery->getUserDtls($uid);
-            if (count($toUsrArr)) {
+            if (count($toUsrArr))
+            {
                 $to = $toUsrArr['User']['email'];
                 $to_name = $frmtHlpr->formatText($toUsrArr['User']['name']);
             }
-        } else {
+        }
+        else
+        {
             $to = $toEmail;
             $to_name = $toName;
         }
@@ -650,7 +781,8 @@ class PostcaseComponent extends CookieComponent
         $senderUsrArr = $csQuery->getUserDtls(SES_ID);
         $by_name = "";
         $by_name = "";
-        if (count($senderUsrArr)) {
+        if (count($senderUsrArr))
+        {
             $by_email = $senderUsrArr['User']['email'];
             $by_name = $frmtHlpr->formatText($senderUsrArr['User']['name']);
         }
@@ -664,7 +796,8 @@ class PostcaseComponent extends CookieComponent
         $projName = "";
         $case_no = "";
         $projUniqId = "";
-        if (count($prjArr)) {
+        if (count($prjArr))
+        {
             $projName = $frmtHlpr->formatText($prjArr['Project']['name']);
             $case_no = $frmtHlpr->formatText($prjArr['Project']['short_name']) . "-" . $hid_caseno;
             $projUniqId = $prjArr['Project']['uniq_id'];
@@ -672,56 +805,80 @@ class PostcaseComponent extends CookieComponent
 ##### get Case Type
         $cseTyp = "";
         $csTypArr = $csQuery->getType($hid_type);
-        if (count($csTypArr)) {
+        if (count($csTypArr))
+        {
             $cseTyp = $csTypArr['Type']['name'];
         }
-        if ($hid_type != 10) {
+        if ($hid_type != 10)
+        {
             $pri = "";
-            if ($hid_priority == "NULL" || $hid_priority == "") {
+            if ($hid_priority == "NULL" || $hid_priority == "")
+            {
                 $pri = "<font  style='color:#AD9227;padding:0;margin:0;height:16px;'>LOW</font>";
-            } else if ($hid_priority == 0) {
+            }
+            else if ($hid_priority == 0)
+            {
                 $pri = "<font style='color:#AE432E;padding:0;margin:0;height:16px;'>HIGH</font>";
-            } else if ($hid_priority == 1) {
+            }
+            else if ($hid_priority == 1)
+            {
                 $pri = "<font style='color:#28AF51;padding:0;margin:0;height:16px;'>MEDIUM</font>";
-            } else if ($hid_priority >= 2) {
+            }
+            else if ($hid_priority >= 2)
+            {
                 $pri = "<font style='color:#AD9227;padding:0;margin:0;height:16px;'>LOW</font>";
             }
             $priRity = "<font color='#737373'><b>Priority:</b></font> " . $pri;
-        } else {
+        }
+        else
+        {
             $priRity = "";
         }
 
         $postingName = "";
-        if (SES_ID == $uid) {
+        if (SES_ID == $uid)
+        {
             $postingName = "You have";
-        } elseif ($by_name) {
+        }
+        elseif ($by_name)
+        {
             $postingName = $by_name . " has";
         }
         $from = FROM_EMAIL_NOTIFY;
-        if ($type == "Resolved") {
+        if ($type == "Resolved")
+        {
             $typ = "-" . strtoupper($type);
-        } else if ($type == "Closed") {
+        }
+        else if ($type == "Closed")
+        {
             $typ = "-" . strtoupper($type);
-        } else if ($type == "Started") {
+        }
+        else if ($type == "Started")
+        {
             $typ = "-" . strtoupper($type);
-        } else {
+        }
+        else
+        {
             $typ = "";
         }
         $projNameInSh = $projName;
-        if (strlen($projNameInSh) > 10) {
+        if (strlen($projNameInSh) > 10)
+        {
 //$projNameInSh = substr($projNameInSh,0,9).'...';
             $projNameInSh = $projNameInSh;
         }
         $shrt = $frmtHlpr->formatText($prjArr['Project']['short_name']);
-        if($shrt) {
-            $projShortNcaseNumber = $hid_caseno."(".$shrt.")";
+        if ($shrt)
+        {
+            $projShortNcaseNumber = $hid_caseno . "(" . $shrt . ")";
         }
-        else {
+        else
+        {
             $projShortNcaseNumber = $hid_caseno;
         }
         $subject = EMAIL_SUBJ . ":" . $projNameInSh . ":#" . $projShortNcaseNumber . "-" . stripslashes(html_entity_decode($case_title, ENT_QUOTES));
 
-        $message = EMAIL_REPLY."<body style='width:100%; margin:0; padding:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; background-color:#ffffff;'>
+        $message = EMAIL_REPLY . "<body style='width:100%; margin:0; padding:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; background-color:#ffffff;'>
         <table cellpadding='0' cellspacing='0' border='0' id='backgroundTable' style='height:auto !important; margin:0; padding:0; width:100% !important; background-color:#F0F0F0;color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:19px; margin-top:0; padding:0; font-weight:normal;'>
         <tr>
         <td>
@@ -790,7 +947,7 @@ class PostcaseComponent extends CookieComponent
         <tr>
         <td width='100%' bgcolor='#ffffff' style='text-align:center;'>
         <p style='color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; margin-top:0; padding:0; font-weight:normal;padding-top:5px;'>
-        You are receiving this email notification because you have subscribed to Orangescrum, to unsubscribe, please email with subject 'Unsubscribe' to <a href='mailto:".SUPPORT_EMAIL."'>".SUPPORT_EMAIL."</a>
+        You are receiving this email notification because you have subscribed to Orangescrum, to unsubscribe, please email with subject 'Unsubscribe' to <a href='mailto:" . SUPPORT_EMAIL . "'>" . SUPPORT_EMAIL . "</a>
 
         </p>
         </td>
@@ -808,37 +965,46 @@ class PostcaseComponent extends CookieComponent
         return $this->Sendgrid->sendGridEmail($from, $to, $subject, $message, $type, $fromname);
     }
 
+
 ###########################################
 ###### SEND EMAIL TO ASSIGNED USERS #######
 ###########################################
 
-    function mailToUser($data = array(), $getEmailUser = array(), $type = 0) {
+
+    function mailToUser($data = array(), $getEmailUser = array(), $type = 0)
+    {
         $name_email = "";
         $ids = "";
         $usrArr = array();
         $emailToAssgnTo = 0;
-        foreach ($getEmailUser as $usrMem) {
-            if (isset($usrMem['User']['name']) && $usrMem['User']['name']) {
+        foreach ($getEmailUser as $usrMem)
+        {
+            if (isset($usrMem['User']['name']) && $usrMem['User']['name'])
+            {
                 array_push($usrArr, $usrMem['User']);
                 $name_email.= trim($usrMem['User']['name']) . ", ";
-                if ($data['caUid'] == $usrMem['User']['id']) {
+                if ($data['caUid'] == $usrMem['User']['id'])
+                {
                     $emailToAssgnTo = 1;
                 }
             }
         }
         $name_email = trim(trim($name_email), ",");
-        if (count($usrArr)) {
+        if (count($usrArr))
+        {
 
 //By Orangescrum
 //Getting case uniquid of parent from child node.
-            if (isset($data['caseUniqId']) && trim($data['caseUniqId'])) {
+            if (isset($data['caseUniqId']) && trim($data['caseUniqId']))
+            {
                 $caseUniqId = $data['caseUniqId'];
 
                 $Easycase = ClassRegistry::init('Easycase');
                 $Easycase->recursive = -1;
 //$cases = $Easycase->find('first', array('conditions' => array('Easycase.uniq_id' => $data['caseUniqId'],'Easycase.project_id' => $data['projId'],'Easycase.case_no' => $data['caseNo'])));
 
-                if (isset($data['caseIstype']) && $data['caseIstype'] == 2) {
+                if (isset($data['caseIstype']) && $data['caseIstype'] == 2)
+                {
                     $Easycase->recursive = -1;
                     $easycase_parent = $Easycase->find('first', array('conditions' => array('Easycase.case_no' => $data['caseNo'], 'Easycase.project_id' => $data['projId'], 'Easycase.istype' => 1)));
                     $caseUniqId = $easycase_parent['Easycase']['uniq_id'];
@@ -848,9 +1014,12 @@ class PostcaseComponent extends CookieComponent
 
             $CaseUserEmail = ClassRegistry::init('CaseUserEmail');
             $CaseUserEmail->recursive = -1;
-            foreach ($usrArr as $usr) {
-                if ($usr['id']) {
-                    if ($data['caseIstype'] == 1) {
+            foreach ($usrArr as $usr)
+            {
+                if ($usr['id'])
+                {
+                    if ($data['caseIstype'] == 1)
+                    {
 ###### Insert to Case User Email table
                         $userEmail['easycase_id'] = $data['caseid'];
                         $userEmail['user_id'] = $usr['id'];
@@ -864,11 +1033,13 @@ class PostcaseComponent extends CookieComponent
         }
     }
 
+
     /**
      * @method eventLog To log each event that a user did 
      * @return bool true/false
      */
-    function eventLog($comp_id = SES_COMP, $user_id = SES_ID, $json_arr = array(), $activity_id) {
+    function eventLog($comp_id = SES_COMP, $user_id = SES_ID, $json_arr = array(), $activity_id)
+    {
         $logactivity['LogActivity']['company_id'] = $comp_id;
         $logactivity['LogActivity']['user_id'] = $user_id;
         $logactivity['LogActivity']['log_type_id'] = $activity_id;
@@ -880,12 +1051,16 @@ class PostcaseComponent extends CookieComponent
         $logActivity->save($logactivity);
     }
 
+
 //socket.io implement start
-    function iotoserver($messageArr) {
-        if (defined('NODEJS_HOST') && trim(NODEJS_HOST)) {
+    function iotoserver($messageArr)
+    {
+        if (defined('NODEJS_HOST') && trim(NODEJS_HOST))
+        {
 
             App::import('Vendor', 'ElephantIO', array('file' => 'ElephantIO' . DS . 'Client.php'));
-            try {
+            try
+            {
                 $elephant = new ElephantIOClient(NODEJS_HOST, 'socket.io', 1, false, false, true);
                 $elephant->setHandshakeTimeout(1000);
                 $elephant->init();
@@ -893,15 +1068,19 @@ class PostcaseComponent extends CookieComponent
                         ElephantIOClient::TYPE_EVENT, null, null, json_encode(array('name' => 'iotoserver', 'args' => $messageArr))
                 );
                 $elephant->close();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 
             }
         }
     }
 
+
 //socket.io implement end
 
-    function dailyMail($user = NULL, $project = NULL, $date = NULL) {
+    function dailyMail($user = NULL, $project = NULL, $date = NULL)
+    {
         $from = FROM_EMAIL_NOTIFY;
         $to = $user['email'];
         App::import('helper', 'Format');
@@ -940,11 +1119,13 @@ Team Orangescrum
         return $this->Sendgrid->sendGridEmail($from, $to, $subject, $message, '', $fromname);
     }
 
+
     /**
      * @method invitenewuser Inivite a list of user with email
      * @return array success and Failure email
      */
-    function invitenewuser($mail_arr = array(), $prj_id = 0, $obj) {
+    function invitenewuser($mail_arr = array(), $prj_id = 0, $obj)
+    {
         App::import('Controller', 'Users');
         $userscontroller = new UsersController;
 
@@ -960,21 +1141,27 @@ Team Orangescrum
           }
           } */
         $total_new_users = $ucounter + $GLOBALS['usercount'];
-        if (strtolower($GLOBALS['Userlimitation']['user_limit']) != 'unlimited' && ($total_new_users > $GLOBALS['Userlimitation']['user_limit'])) {
+        if (strtolower($GLOBALS['Userlimitation']['user_limit']) != 'unlimited' && ($total_new_users > $GLOBALS['Userlimitation']['user_limit']))
+        {
             $this->Session->write("ERROR", "Sorry! You are exceeding your user limit");
 //$userscontroller->redirect(HTTP_ROOT);exit;
             header('Location:' . HTTP_ROOT);
             exit;
         }
 //for($i=0;$i<count($mail_arr);$i++){
-        foreach ($mail_arr as $key => $val) {
-            if (trim($val) != "") {
+        foreach ($mail_arr as $key => $val)
+        {
+            if (trim($val) != "")
+            {
                 $val = trim($val);
                 $findEmail = $usercls->find('first', array('conditions' => array('User.email' => $val), 'fields' => array('User.id')));
-                if (@$findEmail['User']['id']) {
+                if (@$findEmail['User']['id'])
+                {
                     $userid = $findEmail['User']['id'];
                     $invitation_details = $UserInvitation->find('first', array('conditions' => array('user_id' => $findEmail['User']['id'], 'company_id' => SES_COMP), 'fields' => array('id', 'project_id')));
-                } else {
+                }
+                else
+                {
                     $userdata['User']['uniq_id'] = $this->Format->generateUniqNumber();
                     $userdata['User']['isactive'] = 2;
                     $userdata['User']['isemail'] = 1;
@@ -983,25 +1170,31 @@ Team Orangescrum
                     $usercls->saveAll($userdata);
                     $userid = $usercls->getLastInsertID();
                 }
-                if ($userid && $userid != SES_ID) {
+                if ($userid && $userid != SES_ID)
+                {
                     $cmpnyUsr = array();
                     $is_sub_upgrade = 1;
 // Checking for a deleted user when gets invited again.
                     $compuser = $CompanyUser->find('first', array('conditions' => array('user_id' => $userid, 'company_id' => SES_COMP)));
-                    if ($compuser && $compuser['CompanyUser']['is_active'] == 0) {
+                    if ($compuser && $compuser['CompanyUser']['is_active'] == 0)
+                    {
                         $this->Session->write("ERROR", "Sorry! You are not allowed to add a disabled user to a the project");
                         continue;
                     }
                     $cmpnyUsr['CompanyUser']['is_active'] = 2;
                     $cmpnyUsr['CompanyUser']['user_type'] = 3;
-                    if ($compuser) {
+                    if ($compuser)
+                    {
                         $is_sub_upgrade = 0;
                         $cmpnyUsr['CompanyUser']['user_type'] = $compuser['CompanyUser']['user_type'];
                         $cmpnyUsr['CompanyUser']['is_active'] = $compuser['CompanyUser']['is_active'];
-                        if ($compuser['CompanyUser']['is_active'] == 3) {
+                        if ($compuser['CompanyUser']['is_active'] == 3)
+                        {
 // If that user deleted in the same billing month and invited again then that user will not paid 
-                            if ($GLOBALS['Userlimitation']['btsubscription_id']) {
-                                if (strtotime($GLOBALS['Userlimitation']['next_billing_date']) > strtotime($compuser['CompanyUser']['billing_end_date'])) {
+                            if ($GLOBALS['Userlimitation']['btsubscription_id'])
+                            {
+                                if (strtotime($GLOBALS['Userlimitation']['next_billing_date']) > strtotime($compuser['CompanyUser']['billing_end_date']))
+                                {
                                     $is_sub_upgrade = 1;
                                 }
                             }
@@ -1014,12 +1207,16 @@ Team Orangescrum
                     $cmpnyUsr['CompanyUser']['company_id'] = SES_COMP;
                     $cmpnyUsr['CompanyUser']['company_uniq_id'] = COMP_UID;
                     $cmpnyUsr['CompanyUser']['created'] = GMT_DATETIME;
-                    if ($CompanyUser->saveAll($cmpnyUsr)) {
+                    if ($CompanyUser->saveAll($cmpnyUsr))
+                    {
                         $qstr = $this->Format->generateUniqNumber();
-                        if (@$findEmail['User']['id'] && @$invitation_details['UserInvitation']['id']) {
+                        if (@$findEmail['User']['id'] && @$invitation_details['UserInvitation']['id'])
+                        {
                             $InviteUsr['UserInvitation']['id'] = $invitation_details['UserInvitation']['id'];
                             $InviteUsr['UserInvitation']['project_id'] = $invitation_details['UserInvitation']['project_id'] ? $invitation_details['UserInvitation']['project_id'] . ',' . $prj_id : $prj_id;
-                        } else {
+                        }
+                        else
+                        {
                             $InviteUsr['UserInvitation']['project_id'] = $prj_id;
                         }
                         $InviteUsr['UserInvitation']['invitor_id'] = SES_ID;
@@ -1029,7 +1226,8 @@ Team Orangescrum
                         $InviteUsr['UserInvitation']['created'] = GMT_DATETIME;
                         $InviteUsr['UserInvitation']['is_active'] = 1;
                         $InviteUsr['UserInvitation']['user_type'] = 3;
-                        if ($UserInvitation->saveAll($InviteUsr)) {
+                        if ($UserInvitation->saveAll($InviteUsr))
+                        {
 
 //Event log data and inserted into database in account creation--- Start
                             $json_arr['email'] = $val;
@@ -1039,7 +1237,8 @@ Team Orangescrum
 //Subscription price update  if its a paid user -start 
                             $comp_user_id = $CompanyUser->getLastInsertID();
 
-                            if ($is_sub_upgrade) {
+                            if ($is_sub_upgrade)
+                            {
                                 //$userscontroller->update_bt_subscription($comp_user_id, SES_COMP, 1);
                             }
 //end 
@@ -1051,10 +1250,13 @@ Team Orangescrum
                             $fromEmail = $loggedin_users['User']['email'];
                             $ext_user = '';
 //              
-                            if (@$findEmail['User']['id']) {
+                            if (@$findEmail['User']['id'])
+                            {
                                 $subject = $fromName . " invited you to join " . CMP_SITE . " on Orangescrum";
                                 $ext_user = 1;
-                            } else {
+                            }
+                            else
+                            {
                                 $subject = $fromName . " invited you to join Orangescrum";
                             }
                             $this->Email->delivery = EMAIL_DELIVERY;
@@ -1071,15 +1273,20 @@ Team Orangescrum
                             $obj->set('fromEmail', $fromEmail);
                             $obj->set('fromName', $fromName);
 
-                            try {
+                            try
+                            {
                                 $this->Sendgrid->sendgridsmtp($this->Email);
-                            } Catch (Exception $e) {
+                            }
+                            Catch (Exception $e)
+                            {
                                 
                             }
                         }
                     }
                     $rarr['success'][] = $userid;
-                } else {
+                }
+                else
+                {
                     $err = 1;
                     $rarr['error'][] = 1;
                 }
@@ -1088,28 +1295,34 @@ Team Orangescrum
         return $rarr;
     }
 
+
     /** @method removeFiles It will remove all the Uncheked files during edit & Update of a Task
      * @return bool true/false
      */
-    function removeFiles($caseFileids, $easycaseid) {
-        if (strstr($caseFileids, ',')) {
+    function removeFiles($caseFileids, $easycaseid)
+    {
+        if (strstr($caseFileids, ','))
+        {
             $caseFileids = explode(',', $caseFileids);
         }
         $caseFile = ClassRegistry::init('CaseFile');
         $filedata = $caseFile->find('all', array('conditions' => array('CaseFile.id' => $caseFileids), 'field' => array('id,file,file_size')));
 
-        foreach ($filedata AS $key => $val) {
+        foreach ($filedata AS $key => $val)
+        {
             $delids[] = $val['CaseFile']['id'];
             $s3 = new S3(awsAccessKey, awsSecretKey);
             $folder_orig_Name = 'files/case_files/' . trim($val['CaseFile']['file']);
 //$info = $s3->getObjectInfo(BUCKET_NAME, $folder_orig_Name,S3::ACL_PRIVATE);
             $s3->deleteObject(BUCKET_NAME, $folder_orig_Name, S3::ACL_PRIVATE);
         }
-        if ($caseFile->deleteAll(array('CaseFile.id' => $delids, 'CaseFile.company_id' => SES_COMP, 'CaseFile.easycase_id' => $easycaseid))) {
+        if ($caseFile->deleteAll(array('CaseFile.id' => $delids, 'CaseFile.company_id' => SES_COMP, 'CaseFile.easycase_id' => $easycaseid)))
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
-
 }
