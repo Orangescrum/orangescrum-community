@@ -24,8 +24,6 @@ SCRUMptious is a free, open source, flexible project management web application 
     * `git clone git@github.com:programster/SCRUMptious.git`
   2. Navigate into the cloned repository.
     * `cd SCRUMptious`
-  2. Checkout the `programster` branch (which is my main line of development for SCRUMptious)
-     * `git checkout programster`
   3. Run a composer install to fetch all the external libraries.
      * `composer install`
   4. Navigate to the docker directory
