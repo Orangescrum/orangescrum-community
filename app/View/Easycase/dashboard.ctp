@@ -329,21 +329,23 @@
 <script type="text/template" id="case_project_tmpl">
 <?php echo $this->element('case_project'); ?>
 </script>
-<!--<script type="text/template" id="case_project_tmpl">
-<?php //echo $this->element('compact_view'); ?>
-</script>-->
+
 <script type="text/template" id="kanban_task_tmpl">
 <?php echo $this->element('kanban_task'); ?>
 </script>
+
 <script type="text/template" id="paginate_tmpl">
 <?php echo $this->element('paginate'); ?>
 </script>
+
 <script type="text/template" id="case_details_tmpl">
 <?php echo $this->element('case_details'); ?>
 </script>
+
 <script type="text/template" id="case_replies_tmpl">
 <?php echo $this->element('case_reply'); ?>
 </script>
+
 <script type="text/template" id="case_widget_tmpl">
 <?php echo $this->element('ajax_case_status'); ?>
 </script>

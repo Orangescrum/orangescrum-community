@@ -567,7 +567,7 @@ if(showQuickAct && taskTyp.id != 10){
             </div>
         </a>
         <% } %>
-        <% if(is_active && ((!CSrepcount) &&  csLgndRep ==1 && (SES_TYPE == 1 || SES_TYPE == 2 || (csUsrDtls== SES_ID))) ){ %>
+        <% if(SES_TYPE == 1 || SES_TYPE == 2 || (csLgndRep == 1  && SES_ID == csUsrDtls)) { %>
         <a href="javascript:void(0);" onclick="editask(<%= '\''+ csUniqId+'\',\''+projUniqId+'\',\''+projName+'\'' %>);">
             <div class="btn gry_btn smal30" rel="tooltip" title="Edit">
                 <i class="icon-edit"></i>

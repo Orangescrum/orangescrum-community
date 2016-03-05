@@ -1577,7 +1577,6 @@ function case_quick(easycase)
         {
             $('#hours').val(easycase.hours);
         }
-        openEditor(easycase.message);
     }
     
     addTaskEvents(); //add evens for dropdown, date and others
