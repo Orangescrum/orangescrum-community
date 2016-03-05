@@ -2,10 +2,12 @@
 <table cellpadding="0" cellspacing="0" class="edit_rep_768 col-lg-12">
     <tr>
         <td>
-            <textarea name="edit_reply_txtbox<?php echo $caseinfo['id'];?>" id="edit_reply_txtbox<?php echo $caseinfo['id'];?>" rows="3" class="reply_txt_ipad col-lg-12">
-                <?php // echo trim($caseinfo['message']); ?>
-                    <?php echo htmlentities(trim($caseinfo['message'])); ?>
-            </textarea>
+            <textarea 
+                name="edit_reply_txtbox<?php echo $caseinfo['id'];?>" 
+                id="edit_reply_txtbox<?php echo $caseinfo['id'];?>" 
+                rows="3" 
+                class="reply_txt_ipad col-lg-12"
+                ><?php echo htmlspecialchars($caseinfo['message']); ?></textarea>
         </td>
     </tr>
     <tr>

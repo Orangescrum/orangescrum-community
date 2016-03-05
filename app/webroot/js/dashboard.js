@@ -3496,33 +3496,20 @@ function switchTaskToMilestone(obj)
 function editmessage(obj, id, projid) 
 {
     $('#editpopup' + id + ' .icon-edit').addClass('loading');
-    $.post(HTTP_ROOT + "easycases/edit_reply", {'id': id, 'reply_flag': 1, projid: projid}, function (res) {
+    
+    var postData = {
+        'id': id, 
+        'reply_flag': 1, 
+        'projid': projid 
+    };
+    
+    var postCallback = function (res) {
         $('#casereplytxt_id_' + id).hide();
         $('#editpopup' + id + ' .icon-edit').removeClass('loading');
         $('#casereplyid_' + id).html(res);
-        var tiny_mce_url = HTTP_ROOT + 'js/tinymce/tiny_mce.js';
-        
-        var config = {
-            // Location of TinyMCE script
-            theme: "advanced",
-            plugins: "paste",
-            theme_advanced_buttons1: "bold,italic,strikethrough,underline,|,numlist,bullist,|,indent,outdent",
-            theme_advanced_resizing: false,
-            theme_advanced_statusbar_location: "",
-            paste_text_sticky: true,
-            gecko_spellcheck: true,
-            paste_text_sticky_default: true,
-            forced_root_block: false,
-            cleanup_on_startup: true,
-            width: "100%",
-            height: "150px",
-            oninit: function () {
-                $('#edit_reply_txtbox' + id).tinymce().focus();
-            }
-        };
-        
-        $('#edit_reply_txtbox' + id).tinymce(config);
-    });
+    };
+    
+    $.post(HTTP_ROOT + "easycases/edit_reply", postData, postCallback);
 }
 
 
