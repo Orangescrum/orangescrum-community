@@ -23,9 +23,26 @@ class Easycase extends AppModel
                 $projId = $getdata['Easycase']['project_id'];
                 $newpjcnt = $projId;
                 
-                $actuallyCreated = $tz->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, $getdata['Easycase']['actual_dt_created'], "datetime");
+                $actuallyCreated = $tz->GetDateTime(
+                    SES_TIMEZONE, 
+                    TZ_GMT, 
+                    TZ_DST, 
+                    TZ_CODE, 
+                    $getdata['Easycase']['actual_dt_created'], 
+                    "datetime"
+                );
+                
                 $newdate_actualdate = explode(" ", $actuallyCreated);
-                $updated = $tz->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, $getdata['Easycase']['dt_created'], "datetime");
+                
+                $updated = $tz->GetDateTime(
+                    SES_TIMEZONE, 
+                    TZ_GMT, 
+                    TZ_DST, 
+                    TZ_CODE, 
+                    $getdata['Easycase']['dt_created'], 
+                    "datetime"
+                );
+                
                 $newdate = explode(" ", $updated);
                 
                 if ($caseMenuFilters == "milestone" && count($milestones))
@@ -606,20 +623,20 @@ class Easycase extends AppModel
                 
                 if (trim($caseFileName))
                 {
-                    $rplyFilesArr[$fkey]['CaseFile']['is_exist'] = 1; //$frmt->pub_file_exists(DIR_CASE_FILES_S3_FOLDER,$caseFileName);
+                    $rplyFilesArr[$fkey]['CaseFile']['is_exist'] = 1;
                 }
                 
                 if (stristr($getFiles['CaseFile']['downloadurl'], 'www.dropbox.com'))
                 {
-                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = 'db'; //'<img src="'.HTTP_IMAGES.'images/db16x16.png" alt="Dropbox" title="'.$caseFileName.'" width="16" height="16" border="0" style="border:0px solid #C3C3C3" />';
+                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = 'db'; 
                 }
                 elseif (stristr($getFiles['CaseFile']['downloadurl'], 'docs.google.com'))
                 {
-                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = 'gd'; //'<img src="'.HTTP_IMAGES.'images/gd16x16.png" alt="Google" title="'.$caseFileName.'" width="16" height="16" border="0" style="border:0px solid #C3C3C3" />';
+                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = 'gd';
                 }
                 else
                 {
-                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1); //str_replace(array('"','\''), array('\'','"'), $frmt->imageType($caseFileName,25,10,1));
+                    $rplyFilesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1);
                 }
                 
                 $rplyFilesArr[$fkey]['CaseFile']['is_ImgFileExt'] = $frmt->validateImgFileExt($caseFileName);
@@ -680,8 +697,7 @@ class Easycase extends AppModel
                 $by_name_assign1 = $userArr1['User']['name'];
                 $by_photo1 = $userArr1['User']['photo'];
                 $short_name_assign1 = $userArr1['User']['short_name'];
-                //$replyCap .= ',&nbsp;&nbsp;Assigned To: <font color="black">'.$by_name_assign1.'('.$short_name_assign1.')</font>';
-                $asgnTo = $by_name_assign1; //.' ('.$short_name_assign1.')';
+                $asgnTo = $by_name_assign1;
                 
                 if ($taskhourspent != "0.0")
                 {
@@ -732,7 +748,6 @@ class Easycase extends AppModel
                     $by_name_assign = $userArr['User']['name'];
                     $by_last_name_assign = $userArr['User']['last_name'];
                     $by_photo = $userArr['User']['photo'];
-                    //$short_name_assign = $userArr['User']['short_name'];
                     $replyCap = 'Task re-assigned to <b class="ttc">' . $by_name_assign . ' ' . $by_last_name_assign . '</b>';
                 }
                 elseif ($caseReplyType == 3)
@@ -790,7 +805,26 @@ class Easycase extends AppModel
             $sqlcasedata[$caseKey]['Easycase']['rply_dt'] = $dt->dateFormatOutputdateTime_day($replyDt, $curDate);
             
             unset(
-                $sqlcasedata[$caseKey]['Easycase']['case_no'], $sqlcasedata[$caseKey]['Easycase']['case_count'], $sqlcasedata[$caseKey]['Easycase']['updated_by'], $sqlcasedata[$caseKey]['Easycase']['type_id'], $sqlcasedata[$caseKey]['Easycase']['priority'], $sqlcasedata[$caseKey]['Easycase']['title'], $sqlcasedata[$caseKey]['Easycase']['reply_type'], $sqlcasedata[$caseKey]['Easycase']['assign_to'], $sqlcasedata[$caseKey]['Easycase']['completed_task'], $sqlcasedata[$caseKey]['Easycase']['hours'], $sqlcasedata[$caseKey]['Easycase']['due_date'], $sqlcasedata[$caseKey]['Easycase']['istype'], $sqlcasedata[$caseKey]['Easycase']['status'], $sqlcasedata[$caseKey]['Easycase']['isactive'], $sqlcasedata[$caseKey]['Easycase']['dt_created'], $sqlcasedata[$caseKey]['Easycase']['actual_dt_created'], $sqlcasedata[$caseKey]['Easycase']['caseReplyType'], $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['id'], $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['email'], $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['istype']
+                $sqlcasedata[$caseKey]['Easycase']['case_no'], 
+                $sqlcasedata[$caseKey]['Easycase']['case_count'], 
+                $sqlcasedata[$caseKey]['Easycase']['updated_by'], 
+                $sqlcasedata[$caseKey]['Easycase']['type_id'], 
+                $sqlcasedata[$caseKey]['Easycase']['priority'], 
+                $sqlcasedata[$caseKey]['Easycase']['title'], 
+                $sqlcasedata[$caseKey]['Easycase']['reply_type'], 
+                $sqlcasedata[$caseKey]['Easycase']['assign_to'], 
+                $sqlcasedata[$caseKey]['Easycase']['completed_task'], 
+                $sqlcasedata[$caseKey]['Easycase']['hours'], 
+                $sqlcasedata[$caseKey]['Easycase']['due_date'], 
+                $sqlcasedata[$caseKey]['Easycase']['istype'], 
+                $sqlcasedata[$caseKey]['Easycase']['status'], 
+                $sqlcasedata[$caseKey]['Easycase']['isactive'], 
+                $sqlcasedata[$caseKey]['Easycase']['dt_created'], 
+                $sqlcasedata[$caseKey]['Easycase']['actual_dt_created'], 
+                $sqlcasedata[$caseKey]['Easycase']['caseReplyType'], 
+                $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['id'], 
+                $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['email'],
+                $sqlcasedata[$caseKey]['Easycase']['userArr']['User']['istype']
             );
         }
         
@@ -824,7 +858,25 @@ class Easycase extends AppModel
         App::import('Model', 'CaseFile');
         $CaseFile = new CaseFile();
         $CaseFile->recursive = -1;
-        $caseFiles = $CaseFile->find('all', array('conditions' => array('CaseFile.easycase_id' => $cid, 'CaseFile.comment_id' => 0, 'CaseFile.isactive' => 1), 'fields' => array('CaseFile.id', 'CaseFile.file', 'CaseFile.file_size', 'CaseFile.downloadurl'), 'order' => array('CaseFile.file ASC')));
+        
+        $caseFiles = $CaseFile->find(
+            'all', 
+            array(
+                'conditions' => array(
+                    'CaseFile.easycase_id' => $cid, 
+                    'CaseFile.comment_id' => 0, 
+                    'CaseFile.isactive' => 1
+                ), 
+                'fields' => array(
+                    'CaseFile.id', 
+                    'CaseFile.file', 
+                    'CaseFile.file_size', 
+                    'CaseFile.downloadurl'
+                ), 
+                'order' => array('CaseFile.file ASC')
+            )
+        );
+        
         return $caseFiles;
     }
     
@@ -850,7 +902,27 @@ class Easycase extends AppModel
             false
         );
         
-        $filesArr = $CaseFile->find('all', array('conditions' => array('Easycase.project_id' => $pid, 'Easycase.case_no' => $cno), 'fields' => array('CaseFile.id', 'CaseFile.file', 'CaseFile.file_size', 'CaseFile.downloadurl', 'Easycase.actual_dt_created'), 'order' => array('Easycase.actual_dt_created DESC', 'CaseFile.file ASC')));
+        $filesArr = $CaseFile->find(
+            'all', 
+            array(
+                'conditions' => array(
+                    'Easycase.project_id' => $pid, 
+                    'Easycase.case_no' => $cno
+                ), 
+                'fields' => array(
+                    'CaseFile.id', 
+                    'CaseFile.file', 
+                    'CaseFile.file_size', 
+                    'CaseFile.downloadurl', 
+                    'Easycase.actual_dt_created'
+                ), 
+                'order' => array(
+                    'Easycase.actual_dt_created DESC', 
+                    'CaseFile.file ASC'
+                )
+            )
+        );
+        
         return $filesArr;
     }
     
@@ -877,21 +949,23 @@ class Easycase extends AppModel
                 {
                     if (stristr($downloadurl, 'www.dropbox.com'))
                     {
-                        $filesArr[$fkey]['CaseFile']['format_file'] = 'db'; //'<img src="'.HTTP_IMAGES.'images/db16x16.png" alt="Dropbox" title="'.$caseFileName.'" width="16" height="16" border="0" style="border:0px solid #C3C3C3" />';
+                        $filesArr[$fkey]['CaseFile']['format_file'] = 'db';
                     }
                     else
                     {
-                        $filesArr[$fkey]['CaseFile']['format_file'] = 'gd'; //'<img src="'.HTTP_IMAGES.'images/gd16x16.png" alt="Google" title="'.$caseFileName.'" width="16" height="16" border="0" style="border:0px solid #C3C3C3" />';
+                        $filesArr[$fkey]['CaseFile']['format_file'] = 'gd';
                     }
                 }
                 else
                 {
-                    $filesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1); //str_replace(array('"','\''), array('\'','"'), $frmt->imageType($caseFileName,25,10,1));
+                    $filesArr[$fkey]['CaseFile']['format_file'] = substr(strrchr(strtolower($caseFileName), "."), 1);
                     $filesArr[$fkey]['CaseFile']['is_ImgFileExt'] = $frmt->validateImgFileExt($caseFileName);
+                    
                     if ($filesArr[$fkey]['CaseFile']['is_ImgFileExt'])
                     {
                         $filesArr[$fkey]['CaseFile']['fileurl'] = $frmt->generateTemporaryURL(DIR_CASE_FILES_S3 . $caseFileName);
                     }
+                    
                     $filesArr[$fkey]['CaseFile']['file_size'] = $frmt->getFileSize($getFiles['CaseFile']['file_size']);
                 }
                 
@@ -909,7 +983,18 @@ class Easycase extends AppModel
     {
         $CaseUserEmail = ClassRegistry::init('CaseUserEmail');
         $CaseUserEmail->recursive = -1;
-        $userIds = $CaseUserEmail->find('all', array('conditions' => array('CaseUserEmail.easycase_id' => $id, 'CaseUserEmail.ismail' => 1), 'fields' => array('CaseUserEmail.user_id')));
+        
+        $userIds = $CaseUserEmail->find(
+            'all', 
+            array(
+                'conditions' => array(
+                    'CaseUserEmail.easycase_id' => $id, 
+                    'CaseUserEmail.ismail' => 1
+                ), 
+                'fields' => array('CaseUserEmail.user_id')
+            )
+        );
+        
         return $userIds;
     }
     
@@ -944,14 +1029,31 @@ class Easycase extends AppModel
     //End FormatComponent.php
     function getCaseNo($case_uniq_id)
     {
-        return $this->find('first', array('conditions' => array('Easycase.uniq_id' => $case_uniq_id), 'fields' => array('Easycase.case_no')));
+        return $this->find(
+            'first', 
+            array(
+                'conditions' => array('Easycase.uniq_id' => $case_uniq_id), 
+                'fields' => array('Easycase.case_no')
+            )
+        );
     }
     
     
     function getCaseTitle($project_id, $case_no)
     {
         $caseTitle = '';
-        $csTtl = $this->find('first', array('conditions' => array('Easycase.project_id' => $project_id, 'Easycase.case_no' => $case_no, 'istype' => 1), 'fields' => array('Easycase.title')));
+        
+        $csTtl = $this->find(
+            'first', 
+            array(
+                'conditions' => array(
+                    'Easycase.project_id' => $project_id, 
+                    'Easycase.case_no' => $case_no, 
+                    'istype' => 1
+                ), 
+                'fields' => array('Easycase.title')
+            )
+        );
         
         if ($csTtl)
         {
@@ -967,7 +1069,11 @@ class Easycase extends AppModel
         return $this->find(
             'first', 
             array(
-                'conditions' => array('Easycase.project_id' => $projId, 'Easycase.case_no' => $caseNo, 'Easycase.legend' => '5'),
+                'conditions' => array(
+                    'Easycase.project_id' => $projId, 
+                    'Easycase.case_no' => $caseNo, 
+                    'Easycase.legend' => '5'
+                ),
                 'fields' => array('Easycase.dt_created'),
                 'order' => 'Easycase.dt_created DESC'
             )
@@ -980,7 +1086,11 @@ class Easycase extends AppModel
         return $this->find(
             'first', 
             array(
-                'conditions' => array('Easycase.project_id' => $projId, 'Easycase.case_no' => $caseNo, 'Easycase.legend' => '3'),
+                'conditions' => array(
+                    'Easycase.project_id' => $projId, 
+                    'Easycase.case_no' => $caseNo, 
+                    'Easycase.legend' => '3'
+                ),
                 'fields' => array('Easycase.dt_created'),
                 'order' => 'Easycase.dt_created DESC'
             )
@@ -990,11 +1100,37 @@ class Easycase extends AppModel
     
     function getEasycase($case_uniq_id)
     {
-        $thisCase = $this->find('first', array('conditions' => array('Easycase.uniq_id' => $case_uniq_id), 'fields' => array('Easycase.id', 'Easycase.case_no', 'Easycase.project_id', 'Easycase.isactive', 'Easycase.istype')));
+        $thisCase = $this->find(
+            'first', 
+            array(
+                'conditions' => array('Easycase.uniq_id' => $case_uniq_id), 
+                'fields' => array(
+                    'Easycase.id', 
+                    'Easycase.case_no', 
+                    'Easycase.project_id', 
+                    'Easycase.isactive', 
+                    'Easycase.istype')
+                )
+            );
         
         if ($thisCase['Easycase']['istype'] != 1)
         {
-            $thisCase = $this->find('first', array('conditions' => array('Easycase.case_no' => $thisCase['Easycase']['case_no'], 'Easycase.project_id' => $thisCase['Easycase']['project_id'], 'istype' => 1), 'fields' => array('Easycase.id', 'Easycase.case_no', 'Easycase.project_id', 'Easycase.isactive')));
+            $thisCase = $this->find(
+                'first', 
+                array(
+                    'conditions' => array(
+                        'Easycase.case_no' => $thisCase['Easycase']['case_no'], 
+                        'Easycase.project_id' => $thisCase['Easycase']['project_id'], 
+                        'istype' => 1
+                    ), 
+                    'fields' => array(
+                        'Easycase.id', 
+                        'Easycase.case_no', 
+                        'Easycase.project_id', 
+                        'Easycase.isactive'
+                    )
+                )
+            );
         }
         
         return $thisCase;
@@ -1016,7 +1152,17 @@ class Easycase extends AppModel
     {
         if ($caseid)
         {
-            $checkStatus = $this->find('first', array('conditions' => array('Easycase.id' => $caseid, 'Easycase.uniq_id' => $caseuid, 'Easycase.isactive' => 1)));
+            $checkStatus = $this->find(
+                'first', 
+                array(
+                    'conditions' => array(
+                        'Easycase.id' => $caseid, 
+                        'Easycase.uniq_id' => $caseuid, 
+                        'Easycase.isactive' => 1
+                    )
+                )
+            );
+            
             if ($checkStatus)
             {
                 if ($checkStatus['Easycase']['legend'] == 1)
@@ -1123,7 +1269,6 @@ class Easycase extends AppModel
                     $ProjectUser = ClassRegistry::init('ProjectUser');
                     $ProjectUser->recursive = -1;
                     
-                    //$getUser = $ProjectUser->query("SELECT user_id FROM project_users WHERE project_id='".$closeStsPid."'");
                     $actionStsPid = $checkStatus['Easycase']['project_id'];
                     $caseStsNo = $checkStatus['Easycase']['case_no'];
                     $closeStsTitle = $checkStatus['Easycase']['title'];
@@ -1144,7 +1289,12 @@ class Easycase extends AppModel
                 {
                     $done = 1;
                     $caseDataArr = $checkStatus;
-                    if (($caseDataArr['Easycases']['legend'] == 3) || ($csLeg == 4 && ($caseDataArr['Easycases']['legend'] == 4)) || ($csLeg == 5 && ($caseDataArr['Easycases']['legend'] == 5)))
+                    if 
+                    (
+                        ($caseDataArr['Easycases']['legend'] == 3) 
+                        || ($csLeg == 4 && ($caseDataArr['Easycases']['legend'] == 4)) 
+                        || ($csLeg == 5 && ($caseDataArr['Easycases']['legend'] == 5))
+                    )
                     {
                         $done = 0;
                     }
@@ -1184,7 +1334,25 @@ class Easycase extends AppModel
                 
                 $_SESSION['email']['email_body'] = $emailbody;
                 $_SESSION['email']['msg'] = $msg;
-                $email_notification = array('caseNo' => $caseStsNo, 'closeStsTitle' => $closeStsTitle, 'emailMsg' => $emailMsg, 'closeStsPid' => $closeStsPid, 'closeStsPri' => $closeStsPri, 'closeStsTyp' => $closeStsTyp, 'assignTo' => $assignTo, 'usr_names' => $usr_names, 'caseuniqid' => $caseuniqid, 'csType' => $emailType, 'closeStsPid' => $closeStsPid, 'caseStsId' => $caseStsId, 'caseIstype' => 5, 'caseid_list' => $caseid_list, 'caseUniqId' => $closeStsUniqId); // $caseuniqid
+                
+                $email_notification = array(
+                    'caseNo' => $caseStsNo, 
+                    'closeStsTitle' => $closeStsTitle, 
+                    'emailMsg' => $emailMsg, 
+                    'closeStsPid' => $closeStsPid, 
+                    'closeStsPri' => $closeStsPri, 
+                    'closeStsTyp' => $closeStsTyp, 
+                    'assignTo' => $assignTo, 
+                    'usr_names' => $usr_names, 
+                    'caseuniqid' => $caseuniqid, 
+                    'csType' => $emailType, 
+                    'closeStsPid' => $closeStsPid, 
+                    'caseStsId' => $caseStsId, 
+                    'caseIstype' => 5, 
+                    'caseid_list' => $caseid_list, 
+                    'caseUniqId' => $closeStsUniqId
+                ); // $caseuniqid
+                
                 $arr['succ'] = 1;
                 $arr['msg'] = 'Succes';
                 $arr['data'] = json_encode($email_notification);
@@ -1260,8 +1428,24 @@ class Easycase extends AppModel
             //$prj_cls = ClassRegistry::init('Project');
             $prj_usercls = ClassRegistry::init('ProjectUser');
             $prj_usercls->unbindModel(array('belongsTo' => array('User')));
-            $projArr = $prj_usercls->find('first', array('conditions' => array('Project.uniq_id' => $projUniq, 'ProjectUser.user_id' => SES_ID, 'Project.isactive' => 1, 'ProjectUser.company_id' => SES_COMP), 'fields' => array('Project.id', 'Project.short_name', 'ProjectUser.id')));
-            //$projectDetails = $prj_cls->find('first',array('conditions'=>array('Project.uniq_id'=>$projUniq)));
+            
+            $projArr = $prj_usercls->find(
+                'first', 
+                array(
+                    'conditions' => array(
+                        'Project.uniq_id' => $projUniq, 
+                        'ProjectUser.user_id' => SES_ID, 
+                        'Project.isactive' => 1, 
+                        'ProjectUser.company_id' => SES_COMP
+                    ), 
+                    'fields' => array(
+                        'Project.id', 
+                        'Project.short_name', 
+                        'ProjectUser.id'
+                    )
+                )
+            );
+            
             
             if ($projArr)
             {
@@ -1326,11 +1510,12 @@ class Easycase extends AppModel
                 {
                     $caseAll = $this->query("SELECT SQL_CALC_FOUND_ROWS Easycase.*,User.short_name,IF((Easycase.assign_to = 0 OR Easycase.assign_to =" . SES_ID . "),'Me',User.short_name) AS Assigned FROM ( SELECT Easycase.*,EasycaseMilestone.id AS Emid, EasycaseMilestone.milestone_id AS Em_milestone_id,EasycaseMilestone.user_id AS Em_user_id,EasycaseMilestone.id_seq,Milestone.id as Mid,Milestone.title AS Mtitle ,Milestone.end_date,Milestone.isactive AS Misactive,Milestone.project_id AS Mproject_id,Milestone.uniq_id AS Muinq_id FROM easycases as Easycase,easycase_milestones AS EasycaseMilestone,milestones AS Milestone WHERE EasycaseMilestone.easycase_id=Easycase.id $milestone_search AND Milestone.id=EasycaseMilestone.milestone_id AND Easycase.istype='1' AND Easycase.isactive=1 AND Milestone.isactive=" . $isActive . " AND Milestone.id IN(" . $milestone_ids . ") AND Easycase.project_id='$curProjId' AND Easycase.project_id!=0  AND EasycaseMilestone.easycase_id=Easycase.id AND EasycaseMilestone.project_id=" . $curProjId . $msQuery . " ) AS Easycase LEFT JOIN users User ON Easycase.assign_to=User.id ORDER BY Easycase.end_date ASC,Easycase.Mtitle ASC ");
                 }
+                
                 if ($projUniq == 'all')
                 {
-                    //echo "SELECT SQL_CALC_FOUND_ROWS Easycase.*,User.short_name,IF((Easycase.assign_to = 0 OR Easycase.assign_to =".SES_ID."),'Me',User.short_name) AS Assigned FROM ( SELECT  Easycase.*,EasycaseMilestone.id AS Emid, EasycaseMilestone.milestone_id AS Em_milestone_id,EasycaseMilestone.user_id AS Em_user_id,EasycaseMilestone.id_seq,Milestone.id as Mid,Milestone.title AS Mtitle ,Milestone.end_date,Milestone.isactive AS Misactive,Milestone.project_id AS Mproject_id,Milestone.uniq_id AS Muinq_id FROM easycases as Easycase,easycase_milestones AS EasycaseMilestone,milestones AS Milestone WHERE EasycaseMilestone.easycase_id=Easycase.id AND Milestone.id=EasycaseMilestone.milestone_id AND Easycase.istype='1' AND Easycase.isactive=1 AND Milestone.isactive=".$mstype." AND Milestone.id IN(".$milestone_ids.") AND Easycase.project_id!=0 AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM project_users AS ProjectUser,projects as Project WHERE ProjectUser.user_id=".SES_ID." AND ProjectUser.project_id=Project.id AND Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."') ".$searchcase." ".trim($qry)." AND EasycaseMilestone.easycase_id=Easycase.id AND EasycaseMilestone.project_id IN (SELECT ProjectUser.project_id FROM project_users AS ProjectUser,projects as Project WHERE ProjectUser.user_id=".SES_ID." AND ProjectUser.project_id=Project.id AND Project.isactive='1')".$msQuery." ) AS Easycase LEFT JOIN users User ON Easycase.assign_to=User.id ORDER BY Easycase.end_date ASC,Easycase.Mtitle ASC";exit;
                     $caseAll = $this->query("SELECT SQL_CALC_FOUND_ROWS Easycase.*,User.short_name,IF((Easycase.assign_to = 0 OR Easycase.assign_to =" . SES_ID . "),'Me',User.short_name) AS Assigned FROM ( SELECT  Easycase.*,EasycaseMilestone.id AS Emid, EasycaseMilestone.milestone_id AS Em_milestone_id,EasycaseMilestone.user_id AS Em_user_id,EasycaseMilestone.id_seq,Milestone.id as Mid,Milestone.title AS Mtitle ,Milestone.end_date,Milestone.isactive AS Misactive,Milestone.project_id AS Mproject_id,Milestone.uniq_id AS Muinq_id FROM easycases as Easycase,easycase_milestones AS EasycaseMilestone,milestones AS Milestone WHERE EasycaseMilestone.easycase_id=Easycase.id $milestone_search AND Milestone.id=EasycaseMilestone.milestone_id AND Easycase.istype='1' AND Easycase.isactive=1 AND Milestone.isactive=" . $isActive . " AND Milestone.id IN(" . $milestone_ids . ") AND Easycase.project_id!=0 AND Easycase.project_id IN (SELECT ProjectUser.project_id FROM project_users AS ProjectUser,projects as Project WHERE ProjectUser.user_id=" . SES_ID . " AND ProjectUser.project_id=Project.id AND Project.isactive='1' AND ProjectUser.company_id='" . SES_COMP . "') " . $searchcase . " " . trim($qry) . " AND EasycaseMilestone.easycase_id=Easycase.id AND EasycaseMilestone.project_id IN (SELECT ProjectUser.project_id FROM project_users AS ProjectUser,projects as Project WHERE ProjectUser.user_id=" . SES_ID . " AND ProjectUser.project_id=Project.id AND Project.isactive='1')" . $msQuery . " ) AS Easycase LEFT JOIN users User ON Easycase.assign_to=User.id ORDER BY Easycase.end_date ASC,Easycase.Mtitle ASC");
                 }
+                
                 $tot = $this->query("SELECT FOUND_ROWS() as total");
                 $CaseCount = $tot[0][0]['total'];
                 $msQ = "";
@@ -1356,6 +1541,7 @@ class Easycase extends AppModel
                     if ($mid)
                     {
                         $closed_cases = $this->query("SELECT EasycaseMilestone.milestone_id,COUNT(Easycase.id) as totcase FROM easycase_milestones AS EasycaseMilestone LEFT JOIN easycases as Easycase ON   EasycaseMilestone.easycase_id=Easycase.id WHERE Easycase.istype='1' AND Easycase.isactive='1' AND Easycase.legend='3' AND EasycaseMilestone.milestone_id IN(" . trim($mid, ',') . ") GROUP BY  EasycaseMilestone.milestone_id");
+                        
                         foreach ($closed_cases as $key => $val)
                         {
                             $c[$val['EasycaseMilestone']['milestone_id']]['totalclosed'] = $val[0]['totcase'];
@@ -1367,7 +1553,16 @@ class Easycase extends AppModel
                 
                 if ($projUniq == 'all')
                 {
-                    $cond = array('conditions' => array('ProjectUser.user_id' => SES_ID, 'ProjectUser.company_id' => SES_COMP, 'Project.isactive' => 1), 'fields' => array('DISTINCT  Project.id'), 'order' => array('ProjectUser.dt_visited DESC'));
+                    $cond = array(
+                        'conditions' => array(
+                            'ProjectUser.user_id' => SES_ID, 
+                            'ProjectUser.company_id' => SES_COMP, 
+                            'Project.isactive' => 1
+                        ), 
+                        'fields' => array('DISTINCT  Project.id'), 
+                        'order' => array('ProjectUser.dt_visited DESC')
+                    );
+                    
                     $mid = '';
                     
                     foreach ($milestones as $k => $v)
@@ -1433,9 +1628,6 @@ class Easycase extends AppModel
                 $frmtCaseAll = $this->formatCases($caseAll, $CaseCount, 'milestone', $c, $m, $projUniq, $usrDtlsArr, $frmt, $dt, $tz, $cq);
                 $resCaseProj['caseAll'] = $frmtCaseAll['caseAll'];
                 $resCaseProj['milestones'] = $frmtCaseAll['milestones'];
-                
-                //$pgShLbl = $frmt->pagingShowRecords($CaseCount,$page_limit,$casePage);
-                //$resCaseProj['pgShLbl'] = $pgShLbl;
                 
                 $curCreated = $tz->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, GMT_DATETIME, "datetime");
                 $friday = date('Y-m-d', strtotime($curCreated . "next Friday"));
