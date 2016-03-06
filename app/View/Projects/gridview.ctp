@@ -125,19 +125,7 @@ $(document).ready(function(){
     });
 }); 
 </script> 
-<?php
-//if((SES_TYPE == 1) && ONBORDING_DAILY_UPDATE && !isset($_COOKIE['ONBORDING_DAILY_UPDATE_'.SES_ID]) && (strtotime(ONBORDING_DATE)>strtotime(CMP_CREATED))){
-/*
-if((SES_TYPE <3) && ONBORDING_DAILY_UPDATE && !isset($_COOKIE['ONBORDING_DAILY_UPDATE_'.SES_ID])){?>
-<div class="full_board" id="onbording_dailyupdate">
-    <div class="board_popup"></div>
-    <div class="board_pnt">
-        <div class="board_new">With <font style="font-family:MyriadProSemibold">Daily Update Alert</font>, schedule alert email for your team.</div>
-        <div class="fr" style="margin:319px 47px 0 0"><a href="javascript:jsVoid();" class="gray_btn_new" style="padding:7px 12px;background:#ff7800;color:#fff;border:1px solid #fff;font-size:15px;" onclick="close_onbording('ONBORDING_DAILY_UPDATE_','onbording_dailyupdate');">Okay, got it!</a></div>
-    </div>
-</div>
 
-<?php } */?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
      <tr>
           <td>
