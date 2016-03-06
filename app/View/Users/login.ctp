@@ -63,11 +63,9 @@ input#txt_Password{font-family: Arial}
                         </div>
                         <?php
                     }
-                    else {
+                    else 
+                    {
                         $pos = strpos(SUB_FOLDER, '/');
-                        if ($pos === false) {
-                            echo '<ul><li style="color:red;">Replace the SUB_FOLDER name as "'.SUB_FOLDER.'/" istead of "'.SUB_FOLDER.'" in the constants.php</li></ul>';
-                        }
                     ?>
                     <div style="padding:10px 5px;">
                         <div style="clear:both"></div>
@@ -223,12 +221,6 @@ input#txt_Password{font-family: Arial}
                                         </div>
                                     </div>
                                     <div class="cb"></div>
-                                    <div style="padding:20px 0;text-align:center">
-                                        <a href="https://groups.google.com/forum/#!forum/orangescrum-community-support" target="_blank" style="margin:0;"><img src="<?php echo HTTP_ROOT."img/google_groups.jpg"; ?>"/></a>
-                                        <br/>
-                                        You can ask for help, share your ideas, contribute to the community edition and also let us know your feedback using the <a href="https://groups.google.com/forum/#!forum/orangescrum-community-support" target="_blank" style="margin:0;">Orangescrum's Google Group</a>.
-                                        
-                                    </div>
                                 </div>
                             </div>
                             <div class="cb"></div>
