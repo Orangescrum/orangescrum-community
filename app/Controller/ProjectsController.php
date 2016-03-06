@@ -2567,7 +2567,7 @@ and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.fi
             $projUniqId = $prjArr['Project']['uniq_id'];
         }
         
-        $subject = "You have been added to " . $projName . " on Orangescrum";
+        $subject = "You have been added to " . $projName . " on Scrumptious";
         
         $this->Email->delivery = EMAIL_DELIVERY;
         $this->Email->to = $to_email;

@@ -722,7 +722,7 @@ You are receiving this email notification because you have subscribed to oranges
                     $checkOSReg_res = mysql_query($checkOSReg_qry) or die('Query failed: ' . mysql_error());
                     $checkOSReg_row = mysql_fetch_assoc($checkOSReg_res);
                     if ($checkOSReg_row['total'] > 0) {
-                        $userMsg = '<span>You do not have access to this Project on orangescrum.</span><br /><br />';
+                        $userMsg = '<span>You do not have access to this Project on Scrumptious.</span><br /><br />';
 			$userMsg1 = "";
                     } else {
                         $userMsg = '<span>This email: &quot;' . $mail_id . '&quot; is not registered with Orangescrum.</span><br /><br />';

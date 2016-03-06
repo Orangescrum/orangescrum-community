@@ -46,10 +46,10 @@ define("SMTP_PWORD", "******");
 define("WEB_DOMAIN",        "YourDomain.com"); //ex. demo.orangescrum.com
 define('FROM_EMAIL_NOTIFY', 'notify@mycompany.com'); //(REQUIRED)
 define('SUPPORT_EMAIL',     'support@mycompany.com'); //(REQUIRED) From Email
-define('FROM_EMAIL',        'Orangescrum<'.SUPPORT_EMAIL.'>');
+define('FROM_EMAIL',        'Scrumptious<'.SUPPORT_EMAIL.'>');
 
 define("DEV_EMAIL", 'developer@mycompany.com'); // Developer Email ID to report the application error
-define('EMAIL_SUBJ', '[Orangescrum]');
+define('EMAIL_SUBJ', '[Scrumptious]');
 
 // If you have not yet set up the Nohup cronjob, leave it blank
 define('EMAIL_REPLY', "<div style='font-family:Arial;font-size:14px;color:#787878;margin-bottom:5px;'>Just REPLY to this Email the same will be added under the Task. <br/><span style='font-size:11px;'><b>NOTE:</b> Do not remove this original message.</span></div>");
@@ -62,7 +62,7 @@ define('SUB_FOLDER', ''); //If your application URL followed by a folder name li
 if (php_sapi_name() === "cli") 
 {
     define('PROTOCOL', "http://");
-    define('DOMAIN', "www.my-orangescrum.com/"); // Please set your application domain (REQUIRED)
+    define('DOMAIN', "www.my-scrumptious.com/"); // Please set your application domain (REQUIRED)
 }
 else
 {   

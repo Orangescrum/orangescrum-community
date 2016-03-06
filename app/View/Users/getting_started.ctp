@@ -110,7 +110,7 @@
                     You can respond to the task Email sent from notify@orangescrum.com.
                 </li>
                 <li>
-                    Your Email response will be posted on Orangescrum against that task.
+                    Your Email response will be posted on Scrumptious against that task.
                 </li>
                 <li>
                     Respond on a task even on-the-go from your mobile via Email.

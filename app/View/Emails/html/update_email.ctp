@@ -37,7 +37,7 @@
                             <?php
                         } else {
                             ?>
-                            Your email address is used to invite you on Orangescrum. If you didn't intend to do this, just ignore this email; no account has been created yet.
+                            Your email address is used to invite you on Scrumptious. If you didn't intend to do this, just ignore this email; no account has been created yet.
                             <?php
                         }
                         ?>

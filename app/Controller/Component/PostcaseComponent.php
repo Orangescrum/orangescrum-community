@@ -1131,7 +1131,7 @@ class PostcaseComponent extends CookieComponent
         $message = "<table><tr><td><table cellpadding='0' cellspacing='0' align='left' border='0' style='border-collapse:collapse;border-spacing:0;text-align:left;width:600px;border:1px solid #5191BD'>
 <tr style='background:#5191BD;height:50px;'>
 <td style='font:bold 14px Arial;padding:10px;color:#FFFFFF;'>
-<span style='font-size:18px;'>Orangescrum</span> - Daily Catch-Up Alert
+<span style='font-size:18px;'>Scrumptious</span> - Daily Catch-Up Alert
 </td>
 </tr>
 <tr>
@@ -1292,7 +1292,7 @@ Team Orangescrum
                             
                             if (@$findEmail['User']['id'])
                             {
-                                $subject = $fromName . " invited you to join " . CMP_SITE . " on Orangescrum";
+                                $subject = $fromName . " invited you to join " . CMP_SITE . " on Scrumptious";
                                 $ext_user = 1;
                             }
                             else

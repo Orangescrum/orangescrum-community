@@ -809,12 +809,12 @@ class UsersController extends AppController
                 
                 if (!$getUser['User']['password']) 
                 {
-                    $subject = $fromName." Invited you to join ".$comp['Company']['name']." on Orangescrum";
+                    $subject = $fromName . " Invited you to join ".$comp['Company']['name']." on Scrumptious";
                     $ext_user = 1;
                 } 
                 else 
                 {
-                    $subject = $fromName." Invited you to join on Orangescrum";
+                    $subject = $fromName . " Invited you to join on Scrumptious";
                 }
                 
                 $this->Email->delivery = EMAIL_DELIVERY;
@@ -1046,7 +1046,7 @@ class UsersController extends AppController
                 $to = $getData['User']['email'];
                 $newPasswrod = $this->Format->generatePassword(6);
                 
-                $subject = "Orangescrum Reset Password";
+                $subject = "Scrumptious Reset Password";
                 $message = "<table cellspacing='1' cellpadding='1'  width='100%' border='0'>
                                                                 <tr><td>&nbsp;</td></tr>
                                                                 <tr><td align='left' style='font:normal 14px verdana;'>Hi " . $name . ",</td></tr>
@@ -1359,7 +1359,7 @@ class UsersController extends AppController
                                     $ext_user = '';
                                     if (@$findEmail['User']['id']) 
                                     {
-                                        $subject = $fromName." invited you to join ".$comp['Company']['name']." on Orangescrum";
+                                        $subject = $fromName." invited you to join ".$comp['Company']['name']." on Scrumptious";
                                         $ext_user = 1;                          
                                     }
                                     else 
@@ -1554,7 +1554,7 @@ class UsersController extends AppController
                         
                         if (@$findEmail['User']['id']) 
                         {
-                            $subject = $fromName." invited you to join ".$comp['Company']['name']." on Orangescrum";
+                            $subject = $fromName." invited you to join ".$comp['Company']['name']." on Scrumptious";
                             $ext_user = 1;
                         }
                         else 
@@ -2293,7 +2293,7 @@ class UsersController extends AppController
             $qstr = $user['User']['update_random'];
             $to = $upd_email;
             $Name = $user['User']['name'];                      
-            $subject = "Orangescrum Login Email ID Confirmation";
+            $subject = "Scrumptious Login Email ID Confirmation";
             $this->Email->delivery = EMAIL_DELIVERY;
             $this->Email->to = $to;  
             $this->Email->subject = $subject;
@@ -3799,7 +3799,7 @@ class UsersController extends AppController
                     $Company = ClassRegistry::init('Company');
                     $comp = $Company->find('first', array('fields' => array('Company.id', 'Company.name', 'Company.uniq_id')));
                     
-                    $subject = $fromName." invited you to join ".$comp['Company']['name']." on Orangescrum";
+                    $subject = $fromName." invited you to join ".$comp['Company']['name']." on Scrumptious";
                     
                     $this->Email->delivery = EMAIL_DELIVERY;
                     $this->Email->to = $to;  
@@ -4302,11 +4302,11 @@ class UsersController extends AppController
         if (stristr($pjnames,",")) 
         {
             $multiple = 1;
-            $subject = "You have been added to multiple projects on Orangescrum";
+            $subject = "You have been added to multiple projects on Scrumptious";
         }
         else 
         {
-            $subject = "You have been added to ".$pjnames." on Orangescrum";
+            $subject = "You have been added to ".$pjnames." on Scrumptious";
         }
         
         $this->Email->delivery = EMAIL_DELIVERY;
