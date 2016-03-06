@@ -28,7 +28,7 @@ else {
                 <div class="bg_logo_inner"></div>
                 <div class="logo_landing"> 
                     <?php
-                    if(DISPLAY_LOGO)
+                    if (DISPLAY_LOGO)
                     {
                     ?>
                         <a href="<?php echo HTTP_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>

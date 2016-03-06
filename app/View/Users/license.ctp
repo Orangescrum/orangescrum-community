@@ -19,7 +19,6 @@ input#txt_Password{font-family: Arial}
                     <?php
                     } 
                     ?>
-                    
                 </div>
                 <div class="login_table">
                     <div style="height:100%;display:table; width:100%;">
