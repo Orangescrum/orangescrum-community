@@ -12,7 +12,15 @@
             <div style="position:relative">
                 <div class="bg_logo_inner"></div>
                 <div class="logo_landing"> 
-                    <a href="<?php echo HTTPS_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png?v=<?php echo RELEASE; ?>"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
+                    <?php
+                    if (DISPLAY_LOGO)
+                    {
+                    ?>
+                        <a href="<?php echo HTTPS_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png?v=<?php echo RELEASE; ?>"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
+                    <?php
+                    }
+                    ?>
+                    
                 </div>
                 <div class="login_box">
                     <div class="login_dialog" id="login_dialog">

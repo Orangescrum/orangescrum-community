@@ -1141,14 +1141,14 @@ Hi " . ucfirst(trim($user['name'])) . ",
 </tr>
 <tr>
 <td style='font:14px Arial;padding:10px;'>
-This is a reminder to post your today's updates to Orangescrum. Just reply to this email with the updates, it will be added to the project.
+This is a reminder to post your today's updates to Scrumptious. Just reply to this email with the updates, it will be added to the project.
 <br/><br/><br/><b>NOTE:</b> DO NOT change the SUBJECT while replying.<br/><br/>
 </td>
 </tr>
 <tr>
 <td align='left' style='font:14px Arial;padding:15px 10px;border-top:1px solid #E1E1E1'>
 Thanks,<br/>
-Team Orangescrum
+Team Scrumptious
 </td>     
 </tr>
 </table></td></tr>

@@ -45,7 +45,7 @@ if(trim($settings['database']) == "") {
 	<head>
 		<meta name="robots" content="noindex,nofollow" />
 		<link rel="shortcut icon" href="images/favicon_new.ico"/>
-		<title>Orangescrum Setup Wizard</title>
+		<title>Scrumptious Setup Wizard</title>
 		<style>
 		*{
 			padding:5;
