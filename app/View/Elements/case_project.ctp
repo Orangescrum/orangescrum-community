@@ -51,78 +51,78 @@
     var prvGrpvalue='';
     var pgCaseCnt = caseAll?countJS(caseAll):0;
     if(caseCount && caseCount != 0){
-	var count=0;
-	var caseNo = "";
-	var chkMstone = "";
-	var caseLegend = "";
-	var totids = "";
-	var projectName ='';var projectUniqid='';
-	for(var caseKey in caseAll){
-		var getdata = caseAll[caseKey];
-		count++;
-		var caseAutoId = getdata.Easycase.id;
-		var caseUniqId = getdata.Easycase.uniq_id;
-		var caseNo = getdata.Easycase.case_no;
-		var caseUserId = getdata.Easycase.user_id;
-		var caseTypeId = getdata.Easycase.type_id;
-		var projId = getdata.Easycase.project_id;
-		var caseLegend = getdata.Easycase.legend;
-		var casePriority = getdata.Easycase.priority;
-		var caseFormat = getdata.Easycase.format;
-		var caseTitle = getdata.Easycase.title;
-		var isactive = getdata.Easycase.isactive;
-		var caseAssgnUid = getdata.Easycase.assign_to;
-		var getTotRep = 0;
-		if(getdata.Easycase.case_count && getdata.Easycase.case_count!=0) {		
-			getTotRep = getdata.Easycase.case_count;
-		}
+    var count=0;
+    var caseNo = "";
+    var chkMstone = "";
+    var caseLegend = "";
+    var totids = "";
+    var projectName ='';var projectUniqid='';
+    for(var caseKey in caseAll){
+        var getdata = caseAll[caseKey];
+        count++;
+        var caseAutoId = getdata.Easycase.id;
+        var caseUniqId = getdata.Easycase.uniq_id;
+        var caseNo = getdata.Easycase.case_no;
+        var caseUserId = getdata.Easycase.user_id;
+        var caseTypeId = getdata.Easycase.type_id;
+        var projId = getdata.Easycase.project_id;
+        var caseLegend = getdata.Easycase.legend;
+        var casePriority = getdata.Easycase.priority;
+        var caseFormat = getdata.Easycase.format;
+        var caseTitle = getdata.Easycase.title;
+        var isactive = getdata.Easycase.isactive;
+        var caseAssgnUid = getdata.Easycase.assign_to;
+        var getTotRep = 0;
+        if(getdata.Easycase.case_count && getdata.Easycase.case_count!=0) {     
+            getTotRep = getdata.Easycase.case_count;
+        }
 
-		if(caseUrl == caseUniqId) {
-			openId = count;
-		}
-		if(caseLegend==2 || caseLegend==4){
-			var headerlegend = 2;
-		}else{
-			var headerlegend = caseLegend;
-		}
-		var chkDat = 0;
+        if(caseUrl == caseUniqId) {
+            openId = count;
+        }
+        if(caseLegend==2 || caseLegend==4){
+            var headerlegend = 2;
+        }else{
+            var headerlegend = caseLegend;
+        }
+        var chkDat = 0;
 
-		if(projUniq=='all' && (typeof getdata.Easycase.pjname !='undefined')){
-			projectName = getdata.Easycase.pjname;
-			projectUniqid = getdata.Easycase.pjUniqid;
-		}else if(projUniq!='all'){
-			projectName = getdata.Easycase.pjname;
-			projectUniqid = getdata.Easycase.pjUniqid;
-		}
-		if(projUniq=='all') { %>
+        if(projUniq=='all' && (typeof getdata.Easycase.pjname !='undefined')){
+            projectName = getdata.Easycase.pjname;
+            projectUniqid = getdata.Easycase.pjUniqid;
+        }else if(projUniq!='all'){
+            projectName = getdata.Easycase.pjname;
+            projectUniqid = getdata.Easycase.pjUniqid;
+        }
+        if(projUniq=='all') { %>
     <tr>
         <td colspan="5" align="left" class="tkt_pjname"><div class="<% if(count!=1) {%>y_day<% } %>"><%= getdata.Easycase.pjname %></div></td>
     </tr>
-    <% 		}
-		if(groupby && groupby!='date'){
-			if(groupby=='status' && (headerlegend != prvGrpvalue)){%>
+    <%      }
+        if(groupby && groupby!='date'){
+            if(groupby=='status' && (headerlegend != prvGrpvalue)){%>
     <tr><td colspan="5" align="left" class="curr_day"><%= easycase.getColorStatus(getdata.Easycase.type_id, headerlegend) %></td></tr>
     <% prvGrpvalue= headerlegend;
-			}else if(groupby=='priority' && (((getdata.Easycase.priority).trim()) != prvGrpvalue)){%>
+            }else if(groupby=='priority' && (((getdata.Easycase.priority).trim()) != prvGrpvalue)){%>
     <tr><td colspan="5" align="left" class="curr_day"><%= easycase.getColorPriority(getdata.Easycase.priority) %></td></tr>
-    <%	prvGrpvalue = (getdata.Easycase.priority).trim();
-			}else if(groupby=='due_date' && (getdata.Easycase.csDueDate !=prvGrpvalue)){%>
+    <%  prvGrpvalue = (getdata.Easycase.priority).trim();
+            }else if(groupby=='due_date' && (getdata.Easycase.csDueDate !=prvGrpvalue)){%>
     <tr><td colspan="5" align="left" class="curr_day"><%= getdata.Easycase.csDueDate %></td></tr>
-    <%	prvGrpvalue= getdata.Easycase.csDueDate;
-			}else if(groupby=='assignto' && (getdata.Easycase.assign_to !=prvGrpvalue)){%>
+    <%  prvGrpvalue= getdata.Easycase.csDueDate;
+            }else if(groupby=='assignto' && (getdata.Easycase.assign_to !=prvGrpvalue)){%>
     <tr><td colspan="5" align="left" class="curr_day"><%= getdata.Easycase.asgnShortName %></td></tr>
-    <%	prvGrpvalue= getdata.Easycase.assign_to;
-			}
-		}else{
-			if(getdata.Easycase.newActuldt && getdata.Easycase.newActuldt!=0) {%>
+    <%  prvGrpvalue= getdata.Easycase.assign_to;
+            }
+        }else{
+            if(getdata.Easycase.newActuldt && getdata.Easycase.newActuldt!=0) {%>
     <tr>
         <td colspan="5" align="left" class="curr_day"><div class="<% if(count!=1 && !getdata.Easycase.pjname) {%>y_day<% } %>"><%= getdata.Easycase.newActuldt %></div></td>
     </tr>
-    <%	}}
-		var bgcol = "#F2F2F2";
-		if(chkDat == 1) { bgcol = "#FFF"; }
-		var borderBottom = "";
-		if(pgCaseCnt == count) { borderBottom = "border-bottom:1px solid #F2F2F2;"; } %>
+    <%  }}
+        var bgcol = "#F2F2F2";
+        if(chkDat == 1) { bgcol = "#FFF"; }
+        var borderBottom = "";
+        if(pgCaseCnt == count) { borderBottom = "border-bottom:1px solid #F2F2F2;"; } %>
     <% if(isactive==0) {%>
     <tr class="tr_all" id="curRow<%= caseAutoId %>" style="background: #F3F3F3;">
         <% }else {%>
@@ -142,20 +142,20 @@
                 <ul class="dropdown-menu sett_dropdown-caret">
                     <li class="pop_arrow_new"></li>
                     <% var caseFlag="";
-					if(caseLegend == 1 && caseTypeId!= 10) { caseFlag=1; }
-					if(getdata.Easycase.isactive == 1) { %>
+                    if(caseLegend == 1 && caseTypeId!= 10) { caseFlag=1; }
+                    if(getdata.Easycase.isactive == 1) { %>
                     <li onclick="startCase(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + caseUniqId + '\'' %>);" id="start<%= caseAutoId %>" style=" <% if(caseFlag == "1"){ %>display:block<% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_start_task fl" title="Start"></div>Start</a>
                     </li>
                     <% }
-					if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && caseTypeId!= 10) { caseFlag=2; }
-					if(getdata.Easycase.isactive == 1){ %>
+                    if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && caseTypeId!= 10) { caseFlag=2; }
+                    if(getdata.Easycase.isactive == 1){ %>
                     <li onclick="caseResolve(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + caseUniqId + '\'' %>);" id="resolve<%= caseAutoId %>" style=" <% if(caseFlag == 2){ %> display:block <% } else { %> display:none <% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_resolve_task fl" title="Resolve"></div>Resolve</a>
                     </li>
                     <% }
-					if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4 || caseLegend == 5) && caseTypeId != 10) { caseFlag=5; }
-					if(getdata.Easycase.isactive == 1 && (SES_TYPE<=2 || (getdata.Easycase.user_id==SES_ID))){ %>
+                    if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4 || caseLegend == 5) && caseTypeId != 10) { caseFlag=5; }
+                    if(getdata.Easycase.isactive == 1 && (SES_TYPE<=2 || (getdata.Easycase.user_id==SES_ID))){ %>
                     <li onclick="setCloseCase(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + caseUniqId + '\'' %>);" id="close<%= caseAutoId %>" style=" <% if(caseFlag == 5) { %>display:block <% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_close_task fl" title="Close"></div>Close</a>
                     </li>
@@ -163,36 +163,36 @@
                     <li class="divider"></li>
                     <% } %>
                     <% if(caseLegend == 3) { caseFlag= 7; } else { caseFlag= 8; }
-					if(getdata.Easycase.isactive == 1){ %>
+                    if(getdata.Easycase.isactive == 1){ %>
                     <li id="act_reply<%= count %>" data-task="<%= caseUniqId %>">
                         <a href="javascript:void(0);" id="reopen<%= caseAutoId %>" style="<% if(caseFlag == 7){ %>display:block <% } else { %>display:none<% } %>"><div class="act_icon act_reply_task fl" title="Re-open"></div>Re-open</a>
                         <a href="javascript:void(0);" id="reply<%= caseAutoId %>" style="<% if(caseFlag == 8){ %>display:block <% } else { %>display:none<% } %>"><div class="act_icon act_reply_task fl" title="Reply"></div>Reply</a>
                     </li>
                     <% }
-					if( SES_ID == caseUserId) { caseFlag=3; }
-					if(getdata.Easycase.isactive == 1 && getdata.Easycase.reply_cnt == 0 && caseLegend == 1){ %>
+                    if( SES_ID == caseUserId) { caseFlag=3; }
+                    if(getdata.Easycase.isactive == 1 && getdata.Easycase.reply_cnt == 0 && caseLegend == 1){ %>
                     <li onclick="editask(<%= '\''+ caseUniqId+'\',\''+projectUniqid+'\',\''+projectName+'\'' %>);" id="edit<%= caseAutoId %>" style=" <% if(caseFlag == 3 || SES_TYPE == 1 || SES_TYPE == 2){ %>display:block <% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_edit_task fl" title="Edit"></div>Edit</a>
                     </li>
                     <% }
-					if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && caseTypeId!= 10) { caseFlag=2; }
-					if((SES_TYPE == 1 || SES_TYPE == 2) || ((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) &&  (SES_ID == caseUserId))){
-					%>
-					<% if(getdata.Easycase.isactive == 1){ %>
-		    <li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" " onclick="mvtoProject(<%= '\'' + count + '\'' %>,this);">
-		    <a href="javascript:void(0);"><div class="act_icon pro_mov fl" title="Move to Project"></div>Move to Project</a>
-		    </li>
-		    <% } %>
-		    <% if(getdata.Easycase.isactive == 0){ %>
-			<li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" ">
-				<a onclick="restoreFromTask(<%= caseAutoId %>,<%= projId %>,<%= caseNo %>)" href="javascript:void(0);"><div class="act_icon act_restore_task fl" title="Restore"></div>Restore</a>
-			</li>
-			<li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" ">
-			    <a onclick="removeFromTask(<%= caseAutoId %>,<%= projId %>,<%= caseNo %>)" href="javascript:void(0);"><div class="act_icon act_del_task fl" title="Remove"></div>Remove</a>
-			</li>
-		    <% } %>
+                    if((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && caseTypeId!= 10) { caseFlag=2; }
+                    if((SES_TYPE == 1 || SES_TYPE == 2) || ((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) &&  (SES_ID == caseUserId))){
+                    %>
+                    <% if(getdata.Easycase.isactive == 1){ %>
+            <li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" " onclick="mvtoProject(<%= '\'' + count + '\'' %>,this);">
+            <a href="javascript:void(0);"><div class="act_icon pro_mov fl" title="Move to Project"></div>Move to Project</a>
+            </li>
+            <% } %>
+            <% if(getdata.Easycase.isactive == 0){ %>
+            <li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" ">
+                <a onclick="restoreFromTask(<%= caseAutoId %>,<%= projId %>,<%= caseNo %>)" href="javascript:void(0);"><div class="act_icon act_restore_task fl" title="Restore"></div>Restore</a>
+            </li>
+            <li data-prjid="<%= projId %>" data-caseid="<%= caseAutoId %>" data-caseno="<%= caseNo %>"  id="mv_prj<%= caseAutoId %>" style=" ">
+                <a onclick="removeFromTask(<%= caseAutoId %>,<%= projId %>,<%= caseNo %>)" href="javascript:void(0);"><div class="act_icon act_del_task fl" title="Remove"></div>Remove</a>
+            </li>
+            <% } %>
                     <% }
-					if(getdata.Easycase.isactive == 1){ %>
+                    if(getdata.Easycase.isactive == 1){ %>
                     <li onclick="moveTask(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'\'' %>,<%= '\'' + projId + '\'' %>);" id="moveTask<%= caseAutoId %>" style=" <% if(caseFlag == 2){ %> display:block <% } else { %> display:none <% } %>">
                         <a href="javascript:void(0);"><div class="act_icon task_move_mlst fl" title="Move Task To Milestone"></div>Move to Milestone</a>
                     </li>
@@ -204,23 +204,23 @@
                     <% } %>
                     <li class="divider"></li>
                     <% if(getdata.Easycase.isactive == 1){
-					if(caseMenuFilters == "milestone" && (SES_TYPE == 1 || SES_TYPE == 2 || SES_ID == getdata.Easycase.Em_user_id)) {
-					caseFlag = "remove";
-					%>
+                    if(caseMenuFilters == "milestone" && (SES_TYPE == 1 || SES_TYPE == 2 || SES_ID == getdata.Easycase.Em_user_id)) {
+                    caseFlag = "remove";
+                    %>
                     <li onclick="removeThisCase(<%= '\'' + count + '\'' %>,<%= '\'' + getdata.Easycase.Emid + '\'' %>, <%= '\'' + caseAutoId + '\'' %>, <%= '\'' + getdata.Easycase.Em_milestone_id + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + caseUserId + '\'' %>);" id="rmv<%= caseAutoId %>" style="<% if(caseFlag == "remove"){ %>display:block<% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_rmv fl" title="Remove Task"></div>Remove Task</a>
                     </li>
                     <%
-					}
-					}
-					if(SES_TYPE == 1 || SES_TYPE == 2 || ((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && ( SES_ID == caseUserId))) { caseFlag = "archive"; }
-					if(getdata.Easycase.isactive == 1){ %>
+                    }
+                    }
+                    if(SES_TYPE == 1 || SES_TYPE == 2 || ((caseLegend == 1 || caseLegend == 2 || caseLegend == 4) && ( SES_ID == caseUserId))) { caseFlag = "archive"; }
+                    if(getdata.Easycase.isactive == 1){ %>
                     <li onclick="archiveCase(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + projId + '\'' %>, <%= '\'t_' + caseUniqId + '\'' %>);" id="arch<%= caseAutoId %>" style="<% if(caseFlag == "archive"){ %>display:block<% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_arcv_task fl" title="Archive"></div>Archive</a>
                     </li>
                     <% }
-					if(SES_TYPE == 1 || SES_TYPE == 2 || (caseLegend == 1  && SES_ID == caseUserId)) { caseFlag = "delete"; }
-					if(getdata.Easycase.isactive == 1){ %>
+                    if(SES_TYPE == 1 || SES_TYPE == 2 || (caseLegend == 1  && SES_ID == caseUserId)) { caseFlag = "delete"; }
+                    if(getdata.Easycase.isactive == 1){ %>
                     <li onclick="deleteCase(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>, <%= '\'' + projId + '\'' %>, <%= '\'t_' + caseUniqId + '\'' %>);" id="arch<%= caseAutoId %>" style="<% if(caseFlag == "delete"){ %>display:block<% } else { %>display:none<% } %>">
                         <a href="javascript:void(0);"><div class="act_icon act_del_task fl" title="Delete"></div>Delete</a>
                     </li>
@@ -236,12 +236,12 @@
                 <ul class="dropdown-menu type_dropdown-caret" style="width:175px;">
                     <li class="pop_arrow_new"></li>
                     <%
-					for(var k in GLOBALS_TYPE) {
-						var v = GLOBALS_TYPE[k];
-						var t = v.Type.id;
-						var t1 = v.Type.short_name;
-						var t2 = v.Type.name;
-					%>
+                    for(var k in GLOBALS_TYPE) {
+                        var v = GLOBALS_TYPE[k];
+                        var t = v.Type.id;
+                        var t1 = v.Type.short_name;
+                        var t2 = v.Type.name;
+                    %>
                     <li onclick="changeCaseType(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + caseNo + '\'' %>); changestatus(<%= '\'' + caseAutoId + '\'' %>, <%= '\'' + t + '\'' %>, <%= '\'' + t1 + '\'' %>, <%= '\'' + t2 + '\'' %>, <%= '\'' + caseUniqId + '\'' %>)">
                         <a href="javascript:void(0);" <% if(t > 12){ %> style="margin-left:27px;" <% } %>><div class="task_types_<%= t1 %> fl"></div><%= t2 %></a>
                     </li>
@@ -277,7 +277,7 @@
                 </div>
                 <div class="fl" style="<% if(!getTotRep || getTotRep==0) { %>display:none<% } %>">
                     <div id="repno<%= count %>" class="fl bblecnt"></div>
-					(<% if(getTotRep && getTotRep!=0) { %><%= getTotRep %><% } %>)
+                    (<% if(getTotRep && getTotRep!=0) { %><%= getTotRep %><% } %>)
                 </div>
             </div>
             <div class="cb"></div>
@@ -338,8 +338,8 @@
         </td>
     </tr>
     <%
-		totids += caseAutoId + "|";
-	}
+        totids += caseAutoId + "|";
+    }
     }
     if(!caseCount || caseCount==0){
     var case_type = $("#caseMenuFilters").val(); %>
@@ -347,32 +347,32 @@
         <td colspan="5" align="center" style="padding:10px 0;color:#FF0000">
 
             <% if(case_type == 'cases' || case_type == ''){
-				if(filterenabled){%>
-					No Tasks
+                if(filterenabled){%>
+                    No Tasks
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'')); ?>
             <% } %>
             <% }else if(case_type == 'assigntome'){
-				if(filterenabled){ %>
-					No tasks for me
+                if(filterenabled){ %>
+                    No tasks for me
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'assigntome')); ?>
             <% } %>
             <% }else if(case_type == 'overdue'){
-				if(filterenabled){ %>
-					No tasks as overdue
+                if(filterenabled){ %>
+                    No tasks as overdue
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'overdue')); ?>
             <% } %>
             <% }else if(case_type == 'delegateto'){
-				if(filterenabled){ %>
-					No tasks delegated
+                if(filterenabled){ %>
+                    No tasks delegated
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'delegateto')); ?>
             <% } %>
             <% }else if(case_type == 'highpriority'){
-				if(filterenabled){ %>
-					No high priority tasks
+                if(filterenabled){ %>
+                    No high priority tasks
             <% }else{ %>
             <?php echo $this->element('no_data', array('nodata_name' => 'tasklist','case_type'=>'highpriority')); ?>
             <% } %>
@@ -383,8 +383,8 @@
 </table>
 <% $("#task_paginate").html('');
 if(caseCount && caseCount!=0) {
-	var pageVars = {pgShLbl:pgShLbl,csPage:csPage,page_limit:page_limit,caseCount:caseCount};
-	$("#task_paginate").html(tmpl("paginate_tmpl", pageVars));
+    var pageVars = {pgShLbl:pgShLbl,csPage:csPage,page_limit:page_limit,caseCount:caseCount};
+    $("#task_paginate").html(tmpl("paginate_tmpl", pageVars));
 } %>
 <input type="hidden" name="hid_cs" id="hid_cs" value="<%= count %>"/>
 <input type="hidden" name="totid" id="totid" value="<%= totids %>"/>

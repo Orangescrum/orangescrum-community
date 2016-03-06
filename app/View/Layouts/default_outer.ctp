@@ -29,7 +29,7 @@ echo $this->Html->css('style_outer.css?v='.RELEASE);
 </head>
 <?php flush(); ?>
 <body class="head_back" id="headbody">
-	<div id="cover" class="outer" style="filter:alpha(opacity=50);"></div>
-	<?php echo $content_for_layout; ?>
+    <div id="cover" class="outer" style="filter:alpha(opacity=50);"></div>
+    <?php echo $content_for_layout; ?>
 </body>
 </html>

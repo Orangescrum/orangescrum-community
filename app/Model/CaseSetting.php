@@ -1,5 +1,6 @@
 <?php
-class CaseSetting extends AppModel{
-	var $name = 'CaseSetting';	
+
+class CaseSetting extends AppModel
+{
+    var $name = 'CaseSetting';
 }
-?>

@@ -94,7 +94,7 @@
                                             }
                                             ?>
                                         <option value="<?php echo $i; ?>" <?php if($i == $hr_min[0]) echo 'selected'; ?>><?php echo $i; ?></option>
-                                            <?php }	?>
+                                            <?php } ?>
                                     </select>
                                     <select id="not_mn" class="form-control mod-wid-153 fl min_mgt" name="data[DailyupdateNotification][not_mn]">
                                         <option selected="" value="">Min</option>
@@ -125,7 +125,7 @@
                                                             echo $prjtnm['Project']['name'];
                                                             ?>
                                             </option>
-                                                        <?php  	}
+                                                        <?php   }
 
                                                 }else {  ?>
                                             <option value="<?php echo $pjarr;?>" class="selected">
@@ -134,7 +134,7 @@
                                                         echo $prjtnm['Project']['name'];
                                                         ?>
                                             </option>
-                                                    <?php	}
+                                                    <?php   }
                                                 ?>
                                                 <?php }
                                             ?>

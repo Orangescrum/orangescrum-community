@@ -1,5 +1,6 @@
 <?php
-class TimezoneName extends AppModel{
-	var $name = 'TimezoneName';
+
+class TimezoneName extends AppModel
+{
+    var $name = 'TimezoneName';
 }
-?>

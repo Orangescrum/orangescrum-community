@@ -9,7 +9,7 @@ $metakeyword = "Agile project management tool, Project collaboration tool, Team 
 <meta name="keywords" content="<?php echo $metakeyword; ?>"/>
 
 <link rel="image_src" href="<?php echo HTTP_ROOT;?>img/Orange_scrum-logo.jpg" />
-				
+                
 <meta property="og:title" content="<?php echo $metatitle; ?>" />
 <meta property="og:type" content="Website" />
 <meta property="og:url" content="<?php echo HTTPS_HOME;?>" />

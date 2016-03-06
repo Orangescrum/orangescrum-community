@@ -4,9 +4,9 @@ var piedata = <?php echo $piearr; ?>;
 $(function () {
         // Create the chart
         $('#piechart').highcharts({
-        	credits: {
-			enabled: false
-		},
+            credits: {
+            enabled: false
+        },
             chart: {
                 type: 'pie',
                 height: 270
@@ -25,13 +25,13 @@ $(function () {
                     center: ['50%', '50%'],
                     showInLegend: true,
                     dataLabels: {
-                	distance: -30,
-                	color: 'white'
-            		}
+                    distance: -30,
+                    color: 'white'
+                    }
                 }
             },
             tooltip: {
-        	    formatter: function() {
+                formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ parseFloat(this.y) +' %';
                     }
             },

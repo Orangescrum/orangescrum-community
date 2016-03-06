@@ -1,5 +1,6 @@
 <?php
-class CaseUserView extends AppModel{
-	var $name = 'CaseUserView';
+
+class CaseUserView extends AppModel
+{
+    var $name = 'CaseUserView';
 }
-?>

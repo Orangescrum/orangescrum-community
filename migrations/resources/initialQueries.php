@@ -1,18 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Oct 17, 2014 at 06:50 AM
--- Server version: 5.5.36
--- PHP Version: 5.4.27
+<?php
 
---
--- Table structure for table `archives`
---
+$queries = array();
 
-DROP TABLE IF EXISTS `archives`;
-CREATE TABLE IF NOT EXISTS `archives` (
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `archives` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(250) NOT NULL,
   `case_file_id` int(250) NOT NULL,
@@ -26,41 +17,35 @@ CREATE TABLE IF NOT EXISTS `archives` (
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_actions`
---
-
-DROP TABLE IF EXISTS `case_actions`;
-CREATE TABLE IF NOT EXISTS `case_actions` (
+// Table structure for table `case_actions`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_actions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `action` tinyint(2) NOT NULL DEFAULT '0' COMMENT '1-Close, 2-Start',
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `easycase_id` (`easycase_id`),
   KEY `user_id` (`user_id`),
   KEY `action` (`action`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_activities`
---
 
-DROP TABLE IF EXISTS `case_activities`;
-CREATE TABLE IF NOT EXISTS `case_activities` (
+
+// Table structure for table `case_activities`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_activities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
-  `comment_id` int(11) NOT NULL COMMENT 'Foreign key of "comments"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
+  `comment_id` int(11) NOT NULL COMMENT 'Foreign key of \"comments\"',
   `case_no` smallint(6) NOT NULL,
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `type` tinyint(4) NOT NULL COMMENT '1-New 2-Opened, 3-Closed, 4-Start, 5-Resolve, 7-Comments, 8-Deleted,10->Modified',
   `isactive` tinyint(2) NOT NULL DEFAULT '1' COMMENT '0-Inactive, 1-Active',
   `dt_created` datetime NOT NULL,
@@ -72,22 +57,20 @@ CREATE TABLE IF NOT EXISTS `case_activities` (
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `isactive` (`isactive`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_files`
---
 
-DROP TABLE IF EXISTS `case_files`;
-CREATE TABLE IF NOT EXISTS `case_files` (
+
+// Table structure for table `case_files`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
-  `comment_id` int(11) NOT NULL COMMENT 'Foreign key of "case_comments"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
+  `comment_id` int(11) NOT NULL COMMENT 'Foreign key of \"case_comments\"',
   `file` varchar(222) CHARACTER SET latin1 NOT NULL,
   `thumb` varchar(222) CHARACTER SET latin1 NOT NULL,
   `file_size` decimal(7,1) NOT NULL,
@@ -98,62 +81,55 @@ CREATE TABLE IF NOT EXISTS `case_files` (
   KEY `easycase_id` (`easycase_id`),
   KEY `comment_id` (`comment_id`),
   KEY `isactive` (`isactive`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_file_drives`
---
 
-DROP TABLE IF EXISTS `case_file_drives`;
-CREATE TABLE IF NOT EXISTS `case_file_drives` (
+
+// Table structure for table `case_file_drives`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_file_drives` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
   `file_info` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_filters`
---
 
-DROP TABLE IF EXISTS `case_filters`;
-CREATE TABLE IF NOT EXISTS `case_filters` (
+
+// Table structure for table `case_filters`
+
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_filters` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) NOT NULL COMMENT 'Foreign Key of "Users"',
+  `user_id` int(10) NOT NULL COMMENT 'Foreign Key of \"Users\"',
   `order` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_recents`
---
 
-DROP TABLE IF EXISTS `case_recents`;
-CREATE TABLE IF NOT EXISTS `case_recents` (
+
+// Table structure for table `case_recents`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_recents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
   `company_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_settings`
---
 
-DROP TABLE IF EXISTS `case_settings`;
-CREATE TABLE IF NOT EXISTS `case_settings` (
+
+// Table structure for table `case_settings`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_settings` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `project_id` int(250) NOT NULL,
   `project_uniqid` varchar(250) NOT NULL,
@@ -164,16 +140,14 @@ CREATE TABLE IF NOT EXISTS `case_settings` (
   `email` varchar(250) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_templates`
---
 
-DROP TABLE IF EXISTS `case_templates`;
-CREATE TABLE IF NOT EXISTS `case_templates` (
+
+// Table structure for table `case_templates`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
@@ -183,50 +157,44 @@ CREATE TABLE IF NOT EXISTS `case_templates` (
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_user_emails`
---
 
-DROP TABLE IF EXISTS `case_user_emails`;
-CREATE TABLE IF NOT EXISTS `case_user_emails` (
+
+// Table structure for table `case_user_emails`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_user_emails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `ismail` tinyint(2) NOT NULL DEFAULT '1' COMMENT '0-Stop Mailing, 1-Email Me',
   PRIMARY KEY (`id`),
   KEY `easycase_id` (`easycase_id`,`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `case_user_views`
---
 
-DROP TABLE IF EXISTS `case_user_views`;
-CREATE TABLE IF NOT EXISTS `case_user_views` (
+
+// Table structure for table `case_user_views`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `case_user_views` (
   `id` int(11) NOT NULL,
-  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of "easycases"',
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
+  `easycase_id` int(11) NOT NULL COMMENT 'Foreign key of \"easycases\"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
   `istype` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-New, 2-Reply, 3-Closed, 4-Start, 5-Edit',
   `isviewed` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0-Not Viewed, 1-Viewed',
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `companies`
---
 
-DROP TABLE IF EXISTS `companies`;
-CREATE TABLE IF NOT EXISTS `companies` (
+
+// Table structure for table `companies`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` text NOT NULL,
   `name` varchar(250) NOT NULL,
@@ -244,16 +212,14 @@ CREATE TABLE IF NOT EXISTS `companies` (
   PRIMARY KEY (`id`),
   KEY `is_active` (`is_active`),
   FULLTEXT KEY `uniq_id` (`uniq_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `company_users`
---
 
-DROP TABLE IF EXISTS `company_users`;
-CREATE TABLE IF NOT EXISTS `company_users` (
+
+// Table structure for table `company_users`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `company_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
   `company_uniq_id` varchar(250) NOT NULL,
@@ -272,16 +238,14 @@ CREATE TABLE IF NOT EXISTS `company_users` (
   KEY `user_type` (`user_type`),
   KEY `is_active` (`is_active`),
   FULLTEXT KEY `company_uniq_id` (`company_uniq_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `custom_filters`
---
 
-DROP TABLE IF EXISTS `custom_filters`;
-CREATE TABLE IF NOT EXISTS `custom_filters` (
+
+// Table structure for table `custom_filters`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `custom_filters` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `project_uniq_id` varchar(64) NOT NULL,
   `company_id` int(11) NOT NULL,
@@ -297,16 +261,14 @@ CREATE TABLE IF NOT EXISTS `custom_filters` (
   `filter_search` text NOT NULL,
   `dt_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `dailyupdate_notifications`
---
 
-DROP TABLE IF EXISTS `dailyupdate_notifications`;
-CREATE TABLE IF NOT EXISTS `dailyupdate_notifications` (
+
+// Table structure for table `dailyupdate_notifications`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `dailyupdate_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
@@ -317,16 +279,14 @@ CREATE TABLE IF NOT EXISTS `dailyupdate_notifications` (
   `modified` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `daily_updates`
---
 
-DROP TABLE IF EXISTS `daily_updates`;
-CREATE TABLE IF NOT EXISTS `daily_updates` (
+
+// Table structure for table `daily_updates`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `daily_updates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
@@ -337,16 +297,14 @@ CREATE TABLE IF NOT EXISTS `daily_updates` (
   `days` int(11) NOT NULL DEFAULT '5' COMMENT 'default:5',
   `cron_email_date` date DEFAULT NULL COMMENT 'When email is sent , this field is going to update',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `default_project_templates`
---
 
-DROP TABLE IF EXISTS `default_project_templates`;
-CREATE TABLE IF NOT EXISTS `default_project_templates` (
+
+// Table structure for table `default_project_templates`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `default_project_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(250) NOT NULL,
   `company_id` int(250) NOT NULL,
@@ -354,16 +312,16 @@ CREATE TABLE IF NOT EXISTS `default_project_templates` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `default_project_template_cases`
---
 
-DROP TABLE IF EXISTS `default_project_template_cases`;
-CREATE TABLE IF NOT EXISTS `default_project_template_cases` (
+
+// Table structure for table `default_project_template_cases`
+
+
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `default_project_template_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(250) NOT NULL,
@@ -373,57 +331,153 @@ CREATE TABLE IF NOT EXISTS `default_project_template_cases` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `default_templates`
---
 
-DROP TABLE IF EXISTS `default_templates`;
-CREATE TABLE IF NOT EXISTS `default_templates` (
+
+// Table structure for table `default_templates`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `default_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `default_templates`
---
 
-INSERT INTO `default_templates` (`id`, `name`, `description`, `created`, `modified`) VALUES
-(1, 'Meeting Minute', '<b>Attendees:</b>  John, Michael<br/>\n				<b>Date and Time:</b> July 11th 11 am PST<br/>\n				<b>Purpose:</b><br/>\n				\n				<br/>\n				<b>Agenda:</b> \n				<o>\n					<li>Discuss Layout </li>\n					<li>Discuss on Design</li>\n				</ol>\n				<br/>\n				<b>Discussion:</b><br/>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-(2, 'Status update', '<p><strong>Today''s accomplishment:</strong></p>\n				<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n				<ul>\n				<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n				<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n				<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n				</ul>\n				<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n				<ul>\n				<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n				<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n				<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n				</ul>\n				<p><br /> <strong>List of files changed:</strong></p>\n				<ol>\n				<li>index.html</li>\n				<li>style.css</li>\n				<li>contact-us.html</li>\n				</ol>\n				<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n				<p><strong>Blocker/Testing Issues:</strong></p>\n				<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n				<p>&nbsp; &nbsp;1. Total tasks:</p>\n				<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n				<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n				<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n				<p><br /> <strong>Next Day''s Plan:</strong></p>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-(3, 'Change Request', '<p><strong>Change Requested:</strong></p>\n				<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n				<p><strong>&nbsp; &nbsp; &nbsp; Task no: 125</strong></p>\n				<p><strong>Today''s accomplishment:</strong></p>\n				<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n				<ul>\n				<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n				<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n				<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n				</ul>\n				<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n				<ul>\n				<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n				<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n				<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n				</ul>\n				<p><br /> <strong>List of files changed:</strong></p>\n				<ol>\n				<li>index.html</li>\n				<li>style.css</li>\n				<li>contact-us.html</li>\n				</ol>\n				<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n				<p><strong>Blocker/Testing Issues:</strong></p>\n				<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n				<p>&nbsp; &nbsp;1. Total tasks:</p>\n				<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n				<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n				<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n				<p><br /> <strong>Next Day''s Plan:</strong></p>', '2014-01-24 12:58:24', '2014-01-24 12:58:24'),
-(4, 'Bug', '<b>Browser version:</b>\n				<br/>\n				<b>OS version:</b>\n				<br/><br/>\n				<b>Url:</b>\n				<br/><br/>\n				<b>What is the test case:</b><br/>\n				<b>What is the expected result:</b><br/>\n				<b>What is the actual result:</b><br/><br/>\n				\n				<b>Is it happening all the time or intermittently:</b><br/>\n				<br/>\n				<b>Attach screenshots:</b>', '2014-01-24 12:58:24', '2014-01-24 12:58:24');
+// Inserting data for table `default_templates`
 
--- --------------------------------------------------------
+$bugDescription = 
+    '<b>Browser version:</b>\n       <br/>\n       ' . 
+    '<b>OS version:</b>\n        <br/><br/>\n        ' . 
+    '<b>Url:</b>\n       <br/><br/>\n        ' . 
+    '<b>What is the test case:</b><br/>\n        ' . 
+    '<b>What is the expected result:</b><br/>\n        ' . 
+    '<b>What is the actual result:</b><br/><br/>\n       \n        ' .
+    '<b>Is it happening all the time or intermittently:</b><br/>\n       <br/>\n       ' . 
+    '<b>Attach screenshots:</b>';
 
---
--- Table structure for table `easycases`
---
+$changeRequestDescription = 
+    '<p><strong>Change Requested:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 125</strong></p>\n       ' . 
+    '<p><strong>Today\'s accomplishment:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p><br /> <strong>List of files changed:</strong></p>\n       ' . 
+    '<ol>\n        ' . 
+        '<li>index.html</li>\n       ' . 
+        '<li>style.css</li>\n        ' . 
+        '<li>contact-us.html</li>\n        ' . 
+    '</ol>\n       ' . 
+    '<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       ' . 
+    '<p><strong>Blocker/Testing Issues:</strong></p>\n       ' . 
+    '<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       ' . 
+    '<p>&nbsp; &nbsp;1. Total tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        ' . 
+    '<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        ' . 
+    '<p><br /> <strong>Next Day\'s Plan:</strong></p>';
 
-DROP TABLE IF EXISTS `easycases`;
-CREATE TABLE IF NOT EXISTS `easycases` (
+$statusUpdateDescription = 
+    '<p><strong>Today\'s accomplishment:</strong></p>\n        ' . 
+    '<p><strong>&nbsp; &nbsp; &nbsp; Task no: 120</strong></p>\n       ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p>&nbsp; &nbsp; &nbsp;<strong>Task no: 125</strong></p>\n        ' . 
+    '<ul>\n        ' . 
+        '<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>\n        ' . 
+        '<li>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</li>\n        ' . 
+        '<li>Contrary to popular belief, Lorem Ipsum is not simply random text</li>\n        ' . 
+    '</ul>\n       ' . 
+    '<p><br /> <strong>List of files changed:</strong></p>\n       ' . 
+    '<ol>\n        ' . 
+        '<li>index.html</li>\n       ' . 
+        '<li>style.css</li>\n        ' . 
+        '<li>contact-us.html</li>\n        ' . 
+    '</ol>\n       ' . 
+    '<p>Is code checked in Repository: <strong>Y/N</strong><br /> Is code available in Stager: <strong>Y/N</strong> </p>\n       ' . 
+    '<p><strong>Blocker/Testing Issues:</strong></p>\n       ' . 
+    '<p><strong>Milestone Update: &lt; Specify Milestone name here &gt;</strong></p>\n       ' . 
+    '<p>&nbsp; &nbsp;1. Total tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;2. # of Work in Progress tasks:</p>\n       ' . 
+    '<p>&nbsp; &nbsp;3. # of Resolve tasks:</p>\n        ' . 
+    '<p>&nbsp; &nbsp;4. # of tasks not started:</p>\n        ' . 
+    '<p><br /> <strong>Next Day\'s Plan:</strong></p>';
+        
+$meetingMinuteDescription = 
+    '<b>Attendees:</b>  John, Michael<br/>\n        ' . 
+    '<b>Date and Time:</b> July 11th 11 am PST<br/>\n        ' . 
+    '<b>Purpose:</b><br/>\n        \n        <br/>\n       ' . 
+    '<b>Agenda:</b> \n       ' . 
+    '<ol>\n         ' . 
+        '<li>Discuss Layout </li>\n          ' . 
+        '<li>Discuss on Design</li>\n        ' . 
+    '</ol>\n       <br/>\n       ' . 
+    '<b>Discussion:</b><br/>';
+    
+$dateString = '2014-01-24 12:58:24';
+
+$rows = array(
+  array(1, 'Meeting Minute', $meetingMinuteDescription, $dateString, $dateString),
+  array(2, 'Status update',  $statusUpdateDescription,  $dateString, $dateString),
+  array(3, 'Change Request', $changeRequestDescription, $dateString, $dateString),
+  array(4, 'Bug',            $bugDescription,           $dateString, $dateString)
+);
+
+$valueStrings = array();
+foreach ($rows as $index => $row)
+{
+    foreach($row as $index => $value)
+    {
+        $row[$index] = "'" . mysqli_escape_string($mysqliConn, $value) . "'";
+    }
+    
+    $valueStrings[] .= "(" . implode(",", $row) . ")";
+}
+
+$queries[] =
+"INSERT INTO `default_templates` (`id`, `name`, `description`, `created`, `modified`) VALUES " . 
+implode(",", $valueStrings);
+
+
+
+
+
+// Table structure for table `easycases`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `easycases` (
   `id` mediumint(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
   `case_no` int(11) NOT NULL,
   `case_count` int(11) NOT NULL,
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `updated_by` int(11) NOT NULL,
-  `type_id` tinyint(4) NOT NULL COMMENT 'Foreign key of "case_types"',
+  `type_id` tinyint(4) NOT NULL COMMENT 'Foreign key of \"case_types\"',
   `priority` varchar(4) DEFAULT NULL,
   `title` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `message` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `estimated_hours` decimal(6,1) NOT NULL,
   `hours` decimal(6,1) NOT NULL,
   `completed_task` int(11) NOT NULL DEFAULT '0',
-  `assign_to` int(11) NOT NULL COMMENT 'Foreign Key of "users"',
+  `assign_to` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `due_date` date DEFAULT NULL,
   `istype` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-Post, 2-Comment',
   `format` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-Files&Details, 2-Details, 3-Files',
@@ -448,16 +502,14 @@ CREATE TABLE IF NOT EXISTS `easycases` (
   KEY `assign_to` (`assign_to`),
   KEY `priority` (`priority`),
   KEY `type_id` (`type_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `easycase_milestones`
---
 
-DROP TABLE IF EXISTS `easycase_milestones`;
-CREATE TABLE IF NOT EXISTS `easycase_milestones` (
+
+// Table structure for table `easycase_milestones`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `easycase_milestones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `easycase_id` int(11) NOT NULL,
   `milestone_id` int(11) NOT NULL,
@@ -470,31 +522,27 @@ CREATE TABLE IF NOT EXISTS `easycase_milestones` (
   KEY `milestone_id` (`milestone_id`),
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `email_reminders`
---
 
-DROP TABLE IF EXISTS `email_reminders`;
-CREATE TABLE IF NOT EXISTS `email_reminders` (
+
+// Table structure for table `email_reminders`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `email_reminders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `email_type` int(11) NOT NULL COMMENT '1:Aaccount Activation, 2:login, 3:Project Creation, 4:User Add, 5:Task Add',
   `cron_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `log_activities`
---
 
-DROP TABLE IF EXISTS `log_activities`;
-CREATE TABLE IF NOT EXISTS `log_activities` (
+
+// Table structure for table `log_activities`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `log_activities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -503,27 +551,24 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
   `created` datetime DEFAULT NULL,
   `ip` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `log_types`
---
 
-DROP TABLE IF EXISTS `log_types`;
-CREATE TABLE IF NOT EXISTS `log_types` (
+
+// Table structure for table `log_types`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `log_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
---
--- Dumping data for table `log_types`
---
 
-INSERT INTO `log_types` (`id`, `name`, `created`) VALUES
+// Dumping data for table `log_types`
+$queries[] =
+"INSERT INTO `log_types` (`id`, `name`, `created`) VALUES
 (1, 'Account Created', '2013-07-24 17:20:55'),
 (3, 'User Deleted', '2013-07-24 17:20:55'),
 (4, 'Plan Upgraded', '2013-07-24 17:24:48'),
@@ -555,29 +600,25 @@ INSERT INTO `log_types` (`id`, `name`, `created`) VALUES
 (32, 'Subscription Payment Failed', '0000-00-00 00:00:00'),
 (33, 'Account Deactivated', '0000-00-00 00:00:00'),
 (34, 'Account Disable By Admin', '0000-00-00 00:00:00'),
-(35, 'Plan downgraded', '0000-00-00 00:00:00');
+(35, 'Plan downgraded', '0000-00-00 00:00:00')";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `mail_tbls`
---
 
-DROP TABLE IF EXISTS `mail_tbls`;
-CREATE TABLE IF NOT EXISTS `mail_tbls` (
+
+// Table structure for table `mail_tbls`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `mail_tbls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mail` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `milestones`
---
 
-DROP TABLE IF EXISTS `milestones`;
-CREATE TABLE IF NOT EXISTS `milestones` (
+
+// Table structure for table `milestones`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `milestones` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(250) NOT NULL,
   `project_id` int(250) NOT NULL,
@@ -596,19 +637,17 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `projects`
---
 
-DROP TABLE IF EXISTS `projects`;
-CREATE TABLE IF NOT EXISTS `projects` (
+
+// Table structure for table `projects`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `company_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `short_name` varchar(10) NOT NULL,
@@ -625,32 +664,28 @@ CREATE TABLE IF NOT EXISTS `projects` (
   KEY `isactive` (`isactive`),
   KEY `project_type` (`project_type`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `project_technologies`
---
 
-DROP TABLE IF EXISTS `project_technologies`;
-CREATE TABLE IF NOT EXISTS `project_technologies` (
+
+// Table structure for table `project_technologies`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `project_technologies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
-  `technology_id` smallint(6) NOT NULL COMMENT 'Foreign key of "technologies"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
+  `technology_id` smallint(6) NOT NULL COMMENT 'Foreign key of \"technologies\"',
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `tech_proj_id` (`technology_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `project_templates`
---
 
-DROP TABLE IF EXISTS `project_templates`;
-CREATE TABLE IF NOT EXISTS `project_templates` (
+
+// Table structure for table `project_templates`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `project_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(250) NOT NULL,
   `company_id` int(250) NOT NULL,
@@ -660,16 +695,14 @@ CREATE TABLE IF NOT EXISTS `project_templates` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `project_template_cases`
---
 
-DROP TABLE IF EXISTS `project_template_cases`;
-CREATE TABLE IF NOT EXISTS `project_template_cases` (
+
+// Table structure for table `project_template_cases`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `project_template_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(250) NOT NULL,
@@ -680,20 +713,18 @@ CREATE TABLE IF NOT EXISTS `project_template_cases` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `project_users`
---
 
-DROP TABLE IF EXISTS `project_users`;
-CREATE TABLE IF NOT EXISTS `project_users` (
+
+// Table structure for table `project_users`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `project_users` (
   `id` int(11) NOT NULL,
-  `project_id` int(11) NOT NULL COMMENT 'Foreign key of "projects"',
+  `project_id` int(11) NOT NULL COMMENT 'Foreign key of \"projects\"',
   `company_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL COMMENT 'Foreign key of "users"',
+  `user_id` int(11) NOT NULL COMMENT 'Foreign key of \"users\"',
   `istype` tinyint(2) NOT NULL DEFAULT '2' COMMENT '1-Admin, 2-Moderator, 3-Viewer',
   `default_email` tinyint(2) NOT NULL DEFAULT '1' COMMENT '0-No, 1-Yes',
   `dt_visited` datetime NOT NULL,
@@ -702,16 +733,14 @@ CREATE TABLE IF NOT EXISTS `project_users` (
   KEY `user_id` (`user_id`),
   KEY `istype` (`istype`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `save_reports`
---
 
-DROP TABLE IF EXISTS `save_reports`;
-CREATE TABLE IF NOT EXISTS `save_reports` (
+
+// Table structure for table `save_reports`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `save_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `rpt_type` tinyint(4) NOT NULL COMMENT '1:Task 2:Hour 3:Bug 4:Project',
@@ -720,16 +749,14 @@ CREATE TABLE IF NOT EXISTS `save_reports` (
   `created` datetime NOT NULL,
   `ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `subscriptions`
---
 
-DROP TABLE IF EXISTS `subscriptions`;
-CREATE TABLE IF NOT EXISTS `subscriptions` (
+
+// Table structure for table `subscriptions`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `subscriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plan` int(11) NOT NULL COMMENT '1-Demo, 2-PRO, 3-LITE, 4-PREMIUM',
   `storage` varchar(250) NOT NULL COMMENT 'Mb',
@@ -743,23 +770,21 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `subscriptions`
---
 
-INSERT INTO `subscriptions` (`id`, `plan`, `storage`, `project_limit`, `user_limit`, `milestone_limit`, `free_trail_days`, `price`, `month`, `is_active`, `created`, `modified`) VALUES
-(1, 1, 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited', 0, 0, 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+//Dumping data for table `subscriptions`
+$queries[] =
+"INSERT INTO `subscriptions` 
+(`id`, `plan`, `storage`, `project_limit`, `user_limit`, `milestone_limit`, `free_trail_days`, `price`, `month`, `is_active`, `created`, `modified`) VALUES
+(1, 1, 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited', 0, 0, 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00')";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `template_module_cases`
---
 
-DROP TABLE IF EXISTS `template_module_cases`;
-CREATE TABLE IF NOT EXISTS `template_module_cases` (
+
+// Table structure for table `template_module_cases`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `template_module_cases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(250) NOT NULL,
@@ -768,28 +793,25 @@ CREATE TABLE IF NOT EXISTS `template_module_cases` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `timezones`
---
 
-DROP TABLE IF EXISTS `timezones`;
-CREATE TABLE IF NOT EXISTS `timezones` (
+
+// Table structure for table `timezones`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `timezones` (
   `id` int(11) NOT NULL DEFAULT '0',
   `gmt_offset` double DEFAULT '0',
   `dst_offset` double DEFAULT NULL,
   `code` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `timezones`
---
 
-INSERT INTO `timezones` (`id`, `gmt_offset`, `dst_offset`, `code`) VALUES
+// Dumping data for table `timezones`
+$queries[] =
+"INSERT INTO `timezones` (`id`, `gmt_offset`, `dst_offset`, `code`) VALUES
 (1, -12, 0, NULL),
 (2, -11, 0, NULL),
 (3, -10, 0, 'H'),
@@ -864,27 +886,25 @@ INSERT INTO `timezones` (`id`, `gmt_offset`, `dst_offset`, `code`) VALUES
 (72, 11, 0, NULL),
 (73, 12, 1, NULL),
 (74, 12, 0, NULL),
-(75, 13, 0, NULL);
+(75, 13, 0, NULL)";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `timezone_names`
---
 
-DROP TABLE IF EXISTS `timezone_names`;
-CREATE TABLE IF NOT EXISTS `timezone_names` (
+
+// Table structure for table `timezone_names`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `timezone_names` (
   `id` int(11) NOT NULL,
   `gmt` varchar(15) NOT NULL,
   `zone` varchar(100) NOT NULL,
   KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `timezone_names`
---
 
-INSERT INTO `timezone_names` (`id`, `gmt`, `zone`) VALUES
+// Dumping data for table `timezone_names`
+
+$queries[] =
+"INSERT INTO `timezone_names` (`id`, `gmt`, `zone`) VALUES
 (1, '(GMT-12:00)', 'International Date Line West'),
 (2, '(GMT-11:00)', 'Midway Island Samoa'),
 (3, '(GMT-10:00)', 'Hawaii'),
@@ -959,16 +979,14 @@ INSERT INTO `timezone_names` (`id`, `gmt`, `zone`) VALUES
 (72, '(GMT+11:00)', 'Magadan, Solomon Is., New Caledonia'),
 (73, '(GMT+12:00)', 'Auckland, Wellington'),
 (74, '(GMT+12:00)', 'Figi, Kamchatka, Marshall Is.'),
-(75, '(GMT+13:00)', 'Nuku''alofa');
+(75, '(GMT+13:00)', 'Nuku''alofa')";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `transactions`
---
 
-DROP TABLE IF EXISTS `transactions`;
-CREATE TABLE IF NOT EXISTS `transactions` (
+
+// Table structure for table `transactions`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `transactions` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `btsubscription_id` varchar(10) NOT NULL,
   `transaction_id` varchar(100) NOT NULL,
@@ -986,29 +1004,27 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `company_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `types`
---
 
-DROP TABLE IF EXISTS `types`;
-CREATE TABLE IF NOT EXISTS `types` (
+
+// Table structure for table `types`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `types` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL DEFAULT '0',
   `short_name` varchar(10) NOT NULL,
   `name` varchar(50) NOT NULL,
   `seq_order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `types`
---
 
-INSERT INTO `types` (`id`, `company_id`, `short_name`, `name`, `seq_order`) VALUES
+// Dumping data for table `types`
+
+$queries[] =
+"INSERT INTO `types` (`id`, `company_id`, `short_name`, `name`, `seq_order`) VALUES
 (1, 0, 'bug', 'Bug', 2),
 (2, 0, 'dev', 'Development', 1),
 (3, 0, 'enh', 'Enhancement', 6),
@@ -1020,30 +1036,26 @@ INSERT INTO `types` (`id`, `company_id`, `short_name`, `name`, `seq_order`) VALU
 (9, 0, 'rel', 'Release', 11),
 (10, 0, 'upd', 'Update', 3),
 (11, 0, 'idea', 'Idea', 5),
-(12, 0, 'cr', 'Change Request', 4);
+(12, 0, 'cr', 'Change Request', 4)";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `type_companies`
---
 
-DROP TABLE IF EXISTS `type_companies`;
-CREATE TABLE IF NOT EXISTS `type_companies` (
+
+// Table structure for table `type_companies`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `type_companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `users`
---
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+
+// Table structure for table `users`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_id` varchar(64) NOT NULL,
   `btprofile_id` varchar(100) DEFAULT NULL,
@@ -1087,31 +1099,27 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `isactive` (`isactive`),
   KEY `isemail` (`isemail`),
   KEY `timezone_id` (`timezone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `user_infos`
---
 
-DROP TABLE IF EXISTS `user_infos`;
-CREATE TABLE IF NOT EXISTS `user_infos` (
+
+// Table structure for table `user_infos`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `user_infos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `access_token` text,
   `is_google_signup` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `user_invitations`
---
 
-DROP TABLE IF EXISTS `user_invitations`;
-CREATE TABLE IF NOT EXISTS `user_invitations` (
+
+// Table structure for table `user_invitations`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `user_invitations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invitor_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
@@ -1124,41 +1132,24 @@ CREATE TABLE IF NOT EXISTS `user_invitations` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `user_logins`
---
 
-DROP TABLE IF EXISTS `user_logins`;
-CREATE TABLE IF NOT EXISTS `user_logins` (
+
+// Table structure for table `user_logins`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `user_logins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1";
 
---
--- Dumping data for table `user_logins`
---
 
-INSERT INTO `user_logins` (`id`, `user_id`, `created`) VALUES
-(1, 1, '2014-09-15 09:59:39'),
-(2, 1, '2014-09-15 10:07:08'),
-(3, 1, '2014-09-15 10:10:52'),
-(4, 1, '2014-09-17 10:45:21'),
-(5, 1, '2014-09-18 05:41:54');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_notifications`
---
-
-DROP TABLE IF EXISTS `user_notifications`;
-CREATE TABLE IF NOT EXISTS `user_notifications` (
+// Table structure for table `user_notifications`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `user_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-Email',
@@ -1169,16 +1160,14 @@ CREATE TABLE IF NOT EXISTS `user_notifications` (
   `case_status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0-No, 1-Yes',
   `weekly_usage_alert` tinyint(2) NOT NULL DEFAULT '1' COMMENT 'Only for owner/admins 1-> Default on 0-> Off ',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
--- --------------------------------------------------------
 
---
--- Table structure for table `user_subscriptions`
---
 
-DROP TABLE IF EXISTS `user_subscriptions`;
-CREATE TABLE IF NOT EXISTS `user_subscriptions` (
+
+// Table structure for table `user_subscriptions`
+$queries[] =
+"CREATE TABLE IF NOT EXISTS `user_subscriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
@@ -1211,5 +1200,4 @@ CREATE TABLE IF NOT EXISTS `user_subscriptions` (
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`),
   KEY `subscription_id` (`subscription_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+) ENGINE=InnoDB DEFAULT CHARSET=latin1";

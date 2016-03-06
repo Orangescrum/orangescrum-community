@@ -87,14 +87,14 @@ var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 $(function () {
     var chart;
     var dt = <?php echo $dt_arr;?>;  
-	var ydata = <?php echo $carr;?>;
-	var op = JSON.stringify( ydata );
-	op = op.replace(/"/g,"'");
+    var ydata = <?php echo $carr;?>;
+    var op = JSON.stringify( ydata );
+    op = op.replace(/"/g,"'");
     op = op.replace(/'\[/g,"[");
     op = op.replace(/]'/g,"]");
-	
-	var tikinterval = <?php echo $tinterval;?>; 
-	var yourLabels = <?php echo $yarr;?>;
+    
+    var tikinterval = <?php echo $tinterval;?>; 
+    var yourLabels = <?php echo $yarr;?>;
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
@@ -108,9 +108,9 @@ $(function () {
                 categories: eval(dt),
                 showFirstLabel:true,
                 showLastLabel:true,
-		labels:{
-		  enabled: true
-		}
+        labels:{
+          enabled: true
+        }
                //tickInterval:tikinterval           
             },
             yAxis: {
@@ -119,14 +119,14 @@ $(function () {
                 }
             },
             tooltip: {
-		valueSuffix: ''
-	    },
-	    legend: {
-		    layout: 'vertical',
-		    align: 'right',
-		    verticalAlign: 'middle',
-		    borderWidth: 0
-	    },
+        valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
             plotOptions: {
                 area: {
                     marker: {
@@ -148,7 +148,7 @@ $(function () {
                         showInLegend: true*/
                     }
             },
-          	/*series: [{
+            /*series: [{
                 name: 'Resolved',
                 data: [15,20,25,26,25,30,28,30,27,26,22,14]
             }, {

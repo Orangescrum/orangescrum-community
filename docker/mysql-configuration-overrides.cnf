@@ -1,0 +1,6 @@
+# This file is for settings we use to override the defaults for the databse
+# Unfortunately orangescrum runs into lots of issues where columns are not
+# specified but are set to not null. I can only assume the developers developed
+# in loose mode rather than strict.
+[mysqld]
+sql_mode=NO_ENGINE_SUBSTITUTION

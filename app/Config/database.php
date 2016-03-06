@@ -34,16 +34,23 @@
  * "Powered by Orangescrum".
  ********************************************************************************/
 
-class DATABASE_CONFIG {
-
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => '',
-		'prefix' => '',
-		'encoding' => 'utf8',
-	);
+class DATABASE_CONFIG 
+{
+    public $default = array();
+    
+    public function __construct()
+    {
+        $dbHost = getenv("MYSQL_PORT_3306_TCP_ADDR");
+        
+        $this->default = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host'       => $dbHost,
+            'login'      => 'root',
+            'password'   => 'changeme123', # @TODO change this to be dynamic
+            'database'   => 'orangescrum', # @TODO change this to be dynamic
+            'prefix'     => '',
+            'encoding'   => 'utf8',
+        );
+    }
 }

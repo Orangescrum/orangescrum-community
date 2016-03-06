@@ -33,8 +33,8 @@ echo $this->Html->css('osadmin');
 <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
 </head>
 <body id="easycase">
-	<?php echo $this->element('admin_header_inner'); ?>
-	<div style="min-height:350px"><?php echo $content_for_layout; ?></div>
-	<?php echo $this->element('admin_footer_inner');?>
+    <?php echo $this->element('admin_header_inner'); ?>
+    <div style="min-height:350px"><?php echo $content_for_layout; ?></div>
+    <?php echo $this->element('admin_footer_inner');?>
 </body>
 </html>

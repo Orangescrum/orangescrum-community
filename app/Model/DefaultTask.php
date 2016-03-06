@@ -1,5 +1,6 @@
 <?php
-class DefaultTask extends AppModel{
-	var $name = 'DefaultTask';
+
+class DefaultTask extends AppModel
+{
+    var $name = 'DefaultTask';
 }
-?>

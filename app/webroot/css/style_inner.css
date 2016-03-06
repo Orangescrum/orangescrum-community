@@ -1616,7 +1616,7 @@ b.pr_low{color:#b4a532;border:0;}
 /* Reply task Details page*/
 .reply_task_block{margin:40px 0 20px}
 .reply_task_block .col-lg-10{width:90%;border:1px solid #dddddd;background:#FFFCDB;padding:25px;margin-left:11px;box-shadow: 0 0 2px #CCCCCC;-moz-box-shadow: 0 0 2px #CCCCCC;-webkit-box-shadow: 0 0 2px #CCCCCC;}
-.reply_task_block textarea{height:78px;resize:none;border: 1px solid #DDDDDD;padding:10px !important;}
+.reply_task_block textarea{height:78px;resize:vertical;border: 1px solid #DDDDDD;padding:10px !important;}
 .reply_task_block .col-lg-12{padding:0}
 .icon-reply-yelow{background: url(../img/sprite_osv2.png) no-repeat scroll -268px -237px rgba(0, 0, 0, 0);height:22px;margin:-5px -39px;width:15px;position:absolute}
 .icon-reply-cmpl{background: url(../img/sprite_osv2.png) no-repeat scroll -326px -293px rgba(0, 0, 0, 0);height:15px;margin:2px -8px;width:15px;position:absolute}

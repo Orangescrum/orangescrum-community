@@ -1,4 +1,5 @@
 <?php
+
 /*********************************************************************************
  * Orangescrum Community Edition is a web based Project Management software developed by
  * Orangescrum. Copyright (C) 2013-2014
@@ -33,17 +34,21 @@
  * technical reasons, the Appropriate Legal Notices must display the words
  * "Powered by Orangescrum".
  ********************************************************************************/
-class ErrorsController extends AppController {
-    public $name = 'Errors';
 
-    public function beforeFilter() {
+class ErrorsController extends AppController 
+{
+    public $name = 'Errors';
+    
+    
+    public function beforeFilter()
+    {
         parent::beforeFilter();
         $this->Auth->allow('error404');
     }
-
-    public function error404() {
-		
-        //$this->layout = 'default';
+    
+    
+    public function error404()
+    {
+        
     }
 }
-?>

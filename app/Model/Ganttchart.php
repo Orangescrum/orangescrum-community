@@ -1,5 +1,6 @@
 <?php
-class Ganttchart extends AppModel{
-	var $name = 'Ganttchart';
+
+class Ganttchart extends AppModel
+{
+    var $name = 'Ganttchart';
 }
-?>

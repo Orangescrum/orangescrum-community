@@ -1,20 +1,20 @@
 <!-- ClickDesk Live Chat Service for websites -->
 <?php
 if((int)SHOW_CLICKDESK){
-	$sesUsrArr = $this->Format->getUserDtls(SES_ID);
-	if(count($sesUsrArr)) {
-		$sesuser_fulname = $sesUsrArr['User']['name'].' '.$sesUsrArr['User']['last_name'];
-		$sesuser_email = $sesUsrArr['User']['email'];
-	}
+    $sesUsrArr = $this->Format->getUserDtls(SES_ID);
+    if(count($sesUsrArr)) {
+        $sesuser_fulname = $sesUsrArr['User']['name'].' '.$sesUsrArr['User']['last_name'];
+        $sesuser_email = $sesUsrArr['User']['email'];
+    }
 ?>
 <script type="text/javascript">
 $CLICKDESK = (function() {
-	<?php if(isset($sesuser_fulname) && trim($sesuser_fulname)) { ?>
-	CLICKDESK_Live_Chat.setName('<?php echo $sesuser_fulname; ?>');
-	<?php }
-	if(isset($sesuser_email) && trim($sesuser_email)) { ?>
-	CLICKDESK_Live_Chat.setEmail ('<?php echo $sesuser_email ?>');
-	<?php } ?>
+    <?php if(isset($sesuser_fulname) && trim($sesuser_fulname)) { ?>
+    CLICKDESK_Live_Chat.setName('<?php echo $sesuser_fulname; ?>');
+    <?php }
+    if(isset($sesuser_email) && trim($sesuser_email)) { ?>
+    CLICKDESK_Live_Chat.setEmail ('<?php echo $sesuser_email ?>');
+    <?php } ?>
 });
 var _glc =_glc || []; _glc.push('all_ag9zfmNsaWNrZGVza2NoYXRyDgsSBXVzZXJzGKu-pxUM');
 var glcpath = (('https:' == document.location.protocol) ? 'https://my.clickdesk.com/clickdesk-ui/browser/' :

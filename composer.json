@@ -1,0 +1,6 @@
+{
+    "require": {
+        "irap/migrations": "1.0.2",
+        "michelf/php-markdown": "1.6.*"
+    }
+}

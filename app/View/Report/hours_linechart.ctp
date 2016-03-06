@@ -1,9 +1,9 @@
 <div id="linechart" style="width:99%"></div>
 <script type="text/javascript">
 $(function(){
-	var dt = <?php echo $dt_arr;?>;
-	var tikinterval = <?php echo $tinterval;?>; 
-	var namedata = <?php echo $carr; ?>;
+    var dt = <?php echo $dt_arr;?>;
+    var tikinterval = <?php echo $tinterval;?>; 
+    var namedata = <?php echo $carr; ?>;
         $('#linechart').highcharts({
             title: {
                 text: '',
@@ -14,9 +14,9 @@ $(function(){
                 x: -20
             },
             xAxis: {
-		type:'datetime',
+        type:'datetime',
                 categories: eval(dt),
-		showFirstLabel:true,
+        showFirstLabel:true,
                 showLastLabel:true,
                 tickInterval:tikinterval,
             },

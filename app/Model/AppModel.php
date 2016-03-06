@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application model for Cake.
  *
@@ -30,16 +31,19 @@ App::uses('Model', 'Model');
  *
  * @package       app.Model
  */
-class AppModel extends Model {
-	public function find($type = 'first', $queryData = array()){
-		$results = parent::find($type, $queryData);
-		
-		if($results || ($type != 'first' && $type != '')){
-			return $results;
-		} else {
-			return false;
-		}
-	}
+class AppModel extends Model
+{
+    public function find($type = 'first', $queryData = array())
+    {
+        $results = parent::find($type, $queryData);
         
-        
+        if ($results || ($type != 'first' && $type != ''))
+        {
+            return $results;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

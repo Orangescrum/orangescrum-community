@@ -1,5 +1,6 @@
 <?php
-class DefaultProjectTemplateCase extends AppModel{
-	var $name = 'DefaultProjectTemplateCase';
+
+class DefaultProjectTemplateCase extends AppModel
+{
+    var $name = 'DefaultProjectTemplateCase';
 }
-?>

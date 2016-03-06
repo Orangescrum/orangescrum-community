@@ -11,12 +11,19 @@ input#txt_Password{font-family: Arial}
             <div style="position:relative; z-index:9;">
                 <div class="bg_logo_inner" style="top:-100px;left:-180px"></div>
                 <div class="logo_landing">
-                    <a href="<?php echo HTTPS_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png?v=<?php echo RELEASE; ?>"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
+                    <?php
+                    if (DISPLAY_LOGO)
+                    {
+                    ?>
+                        <a href="<?php echo HTTPS_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png?v=<?php echo RELEASE; ?>"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
+                    <?php
+                    } 
+                    ?>
                 </div>
                 <div class="login_table">
-					<div style="height:100%;display:table; width:100%;">
-						<div id="container" style="display:table-cell; vertical-align:middle;text-align:left">
-							<h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
+                    <div style="height:100%;display:table; width:100%;">
+                        <div id="container" style="display:table-cell; vertical-align:middle;text-align:left">
+                            <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
 <p style="text-align: center;">Version 3, 29 June 2007</p>
 <br/>
 <p>Copyright &copy; 2007 Free Software Foundation, Inc.
@@ -644,7 +651,7 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.</p>
 <br/>
 
-						</div>
+                        </div>
                     </div> 
                 </div>
             </div>

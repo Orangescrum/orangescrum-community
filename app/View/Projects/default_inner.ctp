@@ -93,7 +93,7 @@
 </div>
 <script type="text/javascript">
     function close_test(){
-	var strURL = "<?php echo HTTP_ROOT;?>";
+    var strURL = "<?php echo HTTP_ROOT;?>";
         $.ajax(strURL+'/projects/hide_default_inner',{},function(res){
         });
         $('.main_overlay').hide();

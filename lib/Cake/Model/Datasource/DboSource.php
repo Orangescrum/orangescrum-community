@@ -977,37 +977,46 @@ class DboSource extends DataSource {
  *   be used to generate values.
  * @return boolean Success
  */
-	public function create(Model $model, $fields = null, $values = null) {
+	public function create(Model $model, $fields = null, $values = null) 
+    {
 		$id = null;
 
-		if (!$fields) {
+		if (!$fields) 
+        {
 			unset($fields, $values);
 			$fields = array_keys($model->data);
 			$values = array_values($model->data);
 		}
+        
 		$count = count($fields);
 
-		for ($i = 0; $i < $count; $i++) {
+		for ($i = 0; $i < $count; $i++) 
+        {
 			$valueInsert[] = $this->value($values[$i], $model->getColumnType($fields[$i]));
 			$fieldInsert[] = $this->name($fields[$i]);
 			if ($fields[$i] == $model->primaryKey) {
 				$id = $values[$i];
 			}
 		}
+        
 		$query = array(
 			'table' => $this->fullTableName($model),
 			'fields' => implode(', ', $fieldInsert),
 			'values' => implode(', ', $valueInsert)
 		);
-
-		if ($this->execute($this->renderStatement('create', $query))) {
-			if (empty($id)) {
+        
+		if ($this->execute($this->renderStatement('create', $query))) 
+        {
+			if (empty($id)) 
+            {
 				$id = $this->lastInsertId($this->fullTableName($model, false, false), $model->primaryKey);
 			}
+            
 			$model->setInsertID($id);
 			$model->id = $id;
 			return true;
 		}
+        
 		$model->onError();
 		return false;
 	}

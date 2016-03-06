@@ -1,6 +1,6 @@
 <?php
-class Subscription extends AppModel{
-	var $name = 'Subscription';
-	
+
+class Subscription extends AppModel
+{
+    var $name = 'Subscription';
 }
-?>

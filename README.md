@@ -1,42 +1,64 @@
-**Orangescrum** is a free, open source, flexible project management web application written using CakePHP.
+# SCRUMptious
+SCRUMptious is a free, open source, flexible project management web application based on
+**Orangescrum**. To the best of my ability, I will try to merge in updates from Orangescrum so that hopefully this project will just be Orangescrum + more.
 
-#### Requirements
-    * Apache with `mod_rewrite`
-    	* Enable curl in php.ini
-    	* Change the 'post_max_size' and `upload_max_filesize` to 200Mb in php.ini
-    * PHP 5.3 or higher
-    * MySQL 4.1 or higher
-		* If STRICT mode is On, turn it Off.
+
+## Requirements
+* [A Docker host]((https://www.digitalocean.com/features/one-click-apps/docker/)).
+* [Composer](http://blog.programster.org/ubuntu-install-composer/) if you are installing from the development line rather than a release.
   
-#### Installation
 
-    * Extract the archive. Upload all the files and folders to your working directory.
-    * Provide proper write permission to "app/tmp" and "app/webroot" folders and their sub-folders.
-    * Create a new MySQL database (`utf8_unicode_ci` collation) 
-    * Get the database.sql file from the root directory and import that to your database.
-    * Locate your `app` directory, do the changes on following files:
-	  * `app/Config/database.php` - Update the database connection details [Required]
-	  * `app/Config/constants.php` - Provide your valid Gmail ID and Password for SMTP email sending Or, you can use Sendgrid or Mandrill.
-	  * `app/Config/constants.php` - Update the FROM_EMAIL_NOTIFY and SUPPORT_EMAIL [Required]
-	  * `app/Config/constants.php` - If your application URL followed by a folder name. like: http://your-site.com/folder_name, Update the folder name "define('SUB_FOLDER', 'folder_name/')",
-    * Run the application as http://your-site.com/ from your browser and start using Orangescrum
-  
-#### How to Git
+## Installation / Deployment
 
-	* Fork the project from GitHub if you are interested in contributing, or you can simply watch its progress.
-	* To contribute, clone the repository to your system/working directory
-		* Do the require changes to add some features or plug-ins on your local system
-		* Do proper testing(including UI) and make sure that the changes are working properly
-		* Commit/Push the code to your repository
-		* Send a Pull request to Orangescrum git repository
+### From A Release
+  1. Download one of the releases from the [releases page](https://github.com/programster/SCRUMptious/releases).
+  2. Extract the source code and navigate to within the folder.
+  3. Navigate to the `docker` directory.
+  4. Execute `bash build.sh`
+  5. Execute `bash deploy.sh`
+  6. Navigate to your host's IP or domain name in your web browser.
+  7. That's it.
+
+### From Source
+  1. Clone this repository
+    * `git clone git@github.com:programster/SCRUMptious.git`
+  2. Navigate into the cloned repository.
+    * `cd SCRUMptious`
+  3. Run a composer install to fetch all the external libraries.
+     * `composer install`
+  4. Navigate to the docker directory
+     * `cd docker`
+  5. Execute `bash build.sh`
+  6. Execute `bash deploy.sh`
+  7. Navigate to your host's IP or domain name in your web browser.
+  8. That's it.
 
 
-		
-   * **Official website**: [http://www.orangescrum.com](http://www.orangescrum.com)
-   * **Blog**: [http://blog.orangescrum.com](http://blog.orangescrum.com)
-   * **Downloads**: [http://www.orangescrum.org/free-download](http://www.orangescrum.org/free-download)
-   * **Issue Tracker**: [https://github.com/Orangescrum/orangescrum/issues](https://github.com/Orangescrum/orangescrum/issues)
-   * **Google Group**: [https://groups.google.com/group/orangescrum-community-support](https://groups.google.com/group/orangescrum-community-support)
-   * **Youtube**: [https://www.youtube.com/watch?v=4qCaP0TZuxU](https://www.youtube.com/watch?v=4qCaP0TZuxU)
+## How to Contribute
+  1. Fork [the project on Github](https://github.com/programster/SCRUMptious).
+  2. Clone the repository to your system/working directory
+  3. Checkout the programster branch.
+  4. From there start your own branch named after the functionality/fix you wish to implement.
+  3. Implement your changes with as clean a series of commits as you can with commit comments.
+  4. Test it works by building and running the docker container and testing your functionality.
+  5. Merge your changes into the programster branch.
+  5. Commit/Push the code to your repository
+  6. Send a Pull request to SCRUMptious git repository
 
-   
+
+## Why Did I Fork?
+I grew tired of waiting for Orangescrum to implement my merge request for docker support, and felt that the tool could also benefit from some other changes, such as migration scripts. I would love it if the Orangescrum team would pull my features or politely tell me they are not interested (and maybe why?).
+
+## Licensing
+GNU General Public License version 3. For more information refer to the LICESNSE.txt file.
+
+## References
+ * [SCRUMptious Github Page](https://github.com/programster/SCRUMptious)
+ * [SCRUMptious Pull Page](https://github.com/programster/SCRUMptious/pulls)
+ * [Orangescrum Official website](http://www.orangescrum.com)
+ * [Orangescrum Blog](http://blog.orangescrum.com)
+ * [Orangescrum Downloads](http://www.orangescrum.org/free-download)
+ * [Orangescrum Issue Tracker](https://github.com/Orangescrum/orangescrum/issues)
+ * [Orangescrum Google Group](https://groups.google.com/group/orangescrum-community-support)
+ * [Orangescrum Youtube](https://www.youtube.com/watch?v=4qCaP0TZuxU)
+ * [Programster's Blog](http://blog.programster.org)

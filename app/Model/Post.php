@@ -1,6 +1,7 @@
 <?php
-class Post extends AppModel{
+
+class Post extends AppModel
+{
     var $name = 'Post';
     var $useDbConfig = 'osblog';
 }
-?>
