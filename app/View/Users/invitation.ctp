@@ -27,7 +27,14 @@ else {
             <div style="position:relative">
                 <div class="bg_logo_inner"></div>
                 <div class="logo_landing"> 
+                    <?php
+                    if(DISPLAY_LOGO)
+                    {
+                    ?>
                         <a href="<?php echo HTTP_HOME; ?>"><img src="<?php echo HTTP_ROOT; ?>img/images/logo_outer.png"  border="0" alt="Orangescrum.com" title="Orangescrum.com"/></a>
+                    <?php
+                    } 
+                    ?>
                 </div>
     <div class="login_table">
         <div <?php if(PAGE_NAME == "home") { ?>class="home" <?php } else { ?>class="home_other" <?php } ?> style="height:100%;display:table">

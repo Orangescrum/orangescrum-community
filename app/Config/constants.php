@@ -59,6 +59,11 @@ define('RELEASE',1); //Increase the release version on every CSS/JS changes to r
 ##################### Domain and URL Constants ############################
 define('SUB_FOLDER', ''); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'
 
+// If you have replaced the logo_outer.png logo with your own, then you may want to switch this to 
+// TRUE in order to display your logo across the site.
+define('DISPLAY_LOGO', false); 
+
+
 if (php_sapi_name() === "cli") 
 {
     define('PROTOCOL', "http://");
