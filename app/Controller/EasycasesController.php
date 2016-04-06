@@ -1053,27 +1053,37 @@ class EasycasesController extends AppController {
             $filterenabled =1;
         }
         // Order by
-        $sortby ='';
-        if(isset($_COOKIE['TASKSORTBY'])) {
-            $sortby = $_COOKIE['TASKSORTBY'];
-            $sortorder = $_COOKIE['TASKSORTORDER'];
+        $sortby = [];
+        $orderby = [];
+        if(isset($_COOKIE['TASKSORT'])) {
+            $sortby = (array) json_decode( $_COOKIE['TASKSORT'] );
         }
-        if($sortby=='title') {
-            $orderby = "LTRIM(Easycase.title) ".$sortorder;
-            $caseTitle = strtolower($sortorder);
-        }elseif($sortby=='duedate') {
-            $caseDueDate = strtolower($sortorder);
-            $orderby = "Easycase.due_date ".$sortorder;
-        }elseif($sortby=='caseno') {
-            $caseNum = strtolower($sortorder);
-            $orderby = "Easycase.case_no ".$sortorder;
-        }elseif($sortby=='caseAt') {
-            $caseAtsort = strtolower($sortorder);
-            $orderby = "Assigned ".$sortorder;
-        }else {
-            $orderby = "Easycase.dt_created DESC";
+
+        foreach( $sortby as $fieldName => $fieldValue )
+        {
+            if($fieldName == 'title') {
+                $orderby[] = "LTRIM(Easycase.title) ".$fieldValue;
+                $caseTitle = strtolower($fieldValue);
+            }elseif($fieldName == 'duedate' ) {
+                $caseDueDate = strtolower($fieldValue);
+                $orderby[] = "Easycase.due_date ".$fieldValue;
+            }elseif($fieldName === 'caseno' ) {
+                $caseNum = strtolower($fieldValue);
+                $orderby[] = "Easycase.case_no ".$fieldValue;
+            }elseif($fieldName == 'caseAt') {
+                $caseAtsort = strtolower($fieldValue);
+                $orderby[] = "Assigned ".$fieldValue;
+            }elseif($fieldName == 'priority') {
+                $orderby[] = "Easycase.priority ".$fieldValue;
+            }
         }
-        $groupby  = '';
+
+        if(empty($orderby)){
+            $orderby[] = "Easycase.dt_created DESC";
+        }
+        $orderby = implode( ', ', $orderby );
+
+        $groupby = '';
         $gby='';
         if(isset($_COOKIE['TASKGROUPBY']) && $_COOKIE['TASKGROUPBY'] !='date') {
             setcookie('TASKSORTBY','',time()-3600,'/',DOMAIN_COOKIE,false,false);
@@ -4682,26 +4692,32 @@ class EasycasesController extends AppController {
 
         $arr['mlstn'] = "All";
         // Task Sort order tagging
-        if(isset($_COOKIE['TASKSORTBY']) && $_COOKIE['TASKSORTBY'] !="") {
-            $tsortby = $_COOKIE['TASKSORTBY'];
-            $tsortorder = $_COOKIE['TASKSORTORDER'];
-            if($_COOKIE['TASKSORTBY']=='caseno') {
-                $tsortby = 'Task#';
-            }elseif($_COOKIE['TASKSORTBY']=='caseAt') {
-                $tsortby = 'Assigned to';
-            }elseif($_COOKIE['TASKSORTBY']=='duedate') {
+        $sortby = [];
+        if(isset($_COOKIE['TASKSORT'])) {
+            $sortby = (array) json_decode( $_COOKIE['TASKSORT'] );
+        }
+
+        foreach($sortby as $fieldName => $fieldValue)
+        {
+            if($fieldName == 'duedate'){
                 $tsortby = 'Due Date';
-            }else {
-                $tsortby = ucfirst($tsortby);
+            }elseif($fieldName == 'caseno'){
+                $tsortby = 'Task#';
+            }elseif($fieldName == 'caseAt'){
+                $tsortby = 'Assigned to';
+            }else{
+                $tsortby = ucfirst($fieldName);
             }
-            if($tsortorder=='DESC') {
+
+            if($fieldValue=='DESC') {
                 $sorticon = 'tsk_desc_icon';
             }else {
                 $sorticon = 'tsk_asc_icon';
             }
-            //$arr['tasksortby'] = "<div class='fl filter_opn' rel='tooltip' title='Sort by ".$tsortby.": ".$tsortorder."' onclick='openfilter_popup(1,\"dropdown_menu_sortby_filters\");'><span class='fl'>".$tsortby."</span><i class='fl ".$sorticon."'></i><a href='javascript:void(0);' onclick='common_reset_filter(\"taskorder\",\"\",this);' class='fr'>X</a></div>";
-            $arr['tasksortby'] = "<div class='fl filter_opn' rel='tooltip' style='position:relative;' title='Sort by ".$tsortby.": ".$tsortorder."' onclick='openfilter_popup(1,\"dropdown_menu_sortby_filters\");'>".$tsortby."<i class=' ".$sorticon."'></i><a href='javascript:void(0);' onclick='common_reset_filter(\"taskorder\",\"\",this);' class='fr' style='padding-left:20px;'>X</a></div>";
-        }
+
+            $arr['tasksortby'] .= "<div class='fl filter_opn' rel='tooltip' style='position:relative;' title='Sort by ".$tsortby.": ".$tsortorder."' onclick='openfilter_popup(1,\"dropdown_menu_sortby_filters\");'>".$tsortby."<i class=' ".$sorticon."'></i><a href='javascript:void(0);' onclick='common_reset_filter(\"taskorder\",\"\",this);' class='fr' style='padding-left:20px;'>X</a></div>";
+       }
+
         // Task Group by Tagging
         if(isset($_COOKIE['TASKGROUPBY']) && $_COOKIE['TASKGROUPBY'] !="") {
             $groupby = $_COOKIE['TASKGROUPBY'];
