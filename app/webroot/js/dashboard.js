@@ -1503,6 +1503,10 @@ function moveTaskToProject() {
 				easycase.showKanbanTaskList('kanban');
 			}else{
 		    easycase.refreshTaskList();
+                    var projFil = $('#projFil').val();
+                     var casemenufllter = $('#caseMenuFilters').val();
+                     
+                    loadCaseMenu(HTTP_ROOT+"easycases/ajax_case_menu",{"projUniq":projFil,"pageload":1,"page":"dashboard","filters":casemenufllter});
 			}
 		    displayMenuProjects('dashboard', '6', '');
 		} else {
@@ -1834,16 +1838,26 @@ function detChangepriority(caseId,priority,caseUniqId,cno) {
 	var showUpdPri = "pridiv"+caseId;
 	$("#"+showUpdPri).hide();
 	$('#'+prilod).show();
+        var pre_priority = $('#'+showUpdPri).attr('data-priority') ;
+        if(pre_priority == priority){
+            $('#' + prilod).hide();
+                $("#" + showUpdPri).show();
+             //   $("#" + showUpdPri + ' .quick_action').removeClass('prio_high prio_mediem prio_low').addClass('prio_'+protyTtl.toLowerCase());            
+
+        }
+        else{
 	$.post(HTTP_ROOT+"easycases/ajax_change_priority",{"caseId":caseId,"priority":priority},function(data) {
 		if(data && data.protyCls) {
 			$("#"+showUpdPri).removeClass('high_priority medium_priority low_priority').addClass(data.protyCls);
 			$("#"+showUpdPri+' .quick_action').html(data.protyTtl);
+                        $("#" +showUpdPri).attr('data-priority',priority);
 		}
 	}).always(function() {
 		//$("#"+showUpdPri).show();
 		//$('#'+prilod).hide();
 		actiononTask(caseId,caseUniqId,cno,'priority');
 	});
+}
 }
 
 function ajaxSorting(type,cases,el){

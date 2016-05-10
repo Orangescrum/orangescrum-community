@@ -1907,7 +1907,7 @@ class EasycasesController extends AppController {
             $protyTtl = 'Medium';
         } elseif($casePriRep == 2) {
             $protyCls = 'low_priority';
-            $protyTtl = 'LOW';
+            $protyTtl = 'Low';
         }
 
         //getting case_by
@@ -2647,7 +2647,7 @@ class EasycasesController extends AppController {
             //$closeCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.legend' => 3,'Easycase.type_id !=' => 10,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
             //$bugCase = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.type_id' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids),'fields' => 'DISTINCT Easycase.id'));
             $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id='.$proj_id." ".$qry.$searchcase);
+	    $ovrdueCase = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as ovrduecount FROM easycases Easycase WHERE Easycase.isactive=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2) AND Easycase.istype= 1 AND Easycase.project_id IN (' . $idlist . ')' .$qry.$searchcase);
 	    
 	    //$caseHighPri = $this->Easycase->find('count', array('conditions'=>array('Easycase.isactive' => 1,'Easycase.istype' => 1,'Easycase.project_id' => $ids,'Easycase.priority 	' => 0),'fields' => 'DISTINCT Easycase.id'));
             $caseHighPri = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) as hpcount FROM easycases Easycase WHERE Easycase.isactive = 1 AND Easycase.istype= 1 AND Easycase.project_id IN('. $idlist.') AND Easycase.priority = 0 AND Easycase.type_id != 10 '.$qry.$searchcase);
@@ -3806,7 +3806,7 @@ class EasycasesController extends AppController {
                 $protyTtl = 'Medium';
             } elseif($casePriRep == 2) {
                 $protyCls = 'low_priority';
-                $protyTtl = 'LOW';
+                $protyTtl = 'Low';
             }
             $protyCls = '';
             $protyTtl = '';
@@ -3821,7 +3821,7 @@ class EasycasesController extends AppController {
                 $protyTtl = 'Medium';
             } else if($priority >= 2) {
                 $protyCls = 'low_priority';
-                $protyTtl = 'LOW';
+                $protyTtl = 'Low';
             }
             $response = json_encode(array('protyCls'=>$protyCls,'protyTtl'=>$protyTtl));
         }

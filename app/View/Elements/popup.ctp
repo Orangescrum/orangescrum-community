@@ -127,7 +127,7 @@
     </div>
     <!-- New user popup ends -->
     <!-- Export csv popup starts -->
-    <div class="exportcsv cmn_popup" style="display: none;" id="exporttaskcsv_popup">
+    <div class="exportcsv cmn_popup" style="display: none;max-height:570px;overflow-y: auto" id="exporttaskcsv_popup">
 	<div class="popup_title">
 	    <span><i class="icon-exp"></i><span id="popup_heading">Export Tasks to CSV</span></span>
 	    <a href="javascript:jsVoid();" onclick="closePopup();"><div class="fr close_popup">X</div></a>
@@ -290,7 +290,8 @@
 	</div>
 	<div class="popup_form">
 	    <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
-	    
+            <input type='hidden' name='prjct_id' id='prjct_id' >
+            <input type='hidden' name='prjct_name' id='prjct_name'>      
 	    <div class="fl" style="overflow: auto; max-height: 90px; width: 576px;">
 	  	<ul id="userList" class="holder" style="border:1px solid #FAFAFA">
 	    	</ul>

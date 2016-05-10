@@ -77,20 +77,22 @@ if(caseCount && caseCount != 0){
 
                 <div class="proj_mng">
 				    <div class="fl">
+                                        <% if(mlsttype!='0'){ %>
 					<a href="javascript:void(0);" class="icon-add-task fl" onClick="addTaskToMilestone(this);" data-prj-id="<%= projId %>" data-id="<%= milestoneAutoId %>">Add Task</a>
-					<br />
+					<br /> <% } %>
 					<% if(mlsttype=='0'){ %>
 						<a href="javascript:void(0);" class="icon-restore-mlstn fl" onClick="milestoneRestore(this);" data-uid="<%= milestoneUniqId %>" data-name="<%= milestoneTitle %>">Restore</a>
 					<% }else{ %>
 						<a href="javascript:void(0);" class="icon-complete-mlstn fl" onClick="milestoneArchive(this);" data-uid="<%= milestoneUniqId %>" data-name="<%= milestoneTitle %>">Complete</a>
 					<% } %>
-					<% if(total_cases>0){ %><br/>
+					<% if(total_cases>0 && mlsttype!='0'){ %><br/>
 						<a href="javascript:void(0);" class="icon-remov-task fl" onClick="removeTaskFromMilestone(this);" data-prj-id="<%= projId %>" data-id="<%= milestoneAutoId %>">Remove Task</a>
 					<% } %>
 				    </div>
 				    <div class="fr">
+                                        <% if(mlsttype!='0'){ %>
 					<a href="javascript:void(0);" class="icon-edit-mlstn fl" onClick="addEditMilestone(this);" data-id="<%= milestoneAutoId %>" data-uid="<%= milestoneUniqId %>" data-name="<%= milestoneTitle %>">Edit</a>
-					<br />
+					<br /> <% } %>
 					<a href="javascript:void(0);" class="icon-delete-mlstn fl" onClick="delMilestone(this);" data-uid="<%= milestoneUniqId %>" data-name="<%= milestoneTitle %>">Delete</a>
 				    </div>
 				</div>

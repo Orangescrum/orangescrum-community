@@ -53,10 +53,10 @@ echo $this->Form->create('Easycase', array('name' => 'taskcsvForm','id' => 'task
     <tr id="tr_cst_rng" style="<?php if(count($cst_rng)==2){?>display: show;<?php }else{ ?>display:none;<?php } ?>">
 	<td align="right" valign="top" class="case_fieldprof" style="padding-top:13px;">Range: </td>
 	<td align="left" valign="top" style="padding-top:10px;">
-	    <div style="float: left;">
+	    <div style="float: left;text-align: left;">
 		From <input type="text" id="cst_frm" name="data[Easycase][from]" value="<?php if(count($cst_rng)==2) echo $cst_rng['0'];?>" class="form-control" placeholder="From" />
 	    </div>
-	    <div style="float: left;padding-left: 15px;">
+	    <div style="float: left;padding-left: 0px;text-align: left;">
 		To <input type="text" id="cst_to" name="data[Easycase][to]" value="<?php if(count($cst_rng)==2) echo $cst_rng['1'];?>" class="form-control" placeholder="To" />
 	    </div>
 	</td>

@@ -86,3 +86,8 @@ echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myfo
 	    ?>
 </div> 
 <?php echo $this->Form->end(); ?>
+<script>
+    
+        var active_prjct = "<?php echo $is_active_proj?>" ;
+  
+    </script>

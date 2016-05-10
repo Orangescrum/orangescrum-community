@@ -7,13 +7,27 @@
 	    <a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $v['Easycase']['uniq_id']; ?>" ><?php echo $this->Format->shortLength($v['Easycase']['title'],18); ?></a> 
 	    <span>
 		Coming up in <?php	
+                $upcoming_dates = "";
 		$date1 = $v['Easycase']['due_date'];
 		$date2 = $today;
+               
 		$diff = abs(strtotime($date2) - strtotime($date1));
+                
 		$years = floor($diff / (365*60*60*24));
 		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 		$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-		echo $days; ?> day(s)
+                if($years >0){
+                    $upcoming_dates .= $years .' years ';
+                }
+                if($months > 0){
+                    $upcoming_dates .= $months .' months ';
+                }
+                if($days >0){
+                     $upcoming_dates .= $days ;
+                }
+             //    echo $date1."--------------".$date2."==========".$diff.'<br>'.$years."----".$months."-------===---".$days ;
+        //     printf("%d years, %d months, %d days\n", $years, $months, $days);
+		echo $upcoming_dates; ?> day(s)
 	    </span>
 	</div>	
     <?php } ?>

@@ -51,7 +51,7 @@
 				 <div class="user-details templt-mng">
 					<div class="fl">
 						<div class="templ-img">
-							<img src="../../img/default_template.png" />
+							<img src="<?php echo HTTP_ROOT; ?>img/default_template.png" />
 						</div>
 					</div>
 					<div class="fl create_temp">

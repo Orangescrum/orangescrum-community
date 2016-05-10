@@ -1,12 +1,12 @@
 <?php
 if ($nodata_name == 'caselist') {
     $imageClass = 'icon-no-archive';
-    $msgHead = 'No tasks have been archived yet on this project';
-    $msgDesc = 'All archived tasks of this project will appear here';
+    $msgHead = 'No tasks have been archived yet';
+    $msgDesc = 'All archived tasks of all projects will appear here';
 } else if ($nodata_name == 'filelist') {
     $imageClass = 'icon-no-archive';
-    $msgHead = 'No files have been archived yet on this project';
-    $msgDesc = 'All archived files of this project will appear here';
+    $msgHead = 'No files have been archived yet ';
+    $msgDesc = 'All archived files of all projects will appear here';
 } else if ($nodata_name == 'activity') {
     $imageClass = 'icon-no-activity';
     $msgHead = 'No task activities on this project';

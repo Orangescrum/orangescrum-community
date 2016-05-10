@@ -374,6 +374,10 @@ function closePopup() {
         display:"none"
     });
     $(".cmn_popup").hide();
+    /*if($('#prjct_id').val() != ''){
+        $('#prjct_id').val('');
+        $('#prjct_name').val(''); 
+    }*/
 
 }
 
@@ -6770,7 +6774,7 @@ function milstoneonTask(mlstname,mlstid){
                 $('#CS_milestone').val(mlstid);
             }
 
-
+            $('#more_opt8 ul').append('<li><a href="javascript:jsVoid()">&nbsp;&nbsp;No Milestone</a></li>');
             $.each(res,function(key,value){
                 $('#more_opt8 ul').append('<li><a href="javascript:jsVoid()" onclick="open_more_opt(\'more_opt8\');" ><span class="value">'+key+'</span>&nbsp;&nbsp;'+shortLength(ucfirst(formatText(value)),15)+'</a></li>');
             });

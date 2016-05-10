@@ -58,8 +58,8 @@ if(showQuickAct && taskTyp.id != 10){
 						<tr>
 							<td>Priority:</td>
 							<td>
-								<div id="pridiv<%= csAtId %>" class="pri_actions <%= protyCls %><% if(showQuickAct==1){ %> dropdown<% } %>">
-									<b <% if(showQuickAct==1){ %> class="quick_action" data-toggle="dropdown" <% } %>><%= protyTtl %></b>
+								<div id="pridiv<%= csAtId %>" data-priority ="<%= csPriRep %>" class="pri_actions <%= protyCls %><% if(showQuickAct==1){ %> dropdown<% } %>">
+									<b <% if(showQuickAct==1){%> class="quick_action" data-toggle="dropdown" <% } %>><%= protyTtl %></b>
 									<% if(showQuickAct==1){ %>
 									<ul class="dropdown-menu quick_menu">
 										<li class="pop_arrow_new"></li>
