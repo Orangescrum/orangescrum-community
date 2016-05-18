@@ -6,6 +6,7 @@ machine:
 dependencies:
   pre:
     - pear channel-discover pear.phing.info
+    - pear channel-discover pear.cakephp.org
     - pear install phing/phing
     - pear install cakephp/Phing_d51PearPkg2Task
     
