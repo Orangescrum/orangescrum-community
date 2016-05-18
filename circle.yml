@@ -8,7 +8,7 @@ dependencies:
     - pear channel-discover pear.phing.info
     - pear channel-discover pear.cakephp.org
     - pear install phing/phing
-    - pear install cakephp/Phing_d51PearPkg2Task-0.6.5
+    - pear install --alldeps cakephp/Phing_d51PearPkg2Task-0.6.5
     
 deployment:
   dockerhub:
