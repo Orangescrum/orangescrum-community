@@ -10,7 +10,7 @@ CMD cd $HOME && ls -ltr && echo "Work in progress."
 
 
 # Install the relevant packages
-#RUN apt-get install vim apache2 libapache2-mod-php5 php5-cli php5-mysqlnd curl php5-curl php5-mcrypt -y
+RUN apt-get install vim apache2 libapache2-mod-php5 php5-cli php5-mysqlnd curl php5-curl php5-mcrypt -y
 
 # Enable the php mod we just installed
 RUN a2enmod php5
