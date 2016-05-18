@@ -8,6 +8,8 @@ CMD git clone https://github.com/adityai/orangescrum
 
 CMD cd $HOME && ls -ltr && echo "Work in progress."
 
+# apt-get update
+RUN apt-get update 
 
 # Install the relevant packages
 RUN apt-get install vim apache2 libapache2-mod-php5 php5-cli php5-mysqlnd curl php5-curl php5-mcrypt -y
