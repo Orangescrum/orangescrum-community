@@ -1,7 +1,10 @@
+machine:
+  php:
+    version: 5.5.11
+    
 ## Customize dependencies
 dependencies:
   pre:
-    - apt-get install pear 
     - pear channel-discover pear.phing.info
     - pear install [--alldeps] phing/phing
     
