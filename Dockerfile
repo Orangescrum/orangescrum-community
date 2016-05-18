@@ -4,7 +4,7 @@ MAINTAINER adityaii@gmail.com
 # PHP Container for orangescrum
 
 # Clone orangescrum/orangescrum
-CMD git clone https://github.com/adityai/orangescrum
+CMD git clone https://github.com/orangescrum/orangescrum
 
 EXPOSE 8080
 
