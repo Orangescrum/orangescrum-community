@@ -6,7 +6,8 @@ machine:
 dependencies:
   pre:
     - pear channel-discover pear.phing.info
-    - pear install [--alldeps] phing/phing
+    - pear install phing/phing
+    - pear install cakephp/Phing_d51PearPkg2Task
     
 deployment:
   dockerhub:
