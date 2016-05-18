@@ -1,3 +1,10 @@
+## Customize dependencies
+dependencies:
+  pre:
+    - apt-get install pear 
+    - pear channel-discover pear.phing.info
+    - pear install [--alldeps] phing/phing
+    
 deployment:
   dockerhub:
     branch: master
