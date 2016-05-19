@@ -10,10 +10,8 @@ env:
   
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y apache2 php5-common libapache2-mod-php5 php5-cli npm nodejs
-  - wget http://pear.php.net/go-pear.phar
-  - sudo php go-pear.phar
-  
+  - sudo apt-get install -y apache2 php5-common libapache2-mod-php5 php5-cli npm nodejs php5-dev php-pear
+
 before_script:
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE cakephp_test;'; fi"
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE cakephp_test2;'; fi"
