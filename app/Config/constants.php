@@ -57,7 +57,7 @@ define('EMAIL_REPLY', "<div style='font-family:Arial;font-size:14px;color:#78787
 define('RELEASE',1); //Increase the release version on every CSS/JS changes to remove the browser cache
 
 ##################### Domain and URL Constants ############################
-define('SUB_FOLDER', ''); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'
+define('SUB_FOLDER', '@SUB_FOLDER'); //If your application URL followed by a folder name like: http://your-site.com/folder_name, put your folder name as 'folder_name/'
 
 if(php_sapi_name() === "cli") {
 	define('PROTOCOL', "http://");

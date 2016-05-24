@@ -42,7 +42,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'database' => '',
+		'database' => 'orangescrum',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
