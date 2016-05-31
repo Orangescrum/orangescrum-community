@@ -142,7 +142,7 @@ class ImageComponent {
 	    $orig_x = $getimagesize[0];
 	    $orig_y = $getimagesize[1];
 	    $orig_img_type = $getimagesize['2'];
-	    if (!$file_mime) {
+	    if (!@$file_mime) {
 		$file_mime = $getimagesize['mime'];
 	    }
 
@@ -159,7 +159,7 @@ class ImageComponent {
 		die("Image type not supported");
 
 	    if ($orig_x > $max_x or $orig_y > $max_y) {
-		if (!$file_mime) {
+		if (!@$file_mime) {
 		    $file_mime = @finfo_file(finfo_open(FILEINFO_MIME_TYPE), $from_name);
 		}
 		if ($file_mime) {
@@ -177,7 +177,7 @@ class ImageComponent {
 		$max_x = $orig_x;
 		$max_y = $orig_y;
 
-		if (!$file_mime) {
+		if (!@$file_mime) {
 		    $file_mime = @finfo_file(finfo_open(FILEINFO_MIME_TYPE), $from_name);
 		}
 		if ($file_mime) {
