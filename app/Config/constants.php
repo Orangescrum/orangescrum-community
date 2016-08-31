@@ -61,14 +61,14 @@ define('SUB_FOLDER', '@SUB_FOLDER'); //If your application URL followed by a fol
 
 if(php_sapi_name() === "cli") {
 	define('PROTOCOL', "http://");
-	define('DOMAIN', "www.my-orangescrum.com/"); // Please set your application domain (REQUIRED)
+	define('DOMAIN', "www.my-orangescrum.com"); // Please set your application domain (REQUIRED)
 }else{
 	$ht = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')?"https://":"http://";
 	define('PROTOCOL', $ht);
 	if($_SERVER['SERVER_PORT'] != 80)
-		define('DOMAIN', $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/"); 
+		define('DOMAIN', $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']); 
 	else	
-		define('DOMAIN', $_SERVER['SERVER_NAME']."/");
+		define('DOMAIN', $_SERVER['SERVER_NAME']);
 }
 define('HTTP_SERVER',PROTOCOL.DOMAIN);
 define('HTTP_ROOT', HTTP_SERVER.SUB_FOLDER);
