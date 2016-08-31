@@ -1213,3 +1213,19 @@ CREATE TABLE IF NOT EXISTS `user_subscriptions` (
   KEY `subscription_id` (`subscription_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Database: `os_security`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `os_session_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `os_session_logs` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_agent` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+

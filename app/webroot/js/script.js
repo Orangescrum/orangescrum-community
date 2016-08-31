@@ -7069,3 +7069,13 @@ function editTaskType(obj) {
     });    
     $("#task_type_nm").focus();   
 }
+function checkCsrfToken(formid) {
+    $('#subprof2').show();
+    $('#subprof1').hide();
+    $.post(HTTP_ROOT + "users/checkToken", {
+        'ajax': 1
+    }, function(res) {
+        $('.csrftoken').val(res.token);
+        $('#' + formid).submit();
+    }, 'json');
+}

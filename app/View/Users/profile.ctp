@@ -7,6 +7,7 @@
 	<hr style="margin-top:0px;background:grey;"/>
 </div> -->
 <?php echo $this->form->create('User',array('url'=>'/users/profile','onsubmit'=>'return submitProfile()','enctype'=>'multipart/form-data','class'=>'form-horizontal')); ?>
+<input type="hidden" name="data[User][csrftoken]" class="csrftoken" readonly="true" value="" />
 <table cellspacing="0" cellpadding="0" class="col-lg-5" style="text-align:left;">
     <tbody>
         <tr>
@@ -99,7 +100,8 @@
 	    <th></th>
             <td class="btn_align">
 		<span id="subprof1">
-		    <button type="submit" value="Update" name="submit_Profile"  id="submit_Profile" class="btn btn_blue"><i class="icon-big-tick"></i>Update</button>
+		    <?php /* <button type="submit" value="Update" name="submit_Profile"  id="submit_Profile" class="btn btn_blue"><i class="icon-big-tick"></i>Update</button> */ ?>
+		    <button type="button" value="Update" name="submit_Profile"  id="submit_Profile" class="btn btn_blue" onclick="checkCsrfToken('UserProfileForm');"><i class="icon-big-tick"></i>Update</button>
 		    <!--<button type="button" class="btn btn_grey" onclick="cancelProfile('<?php echo $referer;?>');"><i class="icon-big-cross"></i>Cancel</button>-->
 			<span class="or_cancel">or
 				<a onclick="cancelProfile('<?php echo $referer;?>');">Cancel</a>

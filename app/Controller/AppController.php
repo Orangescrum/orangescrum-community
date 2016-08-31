@@ -39,6 +39,39 @@ class AppController extends Controller {
     public $components = array('Auth','Session','Email', 'Cookie','Image','Format','Security');
     public $paginate = array();
 
+    function temp_logout() {
+        $this->Session->write('Auth.User.id', '');
+
+        unset($_SESSION['GOOGLE_USER_INFO']);
+        unset($_SESSION['user_last_login']);
+
+        setcookie('USER_UNIQ', '', -1, '/', DOMAIN_COOKIE, false, false);
+        setcookie('USERTYP', '', -1, '/', DOMAIN_COOKIE, false, false);
+        setcookie('USERTZ', '', -1, '/', DOMAIN_COOKIE, false, false);
+        setcookie('REMEMBER', '', -1, '/', DOMAIN_COOKIE, false, false);
+
+//        setcookie('SES_COMP', '', -1, '/', DOMAIN_COOKIE, false, false);
+//        setcookie('SES_TYPE', '', -1, '/', DOMAIN_COOKIE, false, false);
+        setcookie('SES_TZ', '', -1, '/', DOMAIN_COOKIE, false, false);
+
+        setcookie('is_osadmin', '', -1, '/', DOMAIN_COOKIE, false, false);
+        setcookie('REF_URL', '', -1, '/', DOMAIN_COOKIE, false, false);
+
+        $cookie = array();
+        $this->Cookie->write('Auth.User', $cookie, '-2 weeks');
+        /* if(SES_ID && !$qsrt) {
+          $this->User->id = SES_ID;
+          $this->User->saveField('dt_last_logout', GMT_DATETIME);
+          if($this->isiPad() && HTTP_ROOT!=HTTP_APP){
+          $retval = $this->Auth->logout();
+          $this->redirect(HTTP_APP.'users/logout');exit;
+          }
+          } */
+        $retval = $this->Auth->logout();
+        $this->redirect(HTTP_APP . 'users/login');
+        exit;
+    }
+
     public function beforeFilter() {
 		
 		$this->Security->validatePost=false;
@@ -160,6 +193,29 @@ class AppController extends Controller {
                 setcookie('USERTZ',$this->Auth->user('timezone_id'),$cookieTime,'/',DOMAIN_COOKIE,false,false);
                 setcookie('USERSUB_TYPE',$this->Auth->user('usersub_type'),$cookieTime,'/',DOMAIN_COOKIE,false,false);
             }
+
+            /* below code is for CSRF issue fixing: */
+            if (!isset($_SESSION['CSRFTOKEN'])) {
+                $tokn = $this->Format->genRandomStringCustom(25);
+                $_SESSION['CSRFTOKEN'] = $tokn;
+            }
+            /* end */
+            
+            /* below code is for log out users if password reset start: */
+            $t_uid = $this->Auth->User('id');
+            if (!$_COOKIE['user_uniq_agent']) {
+                $this->User->keepPassChk($t_uid);
+            }
+            $this->LoadModel('OsSessionLog');
+            $existing_ses = $this->OsSessionLog->getUserDetls($t_uid);
+            if ($existing_ses) {
+                $t_sql = 'SELECT password FROM users WHERE id=' . $t_uid . ' limit 1';
+                $rec_user_login = $this->User->query($t_sql);
+                if ($rec_user_login[0]['users']['password'] != $existing_ses['OsSessionLog']['user_agent'][$_COOKIE['user_uniq_agent']]) {
+                    $this->temp_logout();
+                }
+            }
+            /* end */
 
             if((!stristr(PAGE_NAME,"ajax_") && !in_array(PAGE_NAME,$ajaxPageArray)) || PAGE_NAME=='categorytab' || PAGE_NAME =='ajax_savecategorytab') {
                 $User = ClassRegistry::init('User');

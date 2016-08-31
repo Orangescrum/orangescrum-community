@@ -5,6 +5,7 @@
 
 <?php if(SES_ID != 515 && SES_ID != 516) {
     echo $this->Form->create('User',array('url'=>'/users/changepassword','onsubmit'=>"return checkPasswordMatch('pas_new','pas_retype','old_pass',".NO_PASSWORD.")",'autocomplete'=>'off')); ?>
+<input type="hidden" name="data[User][csrftoken]" class="csrftoken" readonly="true" value="" />
 <table cellspacing="0" cellpadding="0" class="col-lg-5" style="text-align:left;">
     <tbody>
         <tr style="visibility:<?php if(NO_PASSWORD){echo 'hidden; margin-top: -40px;position: absolute;';} else { echo 'visible;';} ?>" >
@@ -35,7 +36,8 @@
             <td class="btn_align">
             	<span id="subprof1">
 		<input type="hidden" name="data[User][changepass]" id="changepass" readonly="true" value="0"/>
-		<button type="submit" value="<?php if(NO_PASSWORD){echo 'Set';}else{ echo 'Change';}?>" name="submit_Pass"  id="submit_Pass" class="btn btn_blue" onclick="document.getElementById('changepass').value='1'"><i class="icon-big-tick"></i>Change</button>
+		<?php /*<button type="submit" value="<?php if(NO_PASSWORD){echo 'Set';}else{ echo 'Change';}?>" name="submit_Pass"  id="submit_Pass" class="btn btn_blue" onclick="document.getElementById('changepass').value='1'"><i class="icon-big-tick"></i>Change</button> */ ?>
+		<button type="button" value="<?php if(NO_PASSWORD){echo 'Set';}else{ echo 'Change';}?>" name="submit_Pass"  id="submit_Pass" class="btn btn_blue" onclick="$('#changepass').val('1');checkCsrfToken('UserChangepasswordForm');"><i class="icon-big-tick"></i>Change</button>
 		<!--<button type="button" class="btn btn_grey" onclick="cancelProfile('<?php echo $referer;?>');"><i class="icon-big-cross"></i>Cancel</button>-->
                  <span class="or_cancel">or
                     <a onclick="cancelProfile('<?php echo $referer;?>');">Cancel</a>

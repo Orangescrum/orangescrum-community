@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('UTC');
 ini_set("max_execution_time", 360);
-
+error_reporting(0);
 include_once("../Config/constants.php");
 include_once("../Config/database.php");
 
@@ -10,7 +10,7 @@ include_once("../Config/database.php");
 include_once('../Vendor/s3/S3.php');
 include_once('../../mailer/ImapMailbox.php');
 include_once('PHPMailer/PHPMailerAutoload.php');
-include_once('../Vendor/ElephantIO/Client.php');
+//include_once('../Vendor/ElephantIO/Client.php');
 
 define('LOG_PATH', '../tmp/logs/os-email.log');
 
@@ -66,11 +66,25 @@ if ($emails) {
         $imapMsgParts = $mailbox->getMail($overview[0]->uid); //echo '<pre>';print_r($imapMsgParts);die;
         $message = $imapMsgParts->textPlain; //textHtmlOriginal//textHtml;//imap_fetchbody($inbox,$email_number,1);
         $only_reply = $message;
-
+		if($message == ''){			
+			$chk_multibyt = 1;
+			$message = $imapMsgParts->textHtml;
+			$only_reply = $message;
+		}else{
+			$chk_multibyt = 0;
+		}
+		if(mb_detect_encoding($message, mb_detect_order(), true) == 'UTF-8'){
+			//print $message; this is for other utf8 characters
+		}else{
         if ($base64_msg = base64_decode($message, true)) {
             $message = $base64_msg;
         }
         $message = convert_ascii($message);
+		}
+        /*if ($base64_msg = base64_decode($message, true)) {
+            $message = $base64_msg;
+        }
+        $message = convert_ascii($message);*/
 		
         $savedirpath = "/tmp/";
         $message1 = array();
@@ -85,6 +99,10 @@ if ($emails) {
         $mail = @$header->sender['0']->mailbox;
         $hostid = @$header->sender['0']->host;
         $mail_id = $mail . "@" . $hostid; //mail id of sender
+		$googlemail_cond = '';
+		if($hostid == 'gmail.com'){
+			$googlemail_cond = $mail."@googlemail.com";
+		}
         $sender_name = isset($header->sender['0']->personal) ? $header->sender['0']->personal : $mail; //name of sender
         if (strpos($header->message_id, "blackberry") || $mail == "pgetty") {
             $message = imap_fetchbody($inbox, $email_number, 1.2);
@@ -93,6 +111,7 @@ if ($emails) {
 
         $is_daily_update = 0;
         $dlyUpdSubject = '';
+		$case_title = '';
         if (preg_match("/Daily Catch-Up - \d+\/\d+$/i", $header->subject, $matched)) {
             $is_daily_update = 1;
             $case_title = $matched[0];
@@ -100,17 +119,52 @@ if ($emails) {
         }
 
         if ($is_daily_update) {
+            /*$position = strpos($header->subject, "(") + 1;
+            $length = strpos($header->subject, ")") - $position;
+            $pj_sname = strtolower(substr($header->subject, $position, $length));
+	
+			$query_pid = "SELECT * FROM projects WHERE projects.short_name = '" . $pj_sname . "' AND projects.isactive='1'"; //details of the project
+			*/
+			
+			$t_mesg = explode('__0__',$message); // new ly added
             $position = strpos($header->subject, "(") + 1;
             $length = strpos($header->subject, ")") - $position;
             $pj_sname = strtolower(substr($header->subject, $position, $length));
+			if($t_mesg && count($t_mesg) >= 3){
+				$prj_uniq_id = $t_mesg[1];
+				$query_pid = "SELECT * FROM projects WHERE uniq_id = '" . $prj_uniq_id . "' AND projects.isactive='1'"; //details of the project
+			}else{
+				$query_pid = "SELECT * FROM projects WHERE short_name = '" . $pj_sname . "' AND projects.isactive='1'"; //details of the project
+			}
 
-            $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "' AND projects.isactive='1'"; //details of the project
             $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
+			$count_prject = mysql_num_rows($result_pid);
+			
+			if ($count_prject >= 2) {
+				$row_pid = array();
+				
+				$getUserId = mysql_fetch_assoc(mysql_query("select id from users where users.email='" . $mail_id . "'"));
+				
+				while($pj_array = mysql_fetch_assoc($result_pid)) {
+					
+					if(mysql_num_rows(mysql_query("select id from daily_updates where company_id='".$pj_array['company_id']."' and project_id='".$pj_array['id']."' and find_in_set('".$getUserId['id']."',user_id)"))) {
+						
+						$row_pid['company_id'] = $pj_array['company_id'];
+						$row_pid['id'] = $pj_array['id'];
+						$row_pid['uniq_id'] = $pj_array['uniq_id'];
+						$row_pid['name'] = $pj_array['name'];
+						$row_pid['short_name'] = $pj_array['short_name'];
+						
+						break;
+					}
+				}
+			}
+			else {
             $row_pid = mysql_fetch_assoc($result_pid);
+			}
 
-            if (mysql_num_rows($result_pid)) {
-//Getting parent task.
-                $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . addslashes($case_title) . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
+			if ($count_prject) {
+                $query = "SELECT Easycase.* FROM easycases AS Easycase WHERE Easycase.title = '" . $case_title . "' AND project_id = '" . $row_pid['id'] . "' AND Easycase.dt_created LIKE '" . gmdate('Y') . "%' LIMIT 1";
                 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
                 $query1 = "SELECT User.id,User.name,User.uniq_id,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id . "' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
@@ -270,6 +324,37 @@ if ($emails) {
         } else {
             $task_posted = 0;
             //$funiq=strpos($message,"Case#:");
+                          //print $message;exit;
+			$t_str = explode('/dashboard#details/',$message);
+			if(isset($t_str[1])){
+				$t_str[1] = trim($t_str[1]);
+				$t_str_eq =explode('>',$t_str[1]);
+			}
+			$cs_uniq_id = -1;
+			if(isset($t_str_eq[0])){
+				if(!empty($t_str_eq[0])){
+					$cs_uniq_id = trim($t_str_eq[0]);
+				}else{
+					$cs_uniq_id = trim($t_str_eq[1]);
+				}
+			}
+			$pos_srt = strpos($cs_uniq_id, '"');
+			if($pos_srt === false) {				
+			}else{
+				$cs_uniq_id = explode('"',$cs_uniq_id);
+				$cs_uniq_id = $cs_uniq_id[0];
+			}
+			if(stristr($cs_uniq_id,' ')){
+				$output = preg_replace('!\s+!', ' ', $cs_uniq_id);
+				$cs_uniq_id_t = explode(' ',$output);
+				$cs_uniq_id = $cs_uniq_id_t[0];
+			}
+			//31/08/2016
+			if(stristr($cs_uniq_id,'<https')){
+				$cs_uniq_id = explode('<https',$cs_uniq_id);
+				$cs_uniq_id = $cs_uniq_id[0];
+			}
+			#print $cs_uniq_id;exit;
             $funiq = strpos($message, "Task#:");
             $messagelast = substr($message, $funiq);
             $luniq = strpos($messagelast, "Type:");
@@ -289,17 +374,36 @@ if ($emails) {
             $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $cs_no = str_replace($carimap, $carhtml, $cs_no);
             $pj_sname = strip_tags(str_replace(" ", "", $pj_sname));
-            $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "'"; //details of the project
+			$query_pid_eq = "SELECT * FROM easycases WHERE uniq_id = '" . trim($cs_uniq_id) . "'"; //details of the project
+            
+			$result_pid_eq = mysql_query($query_pid_eq) or die('Query failed: ' . mysql_error());
+			$num_rows = 0;
+			$num_rows = mysql_num_rows($result_pid_eq);
+			/*$hj = fopen('wotextt.txt','a'); 
+			fwrite($hj,$query_pid_eq);
+			fwrite($hj,'---'.$num_rows.'----');*/
+			
+			if ( $num_rows < 1 ) {
+				/*$Failedmessage = "Couldn't identify the Task Uniq_id - " . $cs_uniq_id;
+				send_email(INFO_MAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
+				continue;*/
+			}		
+			
+			$row_pid_eq = mysql_fetch_assoc($result_pid_eq);	
+			//fwrite($hj,print_r($row_pid_eq,true));
+			$cs_no = $row_pid_eq['case_no'];
+            $query_pid = "SELECT * FROM projects WHERE id = '" . $row_pid_eq['project_id'] . "'"; //details of the project
 	    $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
+               
             $foundshortname = 1;
             if (!mysql_num_rows($result_pid)) {
                 $foundshortname = 0;
-                $gotit = 0;
                 $subject = $header->subject;
+				/*$gotit = 0;
                 $pj_sname = "";
                 if ($subject) {
                     $getunq = explode(":#", $subject);
-                    $nowunq = explode("(", @$getunq[1]);
+                    $nowunq = explode("(", $getunq[1]);
                     $cs_no = $nowunq[0];
 
                     preg_match_all('/\(([^)]+)\)/', $subject, $match);
@@ -311,9 +415,8 @@ if ($emails) {
                         }
                     }
                 }
-		
                 if ($pj_sname) {
-                    $query_pid = "SELECT * FROM projects WHERE short_name = '" . addslashes($pj_sname) . "'"; //details of the project
+                    $query_pid = "SELECT * FROM projects WHERE short_name = '" . $pj_sname . "'"; //details of the project
 		    $result_pid = mysql_query($query_pid) or die('Query failed: ' . mysql_error());
                     if (!mysql_num_rows($result_pid)) {
                         $gotit = 0;
@@ -323,22 +426,60 @@ if ($emails) {
                 }
                 if ($gotit == 0) {
                     $Failedmessage = "Couldn't identify the Project Short name - " . $pj_sname . "<br/> Sbject: " . $subject;
-		    if(php_sapi_name() === "cli") {
-			
-		    } else {
-				echo "Sbject: ".$subject."<br/>Couldn't identify the Project Short name - " . $pj_sname . "<br/><br/>";
-		    }
-		    send_email(DEV_EMAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
+                    send_email(INFO_MAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
                     continue;
-                }
+                }*/
+				$Failedmessage = "Couldn't identify the Project id - " . $row_pid_eq['project_id'] . "<br/> Sbject: " . $subject;
+				send_email(INFO_MAIL, '', "Failed to save Email reply in Orangescrum", $Failedmessage);
+				continue;
             } //if there is not project with this $pj_sname
 	    
             $row_pid = mysql_fetch_assoc($result_pid);
+			$pj_sname = $row_pid['short_name'];
             $cs_no = strip_tags($cs_no);
             $query = "SELECT * FROM easycases WHERE case_no = '" . $cs_no . "' AND project_id = '" . $row_pid['id'] . "' AND title != ''"; //details of the case
             $result = mysql_query($query) or die('Query failed: ' . mysql_error());
             $row = mysql_fetch_assoc($result);
 
+			/*$hj = fopen('wotextt_today.txt','a');
+			fwrite($hj,'==================================================================');
+			fwrite($hj,$query.'----'.$cs_uniq_id);
+			fwrite($hj,print_r($row_pid,true));*/
+			
+			/*$query1 = "SELECT User.id,User.name,User.last_name,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id . "' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";*/
+			//print $msg;exit;            
+			if($googlemail_cond != ''){
+				$query1 = "SELECT User.id,User.name,User.email,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE (User.email='" . $mail_id ."' OR User.email='".$googlemail_cond."') AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
+			}else{
+				$query1 = "SELECT User.id,User.name,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id ."' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
+			}
+
+            $result1 = mysql_query($query1) or die('Query failed: ' . mysql_error());
+            $row1 = mysql_fetch_assoc($result1);
+            $user_id = $row1['id']; //user id of the sender
+            $unq = md5(uniqid()); //uniq id in md5 format
+            $gmt_dttime = gmdate('Y-m-d H:i:s');
+			if($googlemail_cond != '' && trim($row1['email']) != ''){		
+				$mail_id = $row1['email'];
+			}
+			/*fwrite($hj,$query1.'----'.$user_id);
+			fwrite($hj,print_r($row1,true));*/
+			
+			$query_pusers = "SELECT User.id,User.name,User.last_name FROM users as User WHERE User.id IN(SELECT user_id FROM project_users WHERE project_id ='" . $row_pid['id'] . "')";
+            $result_pusers = mysql_query($query_pusers) or die('Query failed: ' . mysql_error());
+			while($row_puser = mysql_fetch_assoc($result_pusers)){
+				$row_pusers[] = $row_puser;
+			}
+			
+			$query_comp = "SELECT seo_url FROM companies as Company WHERE Company.id ='" . $row_pid['company_id'] . "'";
+            $result_comp = mysql_query($query_comp) or die('Query failed: ' . mysql_error());
+            $row_comp = mysql_fetch_assoc($result_comp);
+            $comp_name_seo = $row_comp['seo_url'];
+			
+			/*fwrite($hj,$foundshortname.'===---==='.$message);
+			fwrite($hj,print_r($header,true));
+			fwrite($hj,print_r($row_pusers,true));*/
+			
             if($foundshortname == 0 && trim($message) <= 8) {
                 $msg = $only_reply; $formatted = "";
                  if(stristr($msg,"Quoting ") && stristr($msg,"<".FROM_EMAIL_NOTIFY.">")) {
@@ -364,22 +505,15 @@ if ($emails) {
                     $msg = $formatted;
                 }
                  
-            } else {
-               $msg = getEmailMsg($header, $message);
             }
-            $query1 = "SELECT User.id,User.name,ProjectUser.company_id FROM users as User, project_users as ProjectUser WHERE User.email='" . $mail_id . "' AND User.id=ProjectUser.user_id AND ProjectUser.project_id='" . $row_pid['id'] . "'";
-            $result1 = mysql_query($query1) or die('Query failed: ' . mysql_error());
-            $row1 = mysql_fetch_assoc($result1);
-            $user_id = $row1['id']; //user id of the sender
-            $unq = md5(uniqid()); //uniq id in md5 format
-            $gmt_dttime = gmdate('Y-m-d H:i:s');
-			
-			$checkExists = mysql_num_rows(mysql_query("select id from easycases where message='".addslashes($msg)."' and user_id='".$user_id."' and project_id = '" . $row_pid['id'] . "' and title='' and case_no = '".$cs_no."'"));
-			if($checkExists >= 1) {
-				echo "Same Post Postign Again...";
-				continue;
+            else {				
+               $msg = getEmailMsg($header, $message,$row_pusers,$chk_multibyt);
 			}
-            
+			/*$hj_test = fopen('wotextt_today_o_p.txt','a');
+			fwrite($hj_test,$cs_uniq_id);
+			fwrite($hj_test,$msg);
+			fwrite($hj_test,'----uid:'.$user_id);
+			fclose($hj_test);*/
             if ($msg != "" && $user_id && mysql_num_rows($result)) {
                 //checking company is not cancel
                 $task_posted = 1;
@@ -408,7 +542,6 @@ if ($emails) {
 
                     $query2 = "INSERT INTO easycases (uniq_id,case_no,project_id,user_id,type_id,priority,title,message,assign_to,due_date,istype,format,status,legend,isactive,dt_created,actual_dt_created,from_email) VALUES
 ('" . $unq . "','" . $row['case_no'] . "','" . $row['project_id'] . "','" . $user_id . "','" . $row['type_id'] . "','" . $row['priority'] . "','','" . mysql_real_escape_string($msg) . "','" . $row['assign_to'] . "','" . $row['due_date'] . "','2','2','" . $row['status'] . "','2','" . $row['isactive'] . "','" . $actual_dt_created . "','" . $actual_dt_created . "','1')";
-
                     $result2 = mysql_query($query2) or die('Query failed: ' . mysql_error());
                     $last_id = mysql_insert_id();
                     if (isset($last_id)) {
@@ -565,7 +698,8 @@ if ($emails) {
                             /* if(strlen($projNameInSh)>20) {
                               $projNameInSh = substr($projNameInSh,0,19).'...';
                               } */
-                            $subject = "Re: [Orangescrum]:" . $projNameInSh . ":#" . $row['case_no'] . "(" . $pj_sname . ")" . "-" . stripslashes(html_entity_decode($row['title'], ENT_QUOTES));
+                            //$subject = "Re: [Orangescrum]:" . $projNameInSh . ":#" . $row['case_no'] . "(" . $pj_sname . ")" . "-" . stripslashes(html_entity_decode($row['title'], ENT_QUOTES));
+							$subject = "Re: " . $projNameInSh . " - " . stripslashes(html_entity_decode($row['title'], ENT_QUOTES));
 //type array
                             $types = array("1" => 'Bug', "2" => 'Development', "3" => 'Enhancement', "4" => "Research n Do", "5" => "Quality Assurance", "6" => "Unit Testing", "7" => "Maintenance", "8" => "Others", "9" => "Release", "10" => "Update");
                             $typ = $row['type_id']; //type id
@@ -602,7 +736,7 @@ if ($emails) {
 <tr bgcolor='#FFFFFF'>
 <td colspan='2' align='left' style='font:normal 12px verdana;line-height:20px' valign='top' >
 <font color='#737373'><b>Title: </b></font>
-<a href='" . $home . "/users/login/?case=" . $row['uniq_id'] . "&project=" . $row_pid['uniq_id'] . "' target='_blank' style='text-decoration:underline;color:#F86A0C;font:normal 12px verdana;'>" . stripslashes($row['title']) . "</a>
+<a href='" . $home . "users/login/dashboard#details/" . $row['uniq_id'] . "' target='_blank' style='text-decoration:underline;color:#F86A0C;font:normal 12px verdana;'>" . stripslashes($row['title']) . "</a>
 <br/>
 <font color='#737373'><b>Project:</b></font> " . $row_pid['name'] . "
 </td>
@@ -662,7 +796,7 @@ if ($emails) {
 <tr>
 <td align='left' style='font:12px Verdana;line-height:20px;padding-top:2px;color:#737373' colspan='2'>
 To read the original message, view comments, reply & download attachment:<br/>
-Link: <a href='" . $home . "users/login/?case=" . $row['uniq_id'] . "&project=" . $row_pid['uniq_id'] . "' target='_blank'>" . $home . "users/login/?case=" . $row['uniq_id'] . "&project=" . $row_pid['uniq_id'] . "</a>
+Link: <a href='" . $home . "users/login/dashboard#details/" . $row['uniq_id'] . "' target='_blank'>" . $home . "users/login/dashboard#details/" . $row['uniq_id'] . "</a>
 </td>	  
 </tr>
 <tr><td align='left' colspan='2'>&nbsp;</td></tr>
@@ -710,7 +844,8 @@ You are receiving this email notification because you have subscribed to oranges
                             }
                         }
                     }
-                    iotoserver(array('channel' => $row_pid['uniq_id'], 'message' => 'Updated.~~NA~~' . $row['case_no'] . '~~' . 'UPD' . '~~' . stripslashes(html_entity_decode($row['title'], ENT_QUOTES)) . '~~' . $row_pid['short_name']));
+					//tempporarily stopped due to server not updated to php > 5.4
+                    //iotoserver(array('channel' => $row_pid['uniq_id'], 'message' => 'Updated.~~NA~~' . $row['case_no'] . '~~' . 'UPD' . '~~' . stripslashes(html_entity_decode($row['title'], ENT_QUOTES)) . '~~' . $row_pid['short_name']));
                 } else {
                     write2log("Add Reply Error: The account is cancelled or not upgraded ::", $message, $mail_id, $header->subject, $header->date);
                 }
@@ -872,8 +1007,14 @@ function curlPostData($url, $data) {
     return $content;
 }
 
-function getEmailMsg($header, $body) {
+function getEmailMsg($header, $body, $user_detail=null,$chk_mbyt = null) {	
     $fromEmail = $header->from['0']->mailbox . "@" . $header->from['0']->host; //mail id of sender
+	$fromNamenext = $header->from['0']->mailbox; //name of sender
+	$user_detailRegex = '';
+	$notifyRegex = '';	
+    if ($fromNamenext) {
+        $fromNamenextRegex = "/^On(.*)$fromNamenext(.*)/i";
+    }
     $fromName = isset($header->from['0']->personal) ? decodeMimeStr($header->from['0']->personal) : null; //name of sender
     if ($fromName) {
         $frmNmRegex = "/^On(.*)$fromName(.*)/i";
@@ -890,29 +1031,49 @@ function getEmailMsg($header, $body) {
         $msg = substr($body, 0, $msgpos - 3);
     } else {
         $body_array = explode("\n", $body);
-        $patterns = array(
+        @$patterns = array(
             "/^_________________________________________________________________$/", //remove hotmail sig
             "/^-*(.*)Original Message(.*)-*/i", //original message quote
             "/^On(.*)wrote:(.*)/i", //check for date wrote string
             $frmNmRegex, //check for From Name email section
+			$fromNamenextRegex,//check for From Name email section possibly
             $toNmRegex, //check for To Name email section
             "/^(.*)$toEmail(.*)wrote:(.*)/i", //check for To Email email section
             "/^(.*)$fromEmail(.*)wrote:(.*)/i", //check for From Email email section
             "/^>(.*)/i", //check for quoted ">" section
             "/^---(.*)On(.*)wrote:(.*)/i"//check for date wrote string with dashes
         );
+		if($user_detail && !empty($user_detail)){
+			foreach($user_detail as $uk => $uv){
+				$user_detail_temp = $uv['name']. ' '. $uv['last_name'];
+				$user_detailRegex = "/^On(.*)$user_detail_temp(.*)/i";
+				array_splice($patterns, 3, 0, $user_detailRegex);
+			}
+		}
         $message = "";
         foreach ($body_array as $key => $value) {
+			if($chk_mbyt){
+				$value = strip_tags($value, '<br><li><ul><ol><u><i><p><span>');
+				if(stristr($value,'Just REPLY to this Email the same will be added under the Task')){
+					$value_t = explode('Just REPLY to this Email',$value);
+					$value = trim($value_t[0]);
+				}
+			}
             foreach ($patterns as $pattern) {
                 if (trim($pattern) && preg_match($pattern, $value, $matches)) {
                     break 2;
                 }
             }
+			if(stristr($value,'Just REPLY to this Email the same will be added under the Task')){		
+			}else{
             $message .= "$value\n"; //add line to body
         }
-
+        }
+		if(stristr($message,'*De :*')){
+			$t_message = explode('*De :*',$message);
+			$message = $t_message[0];
+		}
         $msg = $message; // = str_replace("*", "", $message);
-
         $msgpos = '';
 
         if (strpos($message, "Sent from")) {

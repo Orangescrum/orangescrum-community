@@ -1445,6 +1445,7 @@ class UsersController extends AppController {
 				setcookie('GOOGLE_INFO_SIGIN','',-365,'/',DOMAIN_COOKIE,false,false);
 			}
 			if(($this->Auth->login() || isset($usrLogin['User']['id'])) && $this->Auth->user('id')) {
+                $this->User->keepPassChk($this->Auth->user('id'));
 				if($usrLogin['User']['id']){
 					$this->saveUserInfo($usrLogin['User']['id'],$access_token,0);
 				}
@@ -1627,8 +1628,7 @@ class UsersController extends AppController {
 		$timezones = $this->TimezoneName->find('all');
 		$this->set('timezones', $timezones);
 		$email_update = 0;
-		if(isset($this->request->data['User']))
-		{
+		if ((isset($this->request->data['User']) && $_SESSION['CSRFTOKEN'] == trim($this->request->data['User']['csrftoken'])) || (isset($this->data['User']['id']) && !empty($this->data['User']['id']))) {
 		        if(trim($this->request->data['User']['email']) == ""){
 				$this->Session->write("ERROR","Email cannot be left blank");
 				$this->redirect(HTTP_ROOT."users/profile");
@@ -1720,6 +1720,9 @@ class UsersController extends AppController {
 				}
 				$this->redirect(HTTP_ROOT."users/profile");
 			}
+		} else if (isset($this->request->data['User'])) {
+            print "You are not authorized to do this operation.";
+            exit;
 		}
 		$Company = ClassRegistry::init('Company');
 		$Company->recursive = -1;
@@ -1768,7 +1771,7 @@ class UsersController extends AppController {
 		}
 	}
     function changepassword($img = null) {
-        if(isset($this->request->data['User']) && $this->request->data['User']['changepass'] == 1) {
+        if (isset($this->request->data['User']) && $this->request->data['User']['changepass'] == 1 && $_SESSION['CSRFTOKEN'] == trim($this->request->data['User']['csrftoken'])) {
             if($this->request->data['submit_Pass']=='Change') {
                 if(trim($this->request->data['User']['old_pass']) == "") {
 				$this->Session->write("ERROR","Old password cannot be left blank!");
@@ -1801,11 +1804,16 @@ class UsersController extends AppController {
 				$this->request->data['User']['password'] = md5($this->request->data['User']['pas_new']);
 				
 				//pr($this->request->data); exit;
-				$this->User->save($this->request->data);
+				if ($this->User->save($this->request->data)) {
+                    $this->User->keepPassChk(SES_ID);
+                }
 				
 				$this->Session->write("SUCCESS","Password changed successfully");
 				$this->redirect(HTTP_ROOT."users/changepassword");
 			}
+		} else if (isset($this->request->data['User']) && $this->request->data['User']['changepass'] == 1) {
+            print "You are not authorized to do this operation.";
+            exit;
 		}
 	}
 	public function customer_support() {
@@ -3073,7 +3081,7 @@ function done_cropimage(){
 		$UserNotification = ClassRegistry::init('UserNotification');
 		$getAllNot = $UserNotification->find('first',array('conditions'=>array('UserNotification.user_id'=>SES_ID)));
 		$this->set('getAllNot',$getAllNot);
-		if($this->request->data) {
+		if($this->request->data && $_SESSION['CSRFTOKEN'] == trim($this->request->data['UserNotification']['csrftoken'])) {
 			$this->request->data['User']['id'] = SES_ID;
 			if(!isset($this->request->data['User']['desk_notify'])) {
 				$this->request->data['User']['desk_notify'] = 0;
@@ -3087,6 +3095,9 @@ function done_cropimage(){
 			}
 			$this->Session->write("SUCCESS","Notifications changed successfully");
 			$this->redirect(HTTP_ROOT."users/email_notifications");	
+		} else if (isset($this->request->data['UserNotification'])) {
+            print "You are not authorized to do this operation.";
+            exit;
 		}
 				
 		
@@ -3098,7 +3109,7 @@ function done_cropimage(){
 		$UserNotification = ClassRegistry::init('UserNotification');
 		$getAllNot = $UserNotification->find('first',array('conditions'=>array('UserNotification.user_id'=>SES_ID)));
 		$this->set('getAllNot',$getAllNot);
-		if($this->request->data) {
+		if($this->request->data && $_SESSION['CSRFTOKEN'] == trim($this->request->data['UserNotification']['csrftoken'])) {
 //			pr($this->request);exit;
 			if(isset($this->request->data['UserNotification']))
 			{	
@@ -3126,6 +3137,9 @@ function done_cropimage(){
 			}
 			$this->Session->write("SUCCESS","Reports changed successfully");
 			$this->redirect(HTTP_ROOT."users/email_reports");	
+		} else if (isset($this->request->data)) {
+            print "You are not authorized to do this operation.";
+            exit;
 		}
 	}
 	function mycompany(){
@@ -3135,8 +3149,8 @@ function done_cropimage(){
 		$Company = ClassRegistry::init('Company');
 		$Company->recursive = -1;
 
-		if(isset($this->request->data['Company']))
-		{
+		if (isset($this->request->data['Company']) && $_SESSION['CSRFTOKEN'] == trim($this->request->data['Company']['csrftoken'])) {
+            
 			if(trim($this->request->data['Company']['name']) == "")
 			{
 				$this->Session->write("ERROR","Name cannot be left blank");
@@ -3147,6 +3161,9 @@ function done_cropimage(){
 				$this->Session->write("SUCCESS","Company updated successfully");
 				$this->redirect(HTTP_ROOT."users/mycompany");
 			}
+		} else if (isset($this->request->data['Company'])) {
+            print "You are not authorized to do this operation.";
+            exit;
 		}
 		$getCompany = $Company->find('first',array('conditions'=>array('Company.id'=>SES_COMP)));
 		$this->set('getCompany',$getCompany);
@@ -3481,6 +3498,17 @@ function done_cropimage(){
 	}	
 	echo json_encode($msg);
 	exit;
+    }
+   
+    function checkToken() {
+        $this->layout = 'ajax';
+        if ($this->request->data['ajax']) {
+            echo json_encode(array('token' => $_SESSION['CSRFTOKEN']));
+            exit;
+        } else {
+            print "You are not authorized to do this operation.";
+            exit;
+        }
     }
    
 }

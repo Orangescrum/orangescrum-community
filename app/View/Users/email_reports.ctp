@@ -6,6 +6,7 @@
         <h2 style="">Send me Email Reports</h2>
     </div>
     <?php echo $this->Form->create('UserNotification',array('url'=>'/users/email_reports','onsubmit'=>"return validateemailrpt();")); ?>
+    <input type="hidden" name="data[UserNotification][csrftoken]" class="csrftoken" readonly="true" value="" />
     <table cellspacing="0" cellpadding="0" class="email_mgt">
         <input type="hidden" name="data[UserNotification][id]" value="<?php echo @$getAllNot['UserNotification']['id']; ?>"/>
         <input type="hidden" name="data[UserNotification][type]" value="1"/>
@@ -160,7 +161,8 @@
                 <td class="btn_align btn_eml_lt">
                     <span id="subprof1">
                         <input type="hidden" name="data[User][changepass]" id="changepass" readonly="true" value="0"/>
-                        <button type="submit" value="Save" name="submit_Pass"  id="submit_Pass" class="btn btn_blue"><i class="icon-big-tick"></i>Update</button>
+                        <?php /* <button type="submit" value="Save" name="submit_Pass"  id="submit_Pass" class="btn btn_blue"><i class="icon-big-tick"></i>Update</button> */ ?>
+                        <button type="button" value="Save" name="submit_Pass"  id="submit_Pass" class="btn btn_blue" onclick="checkCsrfToken('UserNotificationEmailReportsForm');"><i class="icon-big-tick"></i>Update</button>
                         <!--<button type="button" class="btn btn_grey" onclick="cancelProfile('<?php echo $referer;?>');"><i class="icon-big-cross"></i>Cancel</button>-->
                         <span class="or_cancel">or
                             <a onclick="cancelProfile('<?php echo $referer;?>');">Cancel</a>

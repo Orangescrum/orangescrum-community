@@ -390,4 +390,39 @@ class User extends AppModel{
 		}
 		return $arr;
 	}
+    
+    /**
+     * @Method: Public keepPassChk($uid) Check users logged in different browsers and logged out if some one changes the password
+     * @author PRB <support@orangescrum.com>
+     * @return array 
+     */
+    function keepPassChk($uid) {
+        App::import('Model', 'OsSessionLog');
+        $OsSessionLog = new OsSessionLog();
+        $existing_ses = $OsSessionLog->getUserDetls($uid);
+        $rec_user_login = $this->find('first', array('conditions' => array('User.id' => $uid), 'fields' => array('User.password', 'User.name', 'User.email')));
+        $ck_val = '';
+        if (empty($rec_user_login['User']['name'])) {
+            $_t_nm = explode('@', $rec_user_login['User']['email']);
+            $arr_user_rec = array('temp_name' => $_t_nm[0], 'email' => $rec_user_login['User']['email']);
+        } else {
+            $arr_user_rec = array('temp_name' => $rec_user_login['User']['name'], 'email' => $rec_user_login['User']['email']);
+        }
+        if (!$_COOKIE['user_uniq_agent']) {
+            $var_unq = uniqid(rand());
+            setcookie('user_uniq_agent', $_SESSION['Config']['userAgent'] . $var_unq, time() + 60 * 60 * 24 * 30 * 12, '/', DOMAIN_COOKIE, false, false);
+            $ck_val = $_SESSION['Config']['userAgent'] . $var_unq;
+        } else {
+            $ck_val = $_COOKIE['user_uniq_agent'];
+        }
+        if ($existing_ses) {
+            $existing_ses['OsSessionLog']['user_agent'][$ck_val] = $rec_user_login['User']['password'];
+            $existing_ses['OsSessionLog']['user_agent'] = json_encode($existing_ses['OsSessionLog']['user_agent']);
+            $OsSessionLog->save($existing_ses);
+        } else {
+            $existing_ses_input['OsSessionLog']['user_id'] = $uid;
+            $existing_ses_input['OsSessionLog']['user_agent'] = json_encode(array($ck_val => $rec_user_login['User']['password']));
+            $OsSessionLog->save($existing_ses_input);
+        }
+    }
 }

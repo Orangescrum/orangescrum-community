@@ -1576,5 +1576,13 @@ function getSqlFields($arr, $prj_unq_id) {
 		}
 		return $zip->close();
 	}	
+    function genRandomStringCustom($length = 7) {
+        $characters = '0123456789@$abcdefghijklmnopqrstuvwxyz';
+        $string = '';
+        for ($p = 0; $p < $length; $p++) {
+            $string .= $characters[mt_rand(0, strlen($characters))];
+        }
+        return $string;
+    }
 }
 ?>
