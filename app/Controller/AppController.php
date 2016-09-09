@@ -212,7 +212,7 @@ class AppController extends Controller {
                 $t_sql = 'SELECT password FROM users WHERE id=' . $t_uid . ' limit 1';
                 $rec_user_login = $this->User->query($t_sql);
                 if ($rec_user_login[0]['users']['password'] != $existing_ses['OsSessionLog']['user_agent'][$_COOKIE['user_uniq_agent']]) {
-                    $this->temp_logout();
+                    #$this->temp_logout();
                 }
             }
             /* end */
