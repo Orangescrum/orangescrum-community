@@ -2139,7 +2139,7 @@ $('.ctab_td').hover(function(){
 //Profile Starts
 function submitProfile() {
     var name1 = $('#profile_name').val().trim();
-    var last_name = $('#profile_last_name').val().trim();
+    //var last_name = $('#profile_last_name').val().trim();
     var short_name = $('#short_name').val().trim();
     var errMsg;
     var done = 1;
@@ -2147,11 +2147,11 @@ function submitProfile() {
         errMsg = "First Name cannot be left blank!";
         $('#profile_name').focus();
         done = 0;
-    }else if (last_name == "") {
+    }/*else if (last_name == "") {
         errMsg = "Last Name cannot be left blank!";
         $('#profile_last_name').focus();
         done = 0;
-    }else if (short_name == "") {
+    }*/else if (short_name == "") {
         errMsg = "Short Name cannot be left blank!";
         $('#short_name').focus();
         done = 0;
@@ -3430,8 +3430,8 @@ function submitCompany() {
     $('#subprof1').hide();
     $('#subprof2').show();
     var cmpname = $("#cmpname").val();
-    var website = $("#website").val();
-    var phone = $("#contact_phone").val();
+    /*var website = $("#website").val();
+    var phone = $("#contact_phone").val(); */
     var errMsg;
     var done = 1;
     //var regUrl = "^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)";
@@ -3443,7 +3443,7 @@ function submitCompany() {
         errMsg = "Name cannot be left blank!";
         $("#name").focus();
         done = 0;
-    }else if(website.trim().length != 0 && !website.trim().match(regUrl)) {
+    }/*else if(website.trim().length != 0 && !website.trim().match(regUrl)) {
 
         errMsg = 'Please enter valid website url.';
         $("#website").focus();
@@ -3452,7 +3452,7 @@ function submitCompany() {
         errMsg = 'Please enter valid contact number.';
         $("#phone").focus();
         done = 0;
-    }
+    }*/
 
 
     if(done == 0) {

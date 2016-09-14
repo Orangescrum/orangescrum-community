@@ -3137,7 +3137,7 @@ function done_cropimage(){
 			}
 			$this->Session->write("SUCCESS","Reports changed successfully");
 			$this->redirect(HTTP_ROOT."users/email_reports");	
-		} else if (isset($this->request->data)) {
+		} else if (isset($this->request->data['UserNotification']) || isset($this->request->data['DailyupdateNotification'])) {
             print "You are not authorized to do this operation.";
             exit;
 		}

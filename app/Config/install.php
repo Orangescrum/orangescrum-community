@@ -271,7 +271,7 @@ function check_subfolder(){
 	}else if($vhosted_folders[count($vhosted_folders) - 1] != '' && $vhosted_folder == $sub_folder){
 		$sub_folder = '/';
 	}
-	if(SUB_FOLDER == '' || $sub_folder != SUB_FOLDER){
+	if($sub_folder != SUB_FOLDER){
 		$path = $root.DS.'app'.DS.'Config'.DS.'constants.php';
 		$tmppath = $root.DS.'app'.DS.'Config'.DS.'constants_tmp.php';
 		$File = new File($path, true, 0777);
