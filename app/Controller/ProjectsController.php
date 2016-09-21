@@ -1542,7 +1542,7 @@ function ajax_save_filter(){
 		$this->LoadModel('Type');
 		$allTasks = $this->Type->getAllTypes();
 		foreach($allTasks as $taskType){
-				array_push($task_type_arr, $taskType['Type']['short_name'], $taskType['Type']['name']);
+				array_push($task_type_arr, strtolower($taskType['Type']['short_name']), strtolower($taskType['Type']['name']));
 		}
 		
 		$task_status_arr = array('new','close','wip','resolve','resolved','closed');
@@ -1813,8 +1813,8 @@ function get_type_id($type){
 	$this->LoadModel('Type');
 	$allTasks = $this->Type->getAllTypes();
 	foreach($allTasks as $taskType){
-			$task_type_arr[$taskType['Type']['short_name']] = $taskType['Type']['id'];
-			$task_type_arr[$taskType['Type']['name']] = $taskType['Type']['id'];
+			$task_type_arr[strtolower($taskType['Type']['short_name'])] = $taskType['Type']['id'];
+			$task_type_arr[strtolower($taskType['Type']['name'])] = $taskType['Type']['id'];
 	}
 
 	// if the type exists in the array, return it's id
