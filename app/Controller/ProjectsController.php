@@ -1537,14 +1537,7 @@ function ajax_save_filter(){
 	function csv_dataimport() {
 		$project_id = $this->data['proj_id'];
 		$project_uid = $this->data['proj_uid'];
-		
-		$task_type_arr = array();
-         	$this->LoadModel('Type');
-         	$allTasks = $this->Type->getAllTypes();
-         	foreach($allTasks as $taskType){
-             		array_push($task_type_arr, $taskType['Type']['short_name'], $taskType['Type']['name']);
-         	}
-		
+		$task_type_arr = array('enhancement','enh','bug','research n do','rnd','quality assurance','qa','unit testing','unt','maintenance','mnt','others','oth','release','rel','update','upd','development','dev');
 		$task_status_arr = array('new','close','wip','resolve','resolved','closed');
 		$this->loadModel('User');
 		$this->loadModel('ProjectUser');
