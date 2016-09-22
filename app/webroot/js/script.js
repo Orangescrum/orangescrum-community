@@ -376,7 +376,7 @@ function closePopup() {
     $(".cmn_popup").hide();
     /*if($('#prjct_id').val() != ''){
         $('#prjct_id').val('');
-        $('#prjct_name').val(''); 
+        $('#prjct_name').val('');
     }*/
 
 }
@@ -2183,7 +2183,7 @@ function checkPasswordMatch(a, b, c,d) {
             errMsg = "Password cannot be  blank!";
             document.getElementById(a).focus();
             done = 0;
-        } 
+        }
 		/*else if (pass_new.length < 6) {
             errMsg = "Password should be between 6-15 characters!";
             document.getElementById(a).focus();
@@ -2286,7 +2286,7 @@ function profilePopupCancel() {
 $(function() {
     $('#upldphoto').change(function() {
         profilePopupClose();
-        var ext = this.value.match(/\.(.+)$/)[1].toLowerCase();
+        var ext = this.value.match(/\.([a-z]+)$/)[1].toLowerCase();
         if ($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp"]) == -1) {
             alert("Sorry, '" + ext + "' file type is not allowed!");
             this.value = '';
@@ -2323,7 +2323,7 @@ $(function() {
 
                     var imgNm = HTTP_ROOT + "files/profile/orig/" + file.filename;
                     //$('#up_files1').html('<img src="' + imgNm + '" id="profilephoto">');
-                    $(' #up_files_usr').html('<img src="' + imgNm + '" id="profilephoto">');                   
+                    $(' #up_files_usr').html('<img src="' + imgNm + '" id="profilephoto">');
                     $("#imgName1").val(file.filename);
                     $("#profLoader").hide();
                     $('#profilephoto').imgAreaSelect({
@@ -2392,7 +2392,7 @@ function profilePopupClose() {
         hide:true
     });
     //$('#up_files1').html('');
-    $('#up_files_usr').html('');     
+    $('#up_files_usr').html('');
     closePopup();
 }
 
@@ -3245,7 +3245,7 @@ function searchMilestone(file_id,uniq_id, file_srch,isActive) {
     if($('#view_type').val()=='kanban'){
         //              var strURL = HTTP_ROOT+"milestones/";
         //                casePage = 1;
-    
+
         var projIsChange = $('#projIsChange').val();
         //    var fileUrl = strURL+"ajax_milestonelist";
         search_key = file_srch;
@@ -3281,13 +3281,13 @@ function searchMilestone(file_id,uniq_id, file_srch,isActive) {
     }
     $('#srch_load1').hide();
 //            scrollPageTop($("#caseFileDv"));
-        
+
 //        loadCaseMenu(strURL+"ajax_case_menu", {
 //            "projUniq":uniq_id,
 //            "pageload":0,
 //            "page":"dashboard"
 //        })
-    
+
 //    remember_filters('ALL_PROJECT','');
 /*}else{
 		$('#case_search').focus();
@@ -4238,7 +4238,7 @@ function getProjectMembers(obj) {
     $.post(strURL,{
         "id":obj.value
     },function(res){
-		
+
 		var res = res.replace("<head/>", "");
 		var res = res.replace("<head/ >", "");
 		var res = res.replace("<head />", "");
@@ -5243,7 +5243,7 @@ function showProjectName(name,id,mid) {
             }
         });
     }
-	if(mid != ''){         
+	if(mid != ''){
         milstoneonTask($('#main-title-holder_'+mid+ ' a').text(),mid);
     }else{
         milstoneonTask();
@@ -5422,7 +5422,7 @@ function notifyMe(title, desc, icon) {
     });
   }
 
-  // At last, if the user already denied any notification, and you 
+  // At last, if the user already denied any notification, and you
   // want to be respectful there is no need to bother him any more.
 }
 //end chrome desktop notification function
@@ -6269,7 +6269,7 @@ function CaseDashboard(pjid, pname) {
     $('#CS_project_id').val(pjid);
     $('#projUpdateTop').html(decodeURIComponent(pname));
     //PRB
-    
+
     $('#pname_dashboard').html(shortLength(decodeURIComponent(pname),20));
     $('#projpopup').hide();
     $("#find_prj_dv").hide();
@@ -6301,7 +6301,7 @@ function loadDashboardPage(projid) {
             orderStr.push(DASHBOARD_ORDER[i].name.toLowerCase().replace(' ','_'));
         }
     }
-    
+
     var sequency = orderStr;
 
     for(var i in sequency) {
@@ -6337,7 +6337,7 @@ function showTaskStatus(obj, projid) {
     var url = HTTP_ROOT + "easycases/task_type";
     var task_type_id = $(obj).val();
     createCookie("TASK_TYPE_IN_DASHBOARD", task_type_id, 365, DOMAIN_COOKIE);
-    
+
     $.post(url, {"projid":projid,"task_type_id":task_type_id}, function(res) {
         if (res) {
             cmnDashboard("task_type", res);
@@ -6951,7 +6951,7 @@ function addNewTaskType() {
     $("#task_type_shnm").on("keyup", function(){
 	$(this).val($(this).val().toLowerCase());
     });
-    
+
     $("#task_type_nm").focus();
 }
 
@@ -6961,7 +6961,7 @@ function validateTaskType() {
     var shnm = $.trim($("#task_type_shnm").val());
     var id = $.trim($("#new-typeid").val());
     $("#tterr_msg").html("");
-    
+
     if (nm === "") {
         msg = "'Name' cannot be left blank!";
 	$("#tterr_msg").show().html(msg);
@@ -6975,7 +6975,7 @@ function validateTaskType() {
             return false;
         }
     }
-    
+
     if (shnm === "") {
         msg = "'Short Name' cannot be left blank!";
 	$("#tterr_msg").show().html(msg);
@@ -6995,7 +6995,7 @@ function validateTaskType() {
 		 $("#ttbtn").hide();
 		 $("#ttloader").show();
 		 $('#customTaskTypeForm').submit();
-	     }else{		 
+	     }else{
 		 $("#ttbtn").show();
 		 $("#ttloader").hide();
 		 if(data.msg == 'name'){
@@ -7004,7 +7004,7 @@ function validateTaskType() {
 		     $("#tterr_msg").show().html('Short Name already esists!. Please enter another short name.');
 		 }else{
 		     $("#tterr_msg").show().html('Oops! Missing input parameters.');
-		 }		 
+		 }
 		 return false;
 	     }
 	 },'json');
@@ -7018,7 +7018,7 @@ function saveTaskType() {
 	    isTaskIds = 1;
 	}
     });
-    
+
     if (parseInt(isTaskIds)) {
 	$('.all_tt').attr('disabled', false);
 	$("#tt_save_btn").hide();
@@ -7034,7 +7034,7 @@ function saveTaskType() {
 function deleteTaskType(obj) {
    var nm = $(obj).attr("data-name");
    var id = $(obj).attr("data-id");
-   
+
    if (confirm("Are you sure you want to delete '"+nm+"' task type ?")) {
 	$("#del_tsk_"+id).hide();
 	$("#lding_tsk_"+id).show();
@@ -7063,11 +7063,11 @@ function editTaskType(obj) {
     $('#inner_tasktype').show();
     $("#task_type_nm").val(nm);
     $("#task_type_shnm").val(srt_name);
-    $("#new-typeid").val(id);    
+    $("#new-typeid").val(id);
     $("#task_type_shnm").on("keyup", function(){
 	$(this).val($(this).val().toLowerCase());
-    });    
-    $("#task_type_nm").focus();   
+    });
+    $("#task_type_nm").focus();
 }
 function checkCsrfToken(formid) {
     $('#subprof2').show();
