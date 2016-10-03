@@ -5649,7 +5649,7 @@ class EasycasesController extends AppController {
 		project_users AS ProjectUser,projects AS Project WHERE ".$cond." ProjectUser.user_id='".SES_ID."' AND ProjectUser.project_id=Project.id AND 
 		Project.isactive='1' AND ProjectUser.company_id='".SES_COMP."')  AND ((Easycase.assign_to='".SES_ID."') OR 
 		(Easycase.assign_to=0 AND Easycase.user_id='".SES_ID."')) ORDER BY  Easycase.project_id DESC) AS Easycase LEFT JOIN projects AS Project
-		ON (Easycase.project_id=Project.id)  ORDER BY Easycase.due_date DESC, Easycase.dt_created DESC LIMIT 0,$qry_limit";
+		ON (Easycase.project_id=Project.id)  ORDER BY Easycase.due_date ASC, Easycase.dt_created DESC LIMIT 0,$qry_limit";
         $gettodos = $this->Easycase->query($sql);
         $tot = $this->Easycase->query("SELECT FOUND_ROWS() as total");
 
