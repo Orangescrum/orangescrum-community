@@ -4,7 +4,7 @@
 	<div class="col-lg-5 ft_lt_div" id="csTotalHours">
 	</div>
 	<div class="col-lg-2 text-centre ft_md_div">
-	Orangescrum  
+	Orangescrum <?php echo VERSION; ?>
 	</div>
 	<div class="col-lg-5 text-right rht_ft_txt ft_rt_div" id="projectaccess">
 	

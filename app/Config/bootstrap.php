@@ -197,3 +197,4 @@ CakeLog::config('error', array(
 Configure::write('DTAB', array( 1=>array('ftext'=>'All Tasks','fkeyword'=>'cases'),2 => array('ftext'=>'My Tasks','fkeyword'=>'assigntome'),4 =>array('ftext'=>'Overdue','fkeyword'=>'overdue'),8=>array('ftext'=>'Delegated','fkeyword'=>'delegateto'),16 =>array('ftext'=> 'High Priority','fkeyword'=>'highpriority')));
 
 Configure::write('default_action','mydashboard');
+define('VERSION', '1.6.1');
