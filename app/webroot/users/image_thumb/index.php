@@ -7,6 +7,7 @@ if (!defined('WWW_ROOT')) {
     $dir = dirname(__FILE__);
     define('WWW_ROOT', substr($dir,0,stripos($dir,'webroot')+strlen('webroot')). DS);
 }
+error_reporting(0);
 include("../../../Config/constants.php");
 use ImageComponent as Image;
 
