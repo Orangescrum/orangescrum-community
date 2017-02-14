@@ -11,6 +11,8 @@
 -- Table structure for table `archives`
 --
 
+USE orangescrum;
+
 DROP TABLE IF EXISTS `archives`;
 CREATE TABLE IF NOT EXISTS `archives` (
   `id` int(250) NOT NULL AUTO_INCREMENT,
