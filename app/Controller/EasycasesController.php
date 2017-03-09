@@ -2609,7 +2609,7 @@ class EasycasesController extends AppController {
             }
             $idlist = trim($idlist,',');
 	    $cur_dt = date('Y-m-d',strtotime(GMT_DATETIME));
-            $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.due_date !="" AND Easycase.due_date !="0000-00-00" AND Easycase.due_date !="1970-01-01" AND Easycase.due_date < "'.$cur_dt.'" AND (Easycase.legend =1 || Easycase.legend=2)  AND Easycase.project_id IN('.$idlist.') AND (Easycase.assign_to='.SES_ID.' OR ( Easycase.assign_to=0 AND Easycase.user_id='.SES_ID.')) '.$qry.' '.$searchcase);
+            $assignToMe = $this->Easycase->query('SELECT COUNT(DISTINCT Easycase.id) AS asigntocnt FROM easycases AS Easycase WHERE Easycase.isactive=1 AND Easycase.istype=1 AND Easycase.project_id IN(' . $idlist . ') AND (Easycase.assign_to=' . SES_ID . ' OR ( Easycase.assign_to=0 AND Easycase.user_id=' . SES_ID . ')) ' . $qry . ' ' . $searchcase);
 //			$assignToMe = $this->Easycase->find('count', array('conditions' => array(
 //			"OR" => array(
 //			'AND' => array(
