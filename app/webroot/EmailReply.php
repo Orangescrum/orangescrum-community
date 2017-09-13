@@ -60,6 +60,8 @@ if ($emails) {
         $overview = imap_fetch_overview($inbox, $email_number, 0);
         $header = imap_headerinfo($inbox, $email_number, 1);
 
+        
+        mysql_query("SET NAMES utf8"); 
         /* echo '<pre>';print_r($overview);
           print_r($header);die; */
 
@@ -324,11 +326,19 @@ if ($emails) {
         } else {
             $task_posted = 0;
             //$funiq=strpos($message,"Case#:");
-                          //print $message;exit;
-			$t_str = explode('/dashboard#details/',$message);
+                      //    print $message;exit;
+                       /* $link_str = strstr( $message , 'Link: ');
+                        $link_str = strstr( $link_str , 'This email notification is sent by app to app',true);
+                        
+                        $link_str = str_replace(array('Link: ','>'),"",  strip_tags($link_str) );
+                   
+                        $link_str = preg_replace('/\s+/', '', $link_str);
+			$t_str = explode('/dashboard#details/',$link_str); */
+            $msg= preg_replace('/\s+/', '', str_replace(array('>'),"",$message ));
+			$t_str = explode('/dashboard#details/',$msg);
 			if(isset($t_str[1])){
 				$t_str[1] = trim($t_str[1]);
-				$t_str_eq =explode('>',$t_str[1]);
+				$t_str_eq =explode('/',$t_str[1]);
 			}
 			$cs_uniq_id = -1;
 			if(isset($t_str_eq[0])){
@@ -361,17 +371,17 @@ if ($emails) {
             $uniq = substr($message, $funiq + 6, $luniq - 6);
             $uniq = str_replace("*", "", $uniq);
             $carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
-            $carhtml = array("Ã©", "Ã¨", "Ãª", "Ã«", "Ã§", "Ã ", "&nbsp;", "Ã€", "Ã‰");
+            $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $uniq = str_replace($carimap, $carhtml, $uniq);
             $cs_all = trim($uniq);
             $pj_ex = explode("-", $cs_all);
             $pj_sname = $pj_ex['0'];
             $carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
-            $carhtml = array("Ã©", "Ã¨", "Ãª", "Ã«", "Ã§", "Ã ", "&nbsp;", "Ã€", "Ã‰");
+            $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $pj_sname = str_replace($carimap, $carhtml, $pj_sname);
             $cs_no = @$pj_ex['1'];
             $carimap = array("=C3=A9", "=C3=A8", "=C3=AA", "=C3=AB", "=C3=A7", "=C3=A0", "=20", "=C3=80", "=C3=89");
-            $carhtml = array("Ã©", "Ã¨", "Ãª", "Ã«", "Ã§", "Ã ", "&nbsp;", "Ã€", "Ã‰");
+            $carhtml = array("é", "è", "ê", "ë", "ç", "à", "&nbsp;", "À", "É");
             $cs_no = str_replace($carimap, $carhtml, $cs_no);
             $pj_sname = strip_tags(str_replace(" ", "", $pj_sname));
 			$query_pid_eq = "SELECT * FROM easycases WHERE uniq_id = '" . trim($cs_uniq_id) . "'"; //details of the project

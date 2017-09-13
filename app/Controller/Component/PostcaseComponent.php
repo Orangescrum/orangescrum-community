@@ -747,7 +747,7 @@ class PostcaseComponent extends CookieComponent {
         <tr>
         <td width='100%' bgcolor='#ffffff' style='text-align:left;font:14px Arial'>
         <p style='color:#676767; line-height:20px;'>
-        To read the original message, view comments, reply & download attachment: <br/> Link: <a href='" . $domain . "users/login/dashboard#details/" . $case_uniq_id . "' target='_blank'>" . $domain . "users/login/dashboard#details/" . $case_uniq_id . "</a>
+        To read the original message, view comments, reply & download attachment: <br/> Link: <a href='" . $domain . "users/login/dashboard#details/" . $case_uniq_id . "' target='_blank'>" . $domain . "users/login/dashboard#details/" . $case_uniq_id . "/</a>
         </p>
         <p style='color:#676767; padding-top:2px;'>
         This email notification is sent by " . $by_name . " to " . $name_email . "
