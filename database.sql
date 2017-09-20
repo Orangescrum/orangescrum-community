@@ -1087,7 +1087,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `isactive` (`isactive`),
   KEY `isemail` (`isemail`),
   KEY `timezone_id` (`timezone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
