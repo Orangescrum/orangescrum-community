@@ -14,6 +14,7 @@ COPY ./orangescrum.conf /etc/apache2/conf-available/
 
 COPY ./ /var/www/html/
 
+WORKDIR /var/www/html
 # update folders permission
 RUN chmod -R 0777 app/Config
 RUN chmod -R 0777 app/tmp
