@@ -8,7 +8,6 @@ services:
       - mysql:mysql
     ports: 
       - 80:80
-    restart: "yes"
   mysql:
     image: mysql
     environment: 
@@ -16,6 +15,6 @@ services:
       MYSQL_DATABASE: 'orangescrum'
     volumes: 
       - ./database.sql:/docker-entrypoint-initdb.d/dump.sql
-    restart: "yes"
     command: mysqld --sql-mode=""
+
   
