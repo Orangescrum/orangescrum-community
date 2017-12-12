@@ -18,10 +18,4 @@ services:
       - ./database.sql:/docker-entrypoint-initdb.d/dump.sql
     restart: "yes"
     command: mysqld --sql-mode=""
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    links: 
-      - mysql:db
-    ports: 
-      - 9080:80
   
