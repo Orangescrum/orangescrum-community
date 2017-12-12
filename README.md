@@ -1,5 +1,12 @@
 **Orangescrum** is a free, open source, flexible project management web application written using CakePHP.
 
+#### Quick Start
+    * 開啟 `app/Config/constants.php`
+        * 更新 SMTP 設定
+        * 設定所有標註 (REQUIRED) 參數
+    * 執行 `shell docker-compose up -d`
+    * 用瀏覽器打開 http://localhost
+
 #### Requirements
     * Apache with `mod_rewrite`
     	* Enable curl in php.ini
