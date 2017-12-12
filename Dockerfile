@@ -12,12 +12,17 @@ COPY ./php.ini /usr/local/etc/php/
 # copy apache confing for orangescrum
 COPY ./orangescrum.conf /etc/apache2/conf-available/
 
-COPY . /var/www/html
+COPY . /src
+
+WORKDIR /
+RUN rm -rf /var/www/html
+RUN mv /src /var/www/html
+WORKDIR /var/www/html
 
 # update folders permission
-RUN chmod -R 777 app/Config
-RUN chmod -R 777 app/tmp
-RUN chmod -R 777 app/webroot
+RUN chmod -R 0777 app/Config
+RUN chmod -R 0777 app/tmp
+RUN chmod -R 0777 app/webroot
 
 # enable apache modules
 RUN a2enmod rewrite
