@@ -2,8 +2,6 @@ version: "3"
 services: 
   orangescrum:
     build: .
-    volumes: 
-      - ./:/var/www/html
     links: 
       - mysql:mysql
     ports: 
