@@ -916,7 +916,7 @@ function shortLength($value, $len)
 		$value_format = $this->formatText($value);
 		$value_raw = html_entity_decode($value_format, ENT_QUOTES);
 		if(strlen($value_raw) > $len){
-			$value_strip = substr($value_raw,0,$len);
+			$value_strip = mb_substr($value_raw,0,$len, 'UTF-8');
 			$value_strip = $this->formatText($value_strip);
 			$lengthvalue = "<span title='".$value_format."' >".$value_strip."...</span>";
 		}else{
