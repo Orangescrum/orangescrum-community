@@ -1324,10 +1324,8 @@ function convert_ascii($string){
 	$search[]  = chr(226).chr(128).chr(166);
 	$replace[] = '...';
 	
-	if (mb_strlen($value, "UTF-8") == strlen($value)) {
-		$search[]  = chr(150);
-		$replace[] = "-";
-	}
+	// $search[]  = chr(150);
+	// $replace[] = "-";
 	
 	// Apply Replacements
 	$string = str_replace($search, $replace, $string);
