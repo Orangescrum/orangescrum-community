@@ -30,7 +30,7 @@ $gmdate = $this->Tmzone->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, GMT_
 	<div class="listdv">
 		<div class="fl task_title_db">
 		<a href="<?php echo HTTP_ROOT; ?>dashboard/?project=<?php echo $value['Project']['uniq_id']; ?>" title="<?php echo ucfirst($value['Project']['name']); ?>" style="color:#5191BD"><?php echo $this->Format->shortLength(strtoupper($value['Project']['short_name']),4); ?></a> - 
-		<a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $value['Easycase']['uniq_id']; ?>" title="<?php echo htmlentities($this->Format->convert_ascii($value['Easycase']['title']),ENT_QUOTES); ?>">#<?php echo $value['Easycase']['case_no'];?>: <?php echo htmlentities($this->Format->shortLength($this->Format->convert_ascii($value['Easycase']['title']),50),ENT_QUOTES); ?></a>
+		<a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $value['Easycase']['uniq_id']; ?>" title="<?php echo htmlentities($value['Easycase']['title']/**$this->Format->convert_ascii($value['Easycase']['title'])*/,ENT_QUOTES); ?>">#<?php echo $value['Easycase']['case_no'];?>: <?php echo htmlentities($this->Format->shortLength($this->Format->convert_ascii($value['Easycase']['title']),50),ENT_QUOTES); ?></a>
 		</div>
 	    <div class="cb"></div>
 		<div class="fl" style="font-size:12px;">
