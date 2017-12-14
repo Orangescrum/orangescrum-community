@@ -747,7 +747,7 @@ class FormatComponent extends Component
 	{
 		$value = str_replace("�","\"",$value);
 		$value = str_replace("�","\"",$value);
-		$value = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $value);
+		// $value = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $value);
 		$value = stripslashes($value);
 		$value = html_entity_decode($value, ENT_QUOTES);
 		$trans = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
