@@ -747,7 +747,8 @@ class FormatComponent extends Component
 	{
 		$value = str_replace("�","\"",$value);
 		$value = str_replace("�","\"",$value);
-		// $value = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $value);
+		if (mb_strlen($value, "UTF-8") == strlen($value))
+			$value = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $value);
 		$value = stripslashes($value);
 		$value = html_entity_decode($value, ENT_QUOTES);
 		$trans = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
@@ -1323,9 +1324,10 @@ function convert_ascii($string){
 	$search[]  = chr(226).chr(128).chr(166);
 	$replace[] = '...';
 	
-	// crash when using chinese word '文'
-	// $search[]  = chr(150);
-	// $replace[] = "-";
+	if (mb_strlen($value, "UTF-8") == strlen($value)) {
+		$search[]  = chr(150);
+		$replace[] = "-";
+	}
 	
 	// Apply Replacements
 	$string = str_replace($search, $replace, $string);
@@ -1333,6 +1335,13 @@ function convert_ascii($string){
 	// Remove any non-ASCII Characters
 	//$string = preg_replace("/[^\x01-\x7F]/","", $string);
 	return $string; 
+}
+function ucfirst($value)
+{
+	if (mb_strlen($value, "UTF-8") == strlen($value))
+		return ucfirst($value);
+	else 
+		return $value;
 }
 function getSqlFields($arr, $prj_unq_id) {
     $qry = '';
