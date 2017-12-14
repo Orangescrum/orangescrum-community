@@ -457,7 +457,7 @@ class Easycase extends AppModel {
                 }
                 $caseAll[$caseKey]['Easycase']['csDuDtFmtT'] = $csDuDtFmtT;
                 $caseAll[$caseKey]['Easycase']['csDuDtFmt'] = $csDuDtFmt;
-                $caseAll[$caseKey]['Easycase']['title'] = htmlentities($frmt->shortLength($frmt->formatText(ucfirst($frmt->convert_ascii($frmt->longstringwrap($getdata['Easycase']['title'])))),50),ENT_QUOTES,'UTF-8');
+                $caseAll[$caseKey]['Easycase']['title'] = htmlentities($frmt->shortLength($frmt->formatText($frmt->ucfirst($frmt->convert_ascii($frmt->longstringwrap($getdata['Easycase']['title'])))),50),ENT_QUOTES,'UTF-8');
                 $repeatLastUid = $getlastUid;
                 $repeatAssgnUid = $caseAssgnUid;
                 $repeatcaseTypeId = $caseTypeId;
