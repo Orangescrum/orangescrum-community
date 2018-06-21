@@ -11,9 +11,9 @@ mysqlversion1=5.5
 mysqlversion2=5.7
 apacheversion=2.4
 phpversion=5.6
-mysql_v=`dpkg -l | grep "mysql.*server" | tr -s ' ' | awk 'NR == 1 || mysql' | cut -c 17-19`
+mysql_v=`dpkg -l | grep "mysql.*server" | tr -s ' ' | cut -c 27-29`
 Apache_ver=`dpkg -l | tr -s ' ' | grep -i apache2 | awk 'NR == 1 || apache2' | cut -c 12-14`
-php_ver=`dpkg -l | tr -s ' ' | grep -i php | awk 'NR == 2 || php' | cut -c 11-13`
+php_ver=`dpkg -l | tr -s ' ' | grep -i php | awk 'NR == 7 || php' | cut -c 7-9`
 #mysql_ver=`mysql -V | awk '{ print $5 }' | cut -c 1-3` > /dev/null 2>&1
 #Apache_v=`apache2 -v | grep -i Apache |awk '{ print $3 }'| cut -c 8-10`
 #php_v=`php -v | grep -i php | awk 'NR == 1' | cut -c 5-7`
@@ -76,20 +76,27 @@ if [ "$mysql_v" = "$mysqlversion" ] || [ "$mysql_v" = "$mysqlversion1" ] || [ "$
 	read -s DBPASS
 else
         echo "Installing MySQL Server $mysqlversion"
-	add-apt-repository 'deb http://archive.ubuntu.com/ubuntu trusty universe'
-	apt-get update
-	apt-get install -y mysql-server-5.6	
-	systemctl enable mysql
+	echo 'deb http://repo.mysql.com/apt/debian/ stretch mysql-5.7
+deb-src http://repo.mysql.com/apt/debian/ stretch mysql-5.7' > /etc/apt/sources.list.d/mysql.list
+	wget -O /tmp/RPM-GPG-KEY-mysql https://repo.mysql.com/RPM-GPG-KEY-mysql
+	apt-key add /tmp/RPM-GPG-KEY-mysql
+	apt update
+	apt install -y mysql-server
+	/lib/systemd/systemd-sysv-install enable mysql	
 	service mysql restart
 	echo "Enter the MySQL root password you have create just before:"
 	read -s DBPASS
-	apt-get install -y expect
+        apt-get install -y expect
         echo "--> Set Security Paramaeters for MySQL"
         SECURE_MYSQL=$(expect -c "
         set timeout 10
         spawn mysql_secure_installation
         expect \"Enter current password for root (enter for none):\"
         send \"${DBPASS}\r\"
+	expect \"Would you like to setup VALIDATE PASSWORD plugin?\"
+	send -- \"n\r\"
+	expect \"Change the password for root ?\"
+	send -- \"n\r\"
         expect \"Set root password?\"
         send -- \"n\r\"
         expect \"Remove anonymous users?\"
@@ -102,8 +109,8 @@ else
         send \"y\r\"
         expect eof
         ")
-        echo "$SECURE_MYSQL"
-        apt-get remove -y expect
+	echo "$SECURE_MYSQL"
+	apt-get remove -y expect
 fi
 
 #Apache Web Server Uninstall older version and install required version
@@ -115,7 +122,7 @@ if [ "$Apache_ver" = "$apacheversion" ]; then
 else
         echo "Installing Apache Web Server $apacheversion"
         apt-get install -y apache2
-        systemctl enable apache2
+	/lib/systemd/systemd-sysv-install enable apache2
 	service apache2 restart
 fi
 
@@ -127,16 +134,17 @@ if [ "$php_ver" = "$phpversion" ]; then
 	apt-get -y purge `dpkg -l | grep php| awk '{print $2}' |tr "\n" " "`
 else
         echo "Installing PHP Server $phpversion"
-	apt-get install -y python-software-properties
-	add-apt-repository ppa:ondrej/php
+	apt-get -y install ca-certificates apt-transport-https
+	wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+	echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 	apt-get update
-	apt-get install -y php5.6 php5.6-gd php5.6-curl php5.6-common php5.6-fpm php5.6-cli php5.6-gd php5.6-imap php5.6-intl php5.6-ldap php5.6-mysql php5.6-snmp php5.6-tidy php5.6-mcrypt php5.6-mbstring php5.6-soap php5.6-zip php5.6-dba php5.6 libapache2-mod-php5.6 php5.6-curl php5.6-gd php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml php5.6-xmlrpc
+	apt-get install -y php5.6 php5.6-curl php5.6-common php5.6-fpm php5.6-cli php5.6-gd php5.6-imap php5.6-intl php5.6-ldap php5.6-mysql php5.6-tidy php5.6-mcrypt php5.6-mbstring php5.6-soap php5.6-zip php5.6-dba libapache2-mod-php5.6 php5.6-curl php5.6-xml php5.6-xmlrpc php5.6-opcache php5.6-enchant php5.6-bz2
 	service apache2 restart
 fi
 
 #Set application Directory
-find / -name '*orangescrum-ubuntu*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
-mv $WEBROOT/orangescrum-ubuntu $WEBROOT/orangescrum-master
+find / -name '*orangescrum-debian*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
+mv $WEBROOT/orangescrum-debian $WEBROOT/orangescrum-master 
 
 php_version=`php -v | grep -i php | awk 'NR == 1' | cut -c 5-7`
 phpadminv=`dpkg -l | grep -i phpmyadmin| awk '{print $2}' |tr "\n" " "`
@@ -196,7 +204,7 @@ service apache2 restart
 #Change sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES in my.cnf
 #to sql_mode=""
 echo '[mysqld]
-sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BYZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' > /etc/mysql/conf.d/disable_strict_mode.cnf
+sql_mode="IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"' > /etc/mysql/conf.d/disable_strict_mode.cnf
 service mysql restart
 
 #Provide proper write permission to " app/tmp ", " app/webroot " and " app/Config " folders and their sub folders.
@@ -223,7 +231,7 @@ echo "Installing cronjobs"
 echo "0 23 * * * php -q /var/www/html/orangescrum-master/app/webroot/cron_dispatcher.php /cron/email_notification" | tee -a /var/spool/cron/crontabs/root >> /dev/null
 echo "*/15 * * * * php -q /var/www/html/orangescrum-master/app/webroot/cron_dispatcher.php /cron/dailyupdate_notifications" | tee -a /var/spool/cron/crontabs/root >> /dev/null
 echo "*/15 * * * * php -q /var/www/html/orangescrum-master/app/webroot/cron_dispatcher.php /cron/dailyUpdateMail" | tee -a /var/spool/cron/crontabs/root >> /dev/null
-echo "*/30 * * * * php -q /var/www/html/orangescrum-master/app/webroot/cron_dispatcher.php /cron/weeklyusagedetails" | tee -a /var/spool/cron/crontabs/root >> /dev/nul
+echo "*/30 * * * * php -q /var/www/html/orangescrum-master/app/webroot/cron_dispatcher.php /cron/weeklyusagedetails" | tee -a /var/spool/cron/crontabs/root >> /dev/null
 
 echo "Please enter your email id"
 read USER_NAME
