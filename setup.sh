@@ -83,6 +83,27 @@ else
 	service mysql restart
 	echo "Enter the MySQL root password you have create just before:"
 	read -s DBPASS
+	apt-get install -y expect
+        echo "--> Set Security Paramaeters for MySQL"
+        SECURE_MYSQL=$(expect -c "
+        set timeout 10
+        spawn mysql_secure_installation
+        expect \"Enter current password for root (enter for none):\"
+        send \"${DBPASS}\r\"
+        expect \"Set root password?\"
+        send -- \"n\r\"
+        expect \"Remove anonymous users?\"
+        send \"y\r\"
+        expect \"Disallow root login remotely?\"
+        send \"y\r\"
+        expect \"Remove test database and access to it?\"
+        send \"y\r\"
+        expect \"Reload privilege tables now?\"
+        send \"y\r\"
+        expect eof
+        ")
+        echo "$SECURE_MYSQL"
+        apt-get remove -y expect
 fi
 
 #Apache Web Server Uninstall older version and install required version
@@ -114,7 +135,8 @@ else
 fi
 
 #Set application Directory
-find / -name '*orangescrum-master*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
+find / -name '*orangescrum-ubuntu*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
+mv $WEBROOT/orangescrum-ubuntu $WEBROOT/orangescrum-master
 
 php_version=`php -v | grep -i php | awk 'NR == 1' | cut -c 5-7`
 phpadminv=`dpkg -l | grep -i phpmyadmin| awk '{print $2}' |tr "\n" " "`
