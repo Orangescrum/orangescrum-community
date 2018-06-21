@@ -18,7 +18,7 @@ php_ver=`dpkg -l | tr -s ' ' | grep -i php | awk 'NR == 2 || php' | cut -c 11-13
 #Apache_v=`apache2 -v | grep -i Apache |awk '{ print $3 }'| cut -c 8-10`
 #php_v=`php -v | grep -i php | awk 'NR == 1' | cut -c 5-7`
 echo "You need a fresh OS for OrangeScrum Community to work with"
-echo "Orangescrum will work only with MySQL 5.6, Apache Web Server 2.4 amd PHP 5.6"
+echo "Orangescrum will work with MySQL 5.5-5.7, Apache Web Server 2.4 amd PHP 5.6"
 
 #MySQL-Server
 if [ ! -z "$mysql_v" ]; then
@@ -75,23 +75,29 @@ if [ "$mysql_v" = "$mysqlversion" ] || [ "$mysql_v" = "$mysqlversion1" ] || [ "$
 	echo "Please enter the current MySQL root password"
 	read -s DBPASS
 else
-        echo "Installing MySQL Server $mysqlversion"
-	add-apt-repository 'deb http://archive.ubuntu.com/ubuntu trusty universe'
-	apt-get update
-	apt-get install -y mysql-server-5.6	
+        echo "Installing MySQL Server"
+	apt update
+	apt install -y mysql-server	
 	systemctl enable mysql
 	service mysql restart
 	echo "Enter the MySQL root password you have create just before:"
 	read -s DBPASS
 	apt-get install -y expect
-        echo "--> Set Security Paramaeters for MySQL"
+	echo "--> Set root password"
+	echo "--> Set Security Paramaeters for MySQL"
         SECURE_MYSQL=$(expect -c "
         set timeout 10
         spawn mysql_secure_installation
         expect \"Enter current password for root (enter for none):\"
-        send \"${DBPASS}\r\"
-        expect \"Set root password?\"
+        send \"\r\"
+	expect \"Would you like to setup VALIDATE PASSWORD plugin?\"
         send -- \"n\r\"
+        expect \"Change the password for root ?\"
+        send -- \"y\r\"
+	expect \"New password:\"
+        send -- \"${DBPASS}\r\"
+        expect \"Re-enter new password:\"
+        send -- \"${DBPASS}\r\"
         expect \"Remove anonymous users?\"
         send \"y\r\"
         expect \"Disallow root login remotely?\"
@@ -103,7 +109,7 @@ else
         expect eof
         ")
         echo "$SECURE_MYSQL"
-        apt-get remove -y expect
+        apt remove -y expect
 fi
 
 #Apache Web Server Uninstall older version and install required version
@@ -113,8 +119,8 @@ if [ "$Apache_ver" = "$apacheversion" ]; then
         echo "Uninstalling Apache Web Server $Apache_ver from your Server"
         apt-get purge -y `dpkg -l | grep apache2 |awk '{print $2}'`
 else
-        echo "Installing Apache Web Server $apacheversion"
-        apt-get install -y apache2
+        echo "Installing Apache Web Server"
+        apt install -y apache2
         systemctl enable apache2
 	service apache2 restart
 fi
@@ -126,17 +132,17 @@ if [ "$php_ver" = "$phpversion" ]; then
         echo "Uninstalling PHP $php_ver from your Server"
 	apt-get -y purge `dpkg -l | grep php| awk '{print $2}' |tr "\n" " "`
 else
-        echo "Installing PHP Server $phpversion"
-	apt-get install -y python-software-properties
+        echo "Installing PHP and all the required extensions"
+	apt install -y python-software-properties
 	add-apt-repository ppa:ondrej/php
-	apt-get update
-	apt-get install -y php5.6 php5.6-gd php5.6-curl php5.6-common php5.6-fpm php5.6-cli php5.6-gd php5.6-imap php5.6-intl php5.6-ldap php5.6-mysql php5.6-snmp php5.6-tidy php5.6-mcrypt php5.6-mbstring php5.6-soap php5.6-zip php5.6-dba php5.6 libapache2-mod-php5.6 php5.6-curl php5.6-gd php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml php5.6-xmlrpc
+	apt update
+	apt install -y php5.6 php5.6-gd php5.6-curl php5.6-common php5.6-fpm php5.6-cli php5.6-gd php5.6-imap php5.6-intl php5.6-ldap php5.6-mysql php5.6-snmp php5.6-tidy php5.6-mcrypt php5.6-mbstring php5.6-soap php5.6-zip php5.6-dba php5.6 libapache2-mod-php5.6 php5.6-curl php5.6-gd php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml php5.6-xmlrpc
 	service apache2 restart
 fi
 
 #Set application Directory
-find / -name '*orangescrum-ubuntu*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
-mv $WEBROOT/orangescrum-ubuntu $WEBROOT/orangescrum-master
+find / -name '*orangescrum-ubuntu18*' -exec mv -t $WEBROOT/ {} + > /dev/null 2>&1
+mv $WEBROOT/orangescrum-ubuntu18 $WEBROOT/orangescrum-master
 
 php_version=`php -v | grep -i php | awk 'NR == 1' | cut -c 5-7`
 phpadminv=`dpkg -l | grep -i phpmyadmin| awk '{print $2}' |tr "\n" " "`
@@ -144,8 +150,8 @@ phpadminver=phpMyAdmin
 #Install phpMyAdmin(To access database Using UI)
 if [ "$phpversion" = "$php_version" ]; then
 	echo "Installing phpMyAdmin"
-	apt-get update
-	apt-get install -y phpmyadmin
+	apt update
+	apt install -y phpmyadmin
 	phpenmod mcrypt
 	phpenmod mbstring
 else
@@ -159,7 +165,7 @@ htmlpdf=wkhtmltopdf
 if [ "$htmltpdf" = "$htmlpdf" ]; then
 	echo "html to pdf already installed"
 else
-	apt-get -y install xvfb libfontconfig wkhtmltopdf
+	apt -y install xvfb libfontconfig wkhtmltopdf
 fi
 
 #To access phpmyadmin in browser and app to work properly, the following things to be changed 
@@ -196,7 +202,7 @@ service apache2 restart
 #Change sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES in my.cnf
 #to sql_mode=""
 echo '[mysqld]
-sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BYZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' > /etc/mysql/conf.d/disable_strict_mode.cnf
+sql_mode="IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"' > /etc/mysql/conf.d/disable_strict_mode.cnf
 service mysql restart
 
 #Provide proper write permission to " app/tmp ", " app/webroot " and " app/Config " folders and their sub folders.

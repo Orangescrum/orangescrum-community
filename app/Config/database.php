@@ -41,7 +41,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'orangescrum',
-		'password' => '0rangeScrum',
+		'password' => 'Orang3#Scrum',
 		'database' => 'orangescrum',
 		'prefix' => '',
 		'encoding' => 'utf8',
