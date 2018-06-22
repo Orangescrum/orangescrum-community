@@ -147,8 +147,9 @@ else
 fi
 
 #Set application Directory
-find / -name '*orangescrum-master*' -exec mv -t $WEBROOT/ {} +
+find / -name '*orangescrum-centos*' -exec mv -t $WEBROOT/ {} +
 #mv /tmp/orangescrum-master $WEBROOT/
+mv $WEBROOT/orangescrum-centos $WEBROOT/orangescrum-master
 
 php_version=`php -v | grep -i "PHP 5.6.35"|awk '{ print $2 }'| cut -c 1-3`
 epelr=`rpm -qa | grep epel | cut -c 1-12`
