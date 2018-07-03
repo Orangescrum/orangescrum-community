@@ -182,6 +182,99 @@ table.tablesorter thead tr th:hover {
 	left:8px;
 	content:"";
 }
+/*New addon related code*/
+.side-nav .menu-logs.all-addon-list li .hide-menu-list{list-style-type:none;padding-left:0px;display:none;transition:all 0.5s ease-in-out;-webkit-transition:all 0.5s ease-in-out;-moz-transition:all 0.5s ease-in-out;    position: absolute;
+                                                       width: 100%;background:#353C42;z-index: 9;left: 100%; top: 0;}
+.side-nav .menu-logs.all-addon-list li:hover .hide-menu-list li a,
+.side-nav>li.active .hide-menu-list li a{display:block;color:#fff;padding:8px 0 8px 8px;width:100%;
+                                         overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-decoration:none}
+.side-nav > li.all-addon-list li ul li{border-left:4px solid #676c6f;border-bottom: 1px solid #676c6f;}
+.side-nav > li.all-addon-list li ul li:hover{border-left:4px solid #ff9600}
+.side-nav > li.all-addon-list li ul li a,
+.side-nav > li.all-addon-list li:hover ul li a{padding-left: 0;margin-left:0px;border-left:none}
+.side-nav > li.all-addon-list a:hover{background-color:#353C42}
+.side-nav .menu-logs.all-addon-list li:hover .hide-menu-list{display:block;}
+.side-nav > li.all-addon-list ul li.active a{background-color:#353C42;color:#fff;}
+.side-nav > li.all-addon-list ul li.active .hide-menu-list li.active{border-left:4px solid #ff9600;background-color:#353C42;}
+.side-nav > li.all-addon-list ul li.active .hide-menu-list li a{background:none;border-left:none;padding-left:8px;}
+.side-nav > li.all-addon-list ul li.active .hide-menu-list li a:hover{background-color:#324a6c;}
+.all-addon-list > ul{display: block;padding:0}
+.side-nav>li.all-addon-list li{position:relative;}
+.side-nav>li.all-addon-list li a{width:100%;
+                                 position: relative;padding: 8px 0 8px 34px;
+                                 border-left: 4px dotted transparent;color: #333;
+                                 display: block;
+                                 font-size: 13px;outline:none;text-decoration:none;}
+.menu_more_arr{pointer-events:none;}
+.open-addon .menu_more_arr{top:10px;transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);}
+
+.side-nav>li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_gantt:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_gantt:before{background-position:1px -469px;}
+.side-nav > li .menu_sprite_ico.menu_sprite_ico_timelog:before{background-position: 23px -72px;}
+.side-nav > li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_timelog:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_timelog:before{background-position:1px -72px;}
+
+.side-nav > li .menu_sprite_ico.menu_sprite_ico_invoice:before{background-position:23px -107px;}
+.side-nav>li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_invoice:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_invoice:before{background-position:1px -107px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_act:before{background-position:-48px -32px;}
+.side-nav > li .menu_sprite_ico.menu_sprite_ico_expense:before{background-position:23px 140px;}
+.side-nav>li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_expense:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_expense:before{background-position:1px 140px;}
+.side-nav>li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_tmplt:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_tmplt:before{background-position:1px -432px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_misc:before{background-position: 23px -360px;}
+.side-nav>li.active .menu_sprite_ico.menu_sprite_ico_misc:before,.navbar-inverse .navbar-nav>li>a:hover .menu_sprite_ico.menu_sprite_ico_misc:before{background-position:1px -360px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_cust:before{background-position:-72px -32px;width:18px;top:12px;}
+.side-nav>li.active .menu_sprite_ico.menu_sprite_ico_cust:before,.navbar-inverse .navbar-nav>li>a:hover .menu_sprite_ico.menu_sprite_ico_cust:before{background-position:-72px -53px;width:18px;top:12px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_rec:before{background-position:35px -515px;width:23px;top:7px;}
+.side-nav>li.active .menu_sprite_ico.menu_sprite_ico_rec:before,.navbar-inverse .navbar-nav>li>a:hover .menu_sprite_ico.menu_sprite_ico_rec:before{background-position:-9px -515px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_wflow:before{background-position:22px -625px;}
+.side-nav>li.all-addon-list ul li.active .menu_sprite_ico.menu_sprite_ico_wflow:before,.navbar-inverse .navbar-nav>li.all-addon-list ul li a:hover .menu_sprite_ico.menu_sprite_ico_wflow:before{background-position:1px -625px;}
+.side-nav>li .menu_sprite_ico.menu_sprite_ico_addon:before{background-position:23px -684px;}
+.menu_more_arr,.side-nav li.open a b.menu_more_arr{background:url(../img/icon_sprite.png) -64px -156px no-repeat;height:10px; width:19px;position:absolute;top:18px;right:4px; display:inline-block;transform: rotate(90deg);}
+.side-nav li a:hover b.menu_more_arr{background:url(../img/icon_sprite.png) -64px -137px no-repeat;}
+.side-nav li.open a b.menu_more_arr,.side-nav li.open b.menu_more_arr, .ftsk_more.open b.menu_more_arr{/*background:url(../img/sprite_osv2.png) -22px -130px;*/background:url(../img/icon_sprite.png) -63px -129px no-repeat;top:15px;transform: rotate(180deg);}
+
+.side-nav>li.all-addon-list ul{display:none;}
+.side-nav>li.all-addon-list .menu_sprite_ico:before{content:'';background:url(../img/left-panel-icon.png) no-repeat -45px -682px;width:22px;height:22px;}
+.side-nav>li.all-addon-list:hover .menu_sprite_ico:before{background-position:0px -682pxpx}
+.side-nav>li.all-addon-list ul li.common_li .menu_sprite_ico:before{background-position:-45px -792px}
+.side-nav>li.all-addon-list ul li.common_li:hover .menu_sprite_ico:before,
+.side-nav>li.all-addon-list ul li.common_li.active .menu_sprite_ico:before{background-position:0px -792px}
+.side-nav>li.all-addon-list ul li.user_role_li .menu_sprite_ico:before{background-position:-45px -762px}
+.side-nav>li.all-addon-list ul li.user_role_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.user_role_li.active .menu_sprite_ico:before{background-position:0px -762px}
+.side-nav>li.all-addon-list ul li.gantt_li .menu_sprite_ico:before{background-position:-45px -469px}
+.side-nav>li.all-addon-list ul li.gantt_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.gantt_li.active .menu_sprite_ico:before{background-position:0px -469px}
+.side-nav>li.all-addon-list ul li.timelogold_li .menu_sprite_ico:before{background-position:-45px -72px}
+.side-nav>li.all-addon-list ul li.timelogold_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.timelogold_li.active .menu_sprite_ico:before{background-position:0px -72px}
+.side-nav>li.all-addon-list ul li.ico_wflow_li .menu_sprite_ico:before{background-position:-44px -625px}
+.side-nav>li.all-addon-list ul li.ico_wflow_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.ico_wflow_li.active .menu_sprite_ico:before{background-position:0px -625px}
+.side-nav>li.all-addon-list ul li.proj_temp_li .menu_sprite_ico:before{background-position:-44px -431px}
+.side-nav>li.all-addon-list ul li.proj_temp_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.proj_temp_li.active .menu_sprite_ico:before{background-position:0px -431px}
+.side-nav>li.all-addon-list ul li.invoice_li .menu_sprite_ico:before{background-position:-45px -105px}
+.side-nav>li.all-addon-list ul li.invoice_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.invoice_li.active .menu_sprite_ico:before{background-position:0px -105px}
+.side-nav>li.all-addon-list ul li.document_li .menu_sprite_ico:before{background-position:-45px -654px}
+.side-nav>li.all-addon-list ul li.document_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.document_li.active .menu_sprite_ico:before{background-position:0px -654px}
+.side-nav>li.all-addon-list ul li.bug_li .menu_sprite_ico:before{background-position:-45px -593px}
+.side-nav>li.all-addon-list ul li.bug_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.bug_li.active .menu_sprite_ico:before{background-position:0px -593px}
+.side-nav>li.all-addon-list ul li.expense_li .menu_sprite_ico:before{background-position:-45px -715px}
+.side-nav>li.all-addon-list ul li.expense_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.expense_li.active .menu_sprite_ico:before{background-position:0px -715px}
+.side-nav>li.all-addon-list ul li.wiki_li .menu_sprite_ico:before{background-position:-45px -737px}
+.side-nav>li.all-addon-list ul li.wiki_li:hover .menu_sprite_ico:before,.side-nav>li.all-addon-list ul li.wiki_li.active .menu_sprite_ico:before{background-position:0px -737px}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* End */
 .blue_btn{
 	background:#3f7faa;
 	color:#fff;
