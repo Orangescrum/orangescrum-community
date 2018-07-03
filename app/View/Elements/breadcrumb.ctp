@@ -5,9 +5,11 @@
 <div class="breadcrumb_div">
 
 <ol class="breadcrumb breadcrumb_fixed">
+    <?php if(CONTROLLER != "pages" && (PAGE_NAME != "addons")) { ?>
 	<li>
 		<a href="<?php echo HTTP_ROOT.Configure::read('default_action');?>">	<i class="icon-home"></i></a>
 	</li>
+    <?php } ?>
 <?php if(CONTROLLER == "easycases" && (PAGE_NAME == "mydashboard")) { ?>
 	<li>Dashboard</li>
 <?php } ?>
