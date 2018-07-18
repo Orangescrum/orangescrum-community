@@ -70,44 +70,46 @@
 <?php
 
 $image_name = $addon_name.".jpg";
-$addon_link_learn = "https://calendly.com/priyankagarwal/15min";
+$utm_link = "?utm_source=community-download&utm_medium=download&utm_campaign=basecode";
+$addon_link_learn = "https://calendly.com/priyankagarwal/15min".$utm_link;
+
 //echo $addon_name;
 if($addon_name == 'executive_dashboard'){
-	$addon_link = "https://www.orangescrum.org/addon-details/executivedashboard";
+	$addon_link = "https://www.orangescrum.org/addon-details/executivedashboard".$utm_link;
 } else if($addon_name == 'user_role_management'){
-	$addon_link = "https://www.orangescrum.org/addon-details/userrolemanagement";
+	$addon_link = "https://www.orangescrum.org/addon-details/userrolemanagement".$utm_link;
 }else if($addon_name == 'gantt_chart'){
-	$addon_link = "https://www.orangescrum.org/addon-details/ganttchart";
+	$addon_link = "https://www.orangescrum.org/addon-details/ganttchart".$utm_link;
 }else if($addon_name == 'time_log_gold'){
-	$addon_link = "https://www.orangescrum.org/addon-details/timeloggold";
+	$addon_link = "https://www.orangescrum.org/addon-details/timeloggold".$utm_link;
 }else if($addon_name == 'project_template'){
-	$addon_link = "https://www.orangescrum.org/addon-details/projecttemplate";
+	$addon_link = "https://www.orangescrum.org/addon-details/projecttemplate".$utm_link;
 }else if($addon_name == 'time_log'){
-	$addon_link = "https://www.orangescrum.org/addon-details/timelog";
+	$addon_link = "https://www.orangescrum.org/addon-details/timelog".$utm_link;
 }else if($addon_name == 'task_status_group'){
-	$addon_link = "https://www.orangescrum.org/addon-details/taskstatus";
+	$addon_link = "https://www.orangescrum.org/addon-details/taskstatus".$utm_link;
 }else if($addon_name == 'invoice'){
-	$addon_link = "https://www.orangescrum.org/addon-details/invoice";
+	$addon_link = "https://www.orangescrum.org/addon-details/invoice".$utm_link;
 }else if($addon_name == 'document'){
-	$addon_link = "https://www.orangescrum.org/addon-details/documentmanagement";
+	$addon_link = "https://www.orangescrum.org/addon-details/documentmanagement".$utm_link;
 }else if($addon_name == 'bug_issue_tracking'){
-	$addon_link = "https://www.orangescrum.org/addon-details/bugissuetracker";
+	$addon_link = "https://www.orangescrum.org/addon-details/bugissuetracker".$utm_link;
 }else if($addon_name == 'chat'){
-	$addon_link = "https://www.orangescrum.org/addon-details/chat";
+	$addon_link = "https://www.orangescrum.org/addon-details/chat".$utm_link;
 }else if($addon_name == 'expense_management'){
-	$addon_link = "https://www.orangescrum.org/addon-details/expensemanagement";
+	$addon_link = "https://www.orangescrum.org/addon-details/expensemanagement".$utm_link;
 }else if($addon_name == 'wiki'){
-	$addon_link = "https://www.orangescrum.org/addon-details/wiki";
+	$addon_link = "https://www.orangescrum.org/addon-details/wiki".$utm_link;
 }else if($addon_name == 'recurring_task'){
-	$addon_link = "https://www.orangescrum.org/addon-details/recurringtask";
+	$addon_link = "https://www.orangescrum.org/addon-details/recurringtask".$utm_link;
 }else if($addon_name == 'client_management'){
-	$addon_link = "https://www.orangescrum.org/addon-details/clientmanagement";
+	$addon_link = "https://www.orangescrum.org/addon-details/clientmanagement".$utm_link;
 }else if($addon_name == 'mobile_api'){
-	$addon_link = "https://www.orangescrum.org/addon-details/mobileapi ";
+	$addon_link = "https://www.orangescrum.org/addon-details/mobileapi".$utm_link;
 }else if($addon_name == 'api'){
-	$addon_link = "https://www.orangescrum.org/addon-details/api";
+	$addon_link = "https://www.orangescrum.org/addon-details/api".$utm_link;
 }else if($addon_name == 'multilingual'){
-	$addon_link = "https://www.orangescrum.org/addon-details/multilingual";
+	$addon_link = "https://www.orangescrum.org/addon-details/multilingual".$utm_link;
 }
 ?>
 <div class="mn_pg_dv">
