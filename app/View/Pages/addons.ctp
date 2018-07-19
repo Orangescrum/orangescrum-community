@@ -71,7 +71,8 @@
 
 $image_name = $addon_name.".jpg";
 $utm_link = "?utm_source=community-download&utm_medium=download&utm_campaign=basecode";
-$addon_link_learn = "https://calendly.com/priyankagarwal/15min".$utm_link;
+$utm_demo_link = "?utm_source=community-download&utm_medium=download&utm_campaign=community-demo";
+$addon_link_learn = "https://calendly.com/priyankagarwal/15min".$utm_demo_link;
 
 //echo $addon_name;
 if($addon_name == 'executive_dashboard'){
