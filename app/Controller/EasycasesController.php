@@ -642,7 +642,15 @@ class EasycasesController extends AppController {
                                     $this->set('allow_usage', $allowusage);
                                     $this->set('userdetails', $userdetails[0]);
                                     $this->Email->sendAs = 'html';
-                                    $this->Sendgrid->sendgridsmtp($this->Email);
+                                     if(defined("PHPMAILER") && PHPMAILER == 1){
+                                        $this->Email->set_variables = $this->render('/Emails/html/fileupload_error',false);
+                                        App::import('Component', 'PhpMailer.PhpMailer');
+                                        $this->PhpMailer = new PhpMailerComponent();
+                                        $this->PhpMailer->sendPhpMailerTemplate($this->Email);
+                                    }else{
+                                        $this->Sendgrid->sendgridsmtp($this->Email);
+                                    }
+                                    
                                 }
                             } catch (Exception $e) {
                                 

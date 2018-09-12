@@ -30,6 +30,17 @@
                 <div class="cbt"></div>
 	    </a>
 	</li>
+	<?php if(SES_TYPE == 1 && defined("PHPMAILER") && PHPMAILER == 1){ ?>
+	<li <?php if(PAGE_NAME == 'mailSetting') {?>class="active" <?php }?>>
+	    <a href="<?php echo HTTP_ROOT.'PhpMailer/PhpMailers/mailSetting';?>" id="sett_email">
+                <div class="fl" style="height: 18px;width: 18px;margin-right: 6px;">
+		    <img src="<?php echo HTTP_ROOT."img/tasktype.png";?>"  width="16px" height="16px"/>
+		</div>
+        <div class="fl">Email Setting</div>
+        <div class="cbt"></div>
+	    </a>
+	</li>
+	<?php } ?>
 	<?php /*?><li <?php if(PAGE_NAME == 'cancelact') {?>class="active" <?php }?>>
 	    <a href="<?php echo HTTP_ROOT.'users/cancelact';?>" id="sett_my_comp_prof">
                 <div class="fl">Cancel Account</div>

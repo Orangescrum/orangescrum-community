@@ -519,7 +519,7 @@ class ProjectsController extends AppController {
 				}
 				
 				if($emailarr!=''){
-					$inviteduserlist = $this->Postcase->invitenewuser($emailarr,$prjid,$this);
+					$inviteduserlist = $this->invitenewuser($emailarr,$prjid,$this);
 				}
 				$this->Session->write("SUCCESS","'".strip_tags($postProject['Project']['name'])."' created successfully");
 			
@@ -2046,8 +2046,14 @@ function project_thumb_view(){
 		$this->set('projUniqId',$projUniqId);
 		$this->set('multiple',0);
 		$this->set('company_name',$comp['Company']['name']);
-		
-		return $this->Sendgrid->sendgridsmtp($this->Email);
+		if(defined("PHPMAILER") && PHPMAILER == 1){
+			$this->Email->set_variables = $this->render('/Emails/html/project_add',false);
+			App::import('Component', 'PhpMailer.PhpMailer');
+			$this->PhpMailer = new PhpMailerComponent();
+			return $this->PhpMailer->sendPhpMailerTemplate($this->Email);
+		}else{
+			return $this->Sendgrid->sendgridsmtp($this->Email);
+		}
 	}
         public function default_inner(){
             $this->layout='';
@@ -2205,6 +2211,156 @@ function project_thumb_view(){
 	    }
 	}
 	echo json_encode($jsonArr);exit;
+    }
+
+    function invitenewuser($mail_arr = array(), $prj_id = 0, $obj) {
+        App::import('Controller', 'Users');
+        $userscontroller = new UsersController;
+
+        $usercls = ClassRegistry::init('User');
+        $CompanyUser = ClassRegistry::init('CompanyUser');
+        $UserInvitation = ClassRegistry::init('UserInvitation');
+        $err = 0;
+//$mail_arr=explode(",",trim($email_list));
+        $ucounter = count($mail_arr);
+        /* foreach($mail_arr AS $key=>$val){
+          if(trim($val) != ""){
+          $ucounter ++;
+          }
+          } */
+        $total_new_users = $ucounter + $GLOBALS['usercount'];
+        if (strtolower($GLOBALS['Userlimitation']['user_limit']) != 'unlimited' && ($total_new_users > $GLOBALS['Userlimitation']['user_limit'])) {
+            $this->Session->write("ERROR", "Sorry! You are exceeding your user limit");
+//$userscontroller->redirect(HTTP_ROOT);exit;
+            header('Location:' . HTTP_ROOT);
+            exit;
+        }
+//for($i=0;$i<count($mail_arr);$i++){
+        foreach ($mail_arr as $key => $val) {
+            if (trim($val) != "") {
+                $val = trim($val);
+                $findEmail = $usercls->find('first', array('conditions' => array('User.email' => $val), 'fields' => array('User.id')));
+                if (@$findEmail['User']['id']) {
+                    $userid = $findEmail['User']['id'];
+                    $invitation_details = $UserInvitation->find('first', array('conditions' => array('user_id' => $findEmail['User']['id'], 'company_id' => SES_COMP), 'fields' => array('id', 'project_id')));
+                } else {
+                    $userdata['User']['uniq_id'] = $this->Format->generateUniqNumber();
+                    $userdata['User']['isactive'] = 2;
+                    $userdata['User']['isemail'] = 1;
+                    $userdata['User']['dt_created'] = GMT_DATETIME;
+                    $userdata['User']['email'] = $val;
+                    $usercls->saveAll($userdata);
+                    $userid = $usercls->getLastInsertID();
+                }
+                if ($userid && $userid != SES_ID) {
+                    $cmpnyUsr = array();
+                    $is_sub_upgrade = 1;
+// Checking for a deleted user when gets invited again.
+                    $compuser = $CompanyUser->find('first', array('conditions' => array('user_id' => $userid, 'company_id' => SES_COMP)));
+                    if ($compuser && $compuser['CompanyUser']['is_active'] == 0) {
+                        $this->Session->write("ERROR", "Sorry! You are not allowed to add a disabled user to a the project");
+                        continue;
+                    }
+                    $cmpnyUsr['CompanyUser']['is_active'] = 2;
+                    $cmpnyUsr['CompanyUser']['user_type'] = 3;
+                    if ($compuser) {
+                        $is_sub_upgrade = 0;
+                        $cmpnyUsr['CompanyUser']['user_type'] = $compuser['CompanyUser']['user_type'];
+                        $cmpnyUsr['CompanyUser']['is_active'] = $compuser['CompanyUser']['is_active'];
+                        if ($compuser['CompanyUser']['is_active'] == 3) {
+// If that user deleted in the same billing month and invited again then that user will not paid 
+                            if ($GLOBALS['Userlimitation']['btsubscription_id']) {
+                                if (strtotime($GLOBALS['Userlimitation']['next_billing_date']) > strtotime($compuser['CompanyUser']['billing_end_date'])) {
+                                    $is_sub_upgrade = 1;
+                                }
+                            }
+                            $cmpnyUsr['CompanyUser']['user_type'] = 3;
+                            $cmpnyUsr['CompanyUser']['is_active'] = 2;
+                        }
+                        $cmpnyUsr['CompanyUser']['id'] = $compuser['CompanyUser']['id'];
+                    }
+                    $cmpnyUsr['CompanyUser']['user_id'] = $userid;
+                    $cmpnyUsr['CompanyUser']['company_id'] = SES_COMP;
+                    $cmpnyUsr['CompanyUser']['company_uniq_id'] = COMP_UID;
+                    $cmpnyUsr['CompanyUser']['created'] = GMT_DATETIME;
+                    if ($CompanyUser->saveAll($cmpnyUsr)) {
+                        $qstr = $this->Format->generateUniqNumber();
+                        if (@$findEmail['User']['id'] && @$invitation_details['UserInvitation']['id']) {
+                            $InviteUsr['UserInvitation']['id'] = $invitation_details['UserInvitation']['id'];
+                            $InviteUsr['UserInvitation']['project_id'] = $invitation_details['UserInvitation']['project_id'] ? $invitation_details['UserInvitation']['project_id'] . ',' . $prj_id : $prj_id;
+                        } else {
+                            $InviteUsr['UserInvitation']['project_id'] = $prj_id;
+                        }
+                        $InviteUsr['UserInvitation']['invitor_id'] = SES_ID;
+                        $InviteUsr['UserInvitation']['user_id'] = $userid;
+                        $InviteUsr['UserInvitation']['company_id'] = SES_COMP;
+                        $InviteUsr['UserInvitation']['qstr'] = $qstr;
+                        $InviteUsr['UserInvitation']['created'] = GMT_DATETIME;
+                        $InviteUsr['UserInvitation']['is_active'] = 1;
+                        $InviteUsr['UserInvitation']['user_type'] = 3;
+                        if ($UserInvitation->saveAll($InviteUsr)) {
+
+//Event log data and inserted into database in account creation--- Start
+                            $json_arr['email'] = $val;
+                            $json_arr['created'] = GMT_DATETIME;
+                            $this->Postcase->eventLog(SES_COMP, SES_ID, $json_arr, 25);
+//End 
+//Subscription price update  if its a paid user -start 
+                            $comp_user_id = $CompanyUser->getLastInsertID();
+
+                            if ($is_sub_upgrade) {
+                                //$userscontroller->update_bt_subscription($comp_user_id, SES_COMP, 1);
+                            }
+//end 
+                            $to = $val;
+                            $expEmail = explode("@", $val);
+                            $expName = $expEmail[0];
+                            $loggedin_users = $usercls->find('first', array('conditions' => array('User.id' => SES_ID, 'User.isactive' => 1), 'fields' => array('User.name', 'User.email', 'User.id')));
+                            $fromName = ucfirst($loggedin_users['User']['name']);
+                            $fromEmail = $loggedin_users['User']['email'];
+                            $ext_user = '';
+//			    
+                            if (@$findEmail['User']['id']) {
+                                $subject = $fromName . " invited you to join " . CMP_SITE . " on Orangescrum";
+                                $ext_user = 1;
+                            } else {
+                                $subject = $fromName . " invited you to join Orangescrum";
+                            }
+                            $this->Email->delivery = EMAIL_DELIVERY;
+                            $this->Email->to = $to;
+                            $this->Email->subject = $subject;
+                            $this->Email->from = FROM_EMAIL;
+                            $this->Email->template = 'invite_user';
+                            $this->Email->sendAs = 'html';
+                            $obj->set('expName', ucfirst($expName));
+                            $obj->set('qstr', $qstr);
+                            $obj->set('existing_user', $ext_user);
+
+                            $obj->set('company_name', CMP_SITE);
+                            $obj->set('fromEmail', $fromEmail);
+                            $obj->set('fromName', $fromName);
+                            try {
+                                if(defined("PHPMAILER") && PHPMAILER == 1){
+                                    $this->Email->set_variables = $this->render('/Emails/html/invite_user',false);
+                                    App::import('Component', 'PhpMailer.PhpMailer');
+                                    $this->PhpMailer = new PhpMailerComponent();
+                                    $this->PhpMailer->sendPhpMailerTemplate($this->Email);
+                                }else{
+                                    $this->Sendgrid->sendgridsmtp($this->Email);    
+                                }
+                            } Catch (Exception $e) {
+                                
+                            }
+                        }
+                    }
+                    $rarr['success'][] = $userid;
+                } else {
+                    $err = 1;
+                    $rarr['error'][] = 1;
+                }
+            }
+        }
+        return $rarr;
     }
 }
 ?>

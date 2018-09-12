@@ -63,10 +63,16 @@ Router::connect('/my-company', array('controller' => 'users', 'action' => 'mycom
 Router::connect('/milestone/saveMilestoneTitle', array('controller' => 'milestones', 'action' => 'saveMilestoneTitle'));
 Router::connect('/milestone/*', array('controller' => 'milestones', 'action' => 'milestone'));
 
+Router::connect('/install/*', array('controller' => 'Install', 'action' => 'index'));
+Router::connect('/installed-addons', array('controller' => 'Install', 'action' => 'installed_addons'));
+// PHPMailer
+Router::connect('/phpmailer/:controller/:action', array('plugin' => 'PhpMailer'));
+Router::connect('/PhpMailer/:controller/:action', array('plugin' => 'PhpMailer'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
+	CakePlugin::loadAll();
 	CakePlugin::routes();
 
 /**

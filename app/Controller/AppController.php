@@ -38,6 +38,9 @@ class AppController extends Controller {
     public $helpers = array('Html', 'Form', 'Text', 'Format', 'Tmzone', 'Datetime','Cache','Casequery');
     public $components = array('Auth','Session','Email', 'Cookie','Image','Format','Security');
     public $paginate = array();
+    public $addons = array('PHPMAILER' => 'Php Mailer');
+    public $addonTables = array('PHPMAILER' => 'email_settings');
+    public $addonFolders = array('PHPMAILER' => 'PhpMailer');
 
     function temp_logout() {
         $this->Session->write('Auth.User.id', '');
@@ -82,7 +85,7 @@ class AppController extends Controller {
         if($this->action=='image_thumb')return;
         
         parent::beforeFilter();
-		
+		define('PHPMAILER',$this->is_AddonInstalled('PHPMAILER'));
 		Configure::write('default_action','dashboard');
 		
 		$this->loadModel('User');
@@ -185,7 +188,6 @@ class AppController extends Controller {
                 $this->Session->write('Auth.User.id','');
             }
         }
-		
         if($this->Auth->User("id")) {
             if($this->isiPad()) {
                 setcookie('USER_UNIQ',$this->Auth->user('uniq_id'),$cookieTime,'/',DOMAIN_COOKIE,false,false);
@@ -919,6 +921,17 @@ class AppController extends Controller {
 			if(file_exists(WWW_ROOT.'error.check')) {
 				unlink(WWW_ROOT.'error.check');
 			}
+           if(!empty(SES_ID) && SES_TYPE==1){
+            if(defined("PHPMAILER") && PHPMAILER == 1 && (PAGE_NAME !='mailSetting' && PAGE_NAME !='addMailSetting' && PAGE_NAME != 'login' && PAGE_NAME !='logout' && PAGE_NAME !='forgotpassword' && PAGE_NAME !="verify_addonInstalled")){
+            // echo PAGE_NAME;exit;
+                 $this->loadModel("PhpMailer.EmailSetting");
+                $email_settings = $this->EmailSetting->find('first',array('conditions'=>array('EmailSetting.company_id'=>SES_COMP)));
+                if(empty($email_settings)){
+                    $this->Session->write("ERROR","Please verify your email setting");
+                    $this->redirect(HTTP_ROOT."PhpMailer/PhpMailers/mailSetting");
+                }
+            }
+           }
 		
     }
     function session_maintain() {
@@ -1135,4 +1148,106 @@ class AppController extends Controller {
         }
         return false;
     }
+    /* To check whether Timelog Add-on is installed completely or not */
+
+    function is_AddonInstalled($addon = NULL) {
+        if ($addon != NULL) {
+            $this->loadModel('Addon');
+            $adnDet = $this->Addon->find('first', array('conditions' => array('Addon.name' => trim($addon))));
+            if ($adnDet['Addon']['isactive'] == 1) {
+                $tblExists = $this->checkAddonTableExists($addon);
+                if (!$tblExists) {
+                    return 0;
+                } else {
+                    $checked = $this->checkAddonFolderExists($addon);
+                    return $checked;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /* To Check Addon Tables are present in database or not */
+
+    function checkAddonTableExists($addonNm = NULL) {
+        if ($addonNm != NULL) {
+            if (!in_array($addonNm, array_keys($this->addonTables))) {
+                if (!in_array($addonNm, array_keys($this->addonTableFields))) {
+                    if ($addonNm == 'PT' || $addonNm == 'MAPI' || $addonNm == "DBRD" || $addonNm == 'GINV') {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    $fieldsToCheck = $this->addonTableFields[$addonNm];
+                    foreach ($fieldsToCheck as $model => $fields) {
+                        $this->loadModel($model);
+                        $c = 0;
+                        foreach ($fields as $field) {
+                            if (!in_array($field, array_keys($this->$model->getColumnTypes()))) {
+                                return 0;
+                            } else {
+                                $c++;
+                            }
+                        }
+                        return $c > 0 ? 1 : 0;
+                    }
+                }
+            } else {
+                $tablesToCheck = $this->addonTables[$addonNm];
+                $db = ConnectionManager::getDataSource('default');
+                $tables = $db->listSources();
+                $a = 0;
+                if (is_array($tablesToCheck)) {
+                    foreach ($tablesToCheck as $k => $table) {
+                        if (!in_array($table, $tables)) {
+                            return 0;
+                        } else {
+                            $a++;
+                        }
+                    }
+                } else {
+                    if (!in_array($tablesToCheck, $tables)) {
+                        return 0;
+                    } else {
+                        $a++;
+                    }
+                }
+                return $a > 0 ? 1 : 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /* To Check Addon Folder and Files are present in database or not */
+
+    function checkAddonFolderExists($addonNm = NULL) {
+        if ($addonNm != NULL) {
+            $plgnFldrNm = $this->addonFolders[$addonNm];
+            $plugin_dir = new Folder(ROOT . DS . APP_DIR . DS . 'Plugin' . DS . $plgnFldrNm);
+            if (!is_null($plugin_dir->path)) {
+                if ($addonNm == 'LANG') {
+                    if ($plugin_dir->dirsize() > 0) {
+                        $locale_dir = new Folder(ROOT . DS . APP_DIR . DS . 'Locale');
+                        $files = $locale_dir->find('default.pot');
+                        return !empty($files) ? 1 : 0;
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return $plugin_dir->dirsize() > 0 ? 1 : 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    
 }

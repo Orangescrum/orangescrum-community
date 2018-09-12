@@ -309,6 +309,9 @@ if( $is_active_proj || (SES_TYPE==3)){
 							<li><a href="<?php echo HTTP_ROOT.'reminder-settings';?>">Daily Catch-Up</a></li>
 							<li><a href="<?php echo HTTP_ROOT.'import-export';?>">Import & Export</a></li>
 							<li><a href="<?php echo HTTP_ROOT.'task-type';?>">Task Type</a></li>
+							<?php if(SES_TYPE == 1 && defined("PHPMAILER") && PHPMAILER == 1){ ?>
+								<li><a href="<?php echo HTTP_ROOT.'PhpMailer/PhpMailers/mailSetting';?>">Email Setting</a></li>
+							<?php } ?>
 						</ul>	
 					</div>
 					<?php

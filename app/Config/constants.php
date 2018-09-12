@@ -171,6 +171,9 @@ define('HTTP_IMAGES', HTTP_ROOT.'img/');
 define('HTTP_FILES', HTTP_ROOT.'files/');
 define('HTTP_CASE_FILES', HTTP_FILES.'case_files/');
 define('HTTP_USER_PHOTOS', HTTP_FILES.'photos/');
+define('WEB_ROOT', ROOT . DS . APP_DIR . DS . 'webroot');
+define('PLUGIN', ROOT . DS . APP_DIR . DS . 'Plugin');
+define('SALT', 'community'); 
 
 /**Require socket.io and node.js for instance messaging.**/
 //define("NODEJS_HOST",'http://www.your-application.com:3002'); //enable this, if you have Node.js setup in the server

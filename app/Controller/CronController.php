@@ -110,7 +110,14 @@ class CronController extends AppController{
 				$this->set('message', $emailDetails);
 				
 				try {
-					$response2 = $this->Sendgrid->sendgridsmtp($this->Email);
+					if(defined("PHPMAILER") && PHPMAILER == 1){
+						$this->Email->set_variables = $this->render('/Emails/html/invite_user',false);
+						App::import('Component', 'PhpMailer.PhpMailer');
+						$this->PhpMailer = new PhpMailerComponent();
+						$this->PhpMailer->sendPhpMailerTemplate($this->Email);
+					}else{
+						$response2 = $this->Sendgrid->sendgridsmtp($this->Email);
+					}
 					echo "<br/>SMTP Template Email Respond: ";
 					print_r($response2);
 					exit;

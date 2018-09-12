@@ -1229,3 +1229,30 @@ CREATE TABLE IF NOT EXISTS `os_session_logs` (
   `user_agent` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `addons`
+--
+
+CREATE TABLE `addons` (
+  `id` tinyint(2) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `isactive` tinyint(2) NOT NULL DEFAULT '0',
+  `dt_created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+--
+-- Indexes for table `addons`
+--
+ALTER TABLE `addons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `addons`
+--
+ALTER TABLE `addons`
+  MODIFY `id` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
