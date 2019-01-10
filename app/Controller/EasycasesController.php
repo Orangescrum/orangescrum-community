@@ -311,70 +311,76 @@ class EasycasesController extends AppController {
     }
 
     function ajaxpostcase($oauth_arg = NULL) {
-
-        $this->layout = 'ajax';
-        if (isset($this->params['data']['CS_project_id']) && $this->params['data']['CS_project_id'] && $this->params['data']['CS_project_id'] != "all") {
-            $CS_project_id = $this->params['data']['CS_project_id'];
-        } elseif (isset($oauth_arg['CS_project_id'])) {
-            $CS_project_id = $oauth_arg['CS_project_id'];
-        } else {
-            $CS_project_id = $this->params['data']['pid'];
-        }
-
-        $oauth_return = 0;
-        if (isset($oauth_arg) && !empty($oauth_arg)) {
-            $arr = $oauth_arg;
-            $oauth_return = 1;
-            $this->loadModel('UserSubscription');
-            $limitation = $this->UserSubscription->find('first', array('conditions' => array('company_id' => SES_COMP), 'order' => 'id DESC'));
-            $GLOBALS['Userlimitation'] = $limitation['UserSubscription'];
-        } else {
-            $CS_istype = $this->params['data']['CS_istype'];
-            $CS_title = $this->Format->convert_ascii($this->params['data']['CS_title']);
-            $CS_type_id = $this->params['data']['CS_type_id'];
-            $CS_priority = $this->params['data']['CS_priority'];
-            $CS_assign_to = $this->params['data']['CS_assign_to'];
-            $msg = trim($this->params['data']['CS_message']);
-            $msg = preg_replace('/^(?:<br\s*\/?>\s*)+/', '', $msg);
-            $msg = preg_replace('/(<br \/>)+$/', '', $msg);
-            $this->params['data']['CS_message'] = $msg;
-            $CS_message = $msg;
-            $CS_due_date = $this->params['data']['CS_due_date'];
-            $CS_milestone = $this->params['data']['CS_milestone'];
-            $CS_legend = 1;
-            if (isset($this->params['data']['CS_legend'])) {
-                $CS_legend = $this->params['data']['CS_legend'];
+        try {
+            $this->layout = 'ajax';
+            if ($this->params->data['CS_project_id'] && $this->params->data['CS_project_id'] && $this->params->data['CS_project_id'] != "all") {
+                $CS_project_id = $this->params->data['CS_project_id'];
+            } elseif (isset($oauth_arg['CS_project_id'])) {
+                $CS_project_id = $oauth_arg['CS_project_id'];
+            } else {
+                $CS_project_id = $this->params->data['pid'];
             }
-            $pagename = $this->params['data']['pagename'];
-            $arr = $this->params['data'];
-            if ($this->data['CS_type_id'] == 10) {
-                $arr['CS_legend'] = 1;
+            
+            $oauth_return = 0;
+            if (isset($oauth_arg) && !empty($oauth_arg)) {
+                $arr = $oauth_arg;
+                $oauth_return = 1;
+                $this->loadModel('UserSubscription');
+                $limitation = $this->UserSubscription->find('first', array('conditions' => array('company_id' => SES_COMP), 'order' => 'id DESC'));
+                $GLOBALS['Userlimitation'] = $limitation['UserSubscription'];
+            } else {
+                $CS_istype = $this->params->data['CS_istype'];
+                $CS_title = $this->Format->convert_ascii($this->params->data['CS_title']);
+                $CS_type_id = $this->params->data['CS_type_id'];
+                $CS_priority = $this->params->data['CS_priority'];
+                $CS_assign_to = $this->params->data['CS_assign_to'];
+                $msg = trim($this->params->data['CS_message']);
+                $msg = preg_replace('/^(?:<br\s*\/?>\s*)+/', '', $msg);
+                $msg = preg_replace('/(<br \/>)+$/', '', $msg);
+                $this->params->data['CS_message'] = $msg;
+                $CS_message = $msg;
+                $CS_due_date = $this->params->data['CS_due_date'];
+                $CS_milestone = $this->params->data['CS_milestone'];
+                $CS_legend = 1;
+                if (isset($this->params->data['CS_legend'])) {
+                    $CS_legend = $this->params->data['CS_legend'];
+                }
+                $pagename = $this->params->data['pagename'];
+                $arr = $this->params->data;
+                if ($this->data['CS_type_id'] == 10) {
+                    $arr['CS_legend'] = 1;
+                }
+
+                if ($this->params->data['user_auth_key']) {
+                    $this->loadModel('User');
+                    $getuser = $this->User->find('first', array('copnditions' => array('User.uniq_id' => $this->params->data['user_auth_key'])));
+                    if ($getuser['User']['id']) {
+                        $arr['CS_user_id'] = $getuser['User']['id'];
+                    }
+                }
+
+                $arr['CS_message'] = $msg;
+
+                //By Orangescrum
+                if (isset($this->params->query['data']['Easycase']['cloud_storage_files']))
+                    $arr['cloud_storages'] = $this->params->query['data']['Easycase']['cloud_storage_files'];
             }
 
-            if ($this->params['data']['user_auth_key']) {
-                $this->loadModel('User');
-                $getuser = $this->User->find('first', array('copnditions' => array('User.uniq_id' => $this->params['data']['user_auth_key'])));
-                if ($getuser['User']['id']) {
-                    $arr['CS_user_id'] = $getuser['User']['id'];
+            if (trim($CS_project_id)) {
+
+                $value = $this->Postcase->casePosting($arr);
+                if (intval($oauth_return)) {
+                    return $value;
+                } else {
+                    echo $value;
                 }
             }
 
-            $arr['CS_message'] = $msg;
-
-            //By Orangescrum
-            if (isset($this->params->query['data']['Easycase']['cloud_storage_files']))
-                $arr['cloud_storages'] = $this->params->query['data']['Easycase']['cloud_storage_files'];
+        } catch (Exception $e) {
+            echo 'Error on line '.$e->getLine().' in '.$e->getFile()
+            .':Caught exception: ',  $e->getMessage(), "\n";
         }
-
-        if (trim($CS_project_id)) {
-
-            $value = $this->Postcase->casePosting($arr);
-            if (intval($oauth_return)) {
-                return $value;
-            } else {
-                echo $value;
-            }
-        }
+       
         exit;
     }
 
