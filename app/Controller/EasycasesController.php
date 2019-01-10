@@ -3864,29 +3864,35 @@ class EasycasesController extends AppController {
     }
 
     function ajax_change_AssignTo() {
-        $this->layout = 'ajax';
-        $assignId = "";
-        $caseId = "";
-        $assignId = $this->params['data']['assignId'];
-        $caseId = $this->params['data']['caseId'];
-        $sql = "UPDATE `easycases` SET `assign_to`='" . $assignId . "',dt_created = '" . GMT_DATETIME . "', case_count=case_count+1,updated_by='" . SES_ID . "' WHERE `id`='" . $caseId . "' AND isactive='1'";
-        $upd = $this->Easycase->query($sql);
-        //Jyoti start
-        $sqldata = "SELECT * FROM `easycases` WHERE `id`='" . $caseId . "' ";
-        $dataeasycase = $this->Easycase->query($sqldata); //print_r($dataeasycase);
-        $caseuniqid = md5(uniqid());
-        $this->Easycase->query("INSERT INTO easycases SET uniq_id='" . $caseuniqid . "', case_no = '" . $dataeasycase[0]['easycases']['case_no'] . "', 	case_count=0, project_id='" . $dataeasycase[0]['easycases']['project_id'] . "', user_id='" . SES_ID . "', updated_by=0, type_id='" . $dataeasycase[0]['easycases']['type_id'] . "', priority='" . $dataeasycase[0]['easycases']['priority'] . "', title='', message='', hours='0', assign_to='" . $assignId . "', istype='2',format='2', status='" . $dataeasycase[0]['easycases']['status'] . "', legend='" . $dataeasycase[0]['easycases']['legend'] . "', isactive=1, dt_created='" . GMT_DATETIME . "',actual_dt_created='" . GMT_DATETIME . "',reply_type=2");
-        //Jyoti End
-        if (($assignId == 0) || ($assignId == SES_ID)) {
-            $val['top'] = '<span style="color:#E0814E">me</span>';
-            $val['details'] = '<span style="color:#E0814E">me</span>';
-        } else {
-            $userData = $this->Format->getUserShortName($assignId);
-            //$val['top'] = strtoupper($userData['User']['short_name']);
-            $val['top'] = $this->Format->shortLength(ucfirst($userData['User']['name']), 10);
-            $val['details'] = "<span>" . $userData['User']['name'] . "</span>";
+        try{
+            $this->layout = 'ajax';
+            $assignId = "";
+            $caseId = "";
+            $assignId = $this->params['data']['assignId'];
+            $caseId = $this->params['data']['caseId'];
+            $sql = "UPDATE `easycases` SET `assign_to`='" . $assignId . "',dt_created = '" . GMT_DATETIME . "', case_count=case_count+1,updated_by='" . SES_ID . "' WHERE `id`='" . $caseId . "' AND isactive='1'";
+            $upd = $this->Easycase->query($sql);
+            //Jyoti start
+            $sqldata = "SELECT * FROM `easycases` WHERE `id`='" . $caseId . "' ";
+            $dataeasycase = $this->Easycase->query($sqldata); //print_r($dataeasycase);
+            $caseuniqid = md5(uniqid());
+            $this->Easycase->query("INSERT INTO easycases SET uniq_id='" . $caseuniqid . "', case_no = '" . $dataeasycase[0]['easycases']['case_no'] . "',  case_count=0, project_id='" . $dataeasycase[0]['easycases']['project_id'] . "', user_id='" . SES_ID . "', updated_by=0, type_id='" . $dataeasycase[0]['easycases']['type_id'] . "', priority='" . $dataeasycase[0]['easycases']['priority'] . "', title='', message='', hours='0', assign_to='" . $assignId . "', istype='2',format='2', status='" . $dataeasycase[0]['easycases']['status'] . "', legend='" . $dataeasycase[0]['easycases']['legend'] . "', isactive=1, dt_created='" . GMT_DATETIME . "',actual_dt_created='" . GMT_DATETIME . "',reply_type=2");
+            //Jyoti End
+            if (($assignId == 0) || ($assignId == SES_ID)) {
+                $val['top'] = '<span style="color:#E0814E">me</span>';
+                $val['details'] = '<span style="color:#E0814E">me</span>';
+            } else {
+                $userData = $this->Format->getUserShortName($assignId);
+                //$val['top'] = strtoupper($userData['User']['short_name']);
+                $val['top'] = $this->Format->shortLength(ucfirst($userData['User']['name']), 10);
+                $val['details'] = "<span>" . $userData['User']['name'] . "</span>";
+            }
+            echo json_encode($val);
+        } catch (Exception $e) {
+            echo 'Error on line '.$e->getLine().' in '.$e->getFile()
+            .':Caught exception: ',  $e->getMessage(), "\n";
         }
-        echo json_encode($val);
+        
         exit;
     }
 
