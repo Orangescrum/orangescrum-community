@@ -1,7 +1,7 @@
  *{padding:0;margin:0;font-family:Tahoma, Verdana;}
  body{padding:0;margin:0;font-family:Tahoma, Verdana;}
   .link:hover {text-decoration:underline;}
-  .title_logo{text-align:center;margin: 0;padding: 10px;background: #ff8600;border-radius: 5px 5px 0px 0px; position: relative;
+  .title_logo{text-align:center;margin: 0;padding: 10px;background: #756c6c;border-radius: 5px 5px 0px 0px; position: relative;
     top: 2px;}
   .title_logo h3{font-size:20px;line-height: 30px;color:#fff;font-weight: 600;margin:5px 0 0;padding:0}
   #container{margin:15px auto 0;}
@@ -19,11 +19,11 @@
   .cmn_step_layout #setup table tr td:first-child{color:#245271;font-weight:600;font-size:14px}
       .cmn_step_layout #setup table tr td input{width:100%;margin:0;height: 40px;
       line-height: 40px;font-size: 14px;color:#333;padding:0 15px;border: 1px solid #ddd;border-radius: 5px;box-sizing:border-box;}
-  .cmn_step_layout #setup table tr td input[type="submit"]{background-image: -webkit-linear-gradient(top, #ff8600, #ff8600);
-      background-image: -ms-linear-gradient(top, #ff8600, #ff8600);
-      background-image: -o-linear-gradient(top, #ff8600, #ff8600);
-      background-image: linear-gradient(to bottom, #ff8600, #ff8600);
-      background-image: -moz-linear-gradient(top, #ff8600, #ff8600);font-size:18px;color:#fff;font-weight:600;padding:0;cursor:pointer;border:none}
+  .cmn_step_layout #setup table tr td input[type="submit"]{background-image: -webkit-linear-gradient(top, #756c6c, #756c6c);
+      background-image: -ms-linear-gradient(top, #756c6c, #756c6c);
+      background-image: -o-linear-gradient(top, #756c6c, #756c6c);
+      background-image: linear-gradient(to bottom, #756c6c, #756c6c);
+      background-image: -moz-linear-gradient(top, #756c6c, #756c6c);font-size:18px;color:#fff;font-weight:600;padding:0;cursor:pointer;border:none}
       .cmn_step_layout #setup table tr td input[type="submit"]:hover{box-shadow:0px 5px 15px 0px #888}
       .error{color:red;margin-left: 8px;margin-top: 5px;}
       .loader_pop{text-align: center;background:#fff; height:auto;  margin:auto;  width: 528px; display:block; position:absolute; left:0px; right:0px; top:50%; transform:translateY(-50%);-moz-transform:translateY(-50%);-webkit-transform:translateY(-50%);z-index:9999;  padding:30px 15px; border-radius:5px;    -moz-border-radius:5px; -webkit-border-radius:5px;  max-height: 400px;   overflow-y: auto;    font-size: 20px;line-height: 30px;}

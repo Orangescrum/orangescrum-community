@@ -306,6 +306,6 @@ Cache::config('_cake_model_', array(
 //Configure::write('Session.ini',array('session.cookie_secure' => false, 'session.referer_check' => false));
 
 
-include("install.php");
-include("constants.php");
+include("setup.php");
+/*include("constants.php"); */
 Configure::load('core-email-settings');

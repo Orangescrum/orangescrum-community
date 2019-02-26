@@ -108,7 +108,7 @@ if (!empty($_POST)) {
                         <div id="container">
                             <div id="content">
                                 <div class="title_logo">
-                                  <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                                  <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                                   <h3>Database Configuration</h3>
                                    <strong style="display: block;" class="config-error">Wrong database information. Please try with correct information.</strong>
                                 </div>
@@ -262,7 +262,7 @@ if (!empty($_POST)) {
 					<div id="container">
 						<div id="content">
               <div class="title_logo">
-                <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                 <h3>SMTP Configuration</h3>
               </div>
 							<table width="100%" align="center">
@@ -406,7 +406,7 @@ if (!empty($_POST)) {
 					<div id="container">
 						<div id="content">
                <div class="title_logo">
-                <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                 <h3>SMTP Configuration</h3>
               </div>
 							<table width="100%" align="center">
@@ -531,7 +531,7 @@ if (!empty($_POST)) {
                     <div id="container">
                         <div id="content">
                           <div class="title_logo">
-                              <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                              <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                               <h3>Database Configuration</h3>
                               <strong style="display: block;" class="config-error">Wrong database information. Please try with correct information.</strong>
                             </div>
@@ -679,7 +679,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
             <div id="container">
                 <div id="content">
                   <div class="title_logo">
-                    <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>SMTP Configuration</h3>
                   </div>
                     <table width="100%" align="center">
@@ -805,7 +805,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
         <div id="container">
             <div id="content">
               <div class="title_logo">
-                    <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>Database Configuration</h3>
                   </div>
                 <table width="100%" align="center">
@@ -915,7 +915,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
             <div id="container">
                 <div id="content">
                    <div class="title_logo">
-                    <a href="<?php echo HTTP_ROOT;?>"><img src="https://www.orangescrum.org/img/home/white-Logo-os.png" border="0" alt="Orangescrum.com" title="Orangescrum.com"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>SMTP Configuration</h3>
                   </div>
                     <table width="100%" align="center">
