@@ -34,7 +34,8 @@
  * "Powered by Orangescrum".
  * ****************************************************************************** */
  ?>
- <?php //print_r($_REQUEST); exit;
+ <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+ $actual_link = substr( $actual_link, 0, strrpos( $actual_link, "?"));
  error_reporting(E_ALL);
 set_time_limit(0);
 include_once("database.php");
@@ -50,8 +51,9 @@ $sub_folder = $arr[1];
 if(SUB_FOLDER != $sub_folder."/") {
     check_subfolder();
 }
-if(!empty($_REQUEST['is_smtp']) && $_REQUEST['is_smtp']==1 && IS_SMTP==0){
+if(!empty($_REQUEST['is_smtp']) && $_REQUEST['is_smtp']==1 ){
    checkSkipSmtp();
+   checkDebug();
 }
  $check_constants_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.php';
  $check_file = fopen($check_constants_filename, "a+");
@@ -94,7 +96,7 @@ if (!empty($_POST)) {
                     <head>
                         <meta name="robots" content="noindex,nofollow" />
                         <link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-                        <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+                        <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
                         <title>Orangescrum Setup Wizard</title>
                     </head>
                     <body>
@@ -108,7 +110,7 @@ if (!empty($_POST)) {
                         <div id="container">
                             <div id="content">
                                 <div class="title_logo">
-                                  <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                                  <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                                   <h3>Database Configuration</h3>
                                    <strong style="display: block;" class="config-error">Wrong database information. Please try with correct information.</strong>
                                 </div>
@@ -158,8 +160,8 @@ if (!empty($_POST)) {
                                 </table>
                             </div>
                         </div>
-                        <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
-                        <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+                        <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
+                        <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
                         <script type="text/javascript">
                             $(document).ready(function(){
                                 $("#setup").validate({
@@ -248,7 +250,7 @@ if (!empty($_POST)) {
 				<head>
 					<meta name="robots" content="noindex,nofollow" />
 					<link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-          <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+          <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
 					<title>Orangescrum Setup Wizard</title>
 				</head>
 				<body>
@@ -262,7 +264,7 @@ if (!empty($_POST)) {
 					<div id="container">
 						<div id="content">
               <div class="title_logo">
-                <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                 <h3>SMTP Configuration</h3>
               </div>
 							<table width="100%" align="center">
@@ -313,14 +315,14 @@ if (!empty($_POST)) {
 							</table>
 						</div>
 					</div>
-					<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
+					<script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
 					<script type="text/javascript">
 						function skipSmtp(){
 							$("#is_smtp").val(1);
 							$('#setup').submit();
 						}
 					</script>
-                    <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+                    <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
                      <script type="text/javascript">
                         $(document).ready(function(){
                             $("#setup").validate({
@@ -392,7 +394,7 @@ if (!empty($_POST)) {
 				<head>
 					<meta name="robots" content="noindex,nofollow" />
 					<link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-          <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+          <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
 					<title>Orangescrum Setup Wizard</title>
 				</head>
 				<body>
@@ -406,7 +408,7 @@ if (!empty($_POST)) {
 					<div id="container">
 						<div id="content">
                <div class="title_logo">
-                <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                 <h3>SMTP Configuration</h3>
               </div>
 							<table width="100%" align="center">
@@ -458,14 +460,14 @@ if (!empty($_POST)) {
 							</table>
 						</div>
 					</div>
-					<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
+					<script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
 					<script type="text/javascript">
 						function skipSmtp(){
 							$("#is_smtp").val(1);
 							$('#setup').submit();
 						}
 					</script>
-                    <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+                    <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
                     <script type="text/javascript">
                         $(document).ready(function(){
                             $("#setup").validate({
@@ -517,7 +519,7 @@ if (!empty($_POST)) {
                 <head>
                     <meta name="robots" content="noindex,nofollow" />
                     <link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-                    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+                    <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
                     <title>Orangescrum Setup Wizard</title>
                 </head>
                 <body>
@@ -531,7 +533,7 @@ if (!empty($_POST)) {
                     <div id="container">
                         <div id="content">
                           <div class="title_logo">
-                              <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                              <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                               <h3>Database Configuration</h3>
                               <strong style="display: block;" class="config-error">Wrong database information. Please try with correct information.</strong>
                             </div>
@@ -566,8 +568,8 @@ if (!empty($_POST)) {
                             </table>
                         </div>
                     </div>
-                    <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
-                    <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+                    <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
+                    <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
                     <script type="text/javascript">
                         $(document).ready(function(){
                             $("#setup").validate({
@@ -665,7 +667,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
         <head>
             <meta name="robots" content="noindex,nofollow" />
             <link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-            <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+            <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
             <title>Orangescrum Setup Wizard</title>
         </head>
         <body>
@@ -679,7 +681,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
             <div id="container">
                 <div id="content">
                   <div class="title_logo">
-                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>SMTP Configuration</h3>
                   </div>
                     <table width="100%" align="center">
@@ -730,14 +732,14 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
                     </table>
                 </div>
             </div>
-			<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
+			<script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
 			<script type="text/javascript">
 				function skipSmtp(){
 					$("#is_smtp").val(1);
 					$('#setup').submit();
 				}
 			</script>
-            <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+            <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
              <script type="text/javascript">
                 $(document).ready(function(){
                     $("#setup").validate({
@@ -791,7 +793,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
     <head>
         <meta name="robots" content="noindex,nofollow" />
         <link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
         <title>Orangescrum Setup Wizard</title>
     </head>
     <body>
@@ -805,7 +807,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
         <div id="container">
             <div id="content">
               <div class="title_logo">
-                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>Database Configuration</h3>
                   </div>
                 <table width="100%" align="center">
@@ -854,8 +856,8 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
                 </table>
             </div>
         </div>
-        <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
-        <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+        <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
+        <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#setup").validate({
@@ -901,7 +903,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
         <head>
             <meta name="robots" content="noindex,nofollow" />
             <link rel="shortcut icon" href="https://www.orangescrum.com/favicon.ico"/>
-            <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH; ?>setup.css"/>
+            <link rel="stylesheet" type="text/css" href="<?php echo $actual_link; ?>css/setup.css"/>
             <title>Orangescrum Setup Wizard</title>
         </head>
         <body>
@@ -915,7 +917,7 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
             <div id="container">
                 <div id="content">
                    <div class="title_logo">
-                    <a href="https://www.orangescrum.org/"><img src="<?php echo HTTP_ROOT;?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
+                    <a href="https://www.orangescrum.org/"><img src="<?php echo $actual_link; ?>img/white-Logo-os.png" border="0" alt="Orangescrum.org" title="Orangescrum.org"></a>
                     <h3>SMTP Configuration</h3>
                   </div>
                     <table width="100%" align="center">
@@ -966,14 +968,14 @@ if (trim($settings['database']) != "" && $database_flag ==2) {
                     </table>
                 </div>
             </div>
-			<script type="text/javascript" src="<?php echo JS_PATH; ?>jquery-1.7.2.min.js"></script> 
+			<script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery-1.7.2.min.js"></script> 
 			<script type="text/javascript">
 				function skipSmtp(){
 					$("#is_smtp").val(1);
 					$('#setup').submit();
 				}
 			</script>
-            <script type="text/javascript" src="<?php echo JS_PATH; ?>jquery.validate.js"></script>
+            <script type="text/javascript" src="<?php echo $actual_link; ?>js/jquery.validate.js"></script>
             <script type="text/javascript">
                 $(document).ready(function(){
                     $("#setup").validate({
