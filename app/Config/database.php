@@ -39,10 +39,10 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
+		'host' => '',
+		'login' => '',
 		'password' => '',
-		'database' => 'orangescrum',
+		'database' => '',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
