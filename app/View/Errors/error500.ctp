@@ -38,12 +38,12 @@
 			<table cellpadding="8" cellspacing="8" style="border:1px solid #999999;color:#000000" align="center" width="520px">
 				<tr>
 					<td align="center" style="border-bottom:1px solid #999999">
-						<h2 style="color:#245271">There is some Problem</h2>
+						<h2 style="color:#245271"><?php echo __("404 - PAGE NOT FOUND"); ?></h2>
 					</td>
 				</tr>
 				<tr>
 					<td align="center" style="padding-top:10px">
-						<h3>Please check you database connection in `app/Config/database.php` or may be some syntax error in your code</h3>
+						<h3><?php echo __("We are sorry, but the page you requested was not found"); ?></h3>
 					</td>
 				</tr>
 			</table>
