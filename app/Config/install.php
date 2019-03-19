@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * Orangescrum Community Edition is a web based Project Management software developed by
- * Orangescrum. Copyright (C) 2013-2014
+ * Orangescrum. Copyright (C) 2013-2018
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 3 as published by the
