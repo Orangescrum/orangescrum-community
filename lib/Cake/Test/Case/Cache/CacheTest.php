@@ -25,6 +25,8 @@ App::uses('Cache', 'Cache');
  */
 class CacheTest extends CakeTestCase {
 
+	protected $_count = 0;
+
 /**
  * setUp method
  *
@@ -246,6 +248,8 @@ class CacheTest extends CakeTestCase {
 
 /**
  * testGroupConfigs method
+ *
+ * @return void
  */
 	public function testGroupConfigs() {
 		Cache::config('latest', array(
@@ -299,7 +303,9 @@ class CacheTest extends CakeTestCase {
 
 /**
  * testGroupConfigsThrowsException method
+ *
  * @expectedException CacheException
+ * @return void
  */
 	public function testGroupConfigsThrowsException() {
 		Cache::groupConfigs('bogus');
@@ -488,5 +494,109 @@ class CacheTest extends CakeTestCase {
 
 		$this->assertEquals('test_file_', $settings['prefix']);
 		$this->assertEquals(strtotime('+1 year') - time(), $settings['duration']);
+	}
+
+/**
+ * test remember method.
+ *
+ * @return void
+ */
+	public function testRemember() {
+		$expected = 'This is some data 0';
+		$result = Cache::remember('test_key', array($this, 'cacher'), 'default');
+		$this->assertEquals($expected, $result);
+
+		$this->_count = 1;
+		$result = Cache::remember('test_key', array($this, 'cacher'), 'default');
+		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * Method for testing Cache::remember()
+ *
+ * @return string
+ */
+	public function cacher() {
+		return 'This is some data ' . $this->_count;
+	}
+
+/**
+ * Test add method.
+ *
+ * @return void
+ */
+	public function testAdd() {
+		Cache::delete('test_add_key', 'default');
+
+		$result = Cache::add('test_add_key', 'test data', 'default');
+		$this->assertTrue($result);
+
+		$expected = 'test data';
+		$result = Cache::read('test_add_key', 'default');
+		$this->assertEquals($expected, $result);
+
+		$result = Cache::add('test_add_key', 'test data 2', 'default');
+		$this->assertFalse($result);
+	}
+
+/**
+ * Test engine method.
+ *
+ *  Success, default engine.
+ *
+ * @return void
+ */
+	public function testEngineSuccess() {
+		$actual = Cache::engine();
+		$this->assertInstanceOf('CacheEngine', $actual);
+
+		$actual = Cache::engine('default');
+		$this->assertInstanceOf('CacheEngine', $actual);
+	}
+
+/**
+ * Test engine method.
+ *
+ *  Success, memcached engine.
+ *
+ * @return void
+ */
+	public function testEngineSuccessMemcached() {
+		$this->skipIf(!class_exists('Memcached'), 'Memcached is not installed or configured properly.');
+
+		// @codingStandardsIgnoreStart
+		$socket = @fsockopen('127.0.0.1', 11211, $errno, $errstr, 1);
+		// @codingStandardsIgnoreEnd
+		$this->skipIf(!$socket, 'Memcached is not running.');
+		fclose($socket);
+
+		Cache::config('memcached', array(
+			'engine' => 'Memcached',
+			'prefix' => 'cake_',
+			'duration' => 3600
+		));
+
+		$actual = Cache::engine('memcached');
+		$this->assertInstanceOf('MemcachedEngine', $actual);
+
+		$this->assertTrue($actual->add('test_add_key', 'test data', 10));
+		$this->assertFalse($actual->add('test_add_key', 'test data', 10));
+		$this->assertTrue($actual->delete('test_add_key'));
+	}
+
+/**
+ * Test engine method.
+ *
+ *  Failure.
+ *
+ * @return void
+ */
+	public function testEngineFailure() {
+		$actual = Cache::engine('some_config_that_does_not_exist');
+		$this->assertNull($actual);
+
+		Configure::write('Cache.disable', true);
+		$actual = Cache::engine();
+		$this->assertNull($actual);
 	}
 }

@@ -53,7 +53,7 @@ if(SUB_FOLDER != $sub_folder."/") {
 }
 if(!empty($_REQUEST['is_smtp']) && $_REQUEST['is_smtp']==1 ){
    checkSkipSmtp();
-   checkDebug();
+  // checkDebug();
 }
  $check_constants_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.php';
  $check_file = fopen($check_constants_filename, "a+");
@@ -1074,6 +1074,7 @@ function checkDebug() {
 	//return true;
 }
 function checkSkipSmtp() {
+    checkDebug();
     $core_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.php';
     $tmp_core_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.tmp.php';
     $file = fopen($core_filename, "a+");
@@ -1091,5 +1092,6 @@ function checkSkipSmtp() {
     fclose($writing);
     unlink($core_filename);
     rename($tmp_core_filename, $core_filename);
+    
     //return true;
 }

@@ -180,8 +180,10 @@
 				</span>
 			</div>
 			<div class="fr">
+			<?php if(SES_ID != $user['User']['id']){ ?>
 			    <a class="icon-disable-usr" href="<?php echo HTTP_ROOT; ?>users/manage/?deact=<?php echo urlencode($user['User']['uniq_id']); ?>" Onclick="return confirm('Are you sure you want to disable \'<?php echo $user['User']['name']; ?>\' ?')">Disable</a><br />
-			    <?php  if($istype == 1) {
+			    <?php }
+				if($istype == 1) {
 				if ($user['CompanyUser']['user_type'] == 2) {?>
 			    <a class="icon-revadmin-usr" href="<?php echo HTTP_ROOT; ?>users/manage/?revoke_admin=<?php echo urlencode($user['User']['uniq_id']); ?>" Onclick="return confirm('Are you sure you want to revoke Admin privilege from \'<?php echo $user['User']['name']; ?>\' ?')">Revoke Admin</a>
 			    <?php } else {?>

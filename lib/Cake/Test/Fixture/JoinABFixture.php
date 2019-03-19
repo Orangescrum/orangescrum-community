@@ -17,7 +17,7 @@
  */
 
 /**
- * Class JoinABFixture
+ * JoinABFixture
  *
  * @package       Cake.Test.Fixture
  */
@@ -26,7 +26,7 @@ class JoinABFixture extends CakeTestFixture {
 /**
  * name property
  *
- * @var string 'JoinAsJoinB'
+ * @var string
  */
 	public $name = 'JoinAsJoinB';
 

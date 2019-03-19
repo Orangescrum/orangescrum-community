@@ -171,6 +171,7 @@ class TestAppSchema extends CakeSchema {
 	public $datatypes = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => 0, 'key' => 'primary'),
 		'float_field' => array('type' => 'float', 'null' => false, 'length' => '5,2', 'default' => ''),
+		'decimal_field' => array('type' => 'decimal', 'length' => '6,3', 'default' => '0.000'),
 		'huge_int' => array('type' => 'biginteger'),
 		'bool' => array('type' => 'boolean', 'null' => false, 'default' => false),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => true)),
@@ -435,25 +436,7 @@ class CakeSchemaTest extends CakeTestCase {
  */
 	public function testSchemaName() {
 		$Schema = new CakeSchema();
-		$this->assertEquals(Inflector::camelize(Inflector::slug(APP_DIR)), $Schema->name);
-
-		Configure::write('App.dir', 'Some.name.with.dots');
-		$Schema = new CakeSchema();
-		$this->assertEquals('SomeNameWithDots', $Schema->name);
-
-		Configure::write('App.dir', 'Some-name-with-dashes');
-		$Schema = new CakeSchema();
-		$this->assertEquals('SomeNameWithDashes', $Schema->name);
-
-		Configure::write('App.dir', 'Some name with spaces');
-		$Schema = new CakeSchema();
-		$this->assertEquals('SomeNameWithSpaces', $Schema->name);
-
-		Configure::write('App.dir', 'Some,name;with&weird=characters');
-		$Schema = new CakeSchema();
-		$this->assertEquals('SomeNameWithWeirdCharacters', $Schema->name);
-
-		Configure::write('App.dir', 'app');
+		$this->assertEquals('App', $Schema->name);
 	}
 
 /**
@@ -701,6 +684,22 @@ class CakeSchemaTest extends CakeTestCase {
 		$result = $this->Schema->generateTable('fields', $posts);
 		$this->assertRegExp('/public \$fields/', $result);
 		$this->assertRegExp('/\'type\' \=\> \'fulltext\'/', $result);
+	}
+
+/**
+ * test that tables with unsupported name are not getting through
+ *
+ * @return void
+ */
+	public function testGenerateInvalidTable() {
+		$invalidTableName = 'invalid name !@#$%^&*()';
+		$expectedException = "Invalid table name '{$invalidTableName}'";
+		try{
+			$this->Schema->generateTable($invalidTableName, array());
+			$this->fail("Expected exception \"{$expectedException}\" not thrown");
+		} catch (Exception $e) {
+			$this->assertEquals($expectedException, $e->getMessage());
+		}
 	}
 
 /**
@@ -968,6 +967,63 @@ class CakeSchemaTest extends CakeTestCase {
 			),
 		);
 		$this->assertEquals($expected, $compare, 'Invalid SQL, datetime does not have length');
+	}
+
+/**
+ * Test comparing with field length/limit changed from some non-default value to the default
+ *
+ * @return void
+ */
+	public function testCompareLimitToDefault() {
+		$old = array(
+			'posts' => array(
+				'id' => array('type' => 'integer', 'null' => false, 'default' => 1, 'key' => 'primary'),
+				'author_id' => array('type' => 'integer', 'null' => false, 'limit' => 5),
+				'title' => array('type' => 'string', 'null' => true, 'length' => 45),
+				'indexes' => array(
+					'PRIMARY' => array('column' => 'id', 'unique' => true)
+				),
+				'tableParameters' => array(
+					'charset' => 'latin1',
+					'collate' => 'latin1_general_ci'
+				)
+			),
+		);
+		$new = array(
+			'posts' => array(
+				'id' => array('type' => 'integer', 'null' => false, 'key' => 'primary'),
+				'author_id' => array('type' => 'integer', 'null' => false),
+				'title' => array('type' => 'varchar', 'null' => true),
+				'indexes' => array(
+					'PRIMARY' => array('column' => 'id', 'unique' => true)
+				),
+				'tableParameters' => array(
+					'charset' => 'latin1',
+					'collate' => 'latin1_general_ci'
+				)
+			),
+		);
+		$compare = $this->Schema->compare($old, $new);
+		$expected = array(
+			'posts' => array(
+				'change' => array(
+					'id' => array(
+						'type' => 'integer',
+						'null' => false,
+						'key' => 'primary'
+					),
+					'author_id' => array(
+						'type' => 'integer',
+						'null' => false,
+					),
+					'title' => array(
+						'type' => 'varchar',
+						'null' => true,
+					)
+				)
+			),
+		);
+		$this->assertEquals($expected, $compare, 'Invalid SQL, field length change not detected');
 	}
 
 /**

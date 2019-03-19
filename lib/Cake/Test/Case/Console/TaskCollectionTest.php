@@ -18,6 +18,7 @@
 
 App::uses('TaskCollection', 'Console');
 App::uses('Shell', 'Console');
+
 /**
  * Extended Task
  */
@@ -25,7 +26,7 @@ class DbConfigAliasedTask extends Shell {
 }
 
 /**
- * Class TaskCollectionTest
+ * TaskCollectionTest
  *
  * @package       Cake.Test.Case.Console
  */

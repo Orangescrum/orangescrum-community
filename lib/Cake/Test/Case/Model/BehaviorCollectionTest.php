@@ -19,6 +19,7 @@
  */
 
 App::uses('AppModel', 'Model');
+
 require_once dirname(__FILE__) . DS . 'models.php';
 
 /**
@@ -79,7 +80,7 @@ class TestBehavior extends ModelBehavior {
  *
  * @param Model $model
  * @param array $results
- * @param boolean $primary
+ * @param bool $primary
  * @return void
  */
 	public function afterFind(Model $model, $results, $primary = false) {
@@ -127,7 +128,7 @@ class TestBehavior extends ModelBehavior {
  * afterSave method
  *
  * @param Model $model
- * @param boolean $created
+ * @param bool $created
  * @param array $options Options passed from Model::save().
  * @return void
  */
@@ -160,7 +161,7 @@ class TestBehavior extends ModelBehavior {
  *
  * @param Model $Model Model invalidFields was called on.
  * @param array $options Options passed from Model::save().
- * @return boolean
+ * @return bool
  * @see Model::save()
  */
 	public function beforeValidate(Model $model, $options = array()) {
@@ -187,7 +188,7 @@ class TestBehavior extends ModelBehavior {
  * afterValidate method
  *
  * @param Model $model
- * @param boolean $cascade
+ * @param bool $cascade
  * @return void
  */
 	public function afterValidate(Model $model) {
@@ -208,7 +209,7 @@ class TestBehavior extends ModelBehavior {
  * beforeDelete method
  *
  * @param Model $model
- * @param boolean $cascade
+ * @param bool $cascade
  * @return void
  */
 	public function beforeDelete(Model $model, $cascade = true) {
@@ -280,7 +281,7 @@ class TestBehavior extends ModelBehavior {
  * testMethod method
  *
  * @param Model $model
- * @param boolean $param
+ * @param bool $param
  * @return void
  */
 	public function testMethod(Model $model, $param = true) {
@@ -475,6 +476,7 @@ class BehaviorCollectionTest extends CakeTestCase {
 /**
  * Test load() with enabled => false
  *
+ * @return void
  */
 	public function testLoadDisabled() {
 		$Apple = new Apple();
@@ -487,6 +489,8 @@ class BehaviorCollectionTest extends CakeTestCase {
 
 /**
  * Tests loading aliased behaviors
+ *
+ * @return void
  */
 	public function testLoadAlias() {
 		$Apple = new Apple();
@@ -1188,6 +1192,8 @@ class BehaviorCollectionTest extends CakeTestCase {
 
 /**
  * Test that behavior priority
+ *
+ * @return void
  */
 	public function testBehaviorOrderCallbacks() {
 		$model = ClassRegistry::init('Orangutan');

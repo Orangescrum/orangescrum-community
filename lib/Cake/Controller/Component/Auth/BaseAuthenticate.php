@@ -1,7 +1,5 @@
 <?php
 /**
- *
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -16,19 +14,21 @@
 
 App::uses('Security', 'Utility');
 App::uses('Hash', 'Utility');
+App::uses('CakeEventListener', 'Event');
 
 /**
  * Base Authentication class with common methods and properties.
  *
  * @package       Cake.Controller.Component.Auth
  */
-abstract class BaseAuthenticate {
+abstract class BaseAuthenticate implements CakeEventListener {
 
 /**
  * Settings for this object.
  *
  * - `fields` The fields to use to identify a user by.
  * - `userModel` The model name of the User, defaults to User.
+ * - `userFields` Array of fields to retrieve from User model, null to retrieve all. Defaults to null.
  * - `scope` Additional conditions to use when looking up and authenticating users,
  *    i.e. `array('User.is_active' => 1).`
  * - `recursive` The value of the recursive key passed to find(). Defaults to 0.
@@ -45,6 +45,7 @@ abstract class BaseAuthenticate {
 			'password' => 'password'
 		),
 		'userModel' => 'User',
+		'userFields' => null,
 		'scope' => array(),
 		'recursive' => 0,
 		'contain' => null,
@@ -64,6 +65,15 @@ abstract class BaseAuthenticate {
  * @var AbstractPasswordHasher
  */
 	protected $_passwordHasher;
+
+/**
+ * Implemented events
+ *
+ * @return array of events => callbacks.
+ */
+	public function implementedEvents() {
+		return array();
+	}
 
 /**
  * Constructor
@@ -88,7 +98,7 @@ abstract class BaseAuthenticate {
  *
  * @param string|array $username The username/identifier, or an array of find conditions.
  * @param string $password The password, only used if $username param is string.
- * @return boolean|array Either false on failure, or an array of user data.
+ * @return bool|array Either false on failure, or an array of user data.
  */
 	protected function _findUser($username, $password = null) {
 		$userModel = $this->settings['userModel'];
@@ -107,9 +117,15 @@ abstract class BaseAuthenticate {
 			$conditions = array_merge($conditions, $this->settings['scope']);
 		}
 
+		$userFields = $this->settings['userFields'];
+		if ($password !== null && $userFields !== null) {
+			$userFields[] = $model . '.' . $fields['password'];
+		}
+
 		$result = ClassRegistry::init($userModel)->find('first', array(
 			'conditions' => $conditions,
 			'recursive' => $this->settings['recursive'],
+			'fields' => $userFields,
 			'contain' => $this->settings['contain'],
 		));
 		if (empty($result[$model])) {
@@ -118,7 +134,7 @@ abstract class BaseAuthenticate {
 		}
 
 		$user = $result[$model];
-		if ($password) {
+		if ($password !== null) {
 			if (!$this->passwordHasher()->check($password, $user[$fields['password']])) {
 				return false;
 			}
@@ -168,7 +184,7 @@ abstract class BaseAuthenticate {
  *
  * @param string $password The plain text password.
  * @return string The hashed form of the password.
- * @deprecated Since 2.4. Use a PasswordHasher class instead.
+ * @deprecated 3.0.0 Since 2.4. Use a PasswordHasher class instead.
  */
 	protected function _password($password) {
 		return Security::hash($password, null, true);

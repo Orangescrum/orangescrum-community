@@ -8,7 +8,7 @@
 		    </div>
 		</td>
 	    </tr>
-	    <?php if ((!empty($results['cases'])) || (!empty($results['projects'])) || (!empty($results['users'])) || (!empty($results['files']))) {
+	    <?php if ((!empty($results['cases'])) || (!empty($results['projects'])) || (!empty($results['users'])) || (!empty($results['files'])) || (!empty($results['milestones']))) {
 		if (!empty($results['cases'])) { ?>
 		    <?php $c = 0;
 		    $uniqId = NULL;
@@ -72,7 +72,26 @@
 			</tr>
 		    <?php }
 		}
-		
+		if (!empty($results['milestones'])) {
+                    ?>
+                    <?php
+                    foreach ($results['milestones'] as $getmilestone) {
+                        $role = '';
+                        if ($getmilestone['Milestone']['isactive'] == 2) {
+                            $role = 'inactive';
+                        }
+                        ?>
+                        <tr class="alltrcls" data-id="<?php echo $getmilestone['Milestone']['uniq_id']; ?>" data-role="<?php echo $role; ?>" onclick="searchMilestone('<?php echo $getmilestone['Milestone']['id'];; ?>', '<?php echo $getmilestone['Milestone']['uniq_id']; ?>','<?php echo $getmilestone['Milestone']['title']; ?>','<?php echo $role; ?>')">
+                            <td colspan="2" class="ttc">
+                                <?php
+                                $data = ucfirst($getmilestone['Milestone']['title']);
+                                echo str_ireplace($srchstr, "<span class='ajx-selctd'>" . $srchstr . "</span>", $data);
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
 		if (!empty($results['files'])) { ?>
 		    <?php foreach ($results['files'] as $getfile) { ?>
 			<tr class="alltrcls" data-id="<?php echo $getfile['Project']['uniq_id'];?>" data-role="<?php echo $getfile['CaseFile']['id'];?>" onclick="searchFile('<?php echo $getfile['CaseFile']['id'];?>','<?php echo $getfile['Project']['uniq_id'];?>','<?php echo $srchstr;?>')">

@@ -38,20 +38,21 @@ class TestShell extends Shell {
 	protected $_dispatcher = null;
 
 /**
- * get the option parser for the test suite.
+ * Gets the option parser instance and configures it.
  *
- * @return void
+ * @return ConsoleOptionParser
  */
 	public function getOptionParser() {
 		$parser = new ConsoleOptionParser($this->name);
-		$parser->description(array(
-			__d('cake_console', 'The CakePHP Testsuite allows you to run test cases from the command line'),
-		))->addArgument('category', array(
+
+		$parser->description(
+			__d('cake_console', 'The CakePHP Testsuite allows you to run test cases from the command line')
+		)->addArgument('category', array(
 			'help' => __d('cake_console', 'The category for the test, or test file, to test.'),
-			'required' => false,
+			'required' => false
 		))->addArgument('file', array(
 			'help' => __d('cake_console', 'The path to the file, or test file, to test.'),
-			'required' => false,
+			'required' => false
 		))->addOption('log-junit', array(
 			'help' => __d('cake_console', '<file> Log test execution in JUnit XML format to file.'),
 			'default' => false
@@ -70,6 +71,9 @@ class TestShell extends Shell {
 		))->addOption('coverage-clover', array(
 			'help' => __d('cake_console', '<file> Write code coverage data in Clover XML format.'),
 			'default' => false
+		))->addOption('coverage-text', array(
+			'help' => __d('cake_console', 'Output code coverage report in Text format.'),
+			'boolean' => true
 		))->addOption('testdox-html', array(
 			'help' => __d('cake_console', '<file> Write agile documentation in HTML format to file.'),
 			'default' => false
@@ -151,11 +155,12 @@ class TestShell extends Shell {
 			'default' => false
 		))->addOption('directive', array(
 			'help' => __d('cake_console', 'key[=value] Sets a php.ini value.'),
+			'short' => 'd',
 			'default' => false
 		))->addOption('fixture', array(
-			'help' => __d('cake_console', 'Choose a custom fixture manager.'),
+			'help' => __d('cake_console', 'Choose a custom fixture manager.')
 		))->addOption('debug', array(
-			'help' => __d('cake_console', 'More verbose output.'),
+			'help' => __d('cake_console', 'More verbose output.')
 		));
 
 		return $parser;
@@ -171,18 +176,18 @@ class TestShell extends Shell {
 		$this->_dispatcher = new CakeTestSuiteDispatcher();
 		$success = $this->_dispatcher->loadTestFramework();
 		if (!$success) {
-			throw new Exception(__d('cake_dev', 'Please install PHPUnit framework <info>(http://www.phpunit.de)</info>'));
+			throw new Exception(__d('cake_dev', 'Please install PHPUnit framework v3.7 <info>(http://www.phpunit.de)</info>'));
 		}
 	}
 
 /**
  * Parse the CLI options into an array CakeTestDispatcher can use.
  *
- * @return array Array of params for CakeTestDispatcher
+ * @return array|null Array of params for CakeTestDispatcher or null.
  */
 	protected function _parseArgs() {
 		if (empty($this->args)) {
-			return;
+			return null;
 		}
 		$params = array(
 			'core' => false,
@@ -221,6 +226,7 @@ class TestShell extends Shell {
 		$options = array();
 		$params = $this->params;
 		unset($params['help']);
+		unset($params['quiet']);
 
 		if (!empty($params['no-colors'])) {
 			unset($params['no-colors'], $params['colors']);
@@ -232,7 +238,11 @@ class TestShell extends Shell {
 			if ($value === false) {
 				continue;
 			}
-			$options[] = '--' . $param;
+			if ($param === 'directive') {
+				$options[] = '-d';
+			} else {
+				$options[] = '--' . $param;
+			}
 			if (is_string($value)) {
 				$options[] = $value;
 			}
@@ -333,9 +343,9 @@ class TestShell extends Shell {
 /**
  * Find the test case for the passed file. The file could itself be a test.
  *
- * @param string $file
- * @param string $category
- * @param boolean $throwOnMissingFile
+ * @param string $file The file to map.
+ * @param string $category The test file category.
+ * @param bool $throwOnMissingFile Whether or not to throw an exception.
  * @return array array(type, case)
  * @throws Exception
  */
@@ -410,7 +420,7 @@ class TestShell extends Shell {
 /**
  * For the given file, what category of test is it? returns app, core or the name of the plugin
  *
- * @param string $file
+ * @param string $file The file to map.
  * @return string
  */
 	protected function _mapFileToCategory($file) {

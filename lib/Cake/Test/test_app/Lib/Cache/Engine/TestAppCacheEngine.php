@@ -17,7 +17,7 @@
  */
 
 /**
- * Class TestAppCacheEngine
+ * TestAppCacheEngine
  *
  * @package       Cake.Test.TestApp.Lib.Cache.Engine
  */
@@ -45,5 +45,8 @@ class TestAppCacheEngine extends CacheEngine {
 	}
 
 	public function clearGroup($group) {
+	}
+
+	public function add($key, $value, $duration) {
 	}
 }

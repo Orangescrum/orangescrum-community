@@ -1,7 +1,5 @@
 <?php
 /**
- *
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -14,6 +12,7 @@
  * @since         CakePHP(tm) v 2.4.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 App::uses('AbstractPasswordHasher', 'Controller/Component/Auth');
 App::uses('Security', 'Utility');
 
@@ -46,8 +45,8 @@ class SimplePasswordHasher extends AbstractPasswordHasher {
  * Check hash. Generate hash for user provided password and check against existing hash.
  *
  * @param string $password Plain text password to hash.
- * @param string Existing hashed password.
- * @return boolean True if hashes match else false.
+ * @param string $hashedPassword Existing hashed password.
+ * @return bool True if hashes match else false.
  */
 	public function check($password, $hashedPassword) {
 		return $hashedPassword === $this->hash($password);

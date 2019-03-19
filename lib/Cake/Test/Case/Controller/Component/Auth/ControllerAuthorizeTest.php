@@ -22,7 +22,7 @@ App::uses('CakeRequest', 'Network');
 App::uses('CakeResponse', 'Network');
 
 /**
- * Class ControllerAuthorizeTest
+ * ControllerAuthorizeTest
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
@@ -45,14 +45,26 @@ class ControllerAuthorizeTest extends CakeTestCase {
 	}
 
 /**
+ * testControllerTypeError
+ *
  * @expectedException PHPUnit_Framework_Error
+ * @return void
+ * @throws PHPUnit_Framework_Error
  */
 	public function testControllerTypeError() {
-		$this->auth->controller(new StdClass());
+		try {
+			$this->auth->controller(new StdClass());
+			$this->fail('No exception thrown');
+		} catch (TypeError $e) {
+			throw new PHPUnit_Framework_Error('Raised an error', 100, __FILE__, __LINE__);
+		}
 	}
 
 /**
+ * testControllerErrorOnMissingMethod
+ *
  * @expectedException CakeException
+ * @return void
  */
 	public function testControllerErrorOnMissingMethod() {
 		$this->auth->controller(new Controller());
@@ -85,4 +97,5 @@ class ControllerAuthorizeTest extends CakeTestCase {
 
 		$this->assertTrue($this->auth->authorize($user, $request));
 	}
+
 }

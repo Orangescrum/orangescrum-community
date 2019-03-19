@@ -19,7 +19,7 @@
 App::uses('ConsoleLog', 'Log/Engine');
 
 /**
- * Class TestConsoleLog
+ * TestConsoleLog
  *
  * @package       Cake.Test.Case.Log.Engine
  */
@@ -28,14 +28,14 @@ class TestConsoleLog extends ConsoleLog {
 }
 
 /**
- * Class TestCakeLog
+ * TestCakeLog
  *
  * @package       Cake.Test.Case.Log.Engine
  */
 class TestCakeLog extends CakeLog {
 
 	public static function replace($key, &$engine) {
-		self::$_Collection->{$key} = $engine;
+		static::$_Collection->{$key} = $engine;
 	}
 
 }
@@ -73,6 +73,8 @@ class ConsoleLogTest extends CakeTestCase {
 
 /**
  * Test writing to ConsoleOutput
+ *
+ * @return void
  */
 	public function testConsoleOutputWrites() {
 		TestCakeLog::config('test_console_log', array(
@@ -92,6 +94,8 @@ class ConsoleLogTest extends CakeTestCase {
 
 /**
  * Test logging to both ConsoleLog and FileLog
+ *
+ * @return void
  */
 	public function testCombinedLogWriting() {
 		TestCakeLog::config('test_console_log', array(
@@ -128,12 +132,16 @@ class ConsoleLogTest extends CakeTestCase {
 
 /**
  * test default value of stream 'outputAs'
+ *
+ * @return void
  */
 	public function testDefaultOutputAs() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
 			));
-		if (DS === '\\' && !(bool)env('ANSICON')) {
+		if ((DS === '\\' && !(bool)env('ANSICON') && env('ConEmuANSI') !== 'ON') ||
+			(function_exists('posix_isatty') && !posix_isatty(null))
+		) {
 			$expected = ConsoleOutput::PLAIN;
 		} else {
 			$expected = ConsoleOutput::COLOR;

@@ -196,9 +196,9 @@ class FileEngineTest extends CakeTestCase {
 		Cache::config('file_test', array('engine' => 'File', 'duration' => 1));
 
 		$data = 'this is a test of the emergency broadcasting system';
-		$write = Cache::write('serialize_test1', $data, 'file_test');
-		$write = Cache::write('serialize_test2', $data, 'file_test');
-		$write = Cache::write('serialize_test3', $data, 'file_test');
+		Cache::write('serialize_test1', $data, 'file_test');
+		Cache::write('serialize_test2', $data, 'file_test');
+		Cache::write('serialize_test3', $data, 'file_test');
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test1'));
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test2'));
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test3'));
@@ -210,9 +210,9 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse(file_exists(CACHE . 'cake_serialize_test3'));
 
 		$data = 'this is a test of the emergency broadcasting system';
-		$write = Cache::write('serialize_test1', $data, 'file_test');
-		$write = Cache::write('serialize_test2', $data, 'file_test');
-		$write = Cache::write('serialize_test3', $data, 'file_test');
+		Cache::write('serialize_test1', $data, 'file_test');
+		Cache::write('serialize_test2', $data, 'file_test');
+		Cache::write('serialize_test3', $data, 'file_test');
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test1'));
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test2'));
 		$this->assertTrue(file_exists(CACHE . 'cake_serialize_test3'));
@@ -413,7 +413,7 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('mask_test');
 
 		Cache::config('mask_test', array('engine' => 'File', 'mask' => 0666, 'path' => TMP . 'tests'));
-		$write = Cache::write('masking_test', $data, 'mask_test');
+		Cache::write('masking_test', $data, 'mask_test');
 		$result = substr(sprintf('%o', fileperms(TMP . 'tests' . DS . 'cake_masking_test')), -4);
 		$expected = '0666';
 		$this->assertEquals($expected, $result);
@@ -421,7 +421,7 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('mask_test');
 
 		Cache::config('mask_test', array('engine' => 'File', 'mask' => 0644, 'path' => TMP . 'tests'));
-		$write = Cache::write('masking_test', $data, 'mask_test');
+		Cache::write('masking_test', $data, 'mask_test');
 		$result = substr(sprintf('%o', fileperms(TMP . 'tests' . DS . 'cake_masking_test')), -4);
 		$expected = '0644';
 		$this->assertEquals($expected, $result);
@@ -429,7 +429,7 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('mask_test');
 
 		Cache::config('mask_test', array('engine' => 'File', 'mask' => 0640, 'path' => TMP . 'tests'));
-		$write = Cache::write('masking_test', $data, 'mask_test');
+		Cache::write('masking_test', $data, 'mask_test');
 		$result = substr(sprintf('%o', fileperms(TMP . 'tests' . DS . 'cake_masking_test')), -4);
 		$expected = '0640';
 		$this->assertEquals($expected, $result);
@@ -453,6 +453,8 @@ class FileEngineTest extends CakeTestCase {
 
 /**
  * Test that clearing with repeat writes works properly
+ *
+ * @return void
  */
 	public function testClearingWithRepeatWrites() {
 		Cache::config('repeat', array(
@@ -548,4 +550,22 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse(Cache::read('key_2', 'file_groups'), 'Did not delete');
 	}
 
+/**
+ * Test add method.
+ *
+ * @return void
+ */
+	public function testAdd() {
+		Cache::delete('test_add_key', 'file_test');
+
+		$result = Cache::add('test_add_key', 'test data', 'file_test');
+		$this->assertTrue($result);
+
+		$expected = 'test data';
+		$result = Cache::read('test_add_key', 'file_test');
+		$this->assertEquals($expected, $result);
+
+		$result = Cache::add('test_add_key', 'test data 2', 'file_test');
+		$this->assertFalse($result);
+	}
 }

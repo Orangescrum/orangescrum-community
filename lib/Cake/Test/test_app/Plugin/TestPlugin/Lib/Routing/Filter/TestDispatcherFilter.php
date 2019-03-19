@@ -1,7 +1,5 @@
 <?php
 /**
- *
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -19,7 +17,7 @@
 App::uses('DispatcherFilter', 'Routing');
 
 /**
- * Class TestDispatcherFilter
+ * TestDispatcherFilter
  *
  * @package		  Cake.Test.TestApp.Routing.Filter
  */

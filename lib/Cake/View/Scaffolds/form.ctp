@@ -1,7 +1,5 @@
 <?php
 /**
- *
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -30,16 +28,16 @@
 		<li><?php echo $this->Form->postLink(
 			__d('cake', 'Delete'),
 			array('action' => 'delete', $this->Form->value($modelClass . '.' . $primaryKey)),
-			null,
+			array(),
 			__d('cake', 'Are you sure you want to delete # %s?', $this->Form->value($modelClass . '.' . $primaryKey)));
 		?></li>
 <?php endif; ?>
 		<li><?php echo $this->Html->link(__d('cake', 'List') . ' ' . $pluralHumanName, array('action' => 'index')); ?></li>
 <?php
 		$done = array();
-		foreach ($associations as $_type => $_data) {
-			foreach ($_data as $_alias => $_details) {
-				if ($_details['controller'] != $this->name && !in_array($_details['controller'], $done)) {
+		foreach ($associations as $_type => $_data):
+			foreach ($_data as $_alias => $_details):
+				if ($_details['controller'] != $this->name && !in_array($_details['controller'], $done)):
 					echo "\t\t<li>" . $this->Html->link(
 						__d('cake', 'List %s', Inflector::humanize($_details['controller'])),
 						array('plugin' => $_details['plugin'], 'controller' => $_details['controller'], 'action' => 'index')
@@ -49,9 +47,9 @@
 						array('plugin' => $_details['plugin'], 'controller' => $_details['controller'], 'action' => 'add')
 					) . "</li>\n";
 					$done[] = $_details['controller'];
-				}
-			}
-		}
+				endif;
+			endforeach;
+		endforeach;
 ?>
 	</ul>
 </div>

@@ -362,6 +362,8 @@ class AppTest extends CakeTestCase {
 
 /**
  * Make sure that .svn and friends are excluded from App::objects('plugin')
+ *
+ * @return void
  */
 	public function testListObjectsIgnoreDotDirectories() {
 		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
@@ -425,27 +427,6 @@ class AppTest extends CakeTestCase {
 		$this->assertTrue(in_array('Comment', $result));
 		$this->assertTrue(in_array('Post', $result));
 
-		App::build();
-	}
-
-/**
- * test that pluginPath can find paths for plugins.
- *
- * @return void
- */
-	public function testPluginPath() {
-		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
-		));
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
-
-		$path = App::pluginPath('TestPlugin');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS;
-		$this->assertEquals($expected, $path);
-
-		$path = App::pluginPath('TestPluginTwo');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPluginTwo' . DS;
-		$this->assertEquals($expected, $path);
 		App::build();
 	}
 
@@ -595,7 +576,6 @@ class AppTest extends CakeTestCase {
  * test that building helper paths actually works.
  *
  * @return void
- * @link https://cakephp.lighthouseapp.com/projects/42648/tickets/410
  */
 	public function testImportingHelpersFromAlternatePaths() {
 		$this->assertFalse(class_exists('BananaHelper', false), 'BananaHelper exists, cannot test importing it.');
@@ -793,6 +773,7 @@ class AppTest extends CakeTestCase {
  * Tests that the automatic class loader will also find in "libs" folder for both
  * app and plugins if it does not find the class in other configured paths
  *
+ * @return void
  */
 	public function testLoadClassInLibs() {
 		App::build(array(
@@ -846,5 +827,37 @@ class AppTest extends CakeTestCase {
 		$this->assertFalse(class_exists('TestPluginOtherLibrary', false));
 		App::uses('TestPluginOtherLibrary', 'TestPlugin.Lib');
 		$this->assertTrue(class_exists('TestPluginOtherLibrary'));
+	}
+
+/**
+ * Test that increaseMemoryLimit increases the maximum amount of memory actually
+ *
+ * @dataProvider memoryVariationProvider
+ * @return void
+ */
+	public function testIncreaseMemoryLimit($memoryLimit, $additionalKb, $expected) {
+		$this->skipIf(!function_exists('ini_set'));
+
+		$originalMemoryLimit = ini_get('memory_limit');
+
+		ini_set('memory_limit', $memoryLimit);
+		App::increaseMemoryLimit($additionalKb);
+		$this->assertEquals($expected, ini_get('memory_limit'));
+
+		ini_set('memory_limit', $originalMemoryLimit);
+	}
+
+/**
+ * Data provider function for testIncreaseMemoryLimit 
+ *
+ * @return void
+ */
+	public function memoryVariationProvider() {
+		return array(
+			array('131072K', 100000, '231072K'),
+			array('256M', 1, '262145K'),
+			array('1G', 1, '1048577K'),
+			array('-1', 100000, '-1')
+		);
 	}
 }

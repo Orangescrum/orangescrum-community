@@ -422,6 +422,20 @@ class ModelDeleteTest extends BaseModelTest {
 	}
 
 /**
+ * testDeleteAll diamond operator method
+ *
+ * @return void
+ */
+	public function testDeleteAllDiamondOperator() {
+		$this->loadFixtures('Article');
+		$article = new Article();
+
+		$result = $article->deleteAll(array('Article.id <>' => 1));
+		$this->assertTrue($result);
+		$this->assertFalse($article->exists(2));
+	}
+
+/**
  * testDeleteAllUnknownColumn method
  *
  * @expectedException PDOException
@@ -443,15 +457,77 @@ class ModelDeleteTest extends BaseModelTest {
  */
 	public function testDeleteAllFailedFind() {
 		$this->loadFixtures('Article');
-		$this->getMock('Article', array('find'), array(), 'ArticleDeleteAll');
-
-		$TestModel = new ArticleDeleteAll();
+		$TestModel = $this->getMock('Article', array('find'));
 		$TestModel->expects($this->once())
 			->method('find')
 			->will($this->returnValue(null));
 
 		$result = $TestModel->deleteAll(array('Article.user_id' => 999));
 		$this->assertFalse($result);
+	}
+
+/**
+ * testDeleteAllMultipleRowsPerId method
+ *
+ * Ensure find done in deleteAll only returns distinct ids. A wacky combination
+ * of association and conditions can sometimes generate multiple rows per id.
+ *
+ * @return void
+ */
+	public function testDeleteAllMultipleRowsPerId() {
+		$this->loadFixtures('Article', 'User');
+
+		$TestModel = new Article();
+		$TestModel->unbindModel(array(
+			'belongsTo' => array('User'),
+			'hasMany' => array('Comment'),
+			'hasAndBelongsToMany' => array('Tag')
+		), false);
+		$TestModel->bindModel(array(
+			'belongsTo' => array(
+				'User' => array(
+					'foreignKey' => false,
+					'conditions' => array(
+						'Article.user_id = 1'
+					)
+				)
+			)
+		), false);
+
+		$result = $TestModel->deleteAll(
+			array('Article.user_id' => array(1, 3)),
+			true,
+			true
+		);
+
+		$this->assertTrue($result);
+	}
+
+/**
+ * testDeleteAllWithOrderProperty
+ *
+ * Ensure find done in deleteAll works with models that has $order property set
+ *
+ * @return void
+ */
+	public function testDeleteAllWithOrderProperty() {
+		$this->loadFixtures('Article', 'User');
+
+		$TestModel = new Article();
+		$TestModel->order = 'Article.published desc';
+		$TestModel->unbindModel(array(
+			'belongsTo' => array('User'),
+			'hasMany' => array('Comment'),
+			'hasAndBelongsToMany' => array('Tag')
+		), false);
+
+		$result = $TestModel->deleteAll(
+			array('Article.user_id' => array(1, 3)),
+			true,
+			true
+		);
+
+		$this->assertTrue($result);
 	}
 
 /**

@@ -28,7 +28,7 @@ class ClassRegisterModel extends CakeTestModel {
 /**
  * useTable property
  *
- * @var boolean
+ * @var bool
  */
 	public $useTable = false;
 }
@@ -147,7 +147,7 @@ class ClassRegistryTest extends CakeTestCase {
 		$this->assertSame($Tag, $TagCopy);
 
 		$NewTag = ClassRegistry::init(array('class' => 'RegisterArticleTag', 'alias' => 'NewTag'));
-		$this->assertInstanceOf('RegisterArticleTag', $Tag);
+		$this->assertInstanceOf('RegisterArticleTag', $NewTag);
 
 		$NewTagCopy = ClassRegistry::init(array('class' => 'RegisterArticleTag', 'alias' => 'NewTag'));
 
@@ -180,6 +180,35 @@ class ClassRegistryTest extends CakeTestCase {
 		$this->assertNotEquals($Category->alias, $ParentCategory->alias);
 		$this->assertEquals('RegisterCategory', $Category->alias);
 		$this->assertEquals('ParentCategory', $ParentCategory->alias);
+	}
+
+/**
+ * Test that init() can make models with alias set properly
+ *
+ * @return void
+ */
+	public function testAddModelWithAlias() {
+		$tag = ClassRegistry::init(array('class' => 'RegisterArticleTag', 'alias' => 'NewTag'));
+		$this->assertInstanceOf('RegisterArticleTag', $tag);
+		$this->assertSame('NewTag', $tag->alias);
+		$this->assertSame('RegisterArticleTag', $tag->name);
+
+		$newTag = ClassRegistry::init(array('class' => 'RegisterArticleTag', 'alias' => 'OtherTag'));
+		$this->assertInstanceOf('RegisterArticleTag', $tag);
+		$this->assertSame('OtherTag', $newTag->alias);
+		$this->assertSame('RegisterArticleTag', $newTag->name);
+	}
+
+/**
+ * Test that init() can make the Aco models with alias set properly
+ *
+ * @return void
+ */
+	public function testAddModelWithAliasAco() {
+		$aco = ClassRegistry::init(array('class' => 'Aco', 'alias' => 'CustomAco'));
+		$this->assertInstanceOf('Aco', $aco);
+		$this->assertSame('Aco', $aco->name);
+		$this->assertSame('CustomAco', $aco->alias);
 	}
 
 /**
@@ -268,6 +297,7 @@ class ClassRegistryTest extends CakeTestCase {
 /**
  * Tests prefixed datasource names for test purposes
  *
+ * @return void
  */
 	public function testPrefixedTestDatasource() {
 		ClassRegistry::config(array('testing' => true));
@@ -287,6 +317,7 @@ class ClassRegistryTest extends CakeTestCase {
 /**
  * Tests that passing the string parameter to init() will return false if the model does not exists
  *
+ * @return void
  */
 	public function testInitStrict() {
 		$this->assertFalse(ClassRegistry::init('NonExistent', true));
