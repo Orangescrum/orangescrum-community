@@ -145,7 +145,11 @@ input#txt_Password{font-family: Arial}
 						    if(isset($update_email_message)){
 							echo $update_email_message;
 						     }else{
-							echo $this->Session->flash(); 
+                                                          if($findCompany['Company']['id']) {
+							  echo $this->Session->flash();  
+                                                          }else{
+                                                             
+                                                          }
 						     }
 						?>
                                             </div>
