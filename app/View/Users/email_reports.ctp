@@ -74,7 +74,7 @@
             <?php
             if(@$getAllDailyupdateNot['DailyupdateNotification']['dly_update'] == 1) {
                 $style = '';
-                $hr_min = split(':',$getAllDailyupdateNot['DailyupdateNotification']['notification_time']);
+                $hr_min = explode(':',$getAllDailyupdateNot['DailyupdateNotification']['notification_time']);
             }
             else
                 $style = 'style="display:none"';
