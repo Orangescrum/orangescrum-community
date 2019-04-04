@@ -53,7 +53,7 @@ if(SUB_FOLDER != $sub_folder."/") {
 }
 if(!empty($_REQUEST['is_smtp']) && $_REQUEST['is_smtp']==1 ){
    checkSkipSmtp();
-  // checkDebug();
+   checkDebug();
 }
  $check_constants_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.php';
  $check_file = fopen($check_constants_filename, "a+");
@@ -297,9 +297,9 @@ if (!empty($_POST)) {
 																<td>&nbsp;</td>
 																<td><input type="submit" value="Finish"/></td>
 															</tr>
-															<tr>
+<!--															<tr>
 																<td  style="padding: 0 !important;"><label style="text-align: center;display: block;"><a href="?is_smtp=1" style="font-size: 13px;color:#333">Skip this step</a></label></td>
-															</tr>
+															</tr>-->
 														</table>
 													</form>
 												</td>
@@ -441,9 +441,9 @@ if (!empty($_POST)) {
 																<td>&nbsp;</td>
 																<td><input type="submit" value="Finish"/></td>
 															</tr>
-															<tr>
+<!--															<tr>
 																<td  style="padding: 0 !important;"><label style="text-align: center;display: block;"><a href="?is_smtp=1" style="font-size: 13px;color:#333">Skip this step</a></label></td>
-															</tr>
+															</tr>-->
 														</table>
 													</form>
 												</td>
@@ -1074,7 +1074,6 @@ function checkDebug() {
 	//return true;
 }
 function checkSkipSmtp() {
-    checkDebug();
     $core_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.php';
     $tmp_core_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'constants.tmp.php';
     $file = fopen($core_filename, "a+");
@@ -1092,6 +1091,5 @@ function checkSkipSmtp() {
     fclose($writing);
     unlink($core_filename);
     rename($tmp_core_filename, $core_filename);
-    
     //return true;
 }
