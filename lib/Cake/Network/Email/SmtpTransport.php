@@ -82,7 +82,8 @@ class SmtpTransport extends AbstractTransport {
 			'username' => null,
 			'password' => null,
 			'client' => null,
-			'tls' => false
+			/*'tls' => false*/
+			'tls' => true
 		);
 		$this->_config = array_merge($default, $this->_config, $config);
 		return $this->_config;
