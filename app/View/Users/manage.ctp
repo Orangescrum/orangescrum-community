@@ -88,6 +88,10 @@
         <div class="col-lg-12 contain usr_mng_div" style="position:relative;">
         	<div class="usr_block">
                 <div class="label <?php echo $colors;?> fl" style="padding: 3px;text-align: center !important;width: 96px;"><?php echo $usr_typ_name;?></div>
+		<?php if ($_GET['role'] == 'invited') echo '
+		<div style="float:right;margin:5px 5px 0 0;">
+			<a href="'.HTTP_ROOT.'users/invitation/'.$user['User']['qstr'].'" class="usr_email" target="blank">Invitation URL</a>
+		</div>'; ?>
                 <div class="fl mgl14">
 		    <div class="nm"><?php if(isset($user['User']['name']) && trim($user['User']['name'])) {echo ucfirst($user['User']['name']); } else { echo "&nbsp;";} ?></div>
                     <div class="usr_email" title="<?php echo $user['User']['email']; ?>">
