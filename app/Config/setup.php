@@ -33,10 +33,9 @@
  * technical reasons, the Appropriate Legal Notices must display the words
  * "Powered by Orangescrum".
  * ****************************************************************************** */
- ?>
- <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
- $actual_link = substr( $actual_link, 0, strrpos( $actual_link, "?"));
- error_reporting(E_ALL);
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_link = substr( $actual_link, 0, strrpos( $actual_link, "?"));
+error_reporting(E_ALL);
 set_time_limit(0);
 include_once("database.php");
 include_once("constants.php");
