@@ -71,7 +71,8 @@ input#txt_Password{font-family: Arial}
 					<div style="padding:10px 5px;">
 						<div style="clear:both"></div>
 						<div style="float:left"><a href="https://www.orangescrum.com/how-it-works" target="_blank">How it Works?</a></div>
-						<div style="float:right;padding-right:10px;"><a href="https://www.orangescrum.com/help" target="_blank">Help!</a></div>
+						<!-- <div style="float:right;padding-right:10px;"><a href="https://www.orangescrum.com/help" target="_blank">Help!</a></div>  -->
+						<div style="float:right;padding-right:10px;"><a href="http://helpdesk.orangescrum.org/" target="_blank">Help!</a></div>
 					</div>
 					<?php
 					}
