@@ -147,11 +147,18 @@ if( $is_active_proj || (SES_TYPE==3)){
 		<li class="dropdown alerts-dropdown help_a">
 		  <a href="https://www.orangescrum.com/help" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Help &amp; Support"></i><span class="ipad_txt" >Help &amp; Support</span></a>
 		</li>
-        <li class="dropdown user-dropdown user_gt">
+       <li class="dropdown user-dropdown user_gt">
         	<a href="<?php echo HTTP_ROOT.'getting_started';?>" title="Getting Started">
         	<div class="fl get_icon"></div>
             <span class="ipad_txt">Getting Started</span></a>
-        </li>         
+        
+       </li> <li class="dropdown user-dropdown user_gt">
+        	<a href="javascript:void(0);" onclick="newContact()" title="Contact Us">
+        	<div class="fl email_icon"></div>
+            <span class="ipad_txt"> Contact Sales</span></a>
+        </li>
+        
+        
 	  </ul>
 	  
 	 <ul class="nav navbar-nav navbar-right navbar-user ie_navbar_top">

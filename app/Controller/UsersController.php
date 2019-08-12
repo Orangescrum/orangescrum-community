@@ -3630,4 +3630,38 @@ function done_cropimage(){
 		}
 		exit;
    }
+
+    function new_contact() {
+        if(!empty($this->request->data['Contact'])){
+        $name=!empty($this->request->data['Contact']['name'])? $this->request->data['Contact']['name']:'';   
+        $email=!empty($this->request->data['Contact']['email'])? $this->request->data['Contact']['email']:'';   
+        $message=!empty($this->request->data['Contact']['message'])? $this->request->data['Contact']['message']:'';   
+        $this->Email->delivery = EMAIL_DELIVERY;
+        $this->Email->to = 'support@orangescrum.org';
+        $this->Email->subject = 'Sales Enquiry from Orangescrum Basic Edition';
+        $this->Email->from = FROM_EMAIL;
+        $this->Email->template = 'contact_sales';
+        $this->Email->sendAs = 'html';
+        $this->set('name', ucfirst($name));
+        $this->set('email',$email);
+        $this->set('message', $message);
+        if (defined("PHPMAILER") && PHPMAILER == 1) {
+            $this->Email->set_variables = $this->render('/Emails/html/forgot_password', false);
+            App::import('Component', 'PhpMailer.PhpMailer');
+            $this->PhpMailer = new PhpMailerComponent();
+            if ($this->PhpMailer->sendPhpMailerTemplate($this->Email)) {
+                $this->Session->write("SUCCESS", "Your message successfully sent.");
+                $this->redirect($this->referer());
+                return;
+            }
+        } else {
+            if ($this->Sendgrid->sendgridsmtp($this->Email)) {
+                $this->Session->write("SUCCESS", "Your message successfully sent.");
+                $this->redirect($this->referer());
+               // $this->redirect(HTTP_ROOT . "users/manage/?role=invited");
+            }
+        }
+    }
+    }
+
 }
