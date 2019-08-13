@@ -7125,3 +7125,10 @@ function validate_contact() {
        
     
 }
+function newContact() {
+    $(".add_prj_usr").hide();
+    openPopup();
+    $(".new_contact").show();
+    $(".loader_dv").hide();
+    $('#inner_contact').show();
+}
