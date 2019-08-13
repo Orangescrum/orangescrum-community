@@ -7079,3 +7079,49 @@ function checkCsrfToken(formid) {
         $('#' + formid).submit();
     }, 'json');
 }
+
+function validate_contact() {
+    var nm = $.trim($("#contact_name").val());
+    var email = $.trim($("#contact_email").val());
+    var message = $.trim($("#contact_message").val());
+    $("#err_cont_div").html("");
+
+    if (nm === "") {
+        msg = "'Name' cannot be left blank!";
+        $("#err_cont_div").show().html(msg);
+        $("#contact_name").focus();
+        return false;
+       } else {
+        if (!nm.match(/^[A-Za-z0-9]/g)) {
+            msg = "'Name' must starts with an Alphabet or Number!";
+            $("#err_cont_div").show().html(msg);
+            $("#contact_name").focus();
+            return false;
+        }
+    }
+      if (email === "") {
+        msg = "'Email' cannot be left blank!";
+        $("#err_cont_div").show().html(msg);
+        $("#contact_email").focus();
+        return false;
+       } else {
+         var emailRegEx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!email.match(emailRegEx)) {
+            msg = "Entered stirng is not a valid email";
+            $("#err_cont_div").show().html(msg);
+            $("#contact_email").focus();
+            return false;
+        }
+    }
+      if (message === "") {
+        msg = "'Message' cannot be left blank!";
+        $("#err_cont_div").show().html(msg);
+        $("#contact_message").focus();
+        return false;
+       }
+       
+     document.mycontactform.submit();
+     return true;
+       
+    
+}

@@ -147,11 +147,18 @@ if( $is_active_proj || (SES_TYPE==3)){
 		<li class="dropdown alerts-dropdown help_a">
 		  <a href="https://www.orangescrum.com/help" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Help &amp; Support"></i><span class="ipad_txt" >Help &amp; Support</span></a>
 		</li>
-        <li class="dropdown user-dropdown user_gt">
+       <li class="dropdown user-dropdown user_gt">
         	<a href="<?php echo HTTP_ROOT.'getting_started';?>" title="Getting Started">
         	<div class="fl get_icon"></div>
             <span class="ipad_txt">Getting Started</span></a>
-        </li>         
+        
+       </li> <li class="dropdown user-dropdown user_gt">
+        	<a href="javascript:void(0);" onclick="newContact()" title="Contact Us">
+        	<div class="fl email_icon"></div>
+            <span class="ipad_txt"> Contact Sales</span></a>
+        </li>
+        
+        
 	  </ul>
 	  
 	 <ul class="nav navbar-nav navbar-right navbar-user ie_navbar_top">
@@ -394,6 +401,75 @@ if(PAGE_NAME=='dashboard'){?>
 		<span id="ajaxCaseType" style="display:none"></span>
 	</section>
 </div>
+<!--<div class="fr task_section case-filter-menu" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0);">
+	<button type="button" class="btn tsk-menu-filter-btn" >
+		<a href="javascript:void(0);" class="flt-txt">
+			<i class="icon_flt_img"></i>
+			Filters
+			<i class="caret"></i>
+		</a>
+	</button>
+		<ul class="dropdown-menu" id="dropdown_menu_all_filters">
+			<li class="pop_arrow_new"></li>
+			<li>
+				<a href="javascript:jsVoid();" title="Time" data-toggle="dropdown" onclick="allfiltervalue('date');"> Time</a>
+				<div class="dropdown_status" id="dropdown_menu_date_div">
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_date"></ul>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Due Date" data-toggle="dropdown" onclick="allfiltervalue('duedate');"> Due Date</a>
+				<div class="dropdown_status" id="dropdown_menu_duedate_div">
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_duedate"></ul>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Status" data-toggle="dropdown" onclick="allfiltervalue('status');">Status</a>
+				<div class="dropdown_status" id="dropdown_menu_status_div">
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_status"></ul>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Types" data-toggle="dropdown" onclick="allfiltervalue('types');">Types</a>
+				<div class="dropdown_status" id="dropdown_menu_types_div" >
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_types"></ul>
+				</div>
+				
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Priority" data-toggle="dropdown" onclick="allfiltervalue('priority');">Priority</a>
+				<div class="dropdown_status" id="dropdown_menu_priority_div" >
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_priority"></ul>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Users" data-toggle="dropdown" onclick="allfiltervalue('users');">Created by </a>
+				<div class="dropdown_status" id="dropdown_menu_users_div" >
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_users"></ul>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:jsVoid();" title="Assign To" data-toggle="dropdown" onclick="allfiltervalue('assignto');">Assign To</a>
+				<div class="dropdown_status" id="dropdown_menu_assignto_div" >
+					<i class="status_arrow_new"></i>
+					<ul class="dropdown-menu" id="dropdown_menu_assignto"></ul>
+				</div>
+			</li>
+		</ul>
+</div>
+<div class="cb"></div>-->
+<!--<div class="dashborad-view-type" >
+	<a href="<?php echo HTTP_ROOT.'dashboard#tasks';?>" onclick="checkHashLoad('tasks')"><div id="lview_btn" class="fl btn gry_btn kan30" rel="tooltip" title="List View"><i class="icon-list-view"></i></div></a>
+	<a href="<?php echo HTTP_ROOT.'dashboard#kanban';?>" onclick="checkHashLoad('kanban')"><div id="kbview_btn" class="fl btn gry_btn kan30" style="border-radius:0 3px 3px 0" rel="tooltip" title="Kanban View"><i class="icon-kanv-view"></i></div></a>
+	<div class="cb"></div>
+</div>-->
+
 <?php } } ?>
 <script type="text/javascript">
  $(document).ready(function () {
