@@ -1,7 +1,7 @@
 
 
 <?php 
-echo $this->Form->create('Contact', array('url' => '/users/new_contact', 'id' => 'mycontactform', 'name' => 'myform', 'onsubmit' => 'return validate_contact();')); ?>
+echo $this->Form->create('Contact', array('url' => '/users/new_contact', 'id' => 'mycontactform', 'name' => 'myformcontact', 'onsubmit' => 'return validate_contact();')); ?>
 <center><div id="err_cont_div" style="color:#FF0000;display:none;"></div></center>
 <div class="data-scroll user_pdt">
 <table cellpadding="0" cellspacing="0" class="col-lg-12 new_auto_tab">
