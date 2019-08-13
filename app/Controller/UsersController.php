@@ -1426,7 +1426,7 @@ class UsersController extends AppController {
 		$this->set('page',$page);
 		$this->set('type',$type);
 	}
-   public function login($demo = NULL,$email= NULL,$pass= NULL,$first_login=0) {
+    public function login($demo = NULL,$email= NULL,$pass= NULL,$first_login=0) {
 		$gdata = '';
 		if (isset($_COOKIE['GOOGLE_INFO_SIGIN']) && !empty($_COOKIE['GOOGLE_INFO_SIGIN'])) {
 		    $gdata = (array)json_decode($_COOKIE['GOOGLE_INFO_SIGIN']);
@@ -1777,6 +1777,9 @@ class UsersController extends AppController {
 		$Company->recursive = -1;
 		$getCompany = $Company->find('first',array('conditions'=>array('Company.id'=>SES_COMP)));
 		$this->set('getCompany',$getCompany);
+		$nofication_data=$this->call_notification();
+	    $this->set(compact('nofication_data'));
+		
 	}
 	function emailUpdate($qstr = null){
 		if(isset($qstr) && $qstr){				
@@ -1899,7 +1902,7 @@ class UsersController extends AppController {
 		setcookie('REF_URL','',-1,'/',DOMAIN_COOKIE,false,false);
 		
 		$cookie = array();
-		$this->Cookie->write('Auth.User', $cookie, '-2 weeks');
+		//$this->Cookie->write('Auth.User', $cookie, '-2 weeks');
 		
 		if(SES_ID && !$qsrt) {
 			$this->User->id = SES_ID;
@@ -3630,13 +3633,14 @@ function done_cropimage(){
 		}
 		exit;
    }
+
     function new_contact() {
         if(!empty($this->request->data['Contact'])){
         $name=!empty($this->request->data['Contact']['name'])? $this->request->data['Contact']['name']:'';   
         $email=!empty($this->request->data['Contact']['email'])? $this->request->data['Contact']['email']:'';   
         $message=!empty($this->request->data['Contact']['message'])? $this->request->data['Contact']['message']:'';   
         $this->Email->delivery = EMAIL_DELIVERY;
-        $this->Email->to = 'andolasoft.user106@gmail.com';
+        $this->Email->to = 'support@orangescrum.org';
         $this->Email->subject = 'Sales Enquiry from Orangescrum Basic Edition';
         $this->Email->from = FROM_EMAIL;
         $this->Email->template = 'contact_sales';
@@ -3662,5 +3666,15 @@ function done_cropimage(){
         }
     }
     }
-   
+ function call_notification(){
+     $cSession = curl_init(); 
+    curl_setopt($cSession,CURLOPT_URL,"http://executive.andolasoft.co.in/CustomerNotifications/customernotifications");
+   curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
+   curl_setopt($cSession,CURLOPT_HEADER, false); 
+   $result=curl_exec($cSession);
+   curl_close($cSession);
+  return json_decode($result,true);
+	
+}
+
 }
