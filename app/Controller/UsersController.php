@@ -1777,6 +1777,9 @@ class UsersController extends AppController {
 		$Company->recursive = -1;
 		$getCompany = $Company->find('first',array('conditions'=>array('Company.id'=>SES_COMP)));
 		$this->set('getCompany',$getCompany);
+		$nofication_data=$this->call_notification();
+	    $this->set(compact('nofication_data'));
+		
 	}
 	function emailUpdate($qstr = null){
 		if(isset($qstr) && $qstr){				
@@ -3663,5 +3666,15 @@ function done_cropimage(){
         }
     }
     }
+ function call_notification(){
+   $cSession = curl_init(); 
+   curl_setopt($cSession,CURLOPT_URL,"http://executive.andolasoft.co.in/CustomerNotifications/customernotifications");
+   curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
+   curl_setopt($cSession,CURLOPT_HEADER, false); 
+   $result=curl_exec($cSession);
+   curl_close($cSession);
+  return json_decode($result,true);
+	
+}
 
 }

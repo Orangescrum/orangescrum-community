@@ -1,3 +1,17 @@
+<style>
+.latest_release_info{font-size:14px;line-height:20px;color: #31708f;background-color: #d9edf7;border:1px solid #bce8f1;padding:15px 45px 15px 15px;position:relative;border-radius: 3px;margin-bottom:20px; }
+.latest_release_info strong{font-size:16px;font-weight:600;margin-right:8px;}
+.latest_release_info .close_info{width: 20px;height: 20px;line-height: 20px;position: absolute;right: 15px;top: 0;bottom: 0;margin: auto;}
+.latest_release_info .close_info .material-icons{font-size:20px;line-height:20px;font-weight:600;text-shadow: 0 1px 0 #fff;opacity: .2;cursor:pointer;z-index:1}
+.latest_release_info .close_info .material-icons:hover{opacity:1} 
+</style>
+
+<div class="latest_release_info">
+	<strong><?php echo __('Info!');?></strong> 
+	    <?php echo !empty($nofication_data['message'])?$nofication_data['message']:''; ?> 
+	<span class="close_info" onclick="closeInfodiv();"><i class="fa fa-close" style="font-size:24px"></i></span>
+</div>
+
 <div class="user_profile_con profileth">
 <!--Tabs section starts -->
     <?php echo $this->element("personal_settings");?>
@@ -119,3 +133,9 @@
 
 <div class="cbt"></div>
 </div>
+<script>
+function closeInfodiv(){
+$('.latest_release_info').hide();	
+}
+
+</script>
