@@ -3656,13 +3656,19 @@ function done_cropimage(){
                 $this->Session->write("SUCCESS", "Your message successfully sent.");
                 $this->redirect($this->referer());
                 return;
-            }
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
         } else {
             if ($this->Sendgrid->sendgridsmtp($this->Email)) {
                 $this->Session->write("SUCCESS", "Your message successfully sent.");
                 $this->redirect($this->referer());
                // $this->redirect(HTTP_ROOT . "users/manage/?role=invited");
-            }
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
         }
     }
     }
