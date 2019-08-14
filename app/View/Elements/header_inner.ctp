@@ -422,8 +422,9 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                                 <div>
                                     <ul>
                                         <li class="settings_hd">Contact Support</li>
-                                        <li> <a href="http://helpdesk.orangescrum.org/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Help &amp; Support"></i><span class="ipad_txt" >Help &amp; Support</span></a></li>
-                                        <li> <a href="https://www.orangescrum.org/add-on" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Buy Add-ons"></i><span class="ipad_txt" >Buy Add-ons</span></a></li>
+                                        <li> <a href="http://helpdesk.orangescrum.org/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Helpdesk"></i><span class="ipad_txt" >Helpdesk</span></a></li>
+                                        <li> <a href="http://helpdesk.orangescrum.org/contact-support/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Support"></i><span class="ipad_txt" >Support</span></a></li>
+                                        <li> <a href="https://www.orangescrum.org/add-on" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Get Add-ons"></i><span class="ipad_txt" >Get Add-ons</span></a></li>
                                         <li><a href="javascript:void(0);" onclick="newContact()" title="Contact Us">
                                                 <div class="fl email_icon"></div>
                                                 <span class="ipad_txt"> Contact Sales</span></a></li>
