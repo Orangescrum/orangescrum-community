@@ -427,7 +427,7 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                                         <li> <a href="http://helpdesk.orangescrum.org/contact-support/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Support"></i><span class="ipad_txt" >Support</span></a></li>
                                         <li> <a href="https://www.orangescrum.org/add-on" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Get Add-ons"></i><span class="ipad_txt" >Get Add-ons</span></a></li>
                                         <li><a href="javascript:void(0);" onclick="newContact()" title="Contact Us">
-                                                <div class="fl email_icon"></div>
+                                               
                                                 <span class="ipad_txt"> Contact Sales</span></a></li>
                                         <li> <a href="https://www.orangescrum.org/demo-enterprise" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Schedule a Demo"></i><span class="ipad_txt" >Schedule a Demo</span></a></li>
                                         <li> <a href="https://reviews.capterra.com/new/136500" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Rate Orangescrum on Capterra"></i><span class="ipad_txt" >Rate Orangescrum on Capterra</span></a></li>
