@@ -3656,24 +3656,30 @@ function done_cropimage(){
                 $this->Session->write("SUCCESS", "Your message successfully sent.");
                 $this->redirect($this->referer());
                 return;
-            }
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
         } else {
             if ($this->Sendgrid->sendgridsmtp($this->Email)) {
                 $this->Session->write("SUCCESS", "Your message successfully sent.");
                 $this->redirect($this->referer());
                // $this->redirect(HTTP_ROOT . "users/manage/?role=invited");
-            }
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
         }
     }
     }
  function call_notification(){
-     $cSession = curl_init(); 
-    curl_setopt($cSession,CURLOPT_URL,"http://executive.andolasoft.co.in/CustomerNotifications/customernotifications");
+   $cSession = curl_init(); 
+   curl_setopt($cSession,CURLOPT_URL,"http://executive.andolasoft.co.in/CustomerNotifications/customernotifications");
    curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
    curl_setopt($cSession,CURLOPT_HEADER, false); 
    $result=curl_exec($cSession);
    curl_close($cSession);
-  return json_decode($result,true);
+   return json_decode($result,true);
 	
 }
 
