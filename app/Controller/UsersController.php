@@ -3674,7 +3674,7 @@ function done_cropimage(){
     }
  function call_notification(){
    $cSession = curl_init(); 
-   curl_setopt($cSession,CURLOPT_URL,"http://executive.andolasoft.co.in/CustomerNotifications/customernotifications");
+   curl_setopt($cSession,CURLOPT_URL,"http://executive.orangescrum.org/CustomerNotifications/customernotifications");
    curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
    curl_setopt($cSession,CURLOPT_HEADER, false); 
    $result=curl_exec($cSession);
