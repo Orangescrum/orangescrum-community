@@ -1537,7 +1537,14 @@ function ajax_save_filter(){
 	function csv_dataimport() {
 		$project_id = $this->data['proj_id'];
 		$project_uid = $this->data['proj_uid'];
-		$task_type_arr = array('enhancement','enh','bug','research n do','rnd','quality assurance','qa','unit testing','unt','maintenance','mnt','others','oth','release','rel','update','upd','development','dev');
+		
+		$task_type_arr = array();
+		$this->LoadModel('Type');
+		$allTasks = $this->Type->getAllTypes();
+		foreach($allTasks as $taskType){
+				array_push($task_type_arr, strtolower($taskType['Type']['short_name']), strtolower($taskType['Type']['name']));
+		}
+		
 		$task_status_arr = array('new','close','wip','resolve','resolved','closed');
 		$this->loadModel('User');
 		$this->loadModel('ProjectUser');
@@ -1800,27 +1807,19 @@ function ajax_save_filter(){
 	
 function get_type_id($type){
 	$type = strtolower($type);
-	if($type=='bug'){
-		return 1;
-	}elseif($type=='enhancement' || $type=='enh' ){
-		return 3;
-	}elseif($type=='research n do' || $type=='rnd' ){
-		return 4;
-	}elseif($type=='quality assurance' || $type=='qa'){
-		return 5;
-	}elseif($type=='unit testing' || $type=='unt'){
-		return 6;
-	}elseif($type=='maintenance' || $type=='mnt'){
-		return 7;
-	}elseif($type=='others' || $type=='oth'){
-		return 8;
-	}elseif($type=='release' || $type=='rel' ){
-		return 9;
-	}elseif($type=='update' || $type=='upd' ){
-		return 10;
-	}else{
-		return 2;
+
+	// iterate over task types to build indexed array with id
+	$task_type_arr = array();
+	$this->LoadModel('Type');
+	$allTasks = $this->Type->getAllTypes();
+	foreach($allTasks as $taskType){
+			$task_type_arr[strtolower($taskType['Type']['short_name'])] = $taskType['Type']['id'];
+			$task_type_arr[strtolower($taskType['Type']['name'])] = $taskType['Type']['id'];
 	}
+
+	// if the type exists in the array, return it's id
+	// if not, return 8 (other)
+	return array_key_exists($type, $task_type_arr) ? $task_type_arr[$type] : 8;
 }	
 /**
  * @method public download_sample_csv_file  
