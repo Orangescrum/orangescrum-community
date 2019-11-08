@@ -1,3 +1,6 @@
+<IfModule mod_headers.c>
+   Header append X-Frame-Options: DENY
+</IfModule>
 <IfModule mod_rewrite.c>
    RewriteEngine on
    RewriteRule    ^$ app/webroot/    [L]

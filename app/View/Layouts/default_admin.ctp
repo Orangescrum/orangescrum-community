@@ -12,7 +12,6 @@ header("Pragma: no-cache");
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-Frame-Options" content="deny">
 <?php echo $this->element('metadata'); ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php 
