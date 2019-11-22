@@ -118,8 +118,15 @@ input#txt_Password{font-family: Arial}
                                             ?>
                                        </h2>
                                        <div><img src="<?php echo HTTP_ROOT; ?>img/images/login_header_shadow.png?v=<?php echo RELEASE; ?>" width="460" height="8"/></div>
-                                        
-                                        <?php echo $this->Form->create('User', array('id'=>'userLoginForm','action' => $action)); ?>
+
+                                        <?php //echo $this->Form->create('User', array('id'=>'userLoginForm','action' => $action)); ?>
+                                        <?php echo $this->Form->create('User', array('id'=>'userLoginForm',
+                                                'url'   => array(
+                                                    'controller' => 'users','action' => $action
+                                                ),
+                                            )
+                                        ); ?>
+
 										<input type="hidden" name="data[User][timezone_id]" id="timezone_id" value="">
                                        
                                         <div class="login_dialog top_inc_app_land_from" id="login_dialog" style="margin-top:0px;">
