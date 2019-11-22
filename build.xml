@@ -13,7 +13,7 @@
 
 	Use the `release` task to update VERSION.txt, and create a new tag.
 	Use the `build` task to create a pear package based on the current working copy.
-	Use the `clean` task to clean up packaging artifacts.
+	Use the `clean` task to clean up packaging artifacts..
 
 	-->
 
