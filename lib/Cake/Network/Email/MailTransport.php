@@ -15,6 +15,7 @@
  * @since         CakePHP(tm) v 2.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+App::uses('AbstractTransport', 'Network/Email');
 
 /**
  * Send mail using mail() function
@@ -49,6 +50,9 @@ class MailTransport extends AbstractTransport {
 
 		$params = isset($this->_config['additionalParameters']) ? $this->_config['additionalParameters'] : null;
 		$this->_mail($to, $subject, $message, $headers, $params);
+
+		$headers .= $eol . 'Subject: ' . $subject;
+		$headers .= $eol . 'To: ' . $to;
 		return array('headers' => $headers, 'message' => $message);
 	}
 
@@ -67,11 +71,15 @@ class MailTransport extends AbstractTransport {
 		if (ini_get('safe_mode')) {
 			//@codingStandardsIgnoreStart
 			if (!@mail($to, $subject, $message, $headers)) {
-				throw new SocketException(__d('cake_dev', 'Could not send email.'));
+				$error = error_get_last();
+				$msg = 'Could not send email: ' . isset($error['message']) ? $error['message'] : 'unknown';
+				throw new SocketException($msg);
 			}
 		} elseif (!@mail($to, $subject, $message, $headers, $params)) {
+			$error = error_get_last();
+			$msg = 'Could not send email: ' . isset($error['message']) ? $error['message'] : 'unknown';
 			//@codingStandardsIgnoreEnd
-			throw new SocketException(__d('cake_dev', 'Could not send email.'));
+			throw new SocketException($msg);
 		}
 	}
 

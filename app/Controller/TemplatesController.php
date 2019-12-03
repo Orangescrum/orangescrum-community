@@ -383,20 +383,20 @@ class TemplatesController extends AppController {
 		$this->layout='ajax';
 		$this->loadModel("CaseTemplate");
 		//echo "<pre>";print_r($this->request['data']);exit;
-		if(isset($this->request['data']['tempId']) && $this->request['data']['tempId']){
+		if($this->request['data']['tempId']){
 			$res = $this->CaseTemplate->find('first', array('conditions'=> array('CaseTemplate.id'=>$this->request['data']['tempId'])));
 			$res['CaseTemplate']['pageNum'] = $this->request['data']['pagenum'];
 			//echo "<pre>";print_r($res);exit;
 			print json_encode($res);exit;
 			//$this->set('TempalteArray',$res);
 		}else{
-			if(!empty($this->request->data) && $this->Auth->User('id')){
+			if($this->request->data && $this->Auth->User('id')){
 				$this->request->data['CaseTemplate']['name'] = htmlentities(strip_tags($this->request->data['title']));
 				$this->request->data['CaseTemplate']['description'] = $this->request->data['tempDesc'];
 				$this->request->data['CaseTemplate']['user_id'] = $this->Auth->User('id');
 				$this->request->data['CaseTemplate']['company_id']=SES_COMP;
 				
-				if(isset($this->request->data['tempId']) && $this->request->data['tempId'] == '') //Coding for ADD the task templates
+				if($this->request->data['tempId'] && $this->request->data['tempId'] == '') //Coding for ADD the task templates
 				{
 				   $task = $this->CaseTemplate->find('count',array('conditions' => array('CaseTemplate.user_id' =>$this->Auth->User('id'), 'CaseTemplate.name' => $this->params->data['title'],'CaseTemplate.company_id'=>SES_COMP)));	
 				   if($task == 0){
@@ -409,7 +409,7 @@ class TemplatesController extends AppController {
 						echo "4";
 					}	
 				}else{ //Code for EDIT the task template
-					if(isset($this->request->data['tasktempId'])){
+					if($this->request->data['tasktempId']){
 						if(trim($this->request->data['tasktempId'])) {
 							unset($this->request->data['CaseTemplate']['user_id']);
 						}

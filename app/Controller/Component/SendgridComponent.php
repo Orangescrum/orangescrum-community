@@ -18,7 +18,7 @@ class SendgridComponent extends EmailComponent
 		$message = str_replace("</script>","&lt;/script&gt;",$message);
 		$message = str_replace("<SCRIPT>","&lt;script&gt;",$message);
 		$message = str_replace("</SCRIPT>","&lt;/script&gt;",$message);
-		$message = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $message);
+	//	$message = preg_replace('/[^(\x20-\x7F)\x0A]*/','', $message);
 		if(defined("PHPMAILER") && PHPMAILER == 1){
 			App::import('Component', 'PhpMailer.PhpMailer');
 			$this->PhpMailer = new PhpMailerComponent();
@@ -36,7 +36,7 @@ class SendgridComponent extends EmailComponent
 			}
 			$this->Email->sendAs = 'html';
 	        if (EMAIL_DELIVERY == 'smtp') {
-	            if (defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+	            if (defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******" && SMTP_PWORD !="") {
 				$email_array = array(
 					'port' => SMTP_PORT,
 					'host' => SMTP_HOST,
@@ -61,7 +61,7 @@ class SendgridComponent extends EmailComponent
 	function sendgridsmtp($email){
 		$email->replyTo = FROM_EMAIL;
         if (EMAIL_DELIVERY == 'smtp') {
-            if (defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******") {
+            if (defined('SMTP_UNAME') && defined('SMTP_PWORD') && SMTP_PWORD !== "******" && SMTP_PWORD !="") {
 			$email_array = array(
 				'port' => SMTP_PORT,
 				'host' => SMTP_HOST,

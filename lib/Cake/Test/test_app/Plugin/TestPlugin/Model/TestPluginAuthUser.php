@@ -17,7 +17,7 @@
  */
 
 /**
- * Class TestPluginAuthUser
+ * TestPluginAuthUser
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model
  */
@@ -40,7 +40,7 @@ class TestPluginAuthUser extends TestPluginAppModel {
 /**
  * useDbConfig property
  *
- * @var string 'test'
+ * @var string
  */
 	public $useDbConfig = 'test';
 }

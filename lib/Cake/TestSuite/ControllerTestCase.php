@@ -41,13 +41,15 @@ class ControllerTestDispatcher extends Dispatcher {
 /**
  * Use custom routes during tests
  *
- * @var boolean
+ * @var bool
  */
 	public $loadRoutes = true;
 
 /**
  * Returns the test controller
  *
+ * @param CakeRequest $request The request instance.
+ * @param CakeResponse $response The response instance.
  * @return Controller
  */
 	protected function _getController($request, $response) {
@@ -94,6 +96,7 @@ class InterceptContentHelper extends Helper {
  * Intercepts and stores the contents of the view before the layout is rendered
  *
  * @param string $viewFile The view file
+ * @return void
  */
 	public function afterRender($viewFile) {
 		$this->_View->assign('__view_no_layout__', $this->_View->fetch('content'));
@@ -106,6 +109,7 @@ class InterceptContentHelper extends Helper {
  * ControllerTestCase class
  *
  * @package       Cake.TestSuite
+ * @method        mixed testAction() testAction($url, $options = array())  Lets you do functional tests of a controller action.
  */
 abstract class ControllerTestCase extends CakeTestCase {
 
@@ -119,14 +123,14 @@ abstract class ControllerTestCase extends CakeTestCase {
 /**
  * Automatically mock controllers that aren't mocked
  *
- * @var boolean
+ * @var bool
  */
 	public $autoMock = true;
 
 /**
  * Use custom routes during tests
  *
- * @var boolean
+ * @var bool
  */
 	public $loadRoutes = true;
 
@@ -170,9 +174,16 @@ abstract class ControllerTestCase extends CakeTestCase {
  * Once a test has been run on a controller it should be rebuilt
  * to clean up properties.
  *
- * @var boolean
+ * @var bool
  */
 	protected $_dirtyController = false;
+
+/**
+ * The class name to use for mocking the response object.
+ *
+ * @var string
+ */
+	protected $_responseClass = 'CakeResponse';
 
 /**
  * Used to enable calling ControllerTestCase::testAction() without the testing
@@ -180,7 +191,7 @@ abstract class ControllerTestCase extends CakeTestCase {
  *
  * @param string $name The name of the function
  * @param array $arguments Array of arguments
- * @return the return of _testAction
+ * @return mixed The return of _testAction.
  * @throws BadMethodCallException when you call methods that don't exist.
  */
 	public function __call($name, $arguments) {
@@ -207,18 +218,23 @@ abstract class ControllerTestCase extends CakeTestCase {
  *     - `result` Get the return value of the controller action. Useful
  *       for testing requestAction methods.
  *
- * @param string $url The url to test
+ * @param string|array $url The URL to test.
  * @param array $options See options
- * @return mixed
+ * @return mixed The specified return type.
+ * @triggers ControllerTestCase $Dispatch, array('request' => $request)
  */
-	protected function _testAction($url = '', $options = array()) {
+	protected function _testAction($url, $options = array()) {
 		$this->vars = $this->result = $this->view = $this->contents = $this->headers = null;
 
-		$options = array_merge(array(
+		$options += array(
 			'data' => array(),
 			'method' => 'POST',
 			'return' => 'result'
-		), $options);
+		);
+
+		if (is_array($url)) {
+			$url = Router::url($url);
+		}
 
 		$restore = array('get' => $_GET, 'post' => $_POST);
 
@@ -250,7 +266,7 @@ abstract class ControllerTestCase extends CakeTestCase {
 		$Dispatch->parseParams(new CakeEvent('ControllerTestCase', $Dispatch, array('request' => $request)));
 		if (!isset($request->params['controller']) && Router::currentRoute()) {
 			$this->headers = Router::currentRoute()->response->header();
-			return;
+			return null;
 		}
 		if ($this->_dirtyController) {
 			$this->controller = null;
@@ -267,8 +283,14 @@ abstract class ControllerTestCase extends CakeTestCase {
 			$params['requested'] = 1;
 		}
 		$Dispatch->testController = $this->controller;
-		$Dispatch->response = $this->getMock('CakeResponse', array('send'));
+		$Dispatch->response = $this->getMock($this->_responseClass, array('send', '_clearBuffer'));
 		$this->result = $Dispatch->dispatch($request, $Dispatch->response, $params);
+
+		// Clear out any stored requests.
+		while (Router::getRequest()) {
+			Router::popRequest();
+		}
+
 		$this->controller = $Dispatch->testController;
 		$this->vars = $this->controller->viewVars;
 		$this->contents = $this->controller->response->body();
@@ -292,7 +314,7 @@ abstract class ControllerTestCase extends CakeTestCase {
  * ### Mocks:
  *
  * - `methods` Methods to mock on the controller. `_stop()` is mocked by default
- * - `models` Models to mock. Models are added to the ClassRegistry so they any
+ * - `models` Models to mock. Models are added to the ClassRegistry so any
  *   time they are instantiated the mock will be created. Pass as key value pairs
  *   with the value being specific methods on the model to mock. If `true` or
  *   no value is passed, the entire model will be mocked.
@@ -330,7 +352,7 @@ abstract class ControllerTestCase extends CakeTestCase {
 		$controllerObj = $this->getMock($name . 'Controller', $mocks['methods'], array(), '', false);
 		$controllerObj->name = $name;
 		$request = $this->getMock('CakeRequest');
-		$response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$response = $this->getMock($this->_responseClass, array('_sendHeader'));
 		$controllerObj->__construct($request, $response);
 		$controllerObj->Components->setController($controllerObj);
 

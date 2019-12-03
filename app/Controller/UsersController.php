@@ -1428,8 +1428,6 @@ class UsersController extends AppController {
 	}
     public function login($demo = NULL,$email= NULL,$pass= NULL,$first_login=0) {
 		$gdata = '';
-
-		
 		if (isset($_COOKIE['GOOGLE_INFO_SIGIN']) && !empty($_COOKIE['GOOGLE_INFO_SIGIN'])) {
 		    $gdata = (array)json_decode($_COOKIE['GOOGLE_INFO_SIGIN']);
 		    $this->request->data['User']['email'] = $gdata['email'];
@@ -1446,7 +1444,6 @@ class UsersController extends AppController {
 		if (isset($_SESSION['GOOGLE_USER_INFO']) && !empty($_SESSION['GOOGLE_USER_INFO'])) {
 		    $this->request->data['User']['email'] = $_SESSION['GOOGLE_USER_INFO']['email'];	
 		}
-		
 		if(isset($this->request->data['User']['email'])) {
 			$this->request->data['User']['email'] = trim($this->request->data['User']['email']);
 		}
@@ -1458,7 +1455,6 @@ class UsersController extends AppController {
 		}
 		
         if(!empty($this->request->data) || !empty($email)) {
-				
 			$usrLogin = array();
 			if($email && $pass) {
 				$this->request->data['User']['email'] = $email;
@@ -1558,9 +1554,10 @@ class UsersController extends AppController {
 						$this->redirect(HTTP_APP."users/profile");
 				}
 				$this->redirect($redirect);
+				
 			}
 			else
-			{
+			{ 
 				$this->Session->write("SES_EMAIL",$this->request->data['User']['email']);
 				//$this->Session->write("LOGIN_ERROR","Email or Password is invalid!");
 				$this->Session->setFlash("Email or Password is invalid!", 'default', array('class'=>'error'));
@@ -1601,15 +1598,27 @@ class UsersController extends AppController {
 				$rightpath = 1;
 			}
 			else {
-				$url = $_SERVER['REQUEST_URI'];
-				$arr = explode("/", $url);
-				$sub_folder = $arr[1];
+				$root = dirname(dirname(dirname(__FILE__)));
+				$config_dir = $root . DS . 'app' . DS . 'Config' . DS;
+				$folders = explode(DS, $root);
+				$sub_folder = $folders[count($folders) - 1] . '/';
+				$vhosted_folders = explode('/', $_SERVER['DOCUMENT_ROOT']);
+				$vhosted_folder = $vhosted_folders[count($vhosted_folders) - 1] == '' ? $vhosted_folders[count($vhosted_folders) - 2] . '/' : $vhosted_folders[count($vhosted_folders) - 1] . '/';
+				if ($vhosted_folders[count($vhosted_folders) - 1] == '' && $vhosted_folder == $sub_folder) {
+				
+					$sub_folder = '';
+				} else if ($vhosted_folders[count($vhosted_folders) - 1] != '' && $vhosted_folder == $sub_folder) {
+					$sub_folder = '/';
+				
+				}
+				
 				$this->set("sub_folder",$sub_folder);
-				if(SUB_FOLDER != $sub_folder."/") {
+				if(SUB_FOLDER != $sub_folder) {
 					$rightpath = 0;
 				}
 			}
 		}
+		
 		$this->set("rightpath",$rightpath);
 	}
 	function lunchuser(){
@@ -1768,6 +1777,9 @@ class UsersController extends AppController {
 		$Company->recursive = -1;
 		$getCompany = $Company->find('first',array('conditions'=>array('Company.id'=>SES_COMP)));
 		$this->set('getCompany',$getCompany);
+		$nofication_data=$this->call_notification();
+	    $this->set(compact('nofication_data'));
+		
 	}
 	function emailUpdate($qstr = null){
 		if(isset($qstr) && $qstr){				
@@ -1890,7 +1902,7 @@ class UsersController extends AppController {
 		setcookie('REF_URL','',-1,'/',DOMAIN_COOKIE,false,false);
 		
 		$cookie = array();
-		$this->Cookie->write('Auth.User', $cookie, '-2 weeks');
+		//$this->Cookie->write('Auth.User', $cookie, '-2 weeks');
 		
 		if(SES_ID && !$qsrt) {
 			$this->User->id = SES_ID;
@@ -3621,4 +3633,54 @@ function done_cropimage(){
 		}
 		exit;
    }
+
+    function new_contact() {
+        if(!empty($this->request->data['Contact'])){
+        $name=!empty($this->request->data['Contact']['name'])? $this->request->data['Contact']['name']:'';   
+        $email=!empty($this->request->data['Contact']['email'])? $this->request->data['Contact']['email']:'';   
+        $message=!empty($this->request->data['Contact']['message'])? $this->request->data['Contact']['message']:'';   
+        $this->Email->delivery = EMAIL_DELIVERY;
+        $this->Email->to = 'support@orangescrum.org';
+        $this->Email->subject = 'Sales Enquiry from Orangescrum Basic Edition';
+        $this->Email->from = FROM_EMAIL;
+        $this->Email->template = 'contact_sales';
+        $this->Email->sendAs = 'html';
+        $this->set('name', ucfirst($name));
+        $this->set('email',$email);
+        $this->set('message', $message);
+        if (defined("PHPMAILER") && PHPMAILER == 1) {
+            $this->Email->set_variables = $this->render('/Emails/html/forgot_password', false);
+            App::import('Component', 'PhpMailer.PhpMailer');
+            $this->PhpMailer = new PhpMailerComponent();
+            if ($this->PhpMailer->sendPhpMailerTemplate($this->Email)) {
+                $this->Session->write("SUCCESS", "Your message successfully sent.");
+                $this->redirect($this->referer());
+                return;
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
+        } else {
+            if ($this->Sendgrid->sendgridsmtp($this->Email)) {
+                $this->Session->write("SUCCESS", "Your message successfully sent.");
+                $this->redirect($this->referer());
+               // $this->redirect(HTTP_ROOT . "users/manage/?role=invited");
+            }else{
+			   $this->Session->write("ERROR", "Something error occoured!.");
+                $this->redirect($this->referer());	
+			}
+        }
+    }
+    }
+ function call_notification(){
+   $cSession = curl_init(); 
+   curl_setopt($cSession,CURLOPT_URL,"http://executive.orangescrum.org/CustomerNotifications/customernotifications");
+   curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
+   curl_setopt($cSession,CURLOPT_HEADER, false); 
+   $result=curl_exec($cSession);
+   curl_close($cSession);
+  return json_decode($result,true);
+	
+}
+
 }

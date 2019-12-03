@@ -313,14 +313,14 @@ class FormatComponent extends Component
 			else {
 				$srchstr1 = $srchstr1;
 			}
-			if(!ereg('[^0-9]', $srchstr1)) {
+			if(!preg_match('[^0-9]', $srchstr1)) {
 				$searchcase = "AND (Easycase.title LIKE '%$srchstr1%' OR Easycase.case_no LIKE '$srchstr1%')";
 			}
 			else {
-				if(ereg('[^A-Za-z -()@$&,]', $srchstr1) && !strstr($srchstr1," ") && !strstr($srchstr1,"-") && !strstr($srchstr1,",") && !strstr($srchstr1,"/") && !strstr($srchstr1,"_") && !strstr($srchstr1,"_") && !strstr($srchstr1,":") && !strstr($srchstr1,".") && !strstr($srchstr1,"&"))
+				if(preg_match('[^A-Za-z -()@$&,]', $srchstr1) && !strstr($srchstr1," ") && !strstr($srchstr1,"-") && !strstr($srchstr1,",") && !strstr($srchstr1,"/") && !strstr($srchstr1,"_") && !strstr($srchstr1,"_") && !strstr($srchstr1,":") && !strstr($srchstr1,".") && !strstr($srchstr1,"&"))
 				{
-					$projshortname = ereg_replace("[^A-Za-z]", "", $srchstr1);
-					$caseno = ereg_replace("[^0-9]", "", $srchstr1);
+					$projshortname = preg_replace("[^A-Za-z]", "", $srchstr1);
+					$caseno = preg_replace("[^0-9]", "", $srchstr1);
 					$searchcase = "AND (Easycase.case_no LIKE '$caseno%' OR Easycase.title LIKE '%$srchstr1%')";
 				}
 				else

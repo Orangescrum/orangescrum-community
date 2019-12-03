@@ -97,7 +97,7 @@ class SqlserverTestDb extends Sqlserver {
 /**
  * describe method
  *
- * @param object $model
+ * @param Model $model
  * @return void
  */
 	public function describe($model) {
@@ -116,7 +116,7 @@ class SqlserverTestModel extends CakeTestModel {
 /**
  * useTable property
  *
- * @var boolean
+ * @var bool
  */
 	public $useTable = false;
 
@@ -182,7 +182,7 @@ class SqlserverClientTestModel extends CakeTestModel {
 /**
  * useTable property
  *
- * @var boolean
+ * @var bool
  */
 	public $useTable = false;
 
@@ -248,7 +248,7 @@ class SqlserverTest extends CakeTestCase {
 /**
  * autoFixtures property
  *
- * @var boolean
+ * @var bool
  */
 	public $autoFixtures = false;
 
@@ -262,6 +262,7 @@ class SqlserverTest extends CakeTestCase {
 /**
  * Sets up a Dbo class instance for testing
  *
+ * @return void
  */
 	public function setUp() {
 		parent::setUp();
@@ -448,6 +449,15 @@ class SqlserverTest extends CakeTestCase {
 				'Null' => 'YES',
 				'Size' => '0',
 			),
+			(object)array(
+				'Default' => null,
+				'Field' => 'description',
+				'Key' => '0',
+				'Type' => 'text',
+				'Length' => 16,
+				'Null' => 'YES',
+				'Size' => '0',
+			),
 		));
 		$this->db->executeResultsStack = array($SqlserverTableDescription);
 		$dummyModel = $this->model;
@@ -484,6 +494,12 @@ class SqlserverTest extends CakeTestCase {
 				'default' => null,
 				'length' => 8,
 			),
+			'description' => array(
+				'type' => 'text',
+				'null' => true,
+				'default' => null,
+				'length' => null,
+			)
 		);
 		$this->assertEquals($expected, $result);
 		$this->assertSame($expected['parent_id'], $result['parent_id']);

@@ -50,15 +50,14 @@ input#txt_Password{font-family: Arial}
                         <div style="color:#666;background:#F0F0F0;font-size:13px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
                         Make sure that, <br/>
                         <ul>
-                       	<li>You have write permission (777) to <b>`app/tmp`</b> and <b>`app/webroot`</b> folders</li>
+                       	<li>You have write permission (777) to <b>`app/tmp`</b> folders</li>
                         
                         <?php
 						if(!defined('SMTP_PWORD') || SMTP_PWORD == "******") { ?>
                         <li>You have provided the details of <b>SMTP</b> email sending options in <b>`app/Config/constants.php`</b></li>
 <?php
 						}
-						?><li>You have updated FROM_EMAIL_NOTIFY and SUPPORT_EMAIL in <b>`app/Config/constants.php`</b></li>
-						
+						?>
                         </ul>
                         </div>
                         <?php
@@ -72,7 +71,8 @@ input#txt_Password{font-family: Arial}
 					<div style="padding:10px 5px;">
 						<div style="clear:both"></div>
 						<div style="float:left"><a href="https://www.orangescrum.com/how-it-works" target="_blank">How it Works?</a></div>
-						<div style="float:right;padding-right:10px;"><a href="https://www.orangescrum.com/help" target="_blank">Help!</a></div>
+						<!-- <div style="float:right;padding-right:10px;"><a href="https://www.orangescrum.com/help" target="_blank">Help!</a></div>  -->
+						<div style="float:right;padding-right:10px;"><a href="http://helpdesk.orangescrum.org/" target="_blank">Help!</a></div>
 					</div>
 					<?php
 					}
@@ -118,8 +118,15 @@ input#txt_Password{font-family: Arial}
                                             ?>
                                        </h2>
                                        <div><img src="<?php echo HTTP_ROOT; ?>img/images/login_header_shadow.png?v=<?php echo RELEASE; ?>" width="460" height="8"/></div>
-                                        
-                                        <?php echo $this->Form->create('User', array('id'=>'userLoginForm','action' => $action)); ?>
+
+                                        <?php //echo $this->Form->create('User', array('id'=>'userLoginForm','action' => $action)); ?>
+                                        <?php echo $this->Form->create('User', array('id'=>'userLoginForm',
+                                                'url'   => array(
+                                                    'controller' => 'users','action' => $action
+                                                ),
+                                            )
+                                        ); ?>
+
 										<input type="hidden" name="data[User][timezone_id]" id="timezone_id" value="">
                                        
                                         <div class="login_dialog top_inc_app_land_from" id="login_dialog" style="margin-top:0px;">
@@ -146,7 +153,11 @@ input#txt_Password{font-family: Arial}
 						    if(isset($update_email_message)){
 							echo $update_email_message;
 						     }else{
-							echo $this->Session->flash(); 
+                                                          if($findCompany['Company']['id']) {
+							  echo $this->Session->flash();  
+                                                          }else{
+                                                             
+                                                          }
 						     }
 						?>
                                             </div>

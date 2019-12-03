@@ -135,6 +135,7 @@ class L10n {
 		/* Kalaallisut (Greenlandic) */ 'kal' => 'kl',
 		/* Korean */ 'kor' => 'ko',
 		/* Latvian */ 'lav' => 'lv',
+		/* Limburgish */ 'lim' => 'li',
 		/* Lithuanian */ 'lit' => 'lt',
 		/* Macedonian */ 'mkd' => 'mk',
 		/* Macedonian - bibliographic */ 'mac' => 'mk',
@@ -208,6 +209,7 @@ class L10n {
 		'ca' => array('language' => 'Catalan', 'locale' => 'cat', 'localeFallback' => 'cat', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'cs' => array('language' => 'Czech', 'locale' => 'ces', 'localeFallback' => 'ces', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'da' => array('language' => 'Danish', 'locale' => 'dan', 'localeFallback' => 'dan', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'da-dk' => array('language' => 'Danish (Denmark)', 'locale' => 'da_dk', 'localeFallback' => 'dan', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'de' => array('language' => 'German (Standard)', 'locale' => 'deu', 'localeFallback' => 'deu', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'de-at' => array('language' => 'German (Austria)', 'locale' => 'de_at', 'localeFallback' => 'deu', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'de-ch' => array('language' => 'German (Swiss)', 'locale' => 'de_ch', 'localeFallback' => 'deu', 'charset' => 'utf-8', 'direction' => 'ltr'),
@@ -247,9 +249,11 @@ class L10n {
 		'es-uy' => array('language' => 'Spanish (Uruguay)', 'locale' => 'es_uy', 'localeFallback' => 'spa', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'es-ve' => array('language' => 'Spanish (Venezuela)', 'locale' => 'es_ve', 'localeFallback' => 'spa', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'et' => array('language' => 'Estonian', 'locale' => 'est', 'localeFallback' => 'est', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'et-ee' => array('language' => 'Estonian (Estonia)', 'locale' => 'et_ee', 'localeFallback' => 'est', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'eu' => array('language' => 'Basque', 'locale' => 'eus', 'localeFallback' => 'eus', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'fa' => array('language' => 'Farsi', 'locale' => 'fas', 'localeFallback' => 'fas', 'charset' => 'utf-8', 'direction' => 'rtl'),
 		'fi' => array('language' => 'Finnish', 'locale' => 'fin', 'localeFallback' => 'fin', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'fi-fi' => array('language' => 'Finnish (Finland)', 'locale' => 'fi_fi', 'localeFallback' => 'fin', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'fo' => array('language' => 'Faeroese', 'locale' => 'fao', 'localeFallback' => 'fao', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'fr' => array('language' => 'French (Standard)', 'locale' => 'fra', 'localeFallback' => 'fra', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'fr-be' => array('language' => 'French (Belgium)', 'locale' => 'fr_be', 'localeFallback' => 'fra', 'charset' => 'utf-8', 'direction' => 'ltr'),
@@ -265,28 +269,36 @@ class L10n {
 		'hi' => array('language' => 'Hindi', 'locale' => 'hin', 'localeFallback' => 'hin', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'hr' => array('language' => 'Croatian', 'locale' => 'hrv', 'localeFallback' => 'hrv', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'hu' => array('language' => 'Hungarian', 'locale' => 'hun', 'localeFallback' => 'hun', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'hu-hu' => array('language' => 'Hungarian (Hungary)', 'locale' => 'hun', 'localeFallback' => 'hun', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'hy' => array('language' => 'Armenian - Armenia', 'locale' => 'hye', 'localeFallback' => 'hye', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'id' => array('language' => 'Indonesian', 'locale' => 'ind', 'localeFallback' => 'ind', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'is' => array('language' => 'Icelandic', 'locale' => 'isl', 'localeFallback' => 'isl', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'is-is' => array('language' => 'Icelandic (Iceland)', 'locale' => 'is_is', 'localeFallback' => 'isl', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'it' => array('language' => 'Italian', 'locale' => 'ita', 'localeFallback' => 'ita', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'it-ch' => array('language' => 'Italian (Swiss) ', 'locale' => 'it_ch', 'localeFallback' => 'ita', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ja' => array('language' => 'Japanese', 'locale' => 'jpn', 'localeFallback' => 'jpn', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'kk' => array('language' => 'Kazakh', 'locale' => 'kaz', 'localeFallback' => 'kaz', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'kl' => array('language' => 'Kalaallisut (Greenlandic)', 'locale' => 'kal', 'localeFallback' => 'kal', 'charset' => 'kl', 'direction' => 'ltr'),
+		'kl-gl' => array('language' => 'Kalaallisut (Greenland)', 'locale' => 'kl_gl', 'localeFallback' => 'kal', 'charset' => 'kl', 'direction' => 'ltr'),
 		'ko' => array('language' => 'Korean', 'locale' => 'kor', 'localeFallback' => 'kor', 'charset' => 'kr', 'direction' => 'ltr'),
 		'ko-kp' => array('language' => 'Korea (North)', 'locale' => 'ko_kp', 'localeFallback' => 'kor', 'charset' => 'kr', 'direction' => 'ltr'),
 		'ko-kr' => array('language' => 'Korea (South)', 'locale' => 'ko_kr', 'localeFallback' => 'kor', 'charset' => 'kr', 'direction' => 'ltr'),
 		'koi8-r' => array('language' => 'Russian', 'locale' => 'koi8_r', 'localeFallback' => 'rus', 'charset' => 'koi8-r', 'direction' => 'ltr'),
+		'li' => array('language' => 'Limburgish', 'locale' => 'lim', 'localeFallback' => 'nld', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'lt' => array('language' => 'Lithuanian', 'locale' => 'lit', 'localeFallback' => 'lit', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'lv' => array('language' => 'Latvian', 'locale' => 'lav', 'localeFallback' => 'lav', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'lv-lv' => array('language' => 'Latvian (Latvia)', 'locale' => 'lav', 'localeFallback' => 'lav', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'mk' => array('language' => 'FYRO Macedonian', 'locale' => 'mkd', 'localeFallback' => 'mkd', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'mk-mk' => array('language' => 'Macedonian', 'locale' => 'mk_mk', 'localeFallback' => 'mkd', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ms' => array('language' => 'Malaysian', 'locale' => 'msa', 'localeFallback' => 'msa', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'mt' => array('language' => 'Maltese', 'locale' => 'mlt', 'localeFallback' => 'mlt', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'nb' => array('language' => 'Norwegian Bokmal', 'locale' => 'nob', 'localeFallback' => 'nor', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'nb-no' => array('language' => 'Norwegian Bokmål (Norway)', 'locale' => 'nb_no', 'localeFallback' => 'nor', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'nl' => array('language' => 'Dutch (Standard)', 'locale' => 'nld', 'localeFallback' => 'nld', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'nl-be' => array('language' => 'Dutch (Belgium)', 'locale' => 'nl_be', 'localeFallback' => 'nld', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'nl-nl' => array('language' => 'Dutch (Netherlands)', 'locale' => 'nl_nl', 'localeFallback' => 'nld', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'nn' => array('language' => 'Norwegian Nynorsk', 'locale' => 'nno', 'localeFallback' => 'nor', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'nn-no' => array('language' => 'Norwegian Nynorsk (Norway)', 'locale' => 'nn_no', 'localeFallback' => 'nor', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'no' => array('language' => 'Norwegian', 'locale' => 'nor', 'localeFallback' => 'nor', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'pl' => array('language' => 'Polish', 'locale' => 'pol', 'localeFallback' => 'pol', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'pt' => array('language' => 'Portuguese (Portugal)', 'locale' => 'por', 'localeFallback' => 'por', 'charset' => 'utf-8', 'direction' => 'ltr'),
@@ -294,6 +306,7 @@ class L10n {
 		'rm' => array('language' => 'Rhaeto-Romanic', 'locale' => 'roh', 'localeFallback' => 'roh', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ro' => array('language' => 'Romanian', 'locale' => 'ron', 'localeFallback' => 'ron', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ro-mo' => array('language' => 'Romanian (Moldavia)', 'locale' => 'ro_mo', 'localeFallback' => 'ron', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'ro-ro' => array('language' => 'Romanian (Romania)', 'locale' => 'ro_ro', 'localeFallback' => 'ron', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ru' => array('language' => 'Russian', 'locale' => 'rus', 'localeFallback' => 'rus', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ru-mo' => array('language' => 'Russian (Moldavia)', 'locale' => 'ru_mo', 'localeFallback' => 'rus', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'sb' => array('language' => 'Sorbian', 'locale' => 'wen', 'localeFallback' => 'wen', 'charset' => 'utf-8', 'direction' => 'ltr'),
@@ -302,6 +315,7 @@ class L10n {
 		'sq' => array('language' => 'Albanian', 'locale' => 'sqi', 'localeFallback' => 'sqi', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'sr' => array('language' => 'Serbian', 'locale' => 'srp', 'localeFallback' => 'srp', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'sv' => array('language' => 'Swedish', 'locale' => 'swe', 'localeFallback' => 'swe', 'charset' => 'utf-8', 'direction' => 'ltr'),
+		'sv-se' => array('language' => 'Swedish (Sweden)', 'locale' => 'sv_se', 'localeFallback' => 'swe', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'sv-fi' => array('language' => 'Swedish (Finland)', 'locale' => 'sv_fi', 'localeFallback' => 'swe', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'se' => array('language' => 'Sami', 'locale' => 'sme', 'localeFallback' => 'sme', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'th' => array('language' => 'Thai', 'locale' => 'tha', 'localeFallback' => 'tha', 'charset' => 'utf-8', 'direction' => 'ltr'),
@@ -408,7 +422,7 @@ class L10n {
 /**
  * Attempts to find the locale settings based on the HTTP_ACCEPT_LANGUAGE variable
  *
- * @return boolean Success
+ * @return bool Success
  */
 	protected function _autoLanguage() {
 		$_detectableLanguages = CakeRequest::acceptLanguage();
@@ -432,7 +446,7 @@ class L10n {
  * Attempts to find locale for language, or language for locale
  *
  * @param string|array $mixed 2/3 char string (language/locale), array of those strings, or null
- * @return string|array|boolean string language/locale, array of those values, whole map as an array,
+ * @return string|array|bool string language/locale, array of those values, whole map as an array,
  *    or false when language/locale doesn't exist
  */
 	public function map($mixed = null) {
@@ -461,7 +475,7 @@ class L10n {
  * Attempts to find catalog record for requested language
  *
  * @param string|array $language string requested language, array of requested languages, or null for whole catalog
- * @return array|boolean array catalog record for requested language, array of catalog records, whole catalog,
+ * @return array|bool array catalog record for requested language, array of catalog records, whole catalog,
  *    or false when language doesn't exist
  */
 	public function catalog($language = null) {

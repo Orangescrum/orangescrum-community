@@ -24,7 +24,6 @@ App::uses('<?php echo $dependency[0]; ?>', '<?php echo $dependency[1]; ?>');
 
 /**
  * <?php echo $fullClassName; ?> Test Case
- *
  */
 <?php if ($type === 'Controller'): ?>
 class <?php echo $fullClassName; ?>Test extends ControllerTestCase {
@@ -75,6 +74,7 @@ class <?php echo $fullClassName; ?>Test extends CakeTestCase {
  * @return void
  */
 	public function test<?php echo Inflector::camelize($method); ?>() {
+		$this->markTestIncomplete('test<?php echo Inflector::camelize($method); ?> not implemented.');
 	}
 
 <?php endforeach; ?>

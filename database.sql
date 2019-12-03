@@ -750,7 +750,7 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 --
 
 INSERT INTO `subscriptions` (`id`, `plan`, `storage`, `project_limit`, `user_limit`, `milestone_limit`, `free_trail_days`, `price`, `month`, `is_active`, `created`, `modified`) VALUES
-(1, 1, 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited', 0, 0, 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited', 0, 0, 0, 1, '2019-05-22 09:59:39', '2019-05-22 09:59:39');
 
 -- --------------------------------------------------------
 

@@ -17,7 +17,7 @@
  */
 
 /**
- * Class TestPluginCacheEngine
+ * TestPluginCacheEngine
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Lib.Cache.Engine
  */
@@ -42,5 +42,8 @@ class TestPluginCacheEngine extends CacheEngine {
 	}
 
 	public function clearGroup($group) {
+	}
+
+	public function add($key, $value, $duration) {
 	}
 }

@@ -125,7 +125,35 @@
 		</div>
 	</div>
     </div>
-    <!-- New user popup ends -->
+    <!-- New user popup ends  -->
+      <div class="new_contact cmn_popup" style="display: none;">
+	<div class="popup_title">
+	    <span><i class="icon-create-user"></i> Contact Sales</span>
+	    <a href="javascript:jsVoid();" onclick="closePopup();"><div class="fr close_popup">X</div></a>
+	</div>
+	<div class="popup_form">
+	    <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
+	    <div id="inner_contact" style="display: none;">
+			<?php 
+			if(defined('SMTP_PWORD') && SMTP_PWORD != "******"  || (defined('PHPMAILER') && PHPMAILER == 1)) {
+			echo $this->element('new_contact');	
+			}
+			else {
+			?>
+				<div style="color:#666;background:#F0F0F0;font-size:16px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
+				Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
+				<ul>
+				 <li>You have provided the details of <b>SMTP</b> email sending options in <b>`app/Config/constants.php`</b></li>
+				 <li>You have updated FROM_EMAIL_NOTIFY and SUPPORT_EMAIL in <b>`app/Config/constants.php`</b></li>
+				
+				</ul>
+				</div>
+			<?php
+			}
+			?>
+		</div>
+	</div>
+    </div>
     <!-- Export csv popup starts -->
     <div class="exportcsv cmn_popup" style="display: none;max-height:570px;overflow-y: auto" id="exporttaskcsv_popup">
 	<div class="popup_title">

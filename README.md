@@ -4,7 +4,7 @@
     * Apache with `mod_rewrite`
     	* Enable curl in php.ini
     	* Change the 'post_max_size' and `upload_max_filesize` to 200Mb in php.ini
-    * PHP 5.3 or higher
+    * PHP 5.6 or PHP 7.0, 7.1, 7.2
     * MySQL 4.1 or higher
 		* If STRICT mode is On, turn it Off.
   

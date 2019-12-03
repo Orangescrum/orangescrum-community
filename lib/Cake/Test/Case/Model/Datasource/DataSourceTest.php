@@ -57,7 +57,7 @@ class TestSource extends DataSource {
 /**
  * listSources
  *
- * @return boolean
+ * @return bool
  */
 	public function listSources() {
 		return null;
@@ -66,7 +66,7 @@ class TestSource extends DataSource {
 /**
  * Returns the schema for the datasource to enable create/update
  *
- * @param object $Model
+ * @param Model $Model
  * @return array
  */
 	public function describe(Model $Model) {

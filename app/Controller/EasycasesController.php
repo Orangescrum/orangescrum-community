@@ -103,9 +103,9 @@ class EasycasesController extends AppController {
 
     function archive_case() {
         $this->layout = 'ajax';
-        $id = $this->params['data']['id'];
-        $cno = $this->params['data']['cno'];
-        $pid = $this->params['data']['pid'];
+        $id = $this->params->data['id'];
+        $cno = $this->params->data['cno'];
+        $pid = $this->params->data['pid'];
 
         $arcCaseTitle = $this->Easycase->getCaseTitle($pid, $cno);
 
@@ -169,9 +169,9 @@ class EasycasesController extends AppController {
 
     function delete_case() {
         $this->layout = 'ajax';
-        $id = $this->params['data']['id'];
-        $cno = $this->params['data']['cno'];
-        $pid = $this->params['data']['pid'];
+        $id = $this->params->data['id'];
+        $cno = $this->params->data['cno'];
+        $pid = $this->params->data['pid'];
         $this->Easycase->recursive = -1;
         $case_list = $this->Easycase->query('SELECT id FROM easycases WHERE case_no=' . $cno . " AND project_id = " . $pid);
         if ($case_list) {
@@ -272,7 +272,7 @@ class EasycasesController extends AppController {
 
     function archive_file() {
         $this->layout = 'ajax';
-        $id = $this->params['data']['id'];
+        $id = $this->params->data['id'];
 
         $CaseFile = ClassRegistry::init('CaseFile');
         $CaseFile->recursive = -1;
@@ -313,12 +313,12 @@ class EasycasesController extends AppController {
     function ajaxpostcase($oauth_arg = NULL) {
 
         $this->layout = 'ajax';
-        if (isset($this->params['data']['CS_project_id']) && $this->params['data']['CS_project_id'] && $this->params['data']['CS_project_id'] != "all") {
-            $CS_project_id = $this->params['data']['CS_project_id'];
+        if ($this->params->data['CS_project_id'] && $this->params->data['CS_project_id'] && $this->params->data['CS_project_id'] != "all") {
+            $CS_project_id = $this->params->data['CS_project_id'];
         } elseif (isset($oauth_arg['CS_project_id'])) {
             $CS_project_id = $oauth_arg['CS_project_id'];
         } else {
-            $CS_project_id = $this->params['data']['pid'];
+            $CS_project_id = $this->params->data['pid'];
         }
 
         $oauth_return = 0;
@@ -329,31 +329,31 @@ class EasycasesController extends AppController {
             $limitation = $this->UserSubscription->find('first', array('conditions' => array('company_id' => SES_COMP), 'order' => 'id DESC'));
             $GLOBALS['Userlimitation'] = $limitation['UserSubscription'];
         } else {
-            $CS_istype = $this->params['data']['CS_istype'];
-            $CS_title = $this->Format->convert_ascii($this->params['data']['CS_title']);
-            $CS_type_id = $this->params['data']['CS_type_id'];
-            $CS_priority = $this->params['data']['CS_priority'];
-            $CS_assign_to = $this->params['data']['CS_assign_to'];
-            $msg = trim($this->params['data']['CS_message']);
+            $CS_istype = $this->params->data['CS_istype'];
+            $CS_title = $this->Format->convert_ascii($this->params->data['CS_title']);
+            $CS_type_id = $this->params->data['CS_type_id'];
+            $CS_priority = $this->params->data['CS_priority'];
+            $CS_assign_to = $this->params->data['CS_assign_to'];
+            $msg = trim($this->params->data['CS_message']);
             $msg = preg_replace('/^(?:<br\s*\/?>\s*)+/', '', $msg);
             $msg = preg_replace('/(<br \/>)+$/', '', $msg);
-            $this->params['data']['CS_message'] = $msg;
+            $this->params->data['CS_message'] = $msg;
             $CS_message = $msg;
-            $CS_due_date = $this->params['data']['CS_due_date'];
-            $CS_milestone = $this->params['data']['CS_milestone'];
+            $CS_due_date = $this->params->data['CS_due_date'];
+            $CS_milestone = $this->params->data['CS_milestone'];
             $CS_legend = 1;
-            if (isset($this->params['data']['CS_legend'])) {
-                $CS_legend = $this->params['data']['CS_legend'];
+            if (isset($this->params->data['CS_legend'])) {
+                $CS_legend = $this->params->data['CS_legend'];
             }
-            $pagename = $this->params['data']['pagename'];
-            $arr = $this->params['data'];
+            $pagename = $this->params->data['pagename'];
+            $arr = $this->params->data;
             if ($this->data['CS_type_id'] == 10) {
                 $arr['CS_legend'] = 1;
             }
 
-            if ($this->params['data']['user_auth_key']) {
+            if ($this->params->data['user_auth_key']) {
                 $this->loadModel('User');
-                $getuser = $this->User->find('first', array('copnditions' => array('User.uniq_id' => $this->params['data']['user_auth_key'])));
+                $getuser = $this->User->find('first', array('copnditions' => array('User.uniq_id' => $this->params->data['user_auth_key'])));
                 if ($getuser['User']['id']) {
                     $arr['CS_user_id'] = $getuser['User']['id'];
                 }
@@ -412,8 +412,8 @@ class EasycasesController extends AppController {
 
     function comment_edit() {
         $this->layout = 'ajax';
-        $comments = $this->params['data']['comments'];
-        $cmntid = $this->params['data']['cmntid'];
+        $comments = $this->params->data['comments'];
+        $cmntid = $this->params->data['cmntid'];
 
         $this->loadModel('CaseComment');
         $CaseComment['id'] = $cmntid;
@@ -426,11 +426,11 @@ class EasycasesController extends AppController {
 
     function comment() {
         $this->layout = 'ajax';
-        $comments = $this->params['data']['comments'];
-        $repid = $this->params['data']['repid'];
-        $csid = $this->params['data']['csid'];
-        $fileArray = $this->params['data']['allFiles'];
-        $count = $this->params['data']['count'];
+        $comments = $this->params->data['comments'];
+        $repid = $this->params->data['repid'];
+        $csid = $this->params->data['csid'];
+        $fileArray = $this->params->data['allFiles'];
+        $count = $this->params->data['count'];
 
         $this->loadModel('CaseComment');
         $CaseComment['easycase_id'] = $repid;
@@ -509,7 +509,7 @@ class EasycasesController extends AppController {
 
     function fileremove($oauth_arg = NULL) {
         $this->layout = 'ajax';
-        $filename = (isset($oauth_arg) && trim($oauth_arg)) ? $oauth_arg : $this->params['data']['filename'];
+        $filename = (isset($oauth_arg) && trim($oauth_arg)) ? $oauth_arg : $this->params->data['filename'];
         if ($filename && strstr($filename, "|")) {
             $fl = explode("|", $filename);
             if (isset($fl['0'])) {
@@ -551,7 +551,7 @@ class EasycasesController extends AppController {
 
         //echo json_encode($oauth_arg); exit;
 
-        $size = (isset($oauth_arg['case_files']['size'])) ? $oauth_arg['case_files']['size'] : $this->params['data']['Easycase']['case_files']['size'];
+        $size = (isset($oauth_arg['case_files']['size'])) ? $oauth_arg['case_files']['size'] : $this->params->data['Easycase']['case_files']['size'];
         $sizeinkb = $size / 1024;
 
         $storageExceeds = 0;
@@ -574,10 +574,10 @@ class EasycasesController extends AppController {
             $totalStorage = number_format($usedstorageMb, 2);
         }
 
-        $name = (isset($oauth_arg['case_files']['name'])) ? $oauth_arg['case_files']['name'] : $this->params['data']['Easycase']['case_files']['name'];
-        $tmp_name = (isset($oauth_arg['case_files']['tmp_name'])) ? $oauth_arg['case_files']['tmp_name'] : $this->params['data']['Easycase']['case_files']['tmp_name'];
+        $name = (isset($oauth_arg['case_files']['name'])) ? $oauth_arg['case_files']['name'] : $this->params->data['Easycase']['case_files']['name'];
+        $tmp_name = (isset($oauth_arg['case_files']['tmp_name'])) ? $oauth_arg['case_files']['tmp_name'] : $this->params->data['Easycase']['case_files']['tmp_name'];
 
-        $type = (isset($oauth_arg['case_files']['type'])) ? $oauth_arg['case_files']['type'] : $this->params['data']['Easycase']['case_files']['type'];
+        $type = (isset($oauth_arg['case_files']['type'])) ? $oauth_arg['case_files']['type'] : $this->params->data['Easycase']['case_files']['type'];
 
         $file_path = WWW_ROOT . 'files/case_files/';
 
@@ -795,18 +795,18 @@ class EasycasesController extends AppController {
     function case_files() {
         $this->layout = 'ajax';
         $page_limit = CASE_PAGE_LIMIT;
-        $projUniq = $this->params['data']['projFil']; // Project Uniq ID
-        $casePage = $this->params['data']['casePage']; // Project Uniq ID
+        $projUniq = $this->params->data['projFil']; // Project Uniq ID
+        $casePage = $this->params->data['casePage']; // Project Uniq ID
 
 
-        $caseFileId = $this->params['data']['caseFileId'];
+        $caseFileId = $this->params->data['caseFileId'];
         $condnts = "";
         $file_srch = "";
         if (isset($caseFileId) && !empty($caseFileId)) {
             $condnts = "AND CaseFile.id='" . $caseFileId . "'";
-            $file_srch = $this->params['data']['file_srch'];
-        } else if (isset($this->params['data']['file_srch']) && !empty($this->params['data']['file_srch'])) {
-            $file_srch = $this->params['data']['file_srch'];
+            $file_srch = $this->params->data['file_srch'];
+        } else if (isset($this->params->data['file_srch']) && !empty($this->params->data['file_srch'])) {
+            $file_srch = $this->params->data['file_srch'];
             $condnts = "AND CaseFile.file LIKE '%" . trim($file_srch) . "%' ";
         }
         // get project ID from project uniq-id
@@ -821,7 +821,7 @@ class EasycasesController extends AppController {
             }
 
             //Updating ProjectUser table to current date-time
-            $projIsChange = $this->params['data']['projIsChange']; // Project Uniq ID
+            $projIsChange = $this->params->data['projIsChange']; // Project Uniq ID
             if ($projIsChange != $projUniq) {
                 $ProjectUser['id'] = $projArr['ProjectUser']['id'];
                 $ProjectUser['dt_visited'] = GMT_DATETIME;
@@ -910,7 +910,7 @@ class EasycasesController extends AppController {
     }
 
     function setCustomStatus() {
-        $customfilterid = (isset($this->params['data']['customfilter'])) ? $this->params['data']['customfilter'] : '';
+        $customfilterid = (isset($this->params->data['customfilter'])) ? $this->params->data['customfilter'] : '';
         $filter = array();
         if ($customfilterid) {
             $this->loadModel('CustomFilter');
@@ -936,38 +936,38 @@ class EasycasesController extends AppController {
         $page_limit = CASE_PAGE_LIMIT;
         $this->_datestime();
 
-        $projUniq = $this->params['data']['projFil']; // Project Uniq ID
-        $projIsChange = $this->params['data']['projIsChange']; // Project Uniq ID
-        $caseStatus = $this->params['data']['caseStatus']; // Filter by Status(legend)
-        $priorityFil = $this->params['data']['priFil']; // Filter by Priority
-        $caseTypes = $this->params['data']['caseTypes']; // Filter by case Types
-        $caseUserId = $this->params['data']['caseMember']; // Filter by Member
-        $caseAssignTo = $this->params['data']['caseAssignTo']; // Filter by AssignTo
-        $caseDate = $this->params['data']['caseDate']; // Sort by Date
-        $caseSrch = $this->params['data']['caseSearch']; // Search by keyword
+        $projUniq = $this->params->data['projFil']; // Project Uniq ID
+        $projIsChange = $this->params->data['projIsChange']; // Project Uniq ID
+        $caseStatus = $this->params->data['caseStatus']; // Filter by Status(legend)
+        $priorityFil = $this->params->data['priFil']; // Filter by Priority
+        $caseTypes = $this->params->data['caseTypes']; // Filter by case Types
+        $caseUserId = $this->params->data['caseMember']; // Filter by Member
+        $caseAssignTo = $this->params->data['caseAssignTo']; // Filter by AssignTo
+        $caseDate = $this->params->data['caseDate']; // Sort by Date
+        $caseSrch = $this->params->data['caseSearch']; // Search by keyword
 
-        $casePage = $this->params['data']['casePage']; // Pagination
-        $caseUniqId = $this->params['data']['caseId']; // Case Uniq ID to close a case
-        $caseTitle = $this->params['data']['caseTitle']; // Case Uniq ID to close a case
-        $caseDueDate = $this->params['data']['caseDueDate']; // Sort by Due Date
-        $caseNum = $this->params['data']['caseNum']; // Sort by Due Date
-        $caseLegendsort = $this->params['data']['caseLegendsort']; // Sort by Case Status
-        $caseAtsort = $this->params['data']['caseAtsort']; // Sort by Case Status
-        $startCaseId = $this->params['data']['startCaseId']; // Start Case
-        $caseResolve = $this->params['data']['caseResolve']; // Resolve Case
-        $caseMenuFilters = $this->params['data']['caseMenuFilters']; // Resolve Case
-        $milestoneIds = $this->params['data']['milestoneIds']; // Resolve Case
-        $caseCreateDate = $this->params['data']['caseCreateDate']; // Sort by Created Date
-        @$case_srch = $this->params['data']['case_srch'];
-        @$case_date = $this->params['data']['case_date'];
-        @$case_duedate = $this->params['data']['case_due_date'];
-        @$milestone_type = $this->params['data']['mstype'];
-        $changecasetype = $this->params['data']['caseChangeType'];
-        $caseChangeDuedate = $this->params['data']['caseChangeDuedate'];
-        $caseChangePriority = $this->params['data']['caseChangePriority'];
-        $caseChangeAssignto = $this->params['data']['caseChangeAssignto'];
-        $customfilterid = $this->params['data']['customfilter'];
-        $detailscount = $this->params['data']['detailscount']; // Count number to open casedetails
+        $casePage = $this->params->data['casePage']; // Pagination
+        $caseUniqId = $this->params->data['caseId']; // Case Uniq ID to close a case
+        $caseTitle = $this->params->data['caseTitle']; // Case Uniq ID to close a case
+        $caseDueDate = $this->params->data['caseDueDate']; // Sort by Due Date
+        $caseNum = $this->params->data['caseNum']; // Sort by Due Date
+        $caseLegendsort = $this->params->data['caseLegendsort']; // Sort by Case Status
+        $caseAtsort = $this->params->data['caseAtsort']; // Sort by Case Status
+        $startCaseId = $this->params->data['startCaseId']; // Start Case
+        $caseResolve = $this->params->data['caseResolve']; // Resolve Case
+        $caseMenuFilters = $this->params->data['caseMenuFilters']; // Resolve Case
+        $milestoneIds = $this->params->data['milestoneIds']; // Resolve Case
+        $caseCreateDate = $this->params->data['caseCreateDate']; // Sort by Created Date
+        @$case_srch = $this->params->data['case_srch'];
+        @$case_date = $this->params->data['case_date'];
+        @$case_duedate = $this->params->data['case_due_date'];
+        @$milestone_type = $this->params->data['mstype'];
+        $changecasetype = $this->params->data['caseChangeType'];
+        $caseChangeDuedate = $this->params->data['caseChangeDuedate'];
+        $caseChangePriority = $this->params->data['caseChangePriority'];
+        $caseChangeAssignto = $this->params->data['caseChangeAssignto'];
+        $customfilterid = $this->params->data['customfilter'];
+        $detailscount = $this->params->data['detailscount']; // Count number to open casedetails
         $filterenabled = 0;
         /* jyoti start */
         if ($customfilterid) {
@@ -1000,7 +1000,7 @@ class EasycasesController extends AppController {
         }
 
 
-        $caseUrl = $this->params['data']['caseUrl'];
+        $caseUrl = $this->params->data['caseUrl'];
         ######## get project ID from project uniq-id ################
         $curProjId = NULL;
         $curProjShortName = NULL;
@@ -1695,10 +1695,10 @@ class EasycasesController extends AppController {
 
     function ajax_assignto_mem() {
         $this->layout = 'ajax';
-        $project = $this->params['data']['project'];
-        /* $csId = $this->params['data']['csId'];
-          $caseUniqId = $this->params['data']['caseUniqId'];
-          $caseAssgnUid = $this->params['data']['caseAssgnUid']; */
+        $project = $this->params->data['project'];
+        /* $csId = $this->params->data['csId'];
+          $caseUniqId = $this->params->data['caseUniqId'];
+          $caseAssgnUid = $this->params->data['caseAssgnUid']; */
 
         $usrDtlsArr = $this->Easycase->getMemebers($project);
 
@@ -1719,19 +1719,19 @@ class EasycasesController extends AppController {
             $oauth_return = 1;
         }
 
-        //$projUniqDtls = isset($oauth_arg['projFil']) ? $oauth_arg['projFil'] : $this->params['data']['projFil'];
-        $caseUniqId = isset($oauth_arg['caseUniqId']) ? $oauth_arg['caseUniqId'] : $this->params['data']['caseUniqId'];
-        //$spnajx = $this->params['data']['spnajx'];
-        //$count = $this->params['data']['count'];
-        /* if((isset($this->params['data']['prjid']) && $this->params['data']['prjid']) || (isset($oauth_arg['prjid']) && $oauth_arg['prjid'])){
-          $prjid = isset($oauth_arg['prjid']) ? $oauth_arg['prjid'] : $this->params['data']['prjid'];
+        //$projUniqDtls = isset($oauth_arg['projFil']) ? $oauth_arg['projFil'] : $this->params->data['projFil'];
+        $caseUniqId = isset($oauth_arg['caseUniqId']) ? $oauth_arg['caseUniqId'] : $this->params->data['caseUniqId'];
+        //$spnajx = $this->params->data['spnajx'];
+        //$count = $this->params->data['count'];
+        /* if((isset($this->params->data['prjid']) && $this->params->data['prjid']) || (isset($oauth_arg['prjid']) && $oauth_arg['prjid'])){
+          $prjid = isset($oauth_arg['prjid']) ? $oauth_arg['prjid'] : $this->params->data['prjid'];
           } */
 
-        if (isset($this->params['data']['details'])) {
-            $details = $this->params['data']['details'];
+        if (isset($this->params->data['details'])) {
+            $details = $this->params->data['details'];
         }
-        if (isset($this->params['data']['sorting'])) {
-            $sorting = $this->params['data']['sorting'];
+        if (isset($this->params->data['sorting'])) {
+            $sorting = $this->params->data['sorting'];
             $this->Cookie->write('SORT_THREAD', $sorting, '365 days');
         } elseif ($_COOKIE['REPLY_SORT_ORDER']) {
             if ($_COOKIE['REPLY_SORT_ORDER'] == 'ASC')
@@ -2271,19 +2271,19 @@ class EasycasesController extends AppController {
     function case_reply() {
         $this->layout = 'ajax';
         $details = 0;
-        $caseId = $this->params['data']['id'];
-        $type = $this->params['data']['type'];
-        if (isset($this->params['data']['sortorder'])) {
-            $sort_order = $this->params['data']['sortorder'];
+        $caseId = $this->params->data['id'];
+        $type = $this->params->data['type'];
+        if (isset($this->params->data['sortorder'])) {
+            $sort_order = $this->params->data['sortorder'];
         } elseif (isset($_COOKIE['REPLY_SORT_ORDER'])) {
             $sort_order = $_COOKIE['REPLY_SORT_ORDER'];
         } else {
             $sort_order = 'DESC';
         }
-        if (isset($this->params['data']['sortorder'])) {
+        if (isset($this->params->data['sortorder'])) {
             setcookie('REPLY_SORT_ORDER', $sort_order, COOKIE_REM, '/', DOMAIN_COOKIE, false, false);
         }
-        $limit1 = isset($this->params['data']['rem_cases']) ? $this->params['data']['rem_cases'] : 0;
+        $limit1 = isset($this->params->data['rem_cases']) ? $this->params->data['rem_cases'] : 0;
         if ($type == "post") {
             if ($sort_order == 'ASC') {
                 $sorting = $sort_order . " LIMIT " . $limit1 . ",5";
@@ -2340,8 +2340,8 @@ class EasycasesController extends AppController {
 
     function ajax_recent_case() {
         $this->layout = 'ajax';
-        $limit_1 = $this->params['data']['limit1'];
-        // $limit_2 = $this->params['data']['limit2'];
+        $limit_1 = $this->params->data['limit1'];
+        // $limit_2 = $this->params->data['limit2'];
         if (isset($limit_1)) {
             $limit1 = (int) $limit_1 + 3;
             $limit2 = 3;
@@ -2353,8 +2353,8 @@ class EasycasesController extends AppController {
         $this->loadModel('CaseRecent');
 
         $caseid = "";
-        if (isset($this->params['data']['caseid'])) {
-            $caseid = $this->params['data']['caseid'];
+        if (isset($this->params->data['caseid'])) {
+            $caseid = $this->params->data['caseid'];
         }
         if (isset($this->params['params']['form']['caseid'])) {
             $caseid = $this->params['params']['form']['caseid'];
@@ -2397,9 +2397,9 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $proj_id = NULL;
         $pageload = 0;
-        $prjUniqIdCsMenu = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
-        $page = $this->params['data']['page'];
+        $prjUniqIdCsMenu = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
+        $page = $this->params->data['page'];
 
         if (!$prjUniqIdCsMenu)
             die;
@@ -2409,13 +2409,13 @@ class EasycasesController extends AppController {
         } else {
             $filters = '';
         }
-        if (isset($this->params['data']['filters']) && $this->params['data']['filters'] == "files") {
-            $filters = $this->params['data']['filters'];
-        } elseif (isset($this->params['data']['filters']) && $this->params['data']['filters'] == "cases") {
-            $filters = $this->params['data']['filters'];
+        if (isset($this->params->data['filters']) && $this->params->data['filters'] == "files") {
+            $filters = $this->params->data['filters'];
+        } elseif (isset($this->params->data['filters']) && $this->params->data['filters'] == "cases") {
+            $filters = $this->params->data['filters'];
         }
-        if (isset($this->params['data']['case'])) {
-            $case = $this->params['data']['case'];
+        if (isset($this->params->data['case'])) {
+            $case = $this->params->data['case'];
         } else {
             $case = "";
         }
@@ -2423,20 +2423,20 @@ class EasycasesController extends AppController {
         $searchcase = '';
         //Filter Condition added in Menu filters counters
         if ($page == 'dashboard') {
-            $projUniq = $this->params['data']['projUniq'];
-            $curProjId = $this->params['data']['priFil'];
-            $caseMenuFilters = $this->params['data']['caseMenuFilters'];
-            $caseStatus = $this->params['data']['caseStatus']; // Filter by Status(legend)
-            $priorityFil = $this->params['data']['priFil']; // Filter by Priority
-            $caseTypes = $this->params['data']['caseTypes']; // Filter by case Types
-            $caseUserId = $this->params['data']['caseMember']; // Filter by Member
-            $caseAssignTo = $this->params['data']['caseAssignTo']; // Filter by AssignTo
-            $caseSrch = $this->params['data']['caseSearch']; // Search by keyword
-            @$case_srch = $this->params['data']['case_srch'];
-            @$case_date = $this->params['data']['case_date'];
-            @$case_duedate = $this->params['data']['case_due_date'];
-            $milestoneIds = $this->params['data']['milestoneIds'];
-            $checktype = $this->params['data']['checktype'];
+            $projUniq = $this->params->data['projUniq'];
+            $curProjId = $this->params->data['priFil'];
+            $caseMenuFilters = $this->params->data['caseMenuFilters'];
+            $caseStatus = $this->params->data['caseStatus']; // Filter by Status(legend)
+            $priorityFil = $this->params->data['priFil']; // Filter by Priority
+            $caseTypes = $this->params->data['caseTypes']; // Filter by case Types
+            $caseUserId = $this->params->data['caseMember']; // Filter by Member
+            $caseAssignTo = $this->params->data['caseAssignTo']; // Filter by AssignTo
+            $caseSrch = $this->params->data['caseSearch']; // Search by keyword
+            @$case_srch = $this->params->data['case_srch'];
+            @$case_date = $this->params->data['case_date'];
+            @$case_duedate = $this->params->data['case_due_date'];
+            $milestoneIds = $this->params->data['milestoneIds'];
+            $checktype = $this->params->data['checktype'];
             ######### Filter by Case Types ##########
             if ($caseTypes && $caseTypes != "all") {
 
@@ -2667,10 +2667,10 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $proj_id = NULL;
         $pageload = 0;
-        if (isset($this->params['data']['projUniq'])) {
-            $proj_uniq_id = $this->params['data']['projUniq'];
+        if (isset($this->params->data['projUniq'])) {
+            $proj_uniq_id = $this->params->data['projUniq'];
         }
-        $pageload = $this->params['data']['pageload'];
+        $pageload = $this->params->data['pageload'];
 
         if ($proj_uniq_id != 'all') {
             $this->loadModel('Project');
@@ -2683,25 +2683,25 @@ class EasycasesController extends AppController {
 
         $projUniq = $proj_uniq_id;
         $curProjId = $proj_id;
-        $caseMenuFilters = $this->params['data']['caseMenuFilters'];
+        $caseMenuFilters = $this->params->data['caseMenuFilters'];
 
-        $caseStatus = $this->params['data']['caseStatus']; // Filter by Status(legend)
-        $priorityFil = $this->params['data']['priFil']; // Filter by Priority
-        $caseTypes = $this->params['data']['caseTypes']; // Filter by case Types
-        $caseUserId = $this->params['data']['caseMember']; // Filter by Member
-        $caseAssignTo = $this->params['data']['caseAssignTo']; // Filter by AssignTo
-        $caseSrch = $this->params['data']['caseSearch']; // Search by keyword
-        @$case_srch = $this->params['data']['case_srch'];
-        @$case_date = $this->params['data']['case_date'];
-        @$case_duedate = $this->params['data']['case_due_date'];
-        $milestoneIds = $this->params['data']['milestoneIds'];
-        $checktype = $this->params['data']['checktype'];
+        $caseStatus = $this->params->data['caseStatus']; // Filter by Status(legend)
+        $priorityFil = $this->params->data['priFil']; // Filter by Priority
+        $caseTypes = $this->params->data['caseTypes']; // Filter by case Types
+        $caseUserId = $this->params->data['caseMember']; // Filter by Member
+        $caseAssignTo = $this->params->data['caseAssignTo']; // Filter by AssignTo
+        $caseSrch = $this->params->data['caseSearch']; // Search by keyword
+        @$case_srch = $this->params->data['case_srch'];
+        @$case_date = $this->params->data['case_date'];
+        @$case_duedate = $this->params->data['case_due_date'];
+        $milestoneIds = $this->params->data['milestoneIds'];
+        $checktype = $this->params->data['checktype'];
         $milestoneId = isset($this->data['milestoneId']) ? $this->data['milestoneId'] : '';
         $qry = "";
 
         ######### Filter by Status ##########
         //Commented by GK as per the requirement of PG sir on dt:-04th Apr 2013 -- starts
-        /* if($caseStatus != "all" && $this->params['data']['page_type'] != 'ajax_status') {
+        /* if($caseStatus != "all" && $this->params->data['page_type'] != 'ajax_status') {
 
           $qry.= $this->Format->statusFilter($caseStatus);
           $stsLegArr = $caseStatus."-"."";
@@ -2719,22 +2719,22 @@ class EasycasesController extends AppController {
 
         if (!$milestoneId) {
             ######### Filter by Case Types ##########
-            if (trim($caseTypes) && $caseTypes != "all" && $this->params['data']['page_type'] != 'ajax_types') {
+            if (trim($caseTypes) && $caseTypes != "all" && $this->params->data['page_type'] != 'ajax_types') {
 
                 $qry .= $this->Format->typeFilter($caseTypes);
             }
             ######### Filter by Priority ##########
-            if (trim($priorityFil) && $priorityFil != "all" && $this->params['data']['page_type'] != 'ajax_priority') {
+            if (trim($priorityFil) && $priorityFil != "all" && $this->params->data['page_type'] != 'ajax_priority') {
 
                 $qry .= $this->Format->priorityFilter($priorityFil, $caseTypes);
             }
             ######### Filter by Member ##########
-            if (trim($caseUserId) && $caseUserId != "all" && $this->params['data']['page_type'] != 'ajax_members') {
+            if (trim($caseUserId) && $caseUserId != "all" && $this->params->data['page_type'] != 'ajax_members') {
 
                 $qry .= $this->Format->memberFilter($caseUserId);
             }
             ######### Filter by AssignTo ##########		/* Added by OSDEV on 08082013*/
-            if (trim($caseAssignTo) && $caseAssignTo != "all" && $this->params['data']['page_type'] != 'ajax_assignto') {
+            if (trim($caseAssignTo) && $caseAssignTo != "all" && $this->params->data['page_type'] != 'ajax_assignto') {
                 $qry .= $this->Format->assigntoFilter($caseAssignTo);
             }
             ######### Search by KeyWord ##########
@@ -2895,7 +2895,7 @@ class EasycasesController extends AppController {
             $projQryMem = "AND ProjectUser.project_id='" . $proj_id . "'";
         }
 
-        if ($this->params['data']['page_type'] == 'ajax_priority') {
+        if ($this->params->data['page_type'] == 'ajax_priority') {
             $query_pri_high1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase" . $mlstnQ1 . " WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND priority='0' AND Easycase.project_id!=0 " . $mlstnQ2 . $projQry . " " . trim($qry) . "");
             $query_pri_high = $query_pri_high1['0']['0']['count'];
 
@@ -2913,7 +2913,7 @@ class EasycasesController extends AppController {
             $this->set('query_pri_low', $query_pri_low);
 
             $this->render('ajax_priority', 'ajax');
-        } elseif ($this->params['data']['page_type'] == 'ajax_members') {
+        } elseif ($this->params->data['page_type'] == 'ajax_members') {
 
             $memArr = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email, User.istype,User.email,User.short_name,User.dt_last_login, (select count(Easycase.id) from easycases as Easycase" . $mlstnQ1 . " where Easycase.user_id=User.id and Easycase.istype='1' and User.isactive='1' and Easycase.isactive='1' " . $mlstnQ2 . $projQry . " " . trim($qry) . ") as cases FROM users as User,project_users as ProjectUser,company_users as CompanyUser WHERE CompanyUser.user_id=ProjectUser.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='" . SES_COMP . "' " . $projQryMem . " AND User.isactive='1' AND ProjectUser.user_id=User.id ORDER BY User.name");
 
@@ -2923,7 +2923,7 @@ class EasycasesController extends AppController {
             $this->set('CookieMem', $_COOKIE['MEMBERS']);
 
             $this->render('ajax_members', 'ajax');
-        } elseif ($this->params['data']['page_type'] == 'ajax_assignto') {
+        } elseif ($this->params->data['page_type'] == 'ajax_assignto') {
             $asnArr = $this->Easycase->query("SELECT DISTINCT User.id, User.name, User.email, User.istype,User.email,User.short_name,User.dt_last_login,  (select count(Easycase.id) from easycases as Easycase" . $mlstnQ1 . " where Easycase.assign_to = User.id and Easycase.istype='1' and User.isactive='1' and Easycase.isactive='1' " . $mlstnQ2 . $projQry . " " . trim($qry) . ") as cases FROM users as User,project_users as ProjectUser,company_users as CompanyUser,projects as Project WHERE CompanyUser.user_id=ProjectUser.user_id AND CompanyUser.is_active='1' AND CompanyUser.company_id='" . SES_COMP . "' $projQryMem  AND Project.id=ProjectUser.project_id AND User.isactive='1' AND ProjectUser.user_id=User.id ORDER BY User.short_name");
 
             $this->set('proj_uniq_id', $proj_uniq_id);
@@ -2932,7 +2932,7 @@ class EasycasesController extends AppController {
             $this->set('CookieAsn', $_COOKIE['ASSIGNTO']);
 
             $this->render('ajax_assignto', 'ajax');
-        } elseif ($this->params['data']['page_type'] == 'ajax_types') {
+        } elseif ($this->params->data['page_type'] == 'ajax_types') {
             $types_sql = "select DISTINCT t.name,t.id,t.short_name,t.company_id,(select count(Easycase.id) from easycases as Easycase" . $mlstnQ1 . " where Easycase.istype='1' AND Easycase.type_id=t.id AND Easycase.isactive='1' " . $mlstnQ2 . $projQry . " " . trim($qry) . ") as count from types as t 
 	WHERE CASE WHEN (SELECT COUNT(*) AS total FROM type_companies WHERE company_id = " . SES_COMP . " HAVING total >=1) THEN id IN (SELECT type_id FROM type_companies WHERE company_id = " . SES_COMP . ") ELSE company_id = 0 End 
 	ORDER BY t.seq_order";
@@ -2944,7 +2944,7 @@ class EasycasesController extends AppController {
             $this->set('CookieTypes', $_COOKIE['CS_TYPES']);
 
             $this->render('ajax_types', 'ajax');
-        } elseif (!$this->params['data']['page_type'] || $this->params['data']['page_type'] == 'ajax_status') {
+        } elseif (!$this->params->data['page_type'] || $this->params->data['page_type'] == 'ajax_status') {
             $query_All = 0;
             $query_New = 0;
             $query_Open = 0;
@@ -2989,7 +2989,7 @@ class EasycasesController extends AppController {
 //			$query_Upd1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase".$mlstnQ1." WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.type_id='10' AND Easycase.project_id!=0 ".$mlstnQ2.$projQry." ".trim($qry)."");
 //			$query_Upd=$query_Upd1['0']['0']['count'];
 
-            if ($this->params['data']['page_type'] == 'ajax_status') {
+            if ($this->params->data['page_type'] == 'ajax_status') {
                 $query_Attch1 = $this->Easycase->query("SELECT COUNT(Easycase.id) as count FROM easycases as Easycase" . $mlstnQ1 . " WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.format='1' AND Easycase.project_id!=0 " . $mlstnQ2 . $projQry . " " . trim($qry) . "");
                 $query_Attch = $query_Attch1['0']['0']['count'];
 
@@ -3029,9 +3029,9 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $proj_id = NULL;
         $pageload = 0;
-        $projUniq = $this->params['data']['projUniq'];
+        $projUniq = $this->params->data['projUniq'];
 
-        $checktype = $this->params['data']['checktype'];
+        $checktype = $this->params->data['checktype'];
 
         if ($checktype == "completed") {
             $qr = "and m.isactive='0'";
@@ -3077,8 +3077,8 @@ class EasycasesController extends AppController {
 
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
 
         $this->loadModel('ProjectUser');
 
@@ -3101,11 +3101,11 @@ class EasycasesController extends AppController {
 
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
         $caseMenuFilters = "";
-        if (isset($this->params['data']['caseMenuFilters'])) {
-            $caseMenuFilters = $this->params['data']['caseMenuFilters'];
+        if (isset($this->params->data['caseMenuFilters'])) {
+            $caseMenuFilters = $this->params->data['caseMenuFilters'];
         }
         if ($proj_uniq_id != 'all') {
             $this->loadModel('ProjectUser');
@@ -3133,12 +3133,12 @@ class EasycasesController extends AppController {
 
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
 
         $caseMenuFilters = "";
-        if (isset($this->params['data']['caseMenuFilters'])) {
-            $caseMenuFilters = $this->params['data']['caseMenuFilters'];
+        if (isset($this->params->data['caseMenuFilters'])) {
+            $caseMenuFilters = $this->params->data['caseMenuFilters'];
         }
 
         if ($proj_uniq_id != 'all') {
@@ -3217,15 +3217,15 @@ class EasycasesController extends AppController {
 
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
 
         $this->loadModel('ProjectUser');
         $this->ProjectUser->unbindModel(array('belongsTo' => array('User')));
 
         $caseMenuFilters = "";
-        if (isset($this->params['data']['caseMenuFilters'])) {
-            $caseMenuFilters = $this->params['data']['caseMenuFilters'];
+        if (isset($this->params->data['caseMenuFilters'])) {
+            $caseMenuFilters = $this->params->data['caseMenuFilters'];
         }
 
         if ($proj_uniq_id != 'all') {
@@ -3310,8 +3310,8 @@ class EasycasesController extends AppController {
 
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
 
         $this->loadModel('ProjectUser');
         $this->ProjectUser->unbindModel(array('belongsTo' => array('User')));
@@ -3342,11 +3342,11 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $proj_id = NULL;
         $pageload = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
+        $proj_uniq_id = $this->params->data['projUniq'];
         if (!$proj_uniq_id) {
             exit;
         }
-        $pageload = $this->params['data']['pageload'];
+        $pageload = $this->params->data['pageload'];
         $user_subscription = $GLOBALS['user_subscription'];
 
         if ($proj_uniq_id != 'all') {
@@ -3440,8 +3440,8 @@ class EasycasesController extends AppController {
         $pageload = 0;
         $projName = "";
         $puid = 0;
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
         if ($proj_uniq_id != 'all') {
             $this->loadModel('ProjectUser');
             $this->ProjectUser->unbindModel(array('belongsTo' => array('User')));
@@ -3470,8 +3470,8 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $projName = "";
         $projLogo = "";
-        $proj_uniq_id = $this->params['data']['projUniq'];
-        $pageload = $this->params['data']['pageload'];
+        $proj_uniq_id = $this->params->data['projUniq'];
+        $pageload = $this->params->data['pageload'];
         if ($proj_uniq_id != 'all') {
             $this->loadModel('Project');
             $this->Project->recursive = -1;
@@ -3493,8 +3493,8 @@ class EasycasesController extends AppController {
     function ajax_search() {
         $this->layout = 'ajax';
         $projShortName = NULL;
-        $srchstr = $this->params['data']['srch'];
-        $page = $this->params['data']['page'];
+        $srchstr = $this->params->data['srch'];
+        $page = $this->params->data['page'];
 
         $caseSearch = array();
         $prj_res = array();
@@ -3530,13 +3530,24 @@ class EasycasesController extends AppController {
                 }
 
                 $prj_res = $this->Project->query($prj_sql);
+            } elseif ($page == "milestones") {
+                $this->loadModel('Milestone');
+                $this->loadModel('Project');
+                $pjuniq = $this->params->data['pjuniq'];
+                if ($pjuniq != 'all') {
+                    $projectId = $this->Project->find('first', array('conditions' => array('Project.uniq_id' => $pjuniq,)));
+                    $milestones = $this->Milestone->find('all', array('conditions' => array('Milestone.project_id' => $projectId['Project']['id'], 'Milestone.company_id' => SES_COMP, 'Milestone.title LIKE ' => '%' . $srchstr . '%')));
+                } else {
+                    $milestones = $this->Milestone->find('all', array('conditions' => array('Milestone.company_id' => SES_COMP, 'Milestone.title LIKE ' => '%' . $srchstr . '%')));
+                }
+                #echo "<pre>";print_r($milestones);exit;
             } elseif ($page == "files") {
                 $this->loadModel('CaseFile');
                 $condtn = "";
                 if (SES_TYPE == 3 || 1) {
                     $condtn = " AND ProjectUser.user_id='" . SES_ID . "' AND ProjectUser.project_id=Project.id";
                 }
-                $pjuniq = $this->params['data']['pjuniq'];
+                $pjuniq = $this->params->data['pjuniq'];
                 if ($pjuniq != 'all') {
                     $condtn .= " AND Project.uniq_id ='" . $pjuniq . "'";
                 }
@@ -3544,7 +3555,7 @@ class EasycasesController extends AppController {
 
                 $file_res = $this->CaseFile->query($file_sql);
             } else {
-                $pjuniq = $this->params['data']['pjuniq'];
+                $pjuniq = $this->params->data['pjuniq'];
 
                 $searchString = "";
                 if ((substr($srchstr, 0, 1)) == '#') {
@@ -3580,8 +3591,9 @@ class EasycasesController extends AppController {
         $results['cases'] = $caseSearch;
         $results['projects'] = $prj_res;
         $results['users'] = $usr_res;
+        $results['milestones'] = $milestones;
         $results['files'] = $file_res;
-
+        
         $this->set('results', $results);
         $this->set('pjShrtName', $projShortName);
         $this->set('srchstr', $srchstr);
@@ -3623,7 +3635,7 @@ class EasycasesController extends AppController {
             $taskdetails = $this->Easycase->findByUniqId($this->data['csuniqid']);
             $this->set('taskdetails', $taskdetails['Easycase']);
         }
-        $uniqid = $this->params['data']['sel_myproj'];
+        $uniqid = $this->params->data['sel_myproj'];
         if ($uniqid == 'all') {
             $quickMem = array();
         } else {
@@ -3668,7 +3680,7 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $result = array();
 
-        $uniqid = $this->params['data']['projUniq'];
+        $uniqid = $this->params->data['projUniq'];
         $quickMem = $this->Easycase->getMemebers($uniqid);
         //$this->set('quickMem',$quickMem);
         $result['quickMem'][$uniqid] = $quickMem;
@@ -3690,7 +3702,7 @@ class EasycasesController extends AppController {
 
     function ajax_default_email() {
         $this->layout = 'ajax';
-        $uniqid = $this->params['data']['projUniq'];
+        $uniqid = $this->params->data['projUniq'];
         $quickMem = $this->Easycase->getMemebers($uniqid, 'default');
         $this->set('quickMem', $quickMem);
     }
@@ -3700,16 +3712,16 @@ class EasycasesController extends AppController {
         $QckCaseFiles = array();
         $CaseFile = ClassRegistry::init('CaseFile');
 
-        if (isset($this->params['data']['remid']) && $this->params['data']['remid']) {
-            unlink(DIR_CASE_FILES . $this->params['data']['files']);
-            $CaseFile->query("DELETE FROM case_files WHERE id=" . $this->params['data']['remid']);
+        if (isset($this->params->data['remid']) && $this->params->data['remid']) {
+            unlink(DIR_CASE_FILES . $this->params->data['files']);
+            $CaseFile->query("DELETE FROM case_files WHERE id=" . $this->params->data['remid']);
         }
 
-        if (isset($this->params['data']['easycaseid']) && $this->params['data']['easycaseid']) {
-            $easycaseid = $this->params['data']['easycaseid'];
+        if (isset($this->params->data['easycaseid']) && $this->params->data['easycaseid']) {
+            $easycaseid = $this->params->data['easycaseid'];
             $QckCaseFiles = $CaseFile->find('all', array('conditions' => array('CaseFile.easycase_id' => $easycaseid)));
         }
-        if (isset($this->params['data']['remid']) && $this->params['data']['remid']) {
+        if (isset($this->params->data['remid']) && $this->params->data['remid']) {
             if (count($QckCaseFiles) == 0) {
                 $this->Easycase->query("UPDATE easycases SET format='2' WHERE id=" . $easycaseid);
             }
@@ -3720,8 +3732,8 @@ class EasycasesController extends AppController {
     function case_message() {
         $this->layout = 'ajax';
         $page = "";
-        if (isset($this->params['data']['page'])) {
-            $page = $this->params['data']['page'];
+        if (isset($this->params->data['page'])) {
+            $page = $this->params->data['page'];
         }
 
         $ProjectUser = ClassRegistry::init('ProjectUser');
@@ -3734,7 +3746,7 @@ class EasycasesController extends AppController {
 
     function ajax_change_assign() {
         $this->layout = 'ajax';
-        $assignto = $this->params['data']['assignto'];
+        $assignto = $this->params->data['assignto'];
 
         if ($assignto == "NA") {
             echo "<font color='#A5A5A5'>NA</font>";
@@ -3753,7 +3765,7 @@ class EasycasesController extends AppController {
 
     function ajax_comments() {
         $this->layout = 'ajax';
-        $replyid = $this->params['data']['replyid'];
+        $replyid = $this->params->data['replyid'];
         $this->set('replyid', $replyid);
     }
 
@@ -3762,8 +3774,8 @@ class EasycasesController extends AppController {
         $priority = "";
         $caseId = "";
         $response = "";
-        $priority = $this->params['data']['priority'];
-        $caseId = $this->params['data']['caseId'];
+        $priority = $this->params->data['priority'];
+        $caseId = $this->params->data['caseId'];
 
         $getCase = $this->Easycase->find('first', array(
             'conditions' => array(
@@ -3823,11 +3835,11 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $status = "";
         $caseId = "";
-        $statusId = $this->params['data']['statusId'];
+        $statusId = $this->params->data['statusId'];
 
-        $caseId = $this->params['data']['caseId'];
-        $statusName = $this->params['data']['statusName'];
-        $statusTitle = $this->params['data']['statusTitle'];
+        $caseId = $this->params->data['caseId'];
+        $statusName = $this->params->data['statusName'];
+        $statusTitle = $this->params->data['statusTitle'];
 
         $getCase = $this->Easycase->find('first', array(
             'conditions' => array(
@@ -3861,8 +3873,8 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $assignId = "";
         $caseId = "";
-        $assignId = $this->params['data']['assignId'];
-        $caseId = $this->params['data']['caseId'];
+        $assignId = $this->params->data['assignId'];
+        $caseId = $this->params->data['caseId'];
         $sql = "UPDATE `easycases` SET `assign_to`='" . $assignId . "',dt_created = '" . GMT_DATETIME . "', case_count=case_count+1,updated_by='" . SES_ID . "' WHERE `id`='" . $caseId . "' AND isactive='1'";
         $upd = $this->Easycase->query($sql);
         //Jyoti start
@@ -3886,7 +3898,7 @@ class EasycasesController extends AppController {
 
     function update_assignto() {
         $this->layout = 'ajax';
-        $caseId = $this->params['data']['caseId'];
+        $caseId = $this->params->data['caseId'];
         $getCaseAsgnTo = $this->Easycase->find('first', array('conditions' => array('Easycase.id' => $caseId, 'Easycase.isactive' => '1'), 'fields' => array('DISTINCT Easycase.assign_to')));
 
         if ($getCaseAsgnTo['Easycase']['assign_to'] && $getCaseAsgnTo['Easycase']['assign_to'] != SES_ID) {
@@ -3902,8 +3914,8 @@ class EasycasesController extends AppController {
         $this->layout = 'ajax';
         $duedt = "";
         $caseId = "";
-        $duedt = $this->params['data']['duedt'];
-        $text = $this->params['data']['text'];
+        $duedt = $this->params->data['duedt'];
+        $text = $this->params->data['text'];
         //$arr = explode("/",$duedt);
         //$due_date = $arr['2']."-".$arr['0']."-".$arr['1'];
 
@@ -3913,7 +3925,7 @@ class EasycasesController extends AppController {
             $due_date = '0000-00-00';
         }
 
-        $caseId = $this->params['data']['caseId'];
+        $caseId = $this->params->data['caseId'];
 
         $getCase = $this->Easycase->find('first', array(
             'conditions' => array(
@@ -3956,12 +3968,12 @@ class EasycasesController extends AppController {
 
     function add_milestone() {
         //print"<pre/>";
-        //print_r($this->params['data']['start_date']);exit;
+        //print_r($this->params->data['start_date']);exit;
 
-        $title = $this->params['data']['title'];
-        $start_date = $this->Format->chgdate($this->params['data']['start_date']);
-        $end_date = $this->Format->chgdate($this->params['data']['end_date']);
-        $uid = $this->params['data']['uid'];
+        $title = $this->params->data['title'];
+        $start_date = $this->Format->chgdate($this->params->data['start_date']);
+        $end_date = $this->Format->chgdate($this->params->data['end_date']);
+        $uid = $this->params->data['uid'];
 
         if (strtotime($start_date) > strtotime($end_date)) {
             $this->Session->write("ERROR", "Start date cannot exceed End date");
@@ -4067,15 +4079,15 @@ class EasycasesController extends AppController {
     function ajax_exportcsv() {
        
         $this->layout = 'ajax';
-        if ($this->params['data']['projUniq']) {
-            $proj_uniq_id = $this->params['data']['projUniq'];
+        if ($this->params->data['projUniq']) {
+            $proj_uniq_id = $this->params->data['projUniq'];
         } else {
             $this->loadModel('ProjectUser');
             $this->ProjectUser->unbindModel(array('belongsTo' => array('User')));
             $getallproj = $this->ProjectUser->query("SELECT DISTINCT Project.id,Project.uniq_id,Project.name FROM project_users AS ProjectUser,projects AS Project WHERE Project.id= ProjectUser.project_id AND ProjectUser.user_id=" . SES_ID . " AND Project.isactive='1' AND Project.company_id='" . SES_COMP . "' ORDER BY ProjectUser.dt_visited DESC LIMIT 1");
             $proj_uniq_id = $getallproj[0]['Project']['uniq_id'];
         }
-        $is_milestone = $this->params['data']['is_milestone'];
+        $is_milestone = $this->params->data['is_milestone'];
         $this->loadModel('Project');
 
         if ($proj_uniq_id !== 'all') {
@@ -4114,7 +4126,7 @@ class EasycasesController extends AppController {
 
     function ajax_change_milestone() {
         $this->layout = 'ajax';
-        $proj_uniq_id = $this->params['data']['id'];
+        $proj_uniq_id = $this->params->data['id'];
         $this->loadModel('Project');
 
         $project = $this->Project->find('first', array('conditions' => array('Project.uniq_id' => $proj_uniq_id, 'Project.isactive' => 1), 'fields' => array('Project.id')));
@@ -4128,7 +4140,7 @@ class EasycasesController extends AppController {
     }
 
     function ajax_change_milestone_options() {
-        $proj_uniq_id = $this->params['data']['id'];
+        $proj_uniq_id = $this->params->data['id'];
         $this->loadModel('Project');
         $project = $this->Project->findByUniqId($proj_uniq_id);
         $this->loadModel('Milestone');
@@ -4143,7 +4155,7 @@ class EasycasesController extends AppController {
 
     function ajax_member_assignto() {
         $this->layout = 'ajax';
-        $proj_uniq_id = $this->params['data']['id'];
+        $proj_uniq_id = $this->params->data['id'];
         $this->loadModel('Project');
 
         $project = $this->Project->find('first', array('conditions' => array('Project.uniq_id' => $proj_uniq_id, 'Project.isactive' => 1), 'fields' => array('Project.id')));
@@ -4494,8 +4506,8 @@ class EasycasesController extends AppController {
         $val = 0;
 
         //For Case Status
-        if (isset($this->params['data']['caseStatus']) && $this->params['data']['caseStatus']) {
-            $case_status = $this->params['data']['caseStatus'];
+        if (isset($this->params->data['caseStatus']) && $this->params->data['caseStatus']) {
+            $case_status = $this->params->data['caseStatus'];
         } elseif ($_COOKIE['STATUS']) {
             $case_status = $_COOKIE['STATUS'];
         }
@@ -4517,8 +4529,8 @@ class EasycasesController extends AppController {
         }
 
         //For case types
-        if (isset($this->params['data']['caseTypes']) && $this->params['data']['caseTypes']) {
-            $case_types = $this->params['data']['caseTypes'];
+        if (isset($this->params->data['caseTypes']) && $this->params->data['caseTypes']) {
+            $case_types = $this->params->data['caseTypes'];
         } elseif ($_COOKIE['CS_TYPES']) {
             $case_types = $_COOKIE['CS_TYPES'];
         }
@@ -4547,8 +4559,8 @@ class EasycasesController extends AppController {
         }
 
         //For Priority
-        if (isset($this->params['data']['priFil']) && $this->params['data']['priFil']) {
-            $pri_fil = $this->params['data']['priFil'];
+        if (isset($this->params->data['priFil']) && $this->params->data['priFil']) {
+            $pri_fil = $this->params->data['priFil'];
         } elseif ($_COOKIE['PRIORITY']) {
             $pri_fil = $_COOKIE['PRIORITY'];
         }
@@ -4568,8 +4580,8 @@ class EasycasesController extends AppController {
         }
 
         //For Case Members
-        if (isset($this->params['data']['caseMember']) && $this->params['data']['caseMember']) {
-            $case_member = $this->params['data']['caseMember'];
+        if (isset($this->params->data['caseMember']) && $this->params->data['caseMember']) {
+            $case_member = $this->params->data['caseMember'];
         } elseif ($_COOKIE['MEMBERS']) {
             $case_member = $_COOKIE['MEMBERS'];
         }
@@ -4589,8 +4601,8 @@ class EasycasesController extends AppController {
             $arr['case_member'] = 'All';
         }
         //For AssignTo
-        if (isset($this->params['data']['caseAssignTo']) && $this->params['data']['caseAssignTo']) {
-            $case_assignto = $this->params['data']['caseAssignTo'];
+        if (isset($this->params->data['caseAssignTo']) && $this->params->data['caseAssignTo']) {
+            $case_assignto = $this->params->data['caseAssignTo'];
         } elseif ($_COOKIE['ASSIGNTO']) {
             $case_assignto = $_COOKIE['ASSIGNTO'];
         }
@@ -4610,10 +4622,10 @@ class EasycasesController extends AppController {
             $arr['case_assignto'] = 'All';
         }
         //For Case Date Status ....
-        if (isset($this->params['data']['casedate']) && $this->params['data']['casedate']) {
-            $date = $this->params['data']['casedate'];
+        if (isset($this->params->data['casedate']) && $this->params->data['casedate']) {
+            $date = $this->params->data['casedate'];
         } else {
-            if (isset($this->params['data']['resetall']) && $this->params['data']['resetall'] == 0) {
+            if (isset($this->params->data['resetall']) && $this->params->data['resetall'] == 0) {
                 $date = "";
             } else {
                 $date = $this->Cookie->read('DATE');
@@ -4637,10 +4649,10 @@ class EasycasesController extends AppController {
         } else {
             $arr['date'] = "Any Time";
         }
-        if (isset($this->params['data']['caseduedate']) && $this->params['data']['caseduedate']) {
-            $duedate = $this->params['data']['caseduedate'];
+        if (isset($this->params->data['caseduedate']) && $this->params->data['caseduedate']) {
+            $duedate = $this->params->data['caseduedate'];
         } else {
-            if (isset($this->params['data']['resetall']) && $this->params['data']['resetall'] == 0) {
+            if (isset($this->params->data['resetall']) && $this->params->data['resetall'] == 0) {
                 $duedate = "";
             } else {
                 $duedate = $_COOKIE['DUE_DATE'];
@@ -4659,21 +4671,21 @@ class EasycasesController extends AppController {
             $arr['duedate'] = "Any Time";
         }
         // Case page
-        if (isset($this->params['data']['casePage']) && $this->params['data']['casePage']) {
-            $case_page = $this->params['data']['casePage'];
+        if (isset($this->params->data['casePage']) && $this->params->data['casePage']) {
+            $case_page = $this->params->data['casePage'];
         } elseif ($this->Cookie->read('PAGE')) {
             $case_page = $this->Cookie->read('PAGE');
         }
         // Case Search value
-        if (isset($this->params['data']['caseSearch']) && $this->params['data']['caseSearch'] != "") {
-            $case_search = trim(urldecode(htmlentities(strip_tags($this->params['data']['caseSearch']))));
+        if (isset($this->params->data['caseSearch']) && $this->params->data['caseSearch'] != "") {
+            $case_search = trim(urldecode(htmlentities(strip_tags($this->params->data['caseSearch']))));
         } elseif ($_COOKIE['SEARCH']) {
             $case_search = trim(urldecode(htmlentities(strip_tags($_COOKIE['SEARCH']))));
         }
-        if (isset($this->params['data']['resetall'])) {
-            $resetall = $this->params['data']['resetall'];
+        if (isset($this->params->data['resetall'])) {
+            $resetall = $this->params->data['resetall'];
         }
-        if (isset($this->params['data']['clearCaseSearch']) && $this->params['data']['clearCaseSearch']) {
+        if (isset($this->params->data['clearCaseSearch']) && $this->params->data['clearCaseSearch']) {
             $case_search = "";
         }
         if (isset($case_search) && $case_search) {
@@ -4724,9 +4736,9 @@ class EasycasesController extends AppController {
             $arr['taskgroupby'] = "<div class='fl filter_opn' rel='tooltip' title='Group by' onclick='openfilter_popup(1,\"dropdown_menu_groupby_filters\");'>" . $gby . "<a href='javascript:void(0);' onclick='common_reset_filter(\"taskgroupby\",\"\",this);' class='fr'>X</a></div>";
         }
 
-        //if($this->params['data']['caseMenuFilters'] == 'milestone') {
-        if (isset($this->params['data']['milestoneIds']) && $this->params['data']['milestoneIds']) {
-            $milestoneIds = $this->params['data']['milestoneIds'];
+        //if($this->params->data['caseMenuFilters'] == 'milestone') {
+        if (isset($this->params->data['milestoneIds']) && $this->params->data['milestoneIds']) {
+            $milestoneIds = $this->params->data['milestoneIds'];
         } elseif ($this->Cookie->read('MILESTONES')) {
             $milestoneIds = $this->Cookie->read('MILESTONES');
         }
@@ -4754,8 +4766,8 @@ class EasycasesController extends AppController {
     // Jyoti start
     function milestone_archive() {
         $this->layout = 'ajax';
-        $milestoneid = $this->params['data']['mid'];
-        $milestone_title = $this->params['data']['title1'];
+        $milestoneid = $this->params->data['mid'];
+        $milestone_title = $this->params->data['title1'];
         //echo $milestoneid;
         if ($milestoneid) {
             $this->loadModel('Milestone');
@@ -4829,8 +4841,8 @@ class EasycasesController extends AppController {
     function ajax_save_filter() {
         $this->layout = 'ajax';
         //For Case Status
-        if (isset($this->params['data']['caseStatus']) && $this->params['data']['caseStatus']) {
-            $case_status = $this->params['data']['caseStatus'];
+        if (isset($this->params->data['caseStatus']) && $this->params->data['caseStatus']) {
+            $case_status = $this->params->data['caseStatus'];
         } elseif ($_COOKIE['STATUS']) {
             $case_status = $_COOKIE['STATUS'];
         }
@@ -4852,8 +4864,8 @@ class EasycasesController extends AppController {
         }
 
         //For case types
-        if (isset($this->params['data']['caseType']) && $this->params['data']['caseType']) {
-            $case_types = $this->params['data']['caseType'];
+        if (isset($this->params->data['caseType']) && $this->params->data['caseType']) {
+            $case_types = $this->params->data['caseType'];
         } elseif ($_COOKIE['CS_TYPES']) {
             $case_types = $_COOKIE['CS_TYPES'];
         }
@@ -4875,8 +4887,8 @@ class EasycasesController extends AppController {
             $arr['case_types'] = 'All';
         }
         //For Priority
-        if (isset($this->params['data']['casePriority']) && $this->params['data']['casePriority']) {
-            $pri_fil = $this->params['data']['casePriority'];
+        if (isset($this->params->data['casePriority']) && $this->params->data['casePriority']) {
+            $pri_fil = $this->params->data['casePriority'];
         } elseif ($_COOKIE['PRIORITY']) {
             $pri_fil = $_COOKIE['PRIORITY'];
         }
@@ -4896,8 +4908,8 @@ class EasycasesController extends AppController {
             $arr['pri'] = 'All';
         }
         //For Case Members
-        if (isset($this->params['data']['caseMemeber']) && $this->params['data']['caseMemeber']) {
-            $case_member = $this->params['data']['caseMemeber'];
+        if (isset($this->params->data['caseMemeber']) && $this->params->data['caseMemeber']) {
+            $case_member = $this->params->data['caseMemeber'];
         } elseif ($_COOKIE['MEMBERS']) {
             $case_member = $_COOKIE['MEMBERS'];
         }
@@ -4916,8 +4928,8 @@ class EasycasesController extends AppController {
             $arr['case_member'] = 'All';
         }
         //For AssignTo
-        if (isset($this->params['data']['caseAssignTo']) && $this->params['data']['caseAssignTo']) {
-            $case_assignto = $this->params['data']['caseAssignTo'];
+        if (isset($this->params->data['caseAssignTo']) && $this->params->data['caseAssignTo']) {
+            $case_assignto = $this->params->data['caseAssignTo'];
         } elseif ($_COOKIE['ASSIGNTO']) {
             $case_assignto = $_COOKIE['ASSIGNTO'];
         }
@@ -4936,8 +4948,8 @@ class EasycasesController extends AppController {
             $arr['case_assignto'] = 'All';
         }
         //For Case Date Status ....
-        if (isset($this->params['data']['caseDate']) && $this->params['data']['caseDate']) {
-            $date = $this->params['data']['caseDate'];
+        if (isset($this->params->data['caseDate']) && $this->params->data['caseDate']) {
+            $date = $this->params->data['caseDate'];
         } else {
             $date = $this->Cookie->read('DATE');
         }
@@ -4973,21 +4985,21 @@ class EasycasesController extends AppController {
         $this->set('status_val', $case_status);
         $this->set('date_val', $date);
         $this->set('duedate_val', $duedate);
-        $this->set('search_val', $this->params['data']['caseSearch']);
+        $this->set('search_val', $this->params->data['caseSearch']);
     }
 
     function ajax_customfilter_save() {
         $this->layout = 'ajax';
-        $caseStatus = $this->params['data']['caseStatus'];
-        $caseType = $this->params['data']['caseType'];
-        $caseDate = $this->params['data']['caseDate'];
-        $casedueDate = $this->params['data']['casedueDate'];
-        $caseMemeber = $this->params['data']['caseMemeber'];
-        $caseAssignTo = $this->params['data']['caseAssignTo'];
-        $casePriority = $this->params['data']['casePriority'];
-        $filterName = trim($this->params['data']['filterName']);
-        $projuniqid = $this->params['data']['projuniqid'];
-        $caseSearch = $this->params['data']['caseSearch'];
+        $caseStatus = $this->params->data['caseStatus'];
+        $caseType = $this->params->data['caseType'];
+        $caseDate = $this->params->data['caseDate'];
+        $casedueDate = $this->params->data['casedueDate'];
+        $caseMemeber = $this->params->data['caseMemeber'];
+        $caseAssignTo = $this->params->data['caseAssignTo'];
+        $casePriority = $this->params->data['casePriority'];
+        $filterName = trim($this->params->data['filterName']);
+        $projuniqid = $this->params->data['projuniqid'];
+        $caseSearch = $this->params->data['caseSearch'];
         $this->loadModel('CustomFilter');
         $customFilters = $this->CustomFilter->find('first', array('conditions' => array('CustomFilter.filter_name' => $filterName, 'CustomFilter.company_id' => SES_COMP, 'CustomFilter.user_id' => SES_ID), 'fields' => array('CustomFilter.id'))); //,'CustomFilter.project_uniq_id'=>$projuniqid
         if (!empty($customFilters) && !empty($customFilters['CustomFilter']['id'])) {
@@ -5001,9 +5013,9 @@ class EasycasesController extends AppController {
 
     function ajax_customfilter_delete() {
         $this->layout = 'ajax';
-        if (!empty($this->params['data']['id'])) {
+        if (!empty($this->params->data['id'])) {
             $this->loadModel('CustomFilter');
-            $customFilters = $this->CustomFilter->find('first', array('conditions' => array('CustomFilter.id' => $this->params['data']['id']), 'fields' => array('CustomFilter.id')));
+            $customFilters = $this->CustomFilter->find('first', array('conditions' => array('CustomFilter.id' => $this->params->data['id']), 'fields' => array('CustomFilter.id')));
             if (!empty($customFilters) && !empty($customFilters['CustomFilter']['id'])) {
                 $this->CustomFilter->id = $customFilters['CustomFilter']['id'];
                 $res = $this->CustomFilter->delete();
@@ -5021,7 +5033,7 @@ class EasycasesController extends AppController {
 
     function ajax_custom_filter_show() {
         $this->layout = 'ajax';
-        $limit_1 = $this->params['data']['limit1'];
+        $limit_1 = $this->params->data['limit1'];
         if (isset($limit_1)) {
             $limit1 = (int) $limit_1 + 3;
             $limit2 = 3;
@@ -5109,8 +5121,8 @@ class EasycasesController extends AppController {
     //Move task from prject to project starts
     function ajax_move_task_to_project() {
         $this->layout = 'ajax';
-        $project_id = $this->params['data']['project_id'];
-        $case_id = $this->params['data']['case_id'];
+        $project_id = $this->params->data['project_id'];
+        $case_id = $this->params->data['case_id'];
         $this->loadModel('Project');
         $this->Project->recursive = -1;
         $sql = "SELECT DISTINCT Project.name,Project.id,Project.uniq_id FROM projects AS Project,
@@ -5126,15 +5138,15 @@ class EasycasesController extends AppController {
     function move_task_to_project() {
         $this->layout = 'ajax';
         //echo "<pre>";print_r($this->data);exit;
-        $project_id = $this->params['data']['project_id'];
-        $old_project_id = $this->params['data']['old_project_id'];
+        $project_id = $this->params->data['project_id'];
+        $old_project_id = $this->params->data['old_project_id'];
         $cond = ' 1 ';
         if ($this->data['is_multiple']) {
-            $case_no = $this->params['data']['case_no'];
+            $case_no = $this->params->data['case_no'];
             $case_nos = implode(',', $case_no);
             $cond .= ' AND  FIND_IN_SET(case_no,"' . $case_nos . '") ';
         } else {
-            $case_no = $this->params['data']['case_no'];
+            $case_no = $this->params->data['case_no'];
             $cond .= ' AND  case_no=' . $case_no . ' ';
         }
 
@@ -5606,7 +5618,7 @@ class EasycasesController extends AppController {
      */
     function ajax_save_dashboard_order() {
         $this->layout = 'ajax';
-        $order = (!empty($this->params['data']['order'])) ? $this->params['data']['order'] : '';
+        $order = (!empty($this->params->data['order'])) ? $this->params->data['order'] : '';
         if ($order) {
             $list = explode("&", $order);
             foreach ($list as $key => $value) {
@@ -5627,7 +5639,7 @@ class EasycasesController extends AppController {
      */
     function to_dos() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : 'all';
 
         $cond = '';
         if ($project_uid != 'all') {
@@ -5705,7 +5717,7 @@ class EasycasesController extends AppController {
     function recent_activities() {
         $this->layout = 'ajax';
         $this->loadModel('Easycase');
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : 'all';
         $cond = '';
         if ($project_uid != 'all') {
             $cond = "AND Project.uniq_id = '" . $project_uid . "'";
@@ -5749,7 +5761,7 @@ class EasycasesController extends AppController {
      */
     function recent_milestones() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : 'all';
         if ($project_uid != 'all') {
             $this->loadModel("Project");
             $project = $this->Project->getProjectFields(array("Project.uniq_id" => $project_uid), array("Project.id"));
@@ -5810,7 +5822,7 @@ class EasycasesController extends AppController {
      */
     function statistics() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : '';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : '';
         $this->loadModel("Easycase");
         $cond = '';
         if ($project_uid != 'all') {
@@ -5860,7 +5872,7 @@ class EasycasesController extends AppController {
      */
     function usage_details() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : '';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : '';
         $this->loadModel("Project");
 
         $filecond = '';
@@ -5959,8 +5971,8 @@ CompanyUser.company_id=" . SES_COMP . " $usercond) AS total_users $projectcond";
      */
     function task_type() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
-        $task_type_id = (isset($this->params['data']['task_type_id']) && trim($this->params['data']['task_type_id'])) ? $this->params['data']['task_type_id'] : 0;
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : 'all';
+        $task_type_id = (isset($this->params->data['task_type_id']) && trim($this->params->data['task_type_id'])) ? $this->params->data['task_type_id'] : 0;
         $cond = '';
         if ($project_uid != 'all') {
             $cond = "Project.uniq_id = '" . $project_uid . "' AND";
@@ -6025,7 +6037,7 @@ CompanyUser.company_id=" . SES_COMP . " $usercond) AS total_users $projectcond";
      */
     function task_status() {
         $this->layout = 'ajax';
-        $project_uid = (isset($this->params['data']['projid']) && !empty($this->params['data']['projid'])) ? $this->params['data']['projid'] : 'all';
+        $project_uid = (isset($this->params->data['projid']) && !empty($this->params->data['projid'])) ? $this->params->data['projid'] : 'all';
         $cond = '';
         if ($project_uid != 'all') {
             $cond = "Project.uniq_id = '" . $project_uid . "' AND";

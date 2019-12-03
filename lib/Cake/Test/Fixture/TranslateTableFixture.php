@@ -17,7 +17,7 @@
  */
 
 /**
- * Class TranslateTableFixture
+ * TranslateTableFixture
  *
  * @package       Cake.Test.Fixture
  */
@@ -26,7 +26,7 @@ class TranslateTableFixture extends CakeTestFixture {
 /**
  * table property
  *
- * @var string 'another_i18n'
+ * @var string
  */
 	public $table = 'another_i18n';
 

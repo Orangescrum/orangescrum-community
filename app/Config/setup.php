@@ -33,10 +33,9 @@
  * technical reasons, the Appropriate Legal Notices must display the words
  * "Powered by Orangescrum".
  * ****************************************************************************** */
- ?>
- <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
- $actual_link = substr( $actual_link, 0, strrpos( $actual_link, "?"));
- error_reporting(E_ALL);
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_link = substr( $actual_link, 0, strrpos( $actual_link, "?"));
+error_reporting(E_ALL);
 set_time_limit(0);
 include_once("database.php");
 include_once("constants.php");
@@ -297,9 +296,9 @@ if (!empty($_POST)) {
 																<td>&nbsp;</td>
 																<td><input type="submit" value="Finish"/></td>
 															</tr>
-															<tr>
+<!--															<tr>
 																<td  style="padding: 0 !important;"><label style="text-align: center;display: block;"><a href="?is_smtp=1" style="font-size: 13px;color:#333">Skip this step</a></label></td>
-															</tr>
+															</tr>-->
 														</table>
 													</form>
 												</td>
@@ -441,9 +440,9 @@ if (!empty($_POST)) {
 																<td>&nbsp;</td>
 																<td><input type="submit" value="Finish"/></td>
 															</tr>
-															<tr>
+<!--															<tr>
 																<td  style="padding: 0 !important;"><label style="text-align: center;display: block;"><a href="?is_smtp=1" style="font-size: 13px;color:#333">Skip this step</a></label></td>
-															</tr>
+															</tr>-->
 														</table>
 													</form>
 												</td>

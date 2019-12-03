@@ -34,6 +34,8 @@
  * "Powered by Orangescrum".
  ********************************************************************************/
 App::uses('Controller', 'Controller');
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
 class AppController extends Controller {
     public $helpers = array('Html', 'Form', 'Text', 'Format', 'Tmzone', 'Datetime','Cache','Casequery');
     public $components = array('Auth','Session','Email', 'Cookie','Image','Format','Security');

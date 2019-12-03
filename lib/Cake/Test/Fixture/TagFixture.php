@@ -17,7 +17,7 @@
  */
 
 /**
- * Class TagFixture
+ * TagFixture
  *
  * @package       Cake.Test.Fixture
  */
@@ -31,8 +31,8 @@ class TagFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'tag' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
 	);
 
 /**
