@@ -1921,7 +1921,7 @@ class UsersController extends AppController {
 					$this->redirect(HTTP_ROOT.'users/login');exit;
 				}
 			}else{
-				$this->redirect(HTTP_HOME);exit;
+				$this->redirect(HTTPS_HOME);exit;
 			}
 		}
 	}
