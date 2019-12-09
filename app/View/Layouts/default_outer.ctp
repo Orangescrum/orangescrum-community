@@ -18,7 +18,7 @@ echo $this->Html->css('style_outer.css?v='.RELEASE);
     
     //For google login and signup start
     var CLIENT_ID = "<?php echo CLIENT_ID; ?>";
-    var CLIENT_ID_SIGNUP = "<?php echo CLIENT_ID_SIGNUP; ?>";
+    var CLIENT_ID_SIGNUP = "<?php if(defined('CLIENT_ID_SIGNUP')){echo CLIENT_ID_SIGNUP;}?>";
     var REDIRECT = "<?php echo REDIRECT_URI; ?>";
     var REDIRECT_SIGNUP = "<?php echo REDIRECT_URI_SIGNUP; ?>";
     //For google login and signup end

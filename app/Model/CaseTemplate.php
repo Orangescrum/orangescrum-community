@@ -7,4 +7,3 @@ class CaseTemplate extends AppModel{
 	    return $this->find('first',array('conditions'=>$condition,'fields'=>$fields));
 	}
 }
-?>

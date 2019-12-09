@@ -85,7 +85,7 @@ function parseUrlHash(hash) {
 
 /* Routing on Task & Files Menu */
 function checkHashLoad(type) {
-    //    alert(parseUrlHash(urlHash));
+     //    alert(parseUrlHash(urlHash));
     //    alert(type);
     // Add for switching between compact view and List view
     if (type == "compactTask") {
@@ -357,12 +357,14 @@ function routeOSHash() {
 }
 
 function closePopup() {
+    
     if ($('#pagename').val() == 'profile') {
         $('#profilephoto').imgAreaSelect({
             hide: true
         });
         //$('#up_files1').html('');
         $('#up_files_usr').html('');
+        
     }
     $(".popup_overlay").css({
         display: "none"
@@ -378,6 +380,8 @@ function closePopup() {
      $('#prjct_id').val('');
      $('#prjct_name').val(''); 
      }*/
+    $("#err_email_new").html('');
+    $("#password").val('');
 
 }
 
@@ -1319,7 +1323,7 @@ function addUserToProject() {
 }
 
 function projectAdd(txtProj, shortname, loader, btn) {
-    document.getElementById('err_msg').innerHTML = "";
+    document.getElementById('err_msg_project_name').innerHTML = "";
     document.getElementById('validate').value = '1'
     var proj1 = "";
     proj1 = document.getElementById(txtProj).value;
@@ -1327,35 +1331,37 @@ function projectAdd(txtProj, shortname, loader, btn) {
     var strURL = HTTP_ROOT;
     proj1 = proj1.trim();
     if (proj1 == "") {
-        msg = "'Project Name' cannot be left blank!";
-        document.getElementById('err_msg').style.display = 'block';
-        document.getElementById('err_msg').innerHTML = msg;
+        msg = "Project Name cannot be left blank!";
+        document.getElementById('err_msg_project_name').style.display = 'block';
+        document.getElementById('err_msg_project_name').innerHTML = msg;
         document.getElementById(txtProj).focus();
         return false;
     } else {
         if (!proj1.match(/^[A-Za-z0-9]/g)) {
-            msg = "'Project Name' must starts with an Alphabet or Number!";
-            $('#err_msg').show();
-            $('#err_msg').html(msg);
+            msg = "Project Name must starts with an Alphabet or Number!";
+            $('#err_msg_project_name').show();
+            $('#err_msg_project_name').html(msg);
             $('#' + txtProj).focus();
             return false;
         }
     }
     if (shortname1.trim() == "") {
-        msg = "'Project Short Name' cannot be left blank!";
-        document.getElementById('err_msg').style.display = 'block';
-        document.getElementById('err_msg').innerHTML = msg;
+        msg = "Project Short Name cannot be left blank!";
+        document.getElementById('err_msg_short_name').style.display = 'block';
+        document.getElementById('err_msg_short_name').innerHTML = msg;
         document.getElementById(shortname).focus();
         return false;
     } else {
         var x = shortname1.substr(-1);
         if (!isNaN(x)) {
             msg = "'Short Name' cannot end with a number or space!";
-            document.getElementById('err_msg').style.display = 'block';
-            document.getElementById('err_msg').innerHTML = msg;
+            document.getElementById('err_msg_short_name').style.display = 'block';
+            document.getElementById('err_msg_short_name').innerHTML = msg;
             document.getElementById(shortname).focus();
 
             return false;
+        }else{
+            document.getElementById('err_msg_short_name').style.display = 'none'; 
         }
         var email_id = $('#members_list').val();
         var done = 1;
@@ -1397,7 +1403,8 @@ function projectAdd(txtProj, shortname, loader, btn) {
         } else {
             $('#err_mem_email').html();
         }
-        document.getElementById('err_msg').style.display = 'none';
+        document.getElementById('err_msg_short_name').style.display = 'none';
+        document.getElementById('err_msg_project_name').style.display = 'none';
         document.getElementById(loader).style.display = 'block';
         document.getElementById(btn).style.display = 'none';
 
@@ -1558,7 +1565,6 @@ function validate_contact() {
 
 
 function memberCustomer(txtEmailid, selprj, loader, btn) {
-
     var email_id = document.getElementById(txtEmailid).value;
     var email_arr = email_id.split(',');
     var done = 1;
@@ -1651,7 +1657,7 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
                     "email": escape(email_id),
                     "uniq_id": escape(uniq_id)
                 }, function (data) {
-                    if (data == "invited" || data == "exists" || data == "owner" || data == "account") {
+                    if (data == "exists" || data == "owner" || data == "account") {
                         $("#ldr").hide();
                         $("#btn_addmem").show();
                         $("#err_email_new").show();
@@ -1660,7 +1666,7 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
                         } else if (data == "account") {
                             $("#err_email_new").html("Ah... you are inviting yourself!");
                         } else {
-                            $("#err_email_new").html("Oops! Invitation already sent to '" + email_id + "'!");
+                            $("#err_email_new").html("The user is already exist!");
                         }
                         return false;
                     } else {
@@ -4569,7 +4575,10 @@ function submitAddNewCase(postdata, CS_id, uniqid, cnt, dtls, status, prelegend,
                     done = 0;
                 }
                 if (CS_title.trim() == "" || CS_title.trim() == "Add a task here and hit enter...") {
-                    $('#CS_title').css('border-color', '#CE2129');
+                    var msg = 'Task field should not be left blank!';
+                    $('#CS_title').css('border-color', '#FF0000');
+                    $('#err_case_title').html(msg);
+                    $('#err_case_title').show();
                     $("#CS_title").focus();
                     done = 0;
                 } else {
@@ -5620,6 +5629,7 @@ function delMilestone(obj, name, uniqid) {
     }
     if (confirm("Are you sure you want to delete milestone '" + name + "' ?")) {
         //window.location.href = HTTP_ROOT+"milestones/delete_milestone/"+uniqid;
+        
         var loc = HTTP_ROOT + "milestones/delete_milestone/";
         $.post(loc, {
             'uniqid': uniqid
@@ -5630,6 +5640,7 @@ function delMilestone(obj, name, uniqid) {
                 showTopErrSucc('success', res.msg);
                 refreshManageMilestone = 1;
             }
+            
             if ($('#caseMenuFilters').val() == 'milestonelist') {
                 showMilestoneList();
             } else {
@@ -6083,7 +6094,7 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
         'isActive': isActive,
         'file_srch': search_key
     }, function (res) {
-        //	   alert(JSON.stringify(res));
+        	   //alert(JSON.stringify(res));
         if (res) {
             res.isActive = isActive;
             refreshMilestone = 0;
@@ -6114,7 +6125,17 @@ showMilestoneList = function (mlstpaginate, isActive, pointer, search_key) {
                 }
                 $('#milestoneLimit').val(res.mlimit);
                 $('#totalMlstCnt').val(res.totalMlstCnt);
+                
+                if(res.totalMlstCnt > 0){
+                    $("#mlist_crt_mlstbtn").show(); 
+                }
+                
+                
+                
             } else {
+                if(res.total_exist == 0){
+                    $("#mlist_crt_mlstbtn").hide(); 
+                }
                 $('.milestonenextprev').hide();
                 $('#milestoneLimit').val('0');
                 $('#totalMlstCnt').val('0');
@@ -6640,18 +6661,20 @@ function removeProjectName(pid, id, chkAll, chkOne, row, active_class) {
 
 }
 /* Existing Users in a particular project */
-function deleteUsersInProject(userId, projectId, name) {
+function deleteUsersInProject(userId, projectId, name,projectName) {
     if (userId) {
         var conf = confirm("Are you sure you want to delete the user '" + decodeURIComponent(name.replace(/\+/g, ' ')) + "' from this project?");
         if (conf == true) {
             var strURL = document.getElementById('pageurl').value;
             var dcrs_cnt = 1;
-            strURL = strURL + "projects/ajax_existuser_delete";
-            $.post(strURL, {
+            deleteURL = strURL + "projects/ajax_existuser_delete";
+            fetchURL = strURL + "projects/fetch_user";
+            $.post(deleteURL, {
                 'userid': userId,
                 'project_id': projectId
             }, function (data) {
                 if (data) {
+                    console.log(data);
                     if (data == 'success') {
                         $("#extlisting" + userId).fadeOut('slow');
                         if (parseInt(dcrs_cnt)) {
@@ -6663,11 +6686,18 @@ function deleteUsersInProject(userId, projectId, name) {
                                 closePopup();
                             }
                         }
+                        
+                        
                     } else {
                         return false;
                     }
                 }
             });
+            
+            //second request
+            add_user(projectId,projectName);
+            
+            
         } else {
             return false;
         }

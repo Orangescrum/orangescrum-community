@@ -1,3 +1,10 @@
+<?php 
+	$userCount = count($memsNotExstArr);
+	$count = 0;
+	$class = "";
+	$totCase = 0;
+	$totids = "";
+?>
 <table cellpadding="0" cellspacing="0" class="col-lg-12 ad_prj_usr_tbl ad_prj_usr_ipad">
     <input type="hidden" id="adusrprojnm" value="<?php echo $this->Format->formatText($pjname); ?>">
     <tr>
@@ -5,17 +12,20 @@
 	    <div class="scrl-ovr inner_prj_notextusr_add">
 	    <table cellpadding="0" cellspacing="0" class="col-lg-12" style="width:100%">
 		<tr class="hdr_tr">
+			<?php 
+				if($userCount > 0){
+			?>
 		    <th><input type="checkbox" class="chkbx_cur" onclick="selectuserAll(1,0)" id="checkAll"/></th>
+			<?php		
+				}else{
+					echo '<th>#</th>';
+				}
+			?>
 		    <th class="nm_ipad" style="padding-left:10px;">Name</th>
 		    <th>&nbsp;</th>
 		    <th>Email</th>
 		</tr>
 		<?php
-		$userCount = count($memsNotExstArr);
-		$count = 0;
-		$class = "";
-		$totCase = 0;
-		$totids = "";
 		if ($userCount) {
 		    $typ = "";
 		    foreach ($memsNotExstArr as $memsAvlArr) {
@@ -121,7 +131,7 @@
 				?>
 				<span style="font-size:13px;<?php echo $colors; ?>">&nbsp;&nbsp;&nbsp;<?php echo $usr_typ_name; ?></span>
 			</div>
-			<div id="deleteImg_<?php echo $user_id; ?>" title="Delete" class="dropdown_cross fr" style="display:none;color:#D4696F;font-weight:bold;cursor:pointer" onclick="deleteUsersInProject('<?php echo $user_id; ?>','<?php echo $projid;?>','<?php echo urlencode($user_name);?>');">&times;</div>
+			<div id="deleteImg_<?php echo $user_id; ?>" title="Delete" class="dropdown_cross fr" style="display:none;color:#D4696F;font-weight:bold;cursor:pointer" onclick="deleteUsersInProject('<?php echo $user_id; ?>','<?php echo $projid;?>','<?php echo urlencode($user_name);?>','<?php echo $this->Format->formatText($pjname); ?>');">&times;</div>
 				<div class="cb"></div>
 			    </td>
 			</tr>

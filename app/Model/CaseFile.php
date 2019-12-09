@@ -18,4 +18,3 @@ class CaseFile extends AppModel{
 	   return number_format($filesize,2);
 	}						
 }
-?>

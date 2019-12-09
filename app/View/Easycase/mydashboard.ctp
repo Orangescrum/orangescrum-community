@@ -14,6 +14,7 @@
 		    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
 		</div>
 		<div class="fr active_icn">
+                    
 			<a href="javascript:void(0);" onclick="creatask()" class="" style="color:#5191BD; font-size:13px;" rel="tooltip" title="Create Task">
 				<i id="ctask_icons" class="icon-create-tsk"></i>
 			</a>

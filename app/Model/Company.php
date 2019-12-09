@@ -31,4 +31,3 @@ class Company extends AppModel{
 		}
 	}
 }
-?>

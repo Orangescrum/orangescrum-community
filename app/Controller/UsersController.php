@@ -21,7 +21,7 @@
  * 02110-1301 USA.
  *
  * You can contact Orangescrum, 2059 Camden Ave. #118, San Jose, CA - 95124, US. 
-   or at email address support@orangescrum.com.
+  or at email address support@orangescrum.com.
  *
  * The interactive user interfaces in modified source and object code versions
  * of this program must display Appropriate Legal Notices, as required under
@@ -48,7 +48,8 @@ class UsersController extends AppController {
 	    if($this->Auth->User("id")) {
 		$withOutLoginPage = array('login','license','validate_emailurl','forgotpassword','session_maintain','test_php_mailer');
 		if(in_array($this->action,$withOutLoginPage)){
-		    $file = ""; $caseid = "";
+                $file = "";
+                $caseid = "";
 		    if(isset($_GET['case'])) {
 			    $caseid = $_GET['case'];
 		    }
@@ -62,14 +63,11 @@ class UsersController extends AppController {
 			    $this->redirect(HTTP_ROOT."dashboard/?case=".$caseid."&project=".$projectid);
 		    }elseif(!$caseid && $projectid) {
 			    $this->redirect(HTTP_ROOT."dashboard/?project=".$projectid);
-		    }
-		    elseif($file) {
+                } elseif ($file) {
 			    $this->redirect(HTTP_ROOT."easycases/download/".$file);
-		    }
-		    elseif(PAGE_NAME=='tour') {
+                } elseif (PAGE_NAME == 'tour') {
 			// $this->redirect(HTTP_ROOT."easycases/download/".$file);
-		    }
-		    else {
+                } else {
 			    $this->redirect(HTTP_ROOT."dashboard");
 		    }
 		}
@@ -79,13 +77,13 @@ class UsersController extends AppController {
 	function setGoogleInfo() {
 	    $this->layout='ajax';
 	    $_SESSION['CHECK_GOOGLE_SES'] = 1;
-	    echo 1;exit;
+        echo 1;
+        exit;
 	}
 	function license() {
 	  
 	}
-	function company($img = null) 
-	{
+    function company($img = null) {
 		if(SES_TYPE == 3) {
 			$this->redirect(HTTP_ROOT."dashboard");
 		}
@@ -97,8 +95,7 @@ class UsersController extends AppController {
 		$s3 = new S3(awsAccessKey, awsSecretKey);
                 $info = $s3->getObjectInfo(BUCKET_NAME, DIR_USER_COMPANY_S3_FOLDER.$photo);
 		//if($photo && file_exists(DIR_FILES."company/".$photo))
-		if($photo && $info)
-		{
+        if ($photo && $info) {
 			//unlink(DIR_FILES."company/".$photo);
 			
 			$s3->deleteObject(BUCKET_NAME, DIR_USER_COMPANY_S3_FOLDER.$photo);
@@ -111,38 +108,27 @@ class UsersController extends AppController {
 			
 		}
 		
-		if(isset($this->request->data['Company']))
-		{
+        if (isset($this->request->data['Company'])) {
 			$photo_name = "";
-			if(isset($this->request->data['Company']['photo']))
-			{
+            if (isset($this->request->data['Company']['photo'])) {
 				//$photo_name = $this->Format->uploadPhoto($this->request->data['Company']['photo']['tmp_name'],$this->request->data['Company']['photo']['name'],$this->request->data['Company']['photo']['size'],DIR_FILES."company/",SES_ID);
 				$photo_name = $this->Format->uploadPhoto($this->request->data['Company']['photo']['tmp_name'],$this->request->data['Company']['photo']['name'],$this->request->data['Company']['photo']['size'],DIR_FILES."company/",SES_ID,"cmp_logo");
-				if($photo_name == "ext")
-				{
+                if ($photo_name == "ext") {
 					$this->Session->write("ERROR","Company logo should be an image file");
 					$this->redirect(HTTP_ROOT."users/company");
-				}
-				elseif($photo_name == "size")
-				{
+                } elseif ($photo_name == "size") {
 					$this->Session->write("ERROR","Company logo size cannot excceed 1mb");
 					$this->redirect(HTTP_ROOT."users/company");
 				}
 			}
-			if(trim($this->request->data['Company']['name']) == "")
-			{
+            if (trim($this->request->data['Company']['name']) == "") {
 				$this->Session->write("ERROR","Name cannot be left blank");
 				$this->redirect(HTTP_ROOT."users/company");
-			}
-			else
-			{
+            } else {
 				$this->request->data['Company']['id'] = SES_COMP;
-				if(isset($this->request->data['Company']['photo_name']))
-				{
+                if (isset($this->request->data['Company']['photo_name'])) {
 					$this->request->data['Company']['logo'] = $this->request->data['Company']['photo_name'];
-				}
-				else
-				{
+                } else {
 					$this->request->data['Company']['logo'] = $photo_name;
 				}
 				
@@ -163,9 +149,11 @@ class UsersController extends AppController {
 		if($this->request->data['email'] && $this->request->data['uniq_id']) {
 			if(stristr(urldecode($this->request->data['email']),",")){
 				$str=""; 
-				$CompanyUser = ClassRegistry::init('CompanyUser'); $UserInvitation = ClassRegistry::init('UserInvitation');
+                $CompanyUser = ClassRegistry::init('CompanyUser');
+                $UserInvitation = ClassRegistry::init('UserInvitation');
 				$mail_arr1 = explode(",",urldecode(trim(trim($this->request->data['email']),",")));
-				$cnt =0;$mail_arr=array();
+                $cnt = 0;
+                $mail_arr = array();
 				foreach($mail_arr1 AS $key=>$val){
 					if(trim($val) != ""){
 						$cnt ++;
@@ -175,7 +163,8 @@ class UsersController extends AppController {
 				//Checking limitation of users 
 				$totalusers_cnt = $cnt + $GLOBALS['usercount'];
 				if((strtolower(trim($GLOBALS['Userlimitation']['user_limit'])) !="unlimited") && $totalusers_cnt> $GLOBALS['Userlimitation']['user_limit']){
-					echo "errorlimit";exit;
+                    echo "errorlimit";
+                    exit;
 				}
 				
 				for($i=0;$i<count($mail_arr);$i++){
@@ -203,12 +192,13 @@ class UsersController extends AppController {
 				$str = trim($str);
 				$str = trim($str,",");
 				if(trim($str) == ""){
-					echo "success";exit;
+                    echo "success";
+                    exit;
 				}else{
-					echo $str;exit;
-				}
+                    echo $str;
+                    exit;
 			}
-			else{
+            } else {
 				$checkUsr = $this->User->find('first',array('conditions'=>array('User.email'=>urldecode($this->request->data['email'])),'fields'=>array('User.id')));
 				$user_id = $checkUsr['User']['id'];
 				
@@ -217,24 +207,23 @@ class UsersController extends AppController {
 						echo "account";
 						exit;
 					}
-					$UserInvitation = ClassRegistry::init('UserInvitation');
+                    /* $UserInvitation = ClassRegistry::init('UserInvitation');
 					$ui = $UserInvitation->find('first',array('conditions'=>array('UserInvitation.company_id'=>SES_COMP,'UserInvitation.user_id'=>$user_id),'fields'=>array('UserInvitation.id')));
 					if($ui['UserInvitation']['id']) {
 						echo "invited";
-					}
-					else {
+                      } */
+                    //else {
 						$CompanyUser = ClassRegistry::init('CompanyUser');
 						$cu = $CompanyUser->find('first',array('conditions'=>array('CompanyUser.company_id'=>SES_COMP,'CompanyUser.user_id'=>$user_id,'CompanyUser.user_type'=>1),'fields'=>array('CompanyUser.id')));
 						if($cu['CompanyUser']['id']) {
 							echo "owner";
-						}
-						else {
+                    } else {
 							$chku = $CompanyUser->find('first',array('conditions'=>array('CompanyUser.company_id'=>SES_COMP,'CompanyUser.user_id'=>$user_id,'CompanyUser.is_active !=3'),'fields'=>array('CompanyUser.id')));
 							if($chku['CompanyUser']['id']) {
 								echo "exists";
 							}
 						}
-					}
+                    //}
 					
 				}
 			}
@@ -251,8 +240,7 @@ class UsersController extends AppController {
 			}
 		}exit;
 	}
-	function check_short_name_reg()
-	{
+    function check_short_name_reg() {
 		$this->layout='ajax';
 		
 		$this->User->recursive = -1;
@@ -332,8 +320,7 @@ class UsersController extends AppController {
 		$return = 0;
 	    return $return;
 	}
-	function email_notification() 
-	{
+    function email_notification() {
 		$UserNotification = ClassRegistry::init('UserNotification');
 		
 		$getAllNot = $UserNotification->find('first',array('conditions'=>array('UserNotification.user_id'=>SES_ID)));
@@ -360,15 +347,12 @@ class UsersController extends AppController {
 			}
 			$this->User->save($this->request->data['User']);
 		}
-		if(isset($this->request->data['UserNotification']))
-
-		{	
+        if (isset($this->request->data['UserNotification'])) {
 			$this->request->data['UserNotification']['user_id'] = SES_ID;
 			$this->request->data['UserNotification']['id'] = $getAllNot['UserNotification']['id'];
 			$UserNotification->save($this->request->data['UserNotification']);
 		}	
-		if(isset($this->request->data['DailyupdateNotification']))
-		{	
+        if (isset($this->request->data['DailyupdateNotification'])) {
 			$data['DailyupdateNotification']['id'] = $getAllDailyupdateNot['DailyupdateNotification']['id'];
 			$data['DailyupdateNotification']['user_id'] = SES_ID;
 			$data['DailyupdateNotification']['status'] = 0;
@@ -394,8 +378,7 @@ class UsersController extends AppController {
 
 		}		
 	}
-	function invitation($qstr = NULL)
-	{
+    function invitation($qstr = NULL) {
 		$isValid = 0;
 		if(trim($qstr)) {
 			$isValid = 1;
@@ -414,7 +397,6 @@ class UsersController extends AppController {
 					
 					if($usrInvt['UserInvitation']['user_id']) {
 						$this->request->data['User']['id'] = $usrInvt['UserInvitation']['user_id'];
-						$this->request->data['User']['password'] = md5($this->request->data['User']['password']);
 						$this->request->data['User']['isactive'] = 1;
 						$this->request->data['User']['timezone_id'] = $timezone_id;
 						$this->request->data['User']['ip'] = $_SERVER['REMOTE_ADDR'];
@@ -489,7 +471,8 @@ class UsersController extends AppController {
 							$this->User->query("UPDATE users set isactive='1' where id='".$usr['User']['id']."'");
 							if(defined('SES_ID') && (SES_ID != $ui['UserInvitation']['user_id'])){
 								$this->Auth->logout();
-								$this->redirect(HTTP_ROOT.'users/logout/'.$ui['UserInvitation']['user_id']);exit;
+                                $this->redirect(HTTP_ROOT . 'users/logout/' . $ui['UserInvitation']['user_id']);
+                                exit;
 							}else{
 								$this->login(NULL,$getUsr['User']['email'],$getUsr['User']['password']);
 							}
@@ -498,12 +481,10 @@ class UsersController extends AppController {
 						//$this->redirect(HTTP_ROOT);
 						//$this->login(NULL,$getUsr['User']['email'],$getUsr['User']['password']);
 					}
-				}
-				else {
+                } else {
 					$isValid = 0;
 				}
-			}
-			else {
+            } else {
 				$isValid = 0;
 			}
 			$this->set('AuthId',$this->Auth->User("id"));
@@ -770,7 +751,9 @@ class UsersController extends AppController {
 				array_push($arrusr, substr(trim($usrall['User']['name']), 0, 1));
 			}
 		}
-		$active_user_cnt = 0;$invited_user_cnt = 0;$disabled_user_cnt=0;
+        $active_user_cnt = 0;
+        $invited_user_cnt = 0;
+        $disabled_user_cnt = 0;
 		$grpcount = $CompanyUser->query('SELECT count(CompanyUser.id) as usrcnt , CompanyUser.is_active FROM company_users CompanyUser LEFT JOIN users User on CompanyUser.user_id=User.id WHERE CompanyUser.company_id='.SES_COMP.'  AND User.email!="" AND ('.$search_query.') GROUP BY CompanyUser.is_active ');
 //		pr('SELECT count(CompanyUser.id) as usrcnt , CompanyUser.is_active FROM company_users CompanyUser LEFT JOIN users User on CompanyUser.user_id=User.id WHERE CompanyUser.company_id='.SES_COMP.'  AND User.email!="" AND ('.$search_query.') GROUP BY CompanyUser.is_active ');exit;
 		if($grpcount){
@@ -829,8 +812,7 @@ class UsersController extends AppController {
 		}
     }
 	
-	function forgotpassword() 
-	{
+    function forgotpassword() {
 		if(!empty($this->request->data) && empty($this->request->data['User']['repass']) && empty($this->request->data['User']['newpass'])) {
 			$to = trim($this->request->data['User']['email']);
 			$this->User->recursive = -1;
@@ -871,23 +853,20 @@ class UsersController extends AppController {
 						$this->redirect(HTTP_ROOT."users/forgotpassword/");
 					}
 				}
-			}
-			else {
+            } else {
 				//$this->Session->write("ERROR_RESET","<font style='color:red;'>If an account exists with this email address, we've sent instructions on resetting your password. Please check your email!</font>");
 				$this->Session->setFlash("If an account exists with this email address, we've sent instructions on resetting your password. Please check your email!", 'default', array('class'=>'success'));
 				$this->redirect(HTTP_ROOT."users/forgotpassword/");
 			}
 		}
-		if(isset($_GET['qstr']) && $_GET['qstr'])
-		{  
+        if (isset($_GET['qstr']) && $_GET['qstr']) {
 			$queryString = urldecode($_GET['qstr']);
 			$this->User->recursive = -1;
 			
 			$getData =$this->User->query("SELECT User.id,User.email,User.name FROM users AS User WHERE User.query_string='".$queryString."' AND User.isactive='1'");
 			//pr($getData);exit;
 			
-			if(isset($getData) && count($getData) == 1)
-			{ 	
+            if (isset($getData) && count($getData) == 1) {
 						
 					$this->set('passemail','12');
 					$this->set('user_id',$getData['0']['User']['id']);
@@ -896,8 +875,7 @@ class UsersController extends AppController {
 		}
 		if(!empty($this->request->data) && !empty($this->request->data['User']['repass']) && !empty($this->request->data['User']['newpass'])) {
 		//echo $this->request->data['user_id'];exit;
-		if($this->request->data['User']['repass']==$this->request->data['User']['newpass'])
-			{
+            if ($this->request->data['User']['repass'] == $this->request->data['User']['newpass']) {
 		$newMd5Passwrod = md5($this->request->data['User']['repass']);
 		$id=$this->request->data['user_id'];			
 		$this->User->query("UPDATE users SET password='".$newMd5Passwrod."',query_string='' WHERE id=".$id);
@@ -909,11 +887,9 @@ class UsersController extends AppController {
 
 		}
 	}
-	function check_short_name() 
-	{
+    function check_short_name() {
 		$this->layout='ajax';
-		if(isset($this->request->data['shortname']) && trim($this->request->data['shortname']))
-		{
+        if (isset($this->request->data['shortname']) && trim($this->request->data['shortname'])) {
 			$count = $this->User->find("count",array("conditions"=>array('User.short_name'=>trim(strtoupper($this->request->data['shortname']))),'fields'=>'DISTINCT User.id'));
 			$this->set('count',$count);
 			$this->set('shortname',trim(strtoupper($this->request->data['shortname'])));
@@ -924,12 +900,19 @@ class UsersController extends AppController {
 		$Company = ClassRegistry::init('Company');
 		//$comp = $Company->find('first',array('fields'=>array('Company.id','Company.name','Company.uniq_id')));
 		
+        $password = md5($this->request->data['User']['password']);
+        $email = trim($this->request->data['User']['email']);
 		$company_id = SES_COMP;
 		$projectcls = ClassRegistry::init('Project');
 		$default_project_id ='';
-		$UserInvitation = ClassRegistry::init('UserInvitation');
+        $ProjectUser = ClassRegistry::init('ProjectUser');
+        $ProjectUser->recursive = -1;
+        
+
+        //$UserInvitation = ClassRegistry::init('UserInvitation');
+
+       // $invitation_id = "";
 		
-		$invitation_id = "";
 		if(isset($this->request->data['User']) || trim($resend)) {
 			if($resend) {
 				$invit = $UserInvitation->find('first',array('conditions'=>array('UserInvitation.qstr'=>$resend)));
@@ -958,7 +941,8 @@ class UsersController extends AppController {
 			if(strstr($this->request->data['User']['email'],",")){
 				$err=0;
 				$mail_list=explode(",",trim(trim($this->request->data['User']['email']),','));
-				$ucounter =0;$mail_arr=array();
+                $ucounter = 0;
+                $mail_arr = array();
 				foreach($mail_list AS $key=>$val){
 					if(trim($val) != ""){
 						$mail_arr[]=trim($val);
@@ -970,11 +954,11 @@ class UsersController extends AppController {
 				if(strtolower($GLOBALS['Userlimitation']['user_limit'])!='unlimited' && ($total_new_users > $GLOBALS['Userlimitation']['user_limit'])){
 					if(SES_TYPE == 3) {
 						$this->Session->write("ERROR","Sorry! you have exceeded the user limit");
-					}
-					else {
+                    } else {
 						$this->Session->write("ERROR","Sorry! This account exceeded the user limit.");
 					}
-					$this->redirect(HTTP_ROOT);exit;
+                    $this->redirect(HTTP_ROOT);
+                    exit;
 				}
 				$error_emails='';
 				$invite_users = '';
@@ -982,7 +966,8 @@ class UsersController extends AppController {
 				for($i=0;$i<count($mail_arr);$i++){				
 					if(trim($mail_arr[$i]) != ""){
 						if (!filter_var($mail_arr[$i], FILTER_VALIDATE_EMAIL)) {
-							$error_emails[] = $mail_arr[$i];continue;
+                            $error_emails[] = $mail_arr[$i];
+                            continue;
 						}
 						$mail_arr[$i]=trim($mail_arr[$i]);
 						$findEmail = $this->User->find('first',array('conditions'=>array('User.email'=>$mail_arr[$i]),'fields'=>array('User.id')));
@@ -994,6 +979,7 @@ class UsersController extends AppController {
 							$this->request->data['User']['isemail'] = 1;
 							$this->request->data['User']['dt_created'] = GMT_DATETIME;
 							$this->request->data['User']['email']=trim($mail_arr[$i]);
+                            $this->request->data['User']['password']=md5($password);
 							$this->User->saveAll($this->request->data);
 							$userid = $this->User->getLastInsertID();
 						}
@@ -1030,8 +1016,7 @@ class UsersController extends AppController {
 							$InviteUsr['UserInvitation']['is_active'] = 1;
 							$InviteUsr['UserInvitation']['user_type'] = $this->request->data['User']['istype'];
 				
-							if($UserInvitation->saveAll($InviteUsr))
-							{
+                            if ($UserInvitation->saveAll($InviteUsr)) {
 							    if(!$invitation_id) {
 								$invite_users = $invite_users.",".$userid;
 							    }
@@ -1106,7 +1091,9 @@ class UsersController extends AppController {
 								}
 							
 							}
-						}else{ $err=1;}
+                        } else {
+                            $err = 1;
+                        }
 				}
 				}
 				if(!$err){
@@ -1117,18 +1104,20 @@ class UsersController extends AppController {
 					}*/
 					$this->Session->write("SUCCESS","Invitation sent to Successfully");
 					if($_SERVER['HTTP_REFERER']==HTTP_ROOT.'onbording'){
-						$this->redirect(HTTP_ROOT."onbording");exit;
+                        $this->redirect(HTTP_ROOT . "onbording");
+                        exit;
 					}
 					if((strtolower($GLOBALS['Userlimitation']['user_limit']) !='unlimited') && $GLOBALS['usercount']<=1){
-						$this->redirect(HTTP_ROOT."onbording");exit;
+                        $this->redirect(HTTP_ROOT . "onbording");
+                        exit;
 					}else{
 					    if(trim($invite_users) && !isset($this->request->data['User']['pid'])) {
 							$invite_users = trim($invite_users,',');
 							setcookie('LAST_INVITE_USER',$invite_users,time()+3600,'/',DOMAIN_COOKIE,false,false);
 					    }
-						$this->redirect(HTTP_ROOT."users/manage/?role=invited");
+                        $this->redirect(HTTP_ROOT . "users/manage/?role=active");
 					}
-					$this->redirect(HTTP_ROOT."users/manage/?role=invited");
+                    $this->redirect(HTTP_ROOT . "users/manage/?role=active");
 				}else{
 					$this->Session->write("ERROR","Invitation Failed. Please try again!");
 					$this->redirect(HTTP_ROOT."users/manage/");
@@ -1141,10 +1130,11 @@ class UsersController extends AppController {
 						
 						if(@$findEmail['User']['id']) {
 							$userid = $findEmail['User']['id'];
-						}
-						else {
+                } else {
 							$this->request->data['User']['uniq_id'] = $this->Format->generateUniqNumber();
-							$this->request->data['User']['isactive'] = 2;
+                    $this->request->data['User']['email']=$email;
+                    $this->request->data['User']['password']=$password;
+                    $this->request->data['User']['isactive'] = 1;
 							$this->request->data['User']['isemail'] = 1;
 							$this->request->data['User']['dt_created'] = GMT_DATETIME;
 							$this->User->save($this->request->data);
@@ -1154,37 +1144,25 @@ class UsersController extends AppController {
 						if($userid && $userid != $this->Auth->User("id")) {
 							$qstr = $this->Format->generateUniqNumber();
 				
-							if($invitation_id) {
+                    /*if ($invitation_id) {
 								$InviteUsr['UserInvitation']['id'] = $invitation_id;
 							}
 							$InviteUsr['UserInvitation']['invitor_id'] = $this->Auth->User("id");
 							$InviteUsr['UserInvitation']['user_id'] = $userid;
 					
-							$InviteUsr['UserInvitation']['company_id'] = $company_id;							
+                    $InviteUsr['UserInvitation']['company_id'] = $company_id;*/
 							
 							
-							if(isset($this->request->data['User']['pid'])) {
-							    if(is_array($this->request->data['User']['pid']) && !empty($this->request->data['User']['pid'])) {
-								$InviteUsr['UserInvitation']['project_id'] = implode(",",$this->request->data['User']['pid']);
-							    }elseif($this->request->data['User']['pid']){
-								$InviteUsr['UserInvitation']['project_id'] = $this->request->data['User']['pid'];
-							    }
-							}else{
-								$project_list = $projectcls->find('first',array('conditions'=>array('Project.short_name'=>'WCOS','Project.isactive'=>1,'Project.company_id'=>SES_COMP),'fields'=>"Project.id"));
-								if($project_list){
-									$InviteUsr['UserInvitation']['project_id'] = $project_list['Project']['id'];
-								}
-							}
-							$InviteUsr['UserInvitation']['qstr'] = $qstr;
-							$InviteUsr['UserInvitation']['created'] = GMT_DATETIME;
-							$InviteUsr['UserInvitation']['is_active'] = 1;
-							$InviteUsr['UserInvitation']['user_type'] = $this->request->data['User']['istype'];							
 							
-							if($UserInvitation->save($InviteUsr))
-							{
+                    //$InviteUsr['UserInvitation']['qstr'] = $qstr;
+                    //$InviteUsr['UserInvitation']['created'] = GMT_DATETIME;
+                    //$InviteUsr['UserInvitation']['is_active'] = 1;
+                    //$InviteUsr['UserInvitation']['user_type'] = $this->request->data['User']['istype'];
+
+                    //if ($UserInvitation->save($InviteUsr)) {
 							    	$is_sub_upgrade=1;
 								// Checking for a deleted user when gets invited again.
-								$compuser = $CompanyUser->find('first',array('conditions'=>array('user_id'=>$userid,'company_id'=>SES_COMP)));
+                       /* $compuser = $CompanyUser->find('first', array('conditions' => array('user_id' => $userid, 'company_id' => SES_COMP)));
 								if($compuser && $compuser['CompanyUser']['is_active']==3){
 									$is_sub_upgrade=0;
 									// If that user deleted in the same billing month and invited again then that user will not paid 
@@ -1194,13 +1172,13 @@ class UsersController extends AppController {
 										}
 									}
 									$cmpnyUsr['CompanyUser']['id'] = $compuser['CompanyUser']['id'];
-								}
+                        }*/
 								if(!$resend){
 									$cmpnyUsr['CompanyUser']['user_id'] = $userid;
 									$cmpnyUsr['CompanyUser']['company_id'] = $company_id;
 									$cmpnyUsr['CompanyUser']['company_uniq_id'] = COMP_UID;
 									$cmpnyUsr['CompanyUser']['user_type'] = $this->request->data['User']['istype'];
-									$cmpnyUsr['CompanyUser']['is_active'] = 2;
+                            $cmpnyUsr['CompanyUser']['is_active'] = 1;
 									$cmpnyUsr['CompanyUser']['created'] = GMT_DATETIME;
 									if($CompanyUser->saveAll($cmpnyUsr)){
 									    $comp_user_id = $CompanyUser->getLastInsertID();
@@ -1209,12 +1187,43 @@ class UsersController extends AppController {
 									    }*/
 									}
 								}
+                        //add project to project_users against user if project added
+
+                        $userProjects=[];
+
+                        if (isset($this->request->data['User']['pid'])) {
+                            if (is_array($this->request->data['User']['pid']) && !empty($this->request->data['User']['pid'])) {
+                                $projects= $this->request->data['User']['pid'];
+                                foreach($projects as $projectId){
+                                    $temp['project_id']=$projectId;
+                                    $temp['company_id']=$company_id;
+                                    $temp['user_id']=$userid;
+                                    $temp['istype']=3;
+                                    $temp['default_email']=1;
+                                    $temp['dt_visited']=GMT_DATETIME;
+
+                                    array_push($userProjects,$temp);
+                                }
+
+                               
+                                $ProjectUser->saveMany($userProjects);
+                               
+                            
+                            } elseif ($this->request->data['User']['pid']) {
+                                //$InviteUsr['UserInvitation']['project_id'] = $this->request->data['User']['pid'];
+                            }
+                        } else {
+                            $project_list = $projectcls->find('first', array('conditions' => array('Project.short_name' => 'WCOS', 'Project.isactive' => 1, 'Project.company_id' => SES_COMP), 'fields' => "Project.id"));
+                            if ($project_list) {
+                                //$InviteUsr['UserInvitation']['project_id'] = $project_list['Project']['id'];
+                            }
+                        }
 								//Event log data and inserted into database in account creation--- Start
 								$json_arr['email'] = $this->request->data['User']['email'];
 								$json_arr['created'] = GMT_DATETIME;
 								$this->Postcase->eventLog(SES_COMP,SES_ID,$json_arr,25);
 								//End 
-								$to = $this->request->data['User']['email'];
+                        /*$to = $this->request->data['User']['email'];
 								$expEmail = explode("@",$this->request->data['User']['email']);
 								$expName = $expEmail[0];
 								$loggedin_users = $this->Format->getUserNameForEmail($this->Auth->User("id"));
@@ -1254,34 +1263,37 @@ class UsersController extends AppController {
 									}
 														
 								}Catch(Exception $e){ 
-								}			
-								$this->Session->write("SUCCESS","Invitation sent to '".$this->request->data['User']['email']."'");
+                        }*/
+                       // $this->Session->write("SUCCESS", "Invitation sent to '" . $this->request->data['User']['email'] . "'");
 								if($_SERVER['HTTP_REFERER']==HTTP_ROOT.'onbording'){
-									$this->redirect(HTTP_ROOT."onbording");exit;
+                            $this->redirect(HTTP_ROOT . "onbording");
+                            exit;
 								}
 								if($resend) {
-									$this->redirect($_SERVER['HTTP_REFERER']);exit;
+                            $this->redirect($_SERVER['HTTP_REFERER']);
+                            exit;
 									$this->redirect(HTTP_ROOT."users/manage");
 								}else {
 									if((strtolower($GLOBALS['Userlimitation']['user_limit']) !='unlimited') && $GLOBALS['usercount']<=1){
-										$this->redirect(HTTP_ROOT."onbording");exit;
+                                $this->redirect(HTTP_ROOT . "onbording");
+                                exit;
 									}else{
 									    if(!$invitation_id && !isset($this->request->data['User']['pid'])) {
 
 											setcookie('LAST_INVITE_USER',$userid,time()+3600,'/',DOMAIN_COOKIE,false,false);
 									    }
-										$this->redirect(HTTP_ROOT."users/manage/?role=invited");
+                                $this->redirect(HTTP_ROOT . "users/manage/?role=active");
 									}
 								}
 								
-							}
+                    //}
 						}
-						$this->Session->write("ERROR","Invitation Failed. Please try again!");
+                //$this->Session->write("ERROR", "Invitation Failed. Please try again!");
 						if($resend) {
-							$this->redirect($_SERVER['HTTP_REFERER']);exit;
+                    $this->redirect($_SERVER['HTTP_REFERER']);
+                    exit;
 							$this->redirect(HTTP_ROOT."users/manage");
-						}
-						else {
+                } else {
 							$this->redirect(HTTP_ROOT."dashboard");
 						}
 			}
@@ -1293,8 +1305,7 @@ class UsersController extends AppController {
 		//$userType = array(2=>"Member",3=>"Customer");
 		if(SES_TYPE == 1) {
 			$userType = array(3=>"Member",2=>"Admin");
-		}
-		else {
+        } else {
 			$userType = array(3=>"Member");
 		}
 		
@@ -1331,30 +1342,27 @@ class UsersController extends AppController {
 		    $items[] = array("key"=>$value['Project']['id'],"value"=>$value['Project']['name']);
 		}
 	    }
-	    print json_encode($items);exit;
+        print json_encode($items);
+        exit;
 	}
 	
-	function notification()
-	{
+    function notification() {
 		$this->layout='ajax';
 		$CaseUserView = ClassRegistry::init('CaseUserView');
 		$allCases = $CaseUserView->find('all', array('conditions' => array('CaseUserView.user_id'=>SES_ID,'CaseUserView.isviewed'=>0,'CaseUserView.istype'=>1),'ORDER' => array('CaseUserView.id ASC'),'limit'=>1));
 		$this->set('allCases',$allCases);
 	}
-	function caseview_remove()
-	{
+    function caseview_remove() {
 		$this->layout='ajax';
 		$id = NULL;
-		if(isset($this->request->data['id']))
-		{
+        if (isset($this->request->data['id'])) {
 			$id = $this->request->data['id'];
 		}
 		$CaseUserView = ClassRegistry::init('CaseUserView');
 		$CaseUserView->query("UPDATE case_user_views as CaseUserView SET CaseUserView.isviewed='1' WHERE CaseUserView.id=".$id);
 		exit;
 	}
-	function project_menu()
-	{
+    function project_menu() {
 		$this->layout='ajax';
 		$page = $this->request->data['page'];
 		$pgname = isset($this->request->data['page_name'])?$this->request->data['page_name']:'';
@@ -1378,8 +1386,7 @@ class UsersController extends AppController {
 		if($limit != "all") {
 			
 			$allProjArr = $ProjectUser->query("select SQL_CALC_FOUND_ROWS DISTINCT p.name,p.id,p.uniq_id as uniq_id,(select count(ec.id) from easycases as ec where ec.istype='1' AND ec.isactive='1' AND pu.project_id=ec.project_id ".trim($qry).") as count from projects as p, project_users as pu where p.id=pu.project_id and pu.user_id='".SES_ID."' and pu.company_id='".SES_COMP."' AND p.isactive='1' ORDER BY pu.dt_visited DESC LIMIT 0,$limit");
-		}
-		else {
+        } else {
 			$allProjArr = $ProjectUser->query("select SQL_CALC_FOUND_ROWS DISTINCT p.name,p.id,p.uniq_id as uniq_id,(select count(ec.id) from easycases as ec where ec.istype='1' AND ec.isactive='1' AND pu.project_id=ec.project_id  ".trim($qry).") as count from projects as p, project_users as pu where p.id=pu.project_id and pu.user_id='".SES_ID."' and pu.company_id='".SES_COMP."' AND p.isactive='1' ORDER BY pu.dt_visited DESC");
 		}
 		
@@ -1401,19 +1408,15 @@ class UsersController extends AppController {
 		$this->set('pgname',$pgname);
 		$this->set('limit',$limit);
 	}
-	function project_all() 
-	{
+    function project_all() {
 		$this->layout='ajax';
 		
 		$page = $this->request->data['page'];
 		$type = $this->request->data['type'];
 
-		if($type == "enabled")
-		{
+        if ($type == "enabled") {
 			$cond = array('conditions'=>array('ProjectUser.user_id' => SES_ID,'Project.isactive' => 1), 'fields' => array('Project.name','Project.uniq_id'), 'order'=>array('Project.name'));
-		}
-		else
-		{
+        } else {
 			$cond = array('conditions'=>array('ProjectUser.user_id' => SES_ID,'Project.isactive' => 2), 'fields' => array('Project.name','Project.uniq_id'), 'order'=>array('Project.name'));
 		}
 		
@@ -1539,7 +1542,8 @@ class UsersController extends AppController {
 					$this->redirect(PROTOCOL.$seoArr[0].".".DOMAIN."users/email_notifications");
 				}
 				if(isset($this->request->data['case_details']) && $this->request->data['case_details'] ){
-					$this->redirect($redirect."dashboard#details/".$this->request->data['case_details']);exit;
+                    $this->redirect($redirect . "dashboard#details/" . $this->request->data['case_details']);
+                    exit;
 				}
 				if(isset($this->request->data['User']['project']) && isset($this->request->data['User']['case'])){
 					$this->redirect($redirect."dashboard#details/".$this->request->data['User']['case']);
@@ -1555,9 +1559,7 @@ class UsersController extends AppController {
 				}
 				$this->redirect($redirect);
 				
-			}
-			else
-			{ 
+            } else {
 				$this->Session->write("SES_EMAIL",$this->request->data['User']['email']);
 				//$this->Session->write("LOGIN_ERROR","Email or Password is invalid!");
 				$this->Session->setFlash("Email or Password is invalid!", 'default', array('class'=>'error'));
@@ -1596,8 +1598,7 @@ class UsersController extends AppController {
 		if(!$findCompany['Company']['id']) {
 			if(trim($_SERVER['REQUEST_URI']) == "/" || trim($_SERVER['REQUEST_URI']) == "/" || trim($_SERVER['REQUEST_URI']) == "") {
 				$rightpath = 1;
-			}
-			else {
+            } else {
 				$root = dirname(dirname(dirname(__FILE__)));
 				$config_dir = $root . DS . 'app' . DS . 'Config' . DS;
 				$folders = explode(DS, $root);
@@ -1642,8 +1643,7 @@ class UsersController extends AppController {
 		}
 		$this->redirect(HTTP_ROOT.'dashboard');
 	}
-	function profile($img = null) 
-	{
+    function profile($img = null) {
 		$photo = urldecode($img);
 		if(defined('USE_S3') && USE_S3) {
 			$s3 = new S3(awsAccessKey, awsSecretKey);
@@ -1651,11 +1651,9 @@ class UsersController extends AppController {
 		} else if($photo && file_exists(DIR_USER_PHOTOS.$photo)){
 			$info = 1;
 		}
-		if($photo && $info)
-		{
+        if ($photo && $info) {
 			$checkPhoto = $this->User->find('count',array('conditions' => array('User.photo' => $photo,'id'=>SES_ID)));
-			if($checkPhoto)
-			{
+            if ($checkPhoto) {
 				if(defined('USE_S3') && USE_S3) {
 					$s3->deleteObject(BUCKET_NAME, DIR_USER_PHOTOS_S3_FOLDER.$photo);
 				} else {
@@ -1699,10 +1697,8 @@ class UsersController extends AppController {
 			   }
 			}		    
 			$photo_name = '';
-			if(isset($this->request->data['User']['photo']))
-			{
-				if(!empty($this->request->data['User']['photo']) && !empty($this->request->data['User']['exst_photo']))
-				{
+            if (isset($this->request->data['User']['photo'])) {
+                if (!empty($this->request->data['User']['photo']) && !empty($this->request->data['User']['exst_photo'])) {
 					$checkProfPhoto = $this->User->find('count',array('conditions' => array('User.photo' => $this->request->data['User']['exst_photo'],'id'=>SES_ID)));
 					if($checkProfPhoto){			
 						if(defined('USE_S3') && USE_S3) {
@@ -1720,32 +1716,23 @@ class UsersController extends AppController {
 				$photo_name = $this->Format->uploadProfilePhoto($this->request->data['User']['photo'],DIR_USER_PHOTOS);
 				
 
-				if($photo_name == "ext")
-				{
+                if ($photo_name == "ext") {
 					$this->Session->write("ERROR","Opps! Invalid file format! The formats supported are gif, jpg, jpeg & png.");
 					$this->redirect(HTTP_ROOT."users/profile");
-				}
-				elseif($photo_name == "size")
-				{
+                } elseif ($photo_name == "size") {
 					$this->Session->write("ERROR","Profile photo size cannot excceed 1mb");
 					$this->redirect(HTTP_ROOT."users/profile");
 				}
 			}
-			if(trim($this->request->data['User']['name']) == "")
-			{
+            if (trim($this->request->data['User']['name']) == "") {
 				$this->Session->write("ERROR","Name cannot be left blank");
 				$this->redirect(HTTP_ROOT."users/profile");
-			}
-			else
-			{
+            } else {
 				$this->request->data['User']['id'] = SES_ID;
 
-				if(empty($this->request->data['User']['photo']) && !empty($this->request->data['User']['exst_photo']))
-				{
+                if (empty($this->request->data['User']['photo']) && !empty($this->request->data['User']['exst_photo'])) {
 					$this->request->data['User']['photo'] = $this->request->data['User']['exst_photo'];
-				}
-				else
-				{
+                } else {
 					$this->request->data['User']['photo'] = $photo_name;
 				}
 				
@@ -1857,8 +1844,7 @@ class UsersController extends AppController {
 				}
 			}
 			
-			if($this->request->data)
-			{
+            if ($this->request->data) {
 				$this->request->data['User']['id'] = SES_ID;
 				$this->request->data['User']['password'] = md5($this->request->data['User']['pas_new']);
 				
@@ -1909,7 +1895,8 @@ class UsersController extends AppController {
 			$this->User->saveField('dt_last_logout', GMT_DATETIME);
 			if($this->isiPad() && HTTP_ROOT!=HTTP_APP){
 				$retval = $this->Auth->logout();
-				$this->redirect(HTTP_APP.'users/logout');exit;
+                $this->redirect(HTTP_APP . 'users/logout');
+                exit;
 			}
 		}
 		$retval = $this->Auth->logout();
@@ -1918,10 +1905,12 @@ class UsersController extends AppController {
 				if($id == 'emailUpdate'){
 					return true;
 				}else{
-					$this->redirect(HTTP_ROOT.'users/login');exit;
+                    $this->redirect(HTTP_ROOT . 'users/login');
+                    exit;
 				}
 			}else{
-				$this->redirect(HTTP_HOME);exit;
+                $this->redirect(HTTP_HOME);
+                exit;
 			}
 		}
 	}
@@ -2097,8 +2086,7 @@ class UsersController extends AppController {
 		$userdata = $this->User->findById(SES_ID);
 		$this->set('userdata', $userdata);
 	}
-	function jquery_multi_autocomplete_data()
-	{
+    function jquery_multi_autocomplete_data() {
 		$this->layout='ajax';
 		
 		$uniqid = $_GET['project'];
@@ -2114,8 +2102,7 @@ class UsersController extends AppController {
 	}
 
 
-	function search_project_menu()
-	{
+    function search_project_menu() {
 		$this->layout='ajax';
 		$page = $this->params['data']['page'];//echo $page;
 		$val = $this->params['data']['val'];
@@ -2174,9 +2161,9 @@ class UsersController extends AppController {
 		$this->set('val',$val);
 		$fres=1;
 		$this->set('fres',$fres);
-		if($val=="" || $countAll==0)
-		{
-			$fres=0;$this->set('fres',$fres);
+        if ($val == "" || $countAll == 0) {
+            $fres = 0;
+            $this->set('fres', $fres);
 		}
 	}
      
@@ -2203,7 +2190,8 @@ class UsersController extends AppController {
 			    }
 			    $prjId = implode(",", $project_id);
 			    $UserInvitation->query("Update user_invitations SET project_id='".$prjId."' WHERE user_id='".$userid."'");
-			    echo "removed";exit;
+                    echo "removed";
+                    exit;
 			}
 			
 			$qry1 = '';
@@ -2227,14 +2215,16 @@ class UsersController extends AppController {
 			$ProjectUser = ClassRegistry::init('ProjectUser');
 			$ProjectUser->unbindModel(array('belongsTo' => array('Project')));			
 			$ProjectUser->query("DELETE FROM project_users WHERE user_id='".$userid."' AND project_id='".$project_id."'");
-			echo "removed";exit;
+                echo "removed";
+                exit;
 		    }
 		    if(isset($this->request->data['comp_id']) && $this->request->data['comp_id']) { 
 			    $comp_id = $this->request->data['comp_id'];
 			    $ProjectUser = ClassRegistry::init('ProjectUser');
 			    $ProjectUser->unbindModel(array('belongsTo' => array('Project')));			
 			    $ProjectUser->query("DELETE FROM project_users WHERE user_id='".$userid."' AND company_id='".$comp_id."'");
-			    echo "removedAll";exit;
+                echo "removedAll";
+                exit;
 		    }
 		    $project_list = $this->ProjectUser->query("SELECT DISTINCT projects.id,projects.name,projects.short_name,project_users.id,project_users.default_email,project_users.user_id FROM projects, project_users  WHERE  projects.id= project_users.project_id AND project_users.user_id=".$userid." AND project_users.company_id=".SES_COMP.$qry." ORDER BY projects.name");
 		}
@@ -2245,12 +2235,12 @@ class UsersController extends AppController {
 		$this->set('count',count($project_list));
 		$this->set('is_invite_user',$is_invite_user);
 	}
-	function add_project()
-	{
+    function add_project() {
 		$this->layout='ajax';
 		$user_id = $this->request->data['uid'];
 		if(isset($this->request->data['count']) && $this->request->data['count']){
-		$count1 = $this->request->data['count'];}
+            $count1 = $this->request->data['count'];
+        }
 		$query = "";
 		if(isset($this->request['data']['name']) && trim($this->request['data']['name'])) {
 			$srchstr = addslashes($this->request['data']['name']);
@@ -2264,7 +2254,9 @@ class UsersController extends AppController {
 		    $inviteuser = $UserInvitation->query("SELECT user_invitations.project_id FROM user_invitations,users WHERE user_invitations.user_id IN (".$user_id.") AND user_invitations.user_id = users.id AND user_invitations.company_id='".SES_COMP."' LIMIT 1");
 		    if(isset($inviteuser) && !empty($inviteuser['0']['user_invitations']['project_id'])) {
 			$project_id = explode(",", $inviteuser['0']['user_invitations']['project_id']);
-			$qry = '1 ';$extqry = ''; $cnt = 1;
+                $qry = '1 ';
+                $extqry = '';
+                $cnt = 1;
 			foreach ($project_id as $key => $value) {
 			    $qry = $qry." AND projects.id != '".$value."'";
 			   	if(count($project_id) == $cnt) {
@@ -2577,23 +2569,21 @@ class UsersController extends AppController {
 				$this->Easycase->query($sql);
 				//echo $sql."<hr/>";
 			}
-		}echo "success";exit;
+        }echo "success";
+        exit;
 	}
 	
 	
 	
 	
 	
-	function _check_email_exist($email = null)
-	{
+    function _check_email_exist($email = null) {
 		$this->loadmodel('BetaUser');
 		$betauser = $this->BetaUser->findByEmail($email);
 		$user = $this->User->find('first',array('conditions' =>array('email' => $email)));
 		if(!empty($user)){
 			return 'User already exists!';
-		}
-
-		else if(!empty($betauser)){
+        } else if (!empty($betauser)) {
 			$msg = '';
 			if($betauser['BetaUser']['is_approve'] == 1){
 				$msg = 'Approved Betauser';
@@ -2601,10 +2591,7 @@ class UsersController extends AppController {
 				$msg = 'Disapproved Betauser';
 			}
 			return $msg;
-		}
-
-		else
-		{
+        } else {
 			return true;
 		}
 		
@@ -2864,7 +2851,8 @@ class UsersController extends AppController {
 		$this->layout='ajax';
 		$cookiename = $this->data['cookiename'];
 		setcookie($cookiename.SES_ID,1,time()+(7*24*60*60),'/',DOMAIN_COOKIE,false,false);
-		echo 1;exit;
+        echo 1;
+        exit;
 	}
         
 	function check_fordisabled_user(){
@@ -2888,9 +2876,11 @@ class UsersController extends AppController {
 		)),
 		'fields'=>array('User.id','User.email')));
 		if($userlist){
-			echo implode(',', $userlist);exit;
+            echo implode(',', $userlist);
+            exit;
 		}else{
-			echo '1';exit;
+            echo '1';
+            exit;
 		}
 		//print_r($userlist);exit;
 	}
@@ -2907,9 +2897,11 @@ class UsersController extends AppController {
 			$data['User']['active_dashboard_tab']= $tabvalue;
 			if($this->User->save($data)){
 				define('ACT_TAB_ID',$tabvalue);
-				echo '1';exit;
+                echo '1';
+                exit;
 			}else{
-				echo '0';exit;
+                echo '0';
+                exit;
 			}
 		}else{
 			$this->redirect(HTTP_ROOT);
@@ -2971,43 +2963,51 @@ class UsersController extends AppController {
 								if($this->PhpMailer->sendPhpMailerTemplate($this->Email)){
 									$arr['msg']='succ';
 									$arr['qstr'] = $qstr;
-									echo json_encode($arr);exit;
+                                echo json_encode($arr);
+                                exit;
 								}
 							}else{
 								if($this->Sendgrid->sendgridsmtp($this->Email)){
 									$arr['msg']='succ';
 									$arr['qstr'] = $qstr;
-									echo json_encode($arr);exit;
+                                echo json_encode($arr);
+                                exit;
 								}else{
 									$arr['msg']='err';
 									$arr['type'] = 'Mail not sent';
-									echo json_encode($arr);exit;
+                                echo json_encode($arr);
+                                exit;
 								}
 							}
 						}Catch(Exception $e){ 
 							$arr['msg']='err';
 							$arr['type'] = 'Error sending email';
-							echo json_encode($arr);exit;
+                        echo json_encode($arr);
+                        exit;
 						}
 				}else{
 					$arr['msg']='err';
 					$arr['type'] = 'datasave_err';
-					echo json_encode($arr);exit;
+                    echo json_encode($arr);
+                    exit;
 				}
 			}else{
 				$arr['msg']='err';
 				$arr['type'] = 'Wrong query string';
-				echo json_encode($arr);exit;
+                echo json_encode($arr);
+                exit;
 			}
 		}else{
 			$arr['msg']='err';
 			$arr['type'] = 'Not Allowed';
-			echo json_encode($arr);exit;
+            echo json_encode($arr);
+            exit;
 		}
 	}
 
-	function onbording_inviteuser(){}
+    function onbording_inviteuser() {
 
+    }
 	
 function show_preview_img(){
 	$this->layout='ajax';
@@ -3023,7 +3023,10 @@ function show_preview_img(){
 			
 		$file_path = WWW_ROOT.'files/profile/orig/';
 	
-		$newFileName = ""; $updateData = ""; $message = "success"; $displayname = "";
+            $newFileName = "";
+            $updateData = "";
+            $message = "success";
+            $displayname = "";
 		//$allowedSize = MAX_FILE_SIZE*1024;
 	
 		//move_uploaded_file($tmp_name,$file_path.$name);
@@ -3157,8 +3160,7 @@ function done_cropimage(){
 				$this->request->data['User']['desk_notify'] = 0;
 			}
 			$this->User->save($this->request->data['User']);
-			if(isset($this->request->data['UserNotification']))
-			{	
+            if (isset($this->request->data['UserNotification'])) {
 				$this->request->data['UserNotification']['user_id'] = SES_ID;
 				$this->request->data['UserNotification']['id'] = $getAllNot['UserNotification']['id'];
 				$UserNotification->save($this->request->data['UserNotification']);
@@ -3181,14 +3183,12 @@ function done_cropimage(){
 		$this->set('getAllNot',$getAllNot);
 		if($this->request->data && $_SESSION['CSRFTOKEN'] == trim($this->request->data['UserNotification']['csrftoken'])) {
 //			pr($this->request);exit;
-			if(isset($this->request->data['UserNotification']))
-			{	
+            if (isset($this->request->data['UserNotification'])) {
 				$this->request->data['UserNotification']['user_id'] = SES_ID;
 				$this->request->data['UserNotification']['id'] = $getAllNot['UserNotification']['id'];
 				$UserNotification->save($this->request->data['UserNotification']);
 			}	
-			if(isset($this->request->data['DailyupdateNotification']))
-			{	
+            if (isset($this->request->data['DailyupdateNotification'])) {
 				$data['DailyupdateNotification']['id'] = $getAllDailyupdateNot['DailyupdateNotification']['id'];
 				$data['DailyupdateNotification']['user_id'] = SES_ID;
 				$data['DailyupdateNotification']['status'] = 0;
@@ -3221,8 +3221,7 @@ function done_cropimage(){
 
 		if (isset($this->request->data['Company']) && $_SESSION['CSRFTOKEN'] == trim($this->request->data['Company']['csrftoken'])) {
             
-			if(trim($this->request->data['Company']['name']) == "")
-			{
+            if (trim($this->request->data['Company']['name']) == "") {
 				$this->Session->write("ERROR","Name cannot be left blank");
 				$this->redirect(HTTP_ROOT."users/mycompany");
 			}else{
@@ -3278,7 +3277,8 @@ function done_cropimage(){
 	function validate_emailurl(){
 		$this->layout='ajax';
 		$data = $this->User->validate_emailurl($this->data);
-		echo json_encode($data);exit;
+        echo json_encode($data);
+        exit;
 	}
        
 	function ajax_assignedproject_delete(){
@@ -3296,9 +3296,11 @@ function done_cropimage(){
 						}
 						$prjId = implode(",", $project_id);
 						$this->UserInvitation->query("Update user_invitations SET project_id='".$prjId."' WHERE user_id='".$this->params['data']['userId']."'");
-						echo "success";exit;
+                        echo "success";
+                        exit;
 					}else{
-						echo 'error';exit;
+                        echo 'error';
+                        exit;
 					}
 				}
 		  	}else{
@@ -3318,8 +3320,7 @@ function done_cropimage(){
 		}	  
         exit;
 	}
-	function generateMsgAndSendUsMail($pjnames,$userid,$projUniqId,$comp)
-	{
+    function generateMsgAndSendUsMail($pjnames, $userid, $projUniqId, $comp) {
                 $User_id=$this->Auth->user('id');
                 $this->loadModel('User');
                 $rec=$this->User->findById($User_id);
@@ -3333,7 +3334,8 @@ function done_cropimage(){
 		
 		##### get User Details
 		$toUsrArr = $csQuery->getUserDtls($userid);
-		$to = ""; $to_name = "";
+        $to = "";
+        $to_name = "";
 		if(count($toUsrArr)) {
 			$to = $toUsrArr['User']['email'];
 			$to_name = $frmtHlpr->formatText($toUsrArr['User']['name']);
@@ -3343,8 +3345,7 @@ function done_cropimage(){
 		if(stristr($pjnames,",")) {
 			$multiple = 1;
 			$subject = "You have been added to multiple projects on Orangescrum";
-		}
-		else {
+        } else {
 			$subject = "You have been added to ".$pjnames." on Orangescrum";
 		}
 		

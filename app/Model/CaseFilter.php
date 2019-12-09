@@ -8,4 +8,3 @@ class CaseFilter extends AppModel{
 						)
 					);
 }
-?>

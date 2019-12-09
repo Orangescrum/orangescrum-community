@@ -69,4 +69,3 @@ class UserSubscription extends AppModel{
 		return $data;
 	}
 }
-

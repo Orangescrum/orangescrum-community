@@ -107,4 +107,3 @@ class SendgridComponent extends EmailComponent
 	}
 
 }
-?>

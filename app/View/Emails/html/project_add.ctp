@@ -16,10 +16,10 @@
 								<p><?php echo ucfirst($from_name); ?>  added you to project <b><?php echo $projName;?></b> on <?php echo ucfirst($company_name)?>.</p>
 								
 								<p>Click on the below button to read the original message, view comments, reply & download attachments.</p>
-								<?php if(!$multiple) { 
+                                            <?php
+                                            if (!$multiple) {
 									$button = "Go to Project";
-								}
-								else {
+                                            } else {
 									$button = "Go to Projects";
 								}
 								?>
@@ -38,7 +38,12 @@
                         <tr>
                             <td width="100%" bgcolor="#ffffff" style="text-align:center;">
                             	<p style="color:#222222; font-family:Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; margin-top:0; padding:0; font-weight:normal;padding-top:5px;">
-									<?php echo NEW_EMAIL_FOOTER; ?>
+                                                <?php
+                                                    if(defined('NEW_EMAIL_FOOTER')){
+                                                        echo NEW_EMAIL_FOOTER;
+                                                    }
+                                                     
+                                                ?>
 
 									You are receiving this email notification because you have subscribed to Orangescrum, to unsubscribe, please email with subject 'Unsubscribe' to <a href='mailto:support@orangescrum.com'>support@orangescrum.com</a>
 									

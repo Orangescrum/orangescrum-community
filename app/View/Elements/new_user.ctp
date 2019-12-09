@@ -1,10 +1,7 @@
-<?php 
-echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myform', 'name' => 'myform', 'onsubmit' => 'return memberCustomer(\'txt_email\',\'sel_custprj\',\'loader\',\'btn\')')); ?>
-<center><div id="err_email_new" style="color:#FF0000;display:none;"></div></center>
+<?php echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myform', 'name' => 'myform', 'onsubmit' => 'return memberCustomer(\'txt_email\',\'sel_custprj\',\'loader\',\'btn\')')); ?>
 <div class="data-scroll user_pdt">
 <table cellpadding="0" cellspacing="0" class="col-lg-12 new_auto_tab">
-	<?php
-	if(USE_GOOGLE == 1) { ?>
+        <?php if (USE_GOOGLE == 1) { ?>
     <tr>
 	<td class="v-top">	    
 	</td>
@@ -22,7 +19,8 @@ echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myfo
 	<td> 
 	    <?php echo $this->Form->textarea('email', array('id' => 'txt_email', 'class' => 'form-control')); ?>
 	    <input type="hidden" name="data[User][istype]" value="3" id="sel_Typ"/>
-	    <div class="user_inst">(Use comma to separate multiple email ids)</div>
+                <div id="err_email_new" class="err_msg"></div>
+                <!--<div class="user_inst">(Use comma to separate multiple email ids)</div>-->
 		<?php /*?><br/>
 		<br/>
 		<button type="button" class="new_drop_btn" onclick="googleConnect(0);">
@@ -33,6 +31,16 @@ echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myfo
 		<br/><?php */?>
 	</td>
     </tr>
+        <tr>
+            <td class="v-top">
+                Password:
+            </td>
+            <td>
+                <input type="password" name="data[User][password]" id="password" class="form-control" style="width:352px;">
+                
+                <div id="err_password_new" class="err_msg"></div>
+            </td>
+        </tr>
 	<?php if ($is_active_proj >= 1) { ?>
     <tr>
 	<td class="v-top">

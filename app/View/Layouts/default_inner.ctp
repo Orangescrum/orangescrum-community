@@ -101,8 +101,8 @@ if(!defined('USE_LOCAL') || (defined('USE_LOCAL') && USE_LOCAL==0)) {
 	});
     </script>
 	<?php
-	
-	if(GA_CODE == 1){?>
+        if(defined('GA_CODE')){
+            if(GA_CODE == 1){?>
 	<!-- GA CODE -->
     <script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -117,6 +117,8 @@ if(!defined('USE_LOCAL') || (defined('USE_LOCAL') && USE_LOCAL==0)) {
 	</script>
 	<?php
 	}
+            
+        }
 	?>
 </body>
 </html>

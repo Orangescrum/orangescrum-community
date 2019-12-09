@@ -655,5 +655,4 @@ class MilestonesController extends AppController {
 	     }
 	     echo 1;exit;
 	}
-}   
-
+}

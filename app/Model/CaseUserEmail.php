@@ -19,7 +19,4 @@ class CaseUserEmail extends AppModel {
 	    return $this->find('list', array('conditions' => array('CaseUserEmail.easycase_id' => $easyCaseId, 'CaseUserEmail.ismail' => 1), 'fields' => array('CaseUserEmail.user_id')));
 	}
     }
-
 }
-
-?>

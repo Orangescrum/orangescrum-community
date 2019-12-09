@@ -14,4 +14,3 @@ class Subject extends AppModel{
 		return $subjectname['Subject']['subject_name'];
 	}
 }
-?>

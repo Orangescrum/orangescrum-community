@@ -130,4 +130,3 @@ class DefaultTemplate extends AppModel{
 		$caseTemplateModel->saveAll($caseTemplates);
 	}
 }
-?>

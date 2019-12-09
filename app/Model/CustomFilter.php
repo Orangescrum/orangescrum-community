@@ -8,4 +8,3 @@ class CustomFilter extends AppModel{
 						)
 					);
 }
-?>

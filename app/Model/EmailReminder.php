@@ -31,4 +31,3 @@ class EmailReminder extends AppModel{
 	    $this->save($reminder);
 	}
 }
-?>

@@ -1,14 +1,54 @@
 <?php ?>
 <style type="text/css">
-	#show_milestonelist .kanban-main .kanban-child{width:353px}
-	#show_milestonelist .kbtask_div{width:95%}
+    #show_milestonelist .kanban-main .kanban-child{width:353px}
+    #show_milestonelist .kbtask_div{width:95%}
 </style>
 <div id="detail_section"></div>
 <div class="page-wrapper task_section" style="text-align: center;" id="filter_section">
-	<div class="row"   id="filter_div_menu">
-	<div class="filters">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="fl" id="filtered_items" style="padding-left:10px;" ></div>
+        </div>
+        <div class="col-md-4">
+            <div class="fl" id="groupby_items"></div>
+        </div>
+        <div class="col-md-4">
+            <div class="fl" id="sortby_items"></div>
+        </div>
+    </div>
+    <br>
+    <div class="row"   id="filter_div_menu">
+        <div class="col-md-12">
+           <div class="filters float-rt">
 <!--		<i class="db-filter-icon fl"></i>
 		<div class="fl ftext">Filters:&nbsp;</div>-->
+            <div class="filter_btn_section fl" id="savereset_filter">
+                <!--				<div style="display:none;" id="savefilter_btn" class="fl"  >
+                                                        <div class="db-filter-save-icon fl" onClick="showSaveFilter();" title="Save Filter" rel="tooltip"></div>
+                                                         <div id="inner_save_filter" class="sml_popup_bg">
+                                                                <div>
+                                                                        <div class="popup_title smal">
+                                                                                <span>Save Custom Filter</span>
+                                                                        </div>
+                                                                        <div class="popup_form smal_form">
+                                                                            <table cellpadding="0" cellspacing="0" class="col-lg-12" id="inner_save_filter_td">
+                                                                                        <tr>
+                                                                                                <td colspan="2">
+                                                                                                        <span id="loaderpj" style="display:block;">
+                                                                                                                <center>
+                                                                                                                <img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." />
+                                                                                                                </center>
+                                                                                                        </span>
+                                                                                                </td>
+                                                                                        </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                </div>
+                                                         </div>
+                                                </div>-->
+                <button class="btn btn-default pad-3" style="display:none;"  id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"><img src="<?php echo HTTP_ROOT.'img/icons/reset.png';?>"></button>
+                <!--<div class="fl db-filter-reset-icon" style="display:none;" id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"></div>-->
+            </div>   
 		<div class="fl task_section case-filter-menu " data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_all_filters');">
 			<button type="button" class="btn tsk-menu-filter-btn flt-txt">
 					<i class="icon_flt_img"></i>
@@ -69,34 +109,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="fl" id="filtered_items" style="padding-left:10px;" ></div>
 		<!-- Filter options ends-->
-		<div class="filter_btn_section fl" id="savereset_filter">
-<!--				<div style="display:none;" id="savefilter_btn" class="fl"  >
-					<div class="db-filter-save-icon fl" onClick="showSaveFilter();" title="Save Filter" rel="tooltip"></div>
-					 <div id="inner_save_filter" class="sml_popup_bg">
-						<div>
-							<div class="popup_title smal">
-								<span>Save Custom Filter</span>
-							</div>
-							<div class="popup_form smal_form">
-							    <table cellpadding="0" cellspacing="0" class="col-lg-12" id="inner_save_filter_td">
-									<tr>
-										<td colspan="2">
-											<span id="loaderpj" style="display:block;">
-												<center>
-												<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." />
-												</center>
-											</span>
-										</td>
-									</tr>
-							    </table>
-							</div>
-						</div>
-					 </div>
-				</div>-->
-				<div class="fl db-filter-reset-icon" style="display:none;" id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"></div>
-		   </div>
 			<div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
 			<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt" >
 					<i class="icon_groupby_img"></i>Group by<i class="icon-filter-right"></i>
@@ -120,7 +133,6 @@
 				</li>
 			</ul>
 		</div>
-		<div class="fl" id="groupby_items"></div>
 		<div class="fl task_section case-filter-menu tasksortby-div " data-toggle="dropdown" >
 		<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt sortby_btn <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disable-btn<?php }?> " onclick="openfilter_popup(0,'dropdown_menu_sortby_filters');" <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disabled="disabled"<?php }?>>
 				<i class="icon_sortby_img"></i>Sort by<i class="icon-filter-right"></i>
@@ -142,10 +154,10 @@
 
 		</ul>
 	</div>
-	<div class="fl" id="sortby_items"></div>
 		   <div class="cb"></div>
 	  </div>
 	</div>
+    </div>
 	<div class="cb"></div>
 	<!-- /.row --><!-- Task filters -->
 </div><!-- /.page-wrapper -->
@@ -162,11 +174,18 @@
 		    foreach ($tablists AS $tabkey => $tabvalue) {
 			if ($tabkey & ACT_TAB_ID) {
 			    $default_actv = "";
-			    if($tabvalue["fkeyword"] == "cases") { $tab_spn_id = "tskTabAllCnt"; $default_actv = "active";}
-				elseif($tabvalue["fkeyword"] == "assigntome") { $tab_spn_id = "tskTabMyCnt"; }
-				elseif($tabvalue["fkeyword"] == "delegateto") { $tab_spn_id = "tskTabDegCnt"; }
-				elseif($tabvalue["fkeyword"] == "highpriority") { $tab_spn_id = "tskTabHPriCnt"; }
-				elseif($tabvalue["fkeyword"] == "overdue") { $tab_spn_id = "tskTabOverdueCnt"; }
+                                if ($tabvalue["fkeyword"] == "cases") {
+                                    $tab_spn_id = "tskTabAllCnt";
+                                    $default_actv = "active";
+                                } elseif ($tabvalue["fkeyword"] == "assigntome") {
+                                    $tab_spn_id = "tskTabMyCnt";
+                                } elseif ($tabvalue["fkeyword"] == "delegateto") {
+                                    $tab_spn_id = "tskTabDegCnt";
+                                } elseif ($tabvalue["fkeyword"] == "highpriority") {
+                                    $tab_spn_id = "tskTabHPriCnt";
+                                } elseif ($tabvalue["fkeyword"] == "overdue") {
+                                    $tab_spn_id = "tskTabOverdueCnt";
+                                }
 			    ?>
 			<li class="<?php echo $default_actv;?>">
 				<a class="cattab"  id="<?php echo $tabvalue["fkeyword"]; ?>_id" onclick="caseMenuFileter('<?php echo $tabvalue["fkeyword"]; ?>', 'dashboard', 'cases', '');" data-toggle="tab">

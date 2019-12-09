@@ -30,13 +30,13 @@
                 <div class="cbt"></div>
                 </a>
             </li>
-            <li id="file_li" <?php if($role == 'invited'){?>class="active" <?php }?>>
+            <!--<li id="file_li" <?php //if($role == 'invited')//{?>class="active" <?php //}?>>
                 <a href="javascript:void(0);" onclick="filterUserRole('invited','<?php echo $user_srch;?>');">
                 <div class="usrr_invt fl"></div>
-                <div class="fl">Invited<span class="counter">(<?php echo $invited_user_cnt;?>)</span></div>
+                <div class="fl">Invited<span class="counter">(<?php //echo $invited_user_cnt;?>)</span></div>
                 <div class="cbt"></div>
                 </a>
-            </li>
+            </li>-->
             <li id="task_li" <?php if($role == 'disable'){?>class="active" <?php }?>>
                 <a href="javascript:void(0);" onclick="filterUserRole('disable','<?php echo $user_srch;?>');">
                 <div class="usrr_disbl fl"></div>
@@ -55,7 +55,7 @@
 		<div class="col-lg-12 contain new_prjct user_inv text-centre">
 		    <a href="javascript:void(0);" onClick="newUser()" style="display: block !important;padding: 55px;">
 				<div class="icon-projct-gridvw"></div>
-				Invite Users
+				Add Users
 			</a>
 		</div>
 	</div>

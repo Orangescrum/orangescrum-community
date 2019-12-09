@@ -2374,7 +2374,7 @@ easycase.routerHideShow = function(page){
 		$('#milestone_content').show();
 		$('#manage_milestone').hide();
 		$('#milestonelisting').show();
-		$('#mlist_crt_mlstbtn').show();
+		//$('#mlist_crt_mlstbtn').show();
 		$(".slide_rht_con").css({'padding':"40px 0 35px 43px"});
 	}else { //show task list
 		$('.kanban_section').hide();

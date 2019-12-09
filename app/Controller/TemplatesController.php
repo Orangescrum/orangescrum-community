@@ -395,10 +395,20 @@ class TemplatesController extends AppController {
 				$this->request->data['CaseTemplate']['description'] = $this->request->data['tempDesc'];
 				$this->request->data['CaseTemplate']['user_id'] = $this->Auth->User('id');
 				$this->request->data['CaseTemplate']['company_id']=SES_COMP;
-				
-				if($this->request->data['tempId'] && $this->request->data['tempId'] == '') //Coding for ADD the task templates
-				{
-				   $task = $this->CaseTemplate->find('count',array('conditions' => array('CaseTemplate.user_id' =>$this->Auth->User('id'), 'CaseTemplate.name' => $this->params->data['title'],'CaseTemplate.company_id'=>SES_COMP)));	
+
+				 //Code for EDIT the task template
+				 if($this->request->data['tasktempId']){
+					if(trim($this->request->data['tasktempId'])) {
+						unset($this->request->data['CaseTemplate']['user_id']);
+					}
+					$this->CaseTemplate->id = $this->request->data['tasktempId'];
+					if($this->CaseTemplate->save($this->request->data)){
+						echo "2";
+					}else{
+						echo "3";
+					}
+				}else{
+					$task = $this->CaseTemplate->find('count',array('conditions' => array('CaseTemplate.user_id' =>$this->Auth->User('id'), 'CaseTemplate.name' => $this->params->data['title'],'CaseTemplate.company_id'=>SES_COMP)));	
 				   if($task == 0){
 						if($this->CaseTemplate->save($this->request->data)){
 							echo "1";
@@ -407,20 +417,10 @@ class TemplatesController extends AppController {
 						}
 					}else{
 						echo "4";
-					}	
-				}else{ //Code for EDIT the task template
-					if($this->request->data['tasktempId']){
-						if(trim($this->request->data['tasktempId'])) {
-							unset($this->request->data['CaseTemplate']['user_id']);
-						}
-						$this->CaseTemplate->id = $this->request->data['tasktempId'];
-						if($this->CaseTemplate->save($this->request->data)){
-							echo "2";
-						}else{
-							echo "3";
-						}
 					}
+					
 				}
+				
 		    }
 	    }	  
 		exit;
@@ -459,5 +459,4 @@ class TemplatesController extends AppController {
 			$this->redirect(HTTP_ROOT."templates/tasks");
 		}
 	}
-}	
-?>
+}

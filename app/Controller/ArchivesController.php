@@ -407,4 +407,3 @@ class ArchivesController extends AppController {
 		
 	}
 }
-?>

@@ -29,5 +29,3 @@ class TypeCompany extends AppModel {
     }
 
 }
-
-?>

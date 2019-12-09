@@ -1069,6 +1069,7 @@ function glide_chart(){
 		$wip_report = $this->Easycase->query("SELECT DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND (Easycase.legend='2' || Easycase.legend='4') AND Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY DATE(Easycase.actual_dt_created) ");
 		$wip_report = $this->convertinto_array($wip_report);
 		
+		$dev_report=[];
 		
 		$resolved_report = $this->Easycase->query("SELECT ROUND(type_id) AS tid ,DATE(Easycase.actual_dt_created) AS cdate,COUNT(Easycase.id) as count FROM easycases as Easycase WHERE Easycase.istype='1' AND  Easycase.isactive='1' AND Easycase.legend='5'  AND Easycase.project_id!=0 AND Easycase.project_id='".$proj_id."' AND ( DATE(Easycase.actual_dt_created) >= '".$dt_arr[0]."' AND DATE(Easycase.actual_dt_created) <= '".$dt_arr[$x]."') GROUP BY Easycase.type_id,DATE(Easycase.actual_dt_created) ");
 		
@@ -1143,4 +1144,3 @@ function glide_chart(){
 	}   
 
 }
-?>

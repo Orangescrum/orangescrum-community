@@ -73,7 +73,7 @@ class TmzoneHelper extends AppHelper {
 			
 			
 			
-			$time = $gmt_hour * 60 + $gmt_minute + $gmt_offset + $dst_offset;
+			$time = (integer)$gmt_hour * 60 + $gmt_minute + $gmt_offset + $dst_offset;
 			if($type == "datetime")
 			{
 				return date('Y-m-d H:i:s', mktime($time / 60, $time % 60, $gmt_secs, $exp_d[1], $exp_d[2], $exp_d[0]));

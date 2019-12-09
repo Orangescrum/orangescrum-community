@@ -5,7 +5,7 @@
 .label{font-weight:normal;}
 </style>
 <% if(!error){ %>
-<% $('#mlist_crt_mlstbtn').show(); %>
+<% %>
 <div class="kanban-main">
 	<%
         var rec_ids=new Array();
@@ -435,7 +435,7 @@
 	<div class="icon_con icon-no-milestone"></div>
 	<h2>
 		<%
-			$('#mlist_crt_mlstbtn').hide();
+			
 			if(total_exist){
 				if(mile_type == '1'){
 		%>

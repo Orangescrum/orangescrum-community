@@ -13,4 +13,3 @@ class Help extends AppModel{
 		return $searchdata;
 	}
 }
-?>

@@ -2,4 +2,3 @@
 class SaveReport extends AppModel{
 	var $name = 'SaveReport';
 }
-?>

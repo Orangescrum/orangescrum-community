@@ -12,4 +12,3 @@ class Company extends AppModel{
            )
     );*/
 }
-?>

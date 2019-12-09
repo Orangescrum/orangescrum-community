@@ -89,5 +89,4 @@ class CaseSettingsController extends AppController {
 				}
 			}
 	}
-}   
-?>
+}

@@ -1,5 +1,5 @@
 <?php $userArr = $GLOBALS['projOwnAdmin']; ?>
-<center><div id="err_msg" style="color:#FF0000;display:none;"></div></center>
+
 <?php  echo $this->Form->create('Project',array('url'=>'/projects/add_project','name'=>'projectadd','onsubmit'=>'return projectAdd(\'txt_Proj\',\'txt_shortProj\',\'loader\',\'btn\')')); ?>
     <div class="data-scroll">
     <table cellpadding="0" cellspacing="0" class="col-lg-12">
@@ -7,14 +7,15 @@
 	    <td class="popup_label">Project Name:</td>
 	    <td>
 		<?php echo $this->Form->text('name',array('value'=>'','class'=>'form-control','id'=>'txt_Proj','placeholder'=>"My Project",'maxlength'=>'50')); ?>
-		
+		<div id="err_msg_project_name"  class="err_msg"></div>
 	    </td>
 	</tr>
 	<tr>
 	    <td>Short Name:</td>
 	    <td>
 		<?php echo $this->Form->text('short_name', array('value' => '', 'class' => 'form-control ttu', 'id' => 'txt_shortProj','placeholder'=>"MP",'maxlength'=>'5')); ?>
-		<span id="ajxShort" style="display:none">
+		<div id="err_msg_short_name" class="err_msg"></div>
+                <span id="ajxShort" style="display:none">
 		    <img src="<?php echo HTTP_IMAGES; ?>images/del.gif" width="16" height="16"/>
 		</span>
 		<span id="ajxShortPage"></span>
@@ -50,7 +51,7 @@
 		</div>
 		<textarea id="members_list"  class="wickEnabled form-control expand" rows="2" wrap="virtual" name="data[Project][members_list]"></textarea>
 		<div class="user_inst">(Use comma to separate multiple email ids)</div>
-		<div id="err_mem_email" style="display: none;color: #FF0000;"></div>
+                <div id="err_mem_email" class="err_msg"></div>
 		<div id="autopopup"></div>
 	    </td>
 	</tr>

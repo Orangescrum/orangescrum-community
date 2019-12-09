@@ -1585,4 +1585,3 @@ function getSqlFields($arr, $prj_unq_id) {
         return $string;
     }
 }
-?>

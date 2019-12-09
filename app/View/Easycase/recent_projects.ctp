@@ -22,6 +22,8 @@
 		    $clr = 'green';
 		}
 		
+                
+                
 		$locDT = $this->Tmzone->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, $value['Project']['dt_created'], "date");
 		$gmdate = $this->Tmzone->GetDateTime(SES_TIMEZONE, TZ_GMT, TZ_DST, TZ_CODE, GMT_DATE, "date");
 		$created = $this->Datetime->dateFormatOutputdateTime_day($locDT, $gmdate,"date");

@@ -249,7 +249,7 @@ if(CONTROLLER == "users" && (PAGE_NAME == "upgrade_member")) { ?>
 		<a href="<?php echo HTTP_ROOT.'dashboard#milestone';?>" onclick="checkHashLoad('milestone');" ><div id="mlview_btn" class="btn gry_btn kan30" title="Manage Milestone"><i class="icon-list-view"></i></div></a>
 		<a href="<?php echo HTTP_ROOT.'dashboard#milestonelist';?>" onclick="checkHashLoad('milestonelist');"><div id="mkbview_btn" class="btn gry_btn kan30" style="border-radius:0 3px 3px 0"  title="Milestone Kanban View"><i class="icon-kanv-view"></i></div></a>
 		<!--<a href="javascript:void(0);" onclick="addEditMilestone(this);" id="mlist_crt_mlstbtn" class="mlstlink_new" data-name="" data-uid="" data-id="">Create Milestone</a>-->
-		<button style="margin-left:25px;" onclick="addEditMilestone(this);" id="mlist_crt_mlstbtn" type="button" value="Create Milestone" class="btn btn_blue">    Create Milestone   </button>
+		<button style="margin-left:25px;display: none;" onclick="addEditMilestone(this);" id="mlist_crt_mlstbtn" type="button" value="Create Milestone" class="btn btn_blue">    Create Milestone   </button>
 	</li>
 	
 </ol>

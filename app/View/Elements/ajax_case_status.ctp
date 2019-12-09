@@ -109,7 +109,7 @@ if(getCookie('CURRENT_FILTER') == 'closecase') {
 	<% } %>	
 	
 		<a href="javascript:void(0);"  <% if(!disabled) { %> onclick="statusTop(3);" <% } %> style="padding-left:12px;position:relative">
-        <i class="help-icon f-tab" title="<%= title %>" rel="tooltip"></i>
+        
         <span class="num3"><%= cls %>/<%= al %></span>&nbsp;Closed<%= fill %>
     </a>
     </div>

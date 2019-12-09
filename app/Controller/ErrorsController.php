@@ -46,4 +46,3 @@ class ErrorsController extends AppController {
         //$this->layout = 'default';
     }
 }
-?>

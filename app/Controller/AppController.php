@@ -358,7 +358,7 @@ class AppController extends Controller {
             }
 
             ##### Set Timezone Variables
-            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('recent_projects','recent_milestones','statistics','usage_details','task_progress','leader_board'))) {
+            if(PAGE_NAME != 'image_thumb' && PAGE_NAME != 'project_menu' && PAGE_NAME != 'search_project_menu' && PAGE_NAME != 'ajax_case_menu' && !in_array(PAGE_NAME,array('recent_milestones','statistics','usage_details','task_progress','leader_board'))) {
                 $this->loadModel('Timezone');
                 $timezn = $this->Timezone->find('first', array('conditions'=>array('Timezone.id' => SES_TIMEZONE), 'fields' => array('Timezone.gmt_offset','Timezone.dst_offset','Timezone.code')));
 
@@ -1250,6 +1250,5 @@ class AppController extends Controller {
             return 0;
         }
     }
-
-    
+ 
 }

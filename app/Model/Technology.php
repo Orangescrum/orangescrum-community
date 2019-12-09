@@ -9,4 +9,3 @@ class Technology extends AppModel{
 						)
 					); 
 }
-?>

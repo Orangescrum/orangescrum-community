@@ -43,17 +43,37 @@ if ($is_active_proj || (SES_TYPE == 3)) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo HTTP_ROOT . Configure::read('default_action'); ?>"></a>
+        <a class="navbar-brand" href="<?php echo HTTP_ROOT . Configure::read('default_action'); ?>"><img src="<?php echo HTTP_ROOT.'img/logo.png'?>"></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <?php if (PAGE_NAME != "help" && PAGE_NAME != "tour" && PAGE_NAME != "customer_support") { ?>
             <ul class="nav navbar-nav side-nav">
                 <?php if (ACCOUNT_STATUS != 2) { //$is_active_proj && ACCOUNT_STATUS!=2  ?>
-                    <?php if ($is_active_proj) { ?>
+                    <?php 
+                        if ($is_active_proj) { 
+                            if (CONTROLLER == "easycases" && (PAGE_NAME == "mydashboard")) {
+                        ?>
+                            <li class="new_task_li">
+                            <button class="btn new_task" type="button" onclick=""><i class="icon-new-task"></i>Create Project</button>
+                        </li>
+                        <?php
+                                    
+                            }else if(CONTROLLER == "projects" && PAGE_NAME == "manage"){
+                         ?>
+                        <li class="new_task_li">
+                            <button class="btn new_task" type="button" onclick=""><i class="icon-new-task"></i>Create Project</button>
+                        </li>
+                        <?php
+                                
+                            }else{
+                         ?>
                         <li class="new_task_li">
                             <button class="btn new_task" type="button" onclick="creatask();"><i class="icon-new-task"></i>Create Task</button>
                         </li>
+                        <?php
+                            }
+                    ?>
                     <?php } else { ?>
                         <li class="new_task_li">
                             <button class="btn new_task" type="button" onclick="alert('Please create a Project to add Task under that Project');" ><i class="icon-new-task"></i>Create Task</button>
@@ -227,8 +247,8 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                     echo 'style="display:none;"';
                 }
                 ?>>
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" onclick="openAjaxRecentCase();"><i class="menu_sprite_ico menu_sprite_ico_rec"></i> Recently viewed 
-                        <b class="menu_more_arr"></b></a>
+                    <!--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" onclick="openAjaxRecentCase();"><i class="menu_sprite_ico menu_sprite_ico_rec"></i> Recently viewed 
+                        <b class="menu_more_arr"></b></a>-->
                     <div style="float:left;display:none;margin-left:70px;" class="recentViewLoader">
                         <img width="16" height="16" title="loading..." alt="loading..." src="<?php echo HTTP_ROOT; ?>img/images/loading_dark_nested.gif">
                     </div>
@@ -294,11 +314,11 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                                 <div class="sett_div sett_pop_div">
                                     <div>
                                         <ul class="new_sub_menu">
-                                            <li><a href="javascript:void(0);" onClick="newProject()"><i class="menu_os_ico menu_os_ico_proj"></i>Project</a></li>
-                                            <li><a href="javascript:void(0);" onClick="newUser()"><i class="menu_os_ico menu_os_ico_user"></i>User</a></li>
+                                            <li><a href="javascript:void(0);" onClick="newProject()"><img src="<?php echo HTTP_ROOT.'img/icons/project.png';?>"> &nbsp;Project</a></li>
+                                            <li><a href="javascript:void(0);" onClick="newUser()"><img src="<?php echo HTTP_ROOT.'img/icons/user.png';?>"> &nbsp;User</a></li>
                                             <?php if ($is_active_proj) { ?>
-                                                <li><a href="javascript:void(0);" onClick="creatask()"><i class="menu_os_ico menu_os_ico_task"></i>Task</a></li>
-                                                <li><a href="javascript:void(0);" onClick="addEditMilestone(this)"><i class="menu_os_ico menu_os_ico_mlst"></i>Milestone</a></li>
+                                                <li><a href="javascript:void(0);" onClick="creatask()"><img src="<?php echo HTTP_ROOT.'img/icons/task.png';?>"> &nbsp;Task</a></li>
+                                                <li><a href="javascript:void(0);" onClick="addEditMilestone(this)"><img src="<?php echo HTTP_ROOT.'img/icons/milestone.png';?>"> &nbsp;Milestone</a></li>
                                             <?php } ?>
                                             <!--<li><a href="javascript:void(0);">Milestone</a></li>
                                             <li><a href="javascript:void(0);">Project Template</a></li>
@@ -331,13 +351,13 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                 }
                 ?>
                 <a href="javascript;" class="dropdown-toggle profile_name" data-toggle="dropdown" title="<?php echo trim($ses_name . " " . $ses_last_name); ?>"><span class="prof_sett">
-                        <div class="user_ipad"><?php echo $this->Format->shortLength(trim($ses_name), 10); ?></div>
+                        <div class="user_ipad"><?php //echo $this->Format->shortLength(trim($ses_name), 10); ?></div>
                         <?php if (trim($ses_photo)) { ?>
                             <img data-original="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=<?php echo trim($ses_photo); ?>&sizex=28&sizey=28&quality=100" class="lazy round_profile_img" height="28" width="28" />
                         <?php } else { ?>
                             <img data-original="<?php echo HTTP_ROOT; ?>users/image_thumb/?type=photos&file=user.png&sizex=28&sizey=28&quality=100" class="lazy round_profile_img" height="28" width="28" />
                         <?php } ?>
-                    </span><span><b class="sett m_top"></b></span></a>
+                    </span><span><b class=""></b></span></a>
                 <ul class="dropdown-menu">
                     <li>
                         <ul class="user_sett_info">

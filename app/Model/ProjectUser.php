@@ -51,5 +51,3 @@ class ProjectUser extends AppModel {
 		return $data;
 	}
 }
-
-?>

@@ -394,7 +394,7 @@ class PostcaseComponent extends CookieComponent {
                 }
                 $assignTo.= "<tr><td align='left' style='" . $padd . "'>Due date: <font color='#235889'>" . date("m/d/Y", strtotime($due_date)) . "</font></td></tr>";
             }
-            $allfiles = "";
+            $allfiles =[];
             if (is_array($fileArray) && count($fileArray)) {
                 $editRemovedFile = $formdata['editRemovedFile'];
                 if ($editRemovedFile && $formdata['taskid']) {

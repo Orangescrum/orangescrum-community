@@ -99,7 +99,7 @@
     <!-- New user popup starts -->
     <div class="new_user cmn_popup" style="display: none;">
 	<div class="popup_title">
-	    <span><i class="icon-create-user"></i> Invite New User</span>
+            <span><i class="icon-create-user"></i> Add New User</span>
 	    <a href="javascript:jsVoid();" onclick="closePopup();"><div class="fr close_popup">X</div></a>
 	</div>
 	<div class="popup_form">
@@ -108,8 +108,7 @@
 			<?php 
 			if(defined('SMTP_PWORD') && SMTP_PWORD != "******"  || (defined('PHPMAILER') && PHPMAILER == 1)) {
 				echo $this->element('new_user');
-			}
-			else {
+                } else {
 			?>
 				<div style="color:#666;background:#F0F0F0;font-size:16px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
 				Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
@@ -137,8 +136,7 @@
 			<?php 
 			if(defined('SMTP_PWORD') && SMTP_PWORD != "******"  || (defined('PHPMAILER') && PHPMAILER == 1)) {
 			echo $this->element('new_contact');	
-			}
-			else {
+                } else {
 			?>
 				<div style="color:#666;background:#F0F0F0;font-size:16px;padding:5px 10px;text-align:left;font-family:'Courier New', Courier, monospace;border:1px dashed #FF7E00;">
 				Make sure that you have done the below required changes in <b style="color:#000">`app/Config/constants.php`</b><br/>
@@ -963,7 +961,8 @@
     </div>
     <!-- Remove tasks from Template popup ends --> 
 	 
-	<?php if((SES_TYPE == 1 || SES_TYPE == 2) && defined('TWITTED') && TWITTED == 0 && !in_array(PAGE_NAME,array('onbording','profile','changepassword','email_notifications','email_reports'))){
+    <?php
+    if ((SES_TYPE == 1 || SES_TYPE == 2) && defined('TWITTED') && TWITTED == 0 && !in_array(PAGE_NAME, array('onbording', 'profile', 'changepassword', 'email_notifications', 'email_reports'))) {
 		$osTwAccount = 'TheOrangescrum';
 		$tweetTexts = array(
 			'#Orangescrum is an Awesome Project Collaboration Tool that gives full visibility and control over your projects',
@@ -1038,9 +1037,11 @@
 							<div id="create_project_div">
 							<?php if(count($getallproj) == 0){ ?>
 								<div id="projUpdateTop">
-									<?php if(SES_TYPE <=2){
+                                        <?php
+                                        if (SES_TYPE <= 2) {
 										echo "<font color='#C4C4C4'>&lt;Yet to Create a Project&gt;</font>";	
-									}else{?>
+                                        } else {
+                                            ?>
 										<span class="no_project_assgn">--None--</span>	
 									<?php }  ?>
 								</div>
@@ -1064,12 +1065,15 @@
 								}elseif(count($getallproj) >= 1) {
 									$ctProjName = $getallproj['0']['Project']['name'];
 									$projUniq1 = $getallproj['0']['Project']['uniq_id'];
-									if(count($getallproj) == 1) {?>
+                                    if (count($getallproj) == 1) {
+                                        ?>
 									<div id="projUpdateTop" class="ttc">
 										<?php echo $ctProjName; ?>
 									</div>
-								<?php }
-								} ?>
+                                    <?php
+                                    }
+                                }
+                                ?>
 								<input type="hidden" readonly="readonly" value="<?php echo $projUniq1; ?>" id="curr_active_project"/>
 								<?php if(count($getallproj) > 1){ ?>
 									<div class="popup_link link_as_drp_dwn swtchproj fl" id="ctask_popup">
@@ -1112,6 +1116,7 @@
 						<div class="fl lbl-m-wid" style="padding-top:16px">Title:</div>
 						<div class="col-lg-9 fl rht-con">
 							<input class="form-control" type="text" placeholder="Add a task here & hit enter...." id="CS_title" maxlength='240' onblur='blur_txt();checkAllProj();' onfocus='focus_txt()' onkeydown='return onEnterPostCase(event)' onkeyup='checktitle_value();' style="font-size:15px;"/>
+                            <div id="err_case_title" class="err_msg"></div>
 						</div>
 					</td>
 				</tr>
@@ -1167,9 +1172,11 @@
 											<div class="fl dropdown option-toggle p-6">
 												<div class="opt1" id="opt3"><a href="javascript:jsVoid()" onclick="open_more_opt('more_opt3');"> 
 													<span id="date_dd">	
-													<?php if(isset($taskdetails['due_date']) && $taskdetails['due_date']){
+                                                            <?php
+                                                            if (isset($taskdetails['due_date']) && $taskdetails['due_date']) {
 														echo date('m/d/Y',strtotime($taskdetails['due_date']));
-													 }else{?>
+                                                            } else {
+                                                                ?>
 														No Due Date
 													<?php }?>
 													</span>
@@ -1250,10 +1257,10 @@
 			<input type="hidden" value="" name="easycase_id" id="CSeasycaseid" readonly="readonly" />
 			<input type="hidden" value="" name="editRemovedFile" id="editRemovedFile" readonly="readonly" />
 			<div class="col-lg-12 task_slide_in btm_block">
-				<div style="float:left;width:255px;">
+                <div style="float:right;width:255px;">
 					<input type="hidden" name="hid_http_images" id="hid_http_images" value="<?php echo HTTP_IMAGES; ?>" readonly="true" />
 					<span id="quickcase" style="display:block;" class="nwa">
-					<button class="btn btn_blue" <?php if(count($getallproj) == 0) { ?>disabled="disabled"<?php }?> type="submit" onclick ="return submitAddNewCase('Post',0,'','','',1,'');"><i class="icon-big-tick"></i><span id="ctask_btn">Post</span></button>
+                        <button class="btn btn_blue" <?php if (count($getallproj) == 0) { ?>disabled="disabled"<?php } ?> type="submit" onclick ="return submitAddNewCase('Post', 0, '', '', '', 1, '');"><i class="icon-big-tick"></i><span id="ctask_btn">Create</span></button>
 					<!--<button class="btn btn_grey" type="reset" id="rset" onclick="crt_popup_close();"><i class="icon-big-cross"></i>Cancel</button>-->
                     <span class="or_cancel">or
                     <a id="rset" onclick="crt_popup_close();">Cancel</a>
