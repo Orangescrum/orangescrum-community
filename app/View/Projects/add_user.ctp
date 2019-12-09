@@ -21,11 +21,13 @@
 					echo '<th>#</th>';
 				}
 			?>
+		    
 		    <th class="nm_ipad" style="padding-left:10px;">Name</th>
 		    <th>&nbsp;</th>
 		    <th>Email</th>
 		</tr>
 		<?php
+		
 		if ($userCount) {
 		    $typ = "";
 		    foreach ($memsNotExstArr as $memsAvlArr) {

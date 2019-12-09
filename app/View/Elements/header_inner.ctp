@@ -55,14 +55,14 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                             if (CONTROLLER == "easycases" && (PAGE_NAME == "mydashboard")) {
                         ?>
                             <li class="new_task_li">
-                            <button class="btn new_task" type="button" onclick=""><i class="icon-new-task"></i>Create Project</button>
+                            <button class="btn new_task" type="button" onclick="newProject()"><i class="icon-new-task"></i>Create Project</button>
                         </li>
                         <?php
                                     
                             }else if(CONTROLLER == "projects" && PAGE_NAME == "manage"){
                          ?>
                         <li class="new_task_li">
-                            <button class="btn new_task" type="button" onclick=""><i class="icon-new-task"></i>Create Project</button>
+                            <button class="btn new_task" type="button" onclick="newProject()"><i class="icon-new-task"></i>Create Project</button>
                         </li>
                         <?php
                                 
@@ -445,13 +445,13 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                                         <li class="settings_hd">Contact Support</li>
                                         <li> <a href="http://helpdesk.orangescrum.org/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Helpdesk"></i><span class="ipad_txt" >Helpdesk</span></a></li>
                                         <li> <a href="http://helpdesk.orangescrum.org/contact-support/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Support"></i><span class="ipad_txt" >Support</span></a></li>
+                                        <li> <a href="http://helpdesk.orangescrum.org/forum/" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Support"></i><span class="ipad_txt" >Forum</span></a></li>
                                         <li> <a href="https://www.orangescrum.org/add-on" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Get Add-ons"></i><span class="ipad_txt" >Get Add-ons</span></a></li>
                                         <li><a href="javascript:void(0);" onclick="newContact()" title="Contact Us">
                                                
                                                 <span class="ipad_txt"> Contact Sales</span></a></li>
                                         <li> <a href="https://www.orangescrum.org/demo-enterprise" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Schedule a Demo"></i><span class="ipad_txt" >Schedule a Demo</span></a></li>
                                         <li> <a href="https://reviews.capterra.com/new/136500" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Rate Orangescrum on Capterra"></i><span class="ipad_txt" >Rate Orangescrum on Capterra</span></a></li>
-                                        <li> <a href="https://www.g2.com/products/orangescrum/take_survey" target="_blank"><i class="menu_sprite_ico menu_sprite_help" title="Rate Orangescrum on G2"></i><span class="ipad_txt" >Rate Orangescrum on G2</span></a></li>
                                      </ul>
                                 </div>
 

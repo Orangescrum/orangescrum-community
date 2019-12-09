@@ -27,7 +27,7 @@
 	    Email ID:
 	</td>
 	<td> 
-                <input type="text" class="form-control" name="data[User][email]" style="width:352px;">
+                <input type="text" class="form-control"  name="data[User][email]" style="width:352px;height:35px;" id="txt_email">
                 <?php //echo $this->Form->input('text', array('id' => 'txt_email', 'class' => 'form-control')); ?>
 	    <input type="hidden" name="data[User][istype]" value="3" id="sel_Typ"/>
                 <div id="err_email_new" class="err_msg"></div>

@@ -38,6 +38,7 @@ App::import('Vendor', 'oauth');
 App::import('Vendor', 'PHPMailer', array('file' => 'PHPMailer' .DS. 'PHPMailerAutoload.php'));
 // App::import('Vendor', 'autoload');
 class UsersController extends AppController {
+
     public $name = 'Users';
 	public $components = array('Format','Postcase','Sendgrid','Tmzone','Email','Cookie');
 	
