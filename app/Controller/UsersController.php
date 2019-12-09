@@ -38,7 +38,6 @@ App::import('Vendor', 'oauth');
 App::import('Vendor', 'PHPMailer', array('file' => 'PHPMailer' .DS. 'PHPMailerAutoload.php'));
 // App::import('Vendor', 'autoload');
 class UsersController extends AppController {
-
     public $name = 'Users';
 	public $components = array('Format','Postcase','Sendgrid','Tmzone','Email','Cookie');
 	
@@ -880,6 +879,7 @@ class UsersController extends AppController {
 		$newMd5Passwrod = md5($this->request->data['User']['repass']);
 		$id=$this->request->data['user_id'];			
 		$this->User->query("UPDATE users SET password='".$newMd5Passwrod."',query_string='' WHERE id=".$id);
+		
 		//$this->Session->write("PASS_SUCCESS","<font style='color:green;'>Please Login with  your new password</font>");
 		$this->set('chkemail','11');
 		//$this->redirect(HTTP_ROOT."users/login/");
@@ -898,6 +898,19 @@ class UsersController extends AppController {
 	}
 	
 	function new_user($resend = NULL){
+	
+		
+		if(!empty($this->request->data['User']['user_id'])){
+			
+			$name=$this->request->data['User']['name'];
+			$password=$this->request->data['User']['password'];
+			$newMd5Passwrod = md5($password);
+		    $id=$this->request->data['User']['user_id'];
+             		
+            $this->User->query("UPDATE users SET name='".$name."', password='".$newMd5Passwrod."',query_string='' WHERE id=".$id);
+			$this->Session->write("SUCCESS"," User information updated successfully.");
+			$this->redirect(HTTP_ROOT."users/manage/");
+		}
 		$Company = ClassRegistry::init('Company');
 		//$comp = $Company->find('first',array('fields'=>array('Company.id','Company.name','Company.uniq_id')));
 		
@@ -3679,5 +3692,23 @@ function done_cropimage(){
   return json_decode($result,true);
 	
 }
+
+
+function edit_user(){
+if(!empty($this->request->data)){
+$u_id=!empty($this->request->data['u_id'])?	$this->request->data['u_id']:'';
+	
+$this->loadModel('User');	
+$userinfo = $this->User->find('first',array('conditions'=>array('User.uniq_id'=>$u_id)));
+$data['name']=!empty($userinfo['User']['name'])?$userinfo['User']['name']:'';
+$data['id']=!empty($userinfo['User']['id'])?$userinfo['User']['id']:'';
+$data['email']=!empty($userinfo['User']['email'])?$userinfo['User']['email']:'';
+$data['u_id']=$u_id;
+$data['password']=!empty($userinfo['User']['password'])?$userinfo['User']['password']:'';
+echo json_encode($data);
+exit;
+}
+}
+
 
 }
