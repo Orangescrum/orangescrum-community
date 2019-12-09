@@ -14,10 +14,21 @@
 	?>
     <tr>
 	<td class="v-top">
+                Name:
+            </td>
+            <td>
+                <input type="text" name="data[User][name]" id="username" class="form-control" style="width:352px;">
+                
+                <div id="err_name" class="err_msg"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="v-top">
 	    Email ID:
 	</td>
 	<td> 
-	    <?php echo $this->Form->textarea('email', array('id' => 'txt_email', 'class' => 'form-control')); ?>
+                <input type="text" class="form-control" name="data[User][email]" style="width:352px;">
+                <?php //echo $this->Form->input('text', array('id' => 'txt_email', 'class' => 'form-control')); ?>
 	    <input type="hidden" name="data[User][istype]" value="3" id="sel_Typ"/>
                 <div id="err_email_new" class="err_msg"></div>
                 <!--<div class="user_inst">(Use comma to separate multiple email ids)</div>-->

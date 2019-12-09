@@ -704,6 +704,10 @@ CREATE TABLE IF NOT EXISTS `project_users` (
   KEY `company_id` (`company_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+ALTER TABLE `project_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 -- --------------------------------------------------------
 
 --

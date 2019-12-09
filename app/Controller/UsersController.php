@@ -902,6 +902,7 @@ class UsersController extends AppController {
 		
         $password = md5($this->request->data['User']['password']);
         $email = trim($this->request->data['User']['email']);
+        $name = trim($this->request->data['User']['name']);
 		$company_id = SES_COMP;
 		$projectcls = ClassRegistry::init('Project');
 		$default_project_id ='';
@@ -1134,6 +1135,7 @@ class UsersController extends AppController {
 							$this->request->data['User']['uniq_id'] = $this->Format->generateUniqNumber();
                     $this->request->data['User']['email']=$email;
                     $this->request->data['User']['password']=$password;
+                    $this->request->data['User']['name']=$name;
                     $this->request->data['User']['isactive'] = 1;
 							$this->request->data['User']['isemail'] = 1;
 							$this->request->data['User']['dt_created'] = GMT_DATETIME;
@@ -2294,8 +2296,7 @@ class UsersController extends AppController {
 		$this->set('is_invite_user',$is_invite_user);
 		$this->set('count1',$count1);
 	}
-	function assign_prj()
-	{
+    function assign_prj() {
 		$this->layout='ajax';
 		$Company = ClassRegistry::init('Company');
 		$comp = $Company->find('first', array('fields' => array('Company.name')));
@@ -2319,8 +2320,7 @@ class UsersController extends AppController {
 		    $getLastId = $ProjectUser->query("SELECT MAX(id) as maxid FROM project_users");
 		    $lastid = $getLastId[0][0]['maxid'];
 		    if(count($projectid)) {
-			    foreach($projectid as $pid)
-			    {
+                foreach ($projectid as $pid) {
 				    $checkAvlMembr = $ProjectUser->find('first', array('conditions' => array('ProjectUser.user_id'=>$userid,'ProjectUser.project_id'=>$pid), 'fields'=>'DISTINCT id'));
 				    if($checkAvlMembr == 0) {
 					    $lastid++;
@@ -2330,8 +2330,7 @@ class UsersController extends AppController {
 		    }
 		    $pjname="";
 		    if(count($projectid)) {
-			    foreach($projectid as $pid)
-			    {
+                foreach ($projectid as $pid) {
 				    $Project = ClassRegistry::init('Project');
 				    $Project->recursive = -1;
 				    $prjArr = $Project->find('first', array('conditions' => array('Project.id' => $pid),'fields' => array('Project.name','Project.uniq_id')));
@@ -2351,8 +2350,7 @@ class UsersController extends AppController {
 		echo "success";
 		exit;
 	}
-	function tour($tour=NULL) 
-	{
+    function tour($tour = NULL) {
             $this->set("tour",$tour);
 	}
 	
@@ -2500,8 +2498,7 @@ class UsersController extends AppController {
 		$this->set('pageprev',$pageprev);	
 		$this->set('TempalteArray',$TempalteArray);
 	}
-	function ajax_project_list_milestone()
-	{
+    function ajax_project_list_milestone() {
 		$this->layout='ajax';
 		$page = $this->request->data['page'];
 		$limit = $this->request->data['limit'];
@@ -2511,8 +2508,7 @@ class UsersController extends AppController {
 		if($limit != "all") {
 			
 			$allProjArr = $ProjectUser->query("select DISTINCT p.name,p.uniq_id as uniq_id,(select count(ml.id) from milestones as ml where pu.project_id=ml.project_id ) as count from projects as p, project_users as pu where p.id=pu.project_id and pu.user_id='".SES_ID."' and pu.company_id='".SES_COMP."' AND p.isactive='1' ORDER BY pu.dt_visited DESC LIMIT 0,$limit");
-		}
-		else {
+        } else {
 			$allProjArr = $ProjectUser->query("select DISTINCT p.name,p.uniq_id as uniq_id,(select count(ml.id) from milestones as ml where  pu.project_id=ml.project_id ) as count from projects as p, project_users as pu where p.id=pu.project_id and pu.user_id='".SES_ID."' and pu.company_id='".SES_COMP."' AND p.isactive='1' ORDER BY pu.dt_visited DESC");
 		}
 		
@@ -2524,8 +2520,7 @@ class UsersController extends AppController {
 		$this->set('page',$page);
 		$this->set('limit',$limit);
 	}
-	function search_project_menu_milestone()
-	{
+    function search_project_menu_milestone() {
 		$this->layout='ajax';
 		$page = $this->request->data['page'];
 		$val = $this->request->data['val'];
