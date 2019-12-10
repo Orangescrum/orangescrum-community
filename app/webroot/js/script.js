@@ -1475,6 +1475,13 @@ function newContact() {
 }
 
 function newUser() {
+$('#username').val('');
+$('#user_u_id').val('');
+$('#useremail').val('');
+$('#password').val('');
+$('#useremail').attr('readonly',false);
+$('#select_project').attr('disabled',false);
+$('#add_edit_span').html('Add New User');
 
     $(".add_prj_usr").hide();
     openPopup();

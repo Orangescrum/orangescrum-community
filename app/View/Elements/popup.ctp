@@ -99,7 +99,7 @@
     <!-- New user popup starts -->
     <div class="new_user cmn_popup" style="display: none;">
 	<div class="popup_title">
-            <span><i class="icon-create-user"></i> Add New User</span>
+         <span> <i class="icon-create-user"></i> <span id="add_edit_span">Add New User</span></span>
 	    <a href="javascript:jsVoid();" onclick="closePopup();"><div class="fr close_popup">X</div></a>
 	</div>
 	<div class="popup_form">

@@ -138,6 +138,9 @@
               </div>
 	    <div class="nm_prj" id="remain_prj_<?php echo $user['User']['id'];?>">Projects: <?php if(isset($user['User']['all_project']) && trim($user['User']['all_project'])) { ?><span class="fnt13"><?php echo $user['User']['all_project'];?></span><?php } else {?><span class="fnt13 fnt_clr_gry">N/A</span><?php }?></div>
 	     <div class="proj_mng">
+		 <div class="fl">
+		 	<a class="" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" onclick="return edit_user('<?php echo $user['User']['uniq_id']; ?>');" data-usr-name="<?php echo $user['User']['name'];?>">Edit</a>
+		</div>
 		<?php if ($user['CompanyUser']['user_type'] == 1) { ?>
 		    <div class="fl">
 			<a class="icon-assign-usr" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>">Assign Project</a>
@@ -287,3 +290,28 @@
 <div id="projectLoader">
     <div class="loadingdata">Sending invitation again...</div>
 </div>
+
+
+<script>
+function edit_user(id){
+	newUser();	
+$.post(HTTP_ROOT + "users/edit_user", {
+            "u_id": id
+        }, function (data) {
+            if (data) {
+			$('#username').val(data.name);
+			$('#user_u_id').val(data.id);
+			$('#useremail').val(data.email);
+			$('#password').val('');
+            $('#useremail').attr('readonly',true);
+		    $('#select_project').attr('disabled',true);
+			$('#sel_custprj').attr('disabled',true);
+			
+			$('#add_edit_span').html('Edit User');
+			
+            }
+        },'json');
+	
+
+}
+</script>
