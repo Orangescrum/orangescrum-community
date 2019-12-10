@@ -285,7 +285,7 @@
 		<span id="rmv_btn">
 		    <button class="btn btn_blue" id="rmvbtn"  value="Remove" type="button" onclick="removeusers()"><i class="icon-big-tick"></i>Remove</button>
 		    <!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-            <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
+            <span class="or_cancel">or<a  onclick="closePopup();">Cancel</a></span>
 		</span>
 		</center>
 	    </div>
@@ -527,18 +527,7 @@
 	<div class="popup_form">
 	    <div class="loader_dv" id="mvtask_loader"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
 	    <div id="mvtask_mlst"></div>
-	    <div class="add-mlstn-btn" style="display: none;">
-		<center>
-			<span id="tskloader" style="display: none;">
-				<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
-			</span>
-			<span id="mvtask_confirmbtn" style="display:block;">
-				<button class="btn btn_blue" id="mvtask_movebtn" value="Add" type="button" onclick="switchTaskToMilestone(this)"><i class="icon-big-tick"></i>Move Task</button>
-				<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-                <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
-			</span>
-			</center>
-	    </div>
+	    
 	</div>
     </div>
     <!-- Move Task To Milestone popup end -->
@@ -685,13 +674,13 @@
 				<center><div id="task_temp_err" class="fnt_clr_rd" style="display:block;font-size:15px;"></div></center>
 				<table cellpadding="0" cellspacing="0" class="col-lg-12 new_auto_tab">
 					<tr>
-					<td>Title:</td>
+					<td>Title:<span style="color:red">*</span></td>
 					<td>
-						<input type="text" name="tasktemptitle" id="tasktemptitle" class="form-control" value= "" />
+                                            <input type="text" name="tasktemptitle" id="tasktemptitle" class="form-control" value= "" />
 					</td>
 					</tr>
 					<tr>
-					<td valign="top" style="padding-left:33px;">Description:</td>
+					<td valign="top" style="padding-left:33px;">Description:<span style="color:red">*</span></td>
 					<td>
 						<textarea class="text_field form-control" id="desc" name="desc"></textarea>
 					</td>
@@ -705,7 +694,7 @@
 						<span id="task_btn">
 							<button class="btn btn_blue" type="button" onclick="createTaskTemplate('add')"><i class="icon-big-tick"></i>Create</button>
 							<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-                            <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
+                                                        <span class="or_cancel"><a class="btn btn-default" onclick="closePopup();">Cancel</a></span>
 						</span>
 					</td>
 					</tr>
@@ -751,7 +740,7 @@
 					<span id="task_btn_edit">
 						<button class="btn btn_blue" type="button" onclick="createTaskTemplate('edit')"><i class="icon-big-tick"></i>Update</button>
 						<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-                        <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
+                        <span class="or_cancel"><a class="btn btn-default" onclick="closePopup();">Cancel</a></span>
 					</span>
 				</td>
 				</tr>
@@ -1240,9 +1229,9 @@
 					<td colspan="2" align="left">
 						<div class="fl lbl-m-wid">&nbsp;</div>
 						<div class="col-lg-9 fl rht-con rht_bg" style="padding-left:4px; padding-bottom:0">
-							<div class="fr mor_toggle tasktoogle" id="more_tsk_opt_div" style="position: relative;float:left"><a href="javascript:jsVoid();" onclick="opencase('click');" style="text-decoration:none"><img src="<?php echo HTTP_IMAGES;?>description.png" title="Description" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>hours.png" title="Estimated Hours and Hours Spent" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>attachment.png" title="Attachments, Google Drive, Dropbox" rel="tooltip"/>&nbsp;&nbsp;More Options<b class="caret"></b></a></div>
+							<div class="fr mor_toggle tasktoogle" id="more_tsk_opt_div" style="position: relative;float:left"><a href="javascript:jsVoid();" onclick="opencase('click');" style="text-decoration:none"><img src="<?php echo HTTP_IMAGES;?>description.png" title="Description" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>hours.png" title="Estimated Hours and Hours Spent" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>attachment.png" title="Attachments, Google Drive, Dropbox" rel="tooltip"/>&nbsp;&nbsp;+ More</a></div>
 
-							<div class="fr less_toggle tasktoogle" id="less_tsk_opt_div" style="display:none;position: relative;float:left"><a href="javascript:jsVoid();" onclick="closecase();"  style="text-decoration:none">Less<b class="caret"></b></a></div>
+							<div class="fr less_toggle tasktoogle" id="less_tsk_opt_div" style="display:none;position: relative;float:left"><a href="javascript:jsVoid();" onclick="closecase();"  style="text-decoration:none">- Less</a></div>
 							
 							<div style="position:relative;width:20px;" class="fl">
 								<img src="<?php echo HTTP_IMAGES;?>images/del.gif" title="Loading..." alt="Loading..." id="loadquick" style="display:none;"/>
@@ -1262,8 +1251,8 @@
 					<span id="quickcase" style="display:block;" class="nwa">
                         <button class="btn btn_blue" <?php if (count($getallproj) == 0) { ?>disabled="disabled"<?php } ?> type="submit" onclick ="return submitAddNewCase('Post', 0, '', '', '', 1, '');"><i class="icon-big-tick"></i><span id="ctask_btn">Create</span></button>
 					<!--<button class="btn btn_grey" type="reset" id="rset" onclick="crt_popup_close();"><i class="icon-big-cross"></i>Cancel</button>-->
-                    <span class="or_cancel">or
-                    <a id="rset" onclick="crt_popup_close();">Cancel</a>
+                    <span class="or_cancel">
+                        <a id="rset" class="btn btn-default" onclick="crt_popup_close();">Cancel</a>
                     </span>
 					</span>
 					<span id="quickloading" style="display:none;padding-left:10px;padding-top:5px;">

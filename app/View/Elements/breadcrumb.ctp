@@ -1,5 +1,5 @@
 <div class="crt_slide task_action_bar">
-	<button type="button" class="btn gry_btn task_create_back" onclick="crt_popup_close()"><i class="icon-backto"></i>Go Back</button>
+	<button type="button" class="btn gry_btn task_create_back" onclick="crt_popup_close()"><i class="icon-backto"></i></button>
 </div>	
 
 <div class="breadcrumb_div">
@@ -257,7 +257,7 @@ if(CONTROLLER == "users" && (PAGE_NAME == "upgrade_member")) { ?>
 <div class="task_action_bar_div task_detail_head">
 	<div class="task_action_bar">
 		<button class="btn gry_btn task_detail_back" type="button" style="margin-left:18px;">
-		<i class="icon-backto"></i>Go Back
+		<i class="icon-backto"></i>
 		</button>
 		<div class="fr">
 			<button class="btn gry_btn next" type="button" title="Next">
@@ -275,7 +275,7 @@ if(CONTROLLER == "users" && (PAGE_NAME == "upgrade_member")) { ?>
 <div class="task_action_bar_div milestonekb_detail_head">
 	<div class="task_action_bar">
 		<button class="btn gry_btn task_detail_back" type="button" style="margin-left:18px;">
-		<i class="icon-backto"></i>Go Back
+		<i class="icon-backto"></i>
 		</button>
 	</div><!-- Case Detail buttons -->
 </div>

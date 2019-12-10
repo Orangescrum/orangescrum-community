@@ -30,13 +30,13 @@ if ($nodata_name == 'caselist') {
 	if($case_type=='overdue'){
 		$msgHead = 'No Overdue Task on this project';
 	}elseif($case_type=='highpriority'){
-		$msgHead = 'No High Priority Task have been created on this project';
+		$msgHead = 'No High Priority Tasks have been created on this project';
 	}elseif($case_type=='assigntome'){
 		$msgHead = 'No Task for me on this project';
 	}elseif($case_type=='delegateto'){
 		$msgHead = 'No Task delegeted on this project';
 	}else{
-		$msgHead = 'No Task have been created on this project';
+		$msgHead = 'No Tasks have been created on this project';
 	}
     $msgDesc = 'All Task created on this project will appear here';
 }

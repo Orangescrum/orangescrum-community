@@ -25,6 +25,7 @@ echo $this->Html->css('fcbkcomplete');
 echo $this->Html->css('pace-theme-minimal');
 echo $this->Html->css('prettyPhoto.css');
 
+
 //Moved from Create New project ajax request page
 echo $this->Html->css('wick_new.css?v='.RELEASE);
 
@@ -65,9 +66,11 @@ if(!defined('USE_LOCAL') || (defined('USE_LOCAL') && USE_LOCAL==0)) {
 
 <?php
 	//Bootstrap core JavaScript
-	$js_files = array( 'bootstrap.min.js', 'modernizer.js');
+	$js_files = array('bootstrap.min.js', 'modernizer.js');
 	echo $this->Html->script($js_files);
 ?>
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
 </head>
 <body>
 	<?php

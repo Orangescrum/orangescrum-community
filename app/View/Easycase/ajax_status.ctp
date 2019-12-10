@@ -55,19 +55,19 @@ if(isset($query_All)){
 		<span <?php if(!$disabled) { ?> onClick="checkboxStatus('status_resolve','text');filterRequest('status');" <?php } ?> style="color:#EF6807;cursor:pointer">&nbsp;Resolved (<?php echo $query_Resolve; ?>)</span>
 	    </a>
 	</li>
-	<li>
+	<!--<li>
 	    <a href="javascript:void(0);">
-		<input type="checkbox" id="status_file" <?php if(strstr($CookieStatus,"attch")) { echo "checked"; } ?> style="cursor:pointer" onClick="checkboxStatus('status_file','check');filterRequest('status');"/>
-		<span onClick="checkboxStatus('status_file','text');filterRequest('status');" style="color:#3284C4;cursor:pointer">&nbsp;Files (<?php echo $query_Attch; ?>)</span>
+		<input type="checkbox" id="status_file" <?php //if(strstr($CookieStatus,"attch")) { echo "checked"; } ?> style="cursor:pointer" onClick="checkboxStatus('status_file','check');filterRequest('status');"/>
+		<span onClick="checkboxStatus('status_file','text');filterRequest('status');" style="color:#3284C4;cursor:pointer">&nbsp;Files (<?php //echo $query_Attch; ?>)</span>
 	    </a>
-	</li>
+	</li>-->
 	
-	<li>
+	<!--<li>
 	    <a href="javascript:void(0);">
-		<input type="checkbox" id="status_upd" <?php if(strstr($CookieStatus,"upd")) { echo "checked"; } ?> style="cursor:pointer" onClick="checkboxStatus('status_upd','check');filterRequest('status');" <?php echo $disabled; ?>/>
-		<span <?php if(!$disabled) { ?> onClick="checkboxStatus('status_upd','text');filterRequest('status');" <?php } ?> style="color:#000000;cursor:pointer">&nbsp;Updates (<?php echo $query_Upd; ?>)</span>
+		<input type="checkbox" id="status_upd" <?php //if(strstr($CookieStatus,"upd")) { echo "checked"; } ?> style="cursor:pointer" onClick="checkboxStatus('status_upd','check');filterRequest('status');" <?php //echo $disabled; ?>/>
+		<span <?php //if(!$disabled) { ?> onClick="checkboxStatus('status_upd','text');filterRequest('status');" <?php //} ?> style="color:#000000;cursor:pointer">&nbsp;Updates (<?php //echo $query_Upd; ?>)</span>
 	    </a>
-	</li>
+	</li>-->
 <?php
 }
 ?>

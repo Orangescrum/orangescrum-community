@@ -87,8 +87,15 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                 if (CONTROLLER == "easycases" && (PAGE_NAME == "mydashboard")) {
                     echo 'active';
                 }
-                ?>"><a href="<?php echo HTTP_ROOT . 'mydashboard'; ?>"><i class="menu_sprite_ico menu_sprite_ico_dashboard"></i> Dashboard</a></li>
-
+                ?>"><a href="<?php echo HTTP_ROOT . 'mydashboard'; ?>"><i class="menu_sprite_ico menu_sprite_ico_dashboard"></i> Dashboard</a>
+                </li>
+                 <li class="allmenutab <?php
+                if (CONTROLLER == "projects" && (PAGE_NAME == "manage")) {
+                    echo 'active';
+                }
+                ?>">
+                    <a href="<?php echo HTTP_ROOT . 'projects/manage'; ?>"><i class="menu_sprite_ico menu_sprite_ico_proj"></i> Projects</a>
+                </li>
 
                 <li class="menu-cases"><a href="<?php echo HTTP_ROOT . 'dashboard#tasks'; ?>" onclick="checkHashLoad('tasks')"><i class="menu_sprite_ico menu_sprite_ico_task"></i> Tasks<span class="notify" id="taskCnt" style="display: none;" rel="tooltip" title=""></span></a></li>
                 <li class="menu-files"><a href="<?php echo HTTP_ROOT . 'dashboard#files'; ?>" onclick="checkHashLoad('files')"><i class="menu_sprite_ico menu_sprite_ico_file"></i> Files<span class="notify" id="fileCnt" style="display: none;" rel="tooltip" title=""></span></a></li>
@@ -97,15 +104,13 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                 if (CONTROLLER == "milestones" && (PAGE_NAME == "milestone")) {
                     echo 'active';
                 }
-                ?>"><a href="<?php echo HTTP_ROOT . 'dashboard#milestonelist'; ?>" onclick="checkHashLoad('milestonelist')"><i class="menu_sprite_ico menu_sprite_ico_milestone"></i> Milestones</a></li>
+                ?>">
+                    <a href="<?php echo HTTP_ROOT . 'dashboard#milestonelist'; ?>" onclick="checkHashLoad('milestonelist')"><i class="menu_sprite_ico menu_sprite_ico_milestone"></i> Milestones</a>
+                </li>
 
 
 
-                <li class="allmenutab <?php
-                if (CONTROLLER == "projects" && (PAGE_NAME == "manage")) {
-                    echo 'active';
-                }
-                ?>"><a href="<?php echo HTTP_ROOT . 'projects/manage'; ?>"><i class="menu_sprite_ico menu_sprite_ico_proj"></i> Projects</a></li>
+               
                     <?php
                     if (SES_TYPE == 1 || SES_TYPE == 2) {
                         ?>
@@ -113,7 +118,8 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                     if (CONTROLLER == "users" && (PAGE_NAME == "manage")) {
                         echo 'active';
                     }
-                    ?>"><a href="<?php echo HTTP_ROOT . 'users/manage'; ?>"><i class="menu_sprite_ico menu_sprite_ico_usr"></i> Users</a></li>
+                    ?>"><a href="<?php echo HTTP_ROOT . 'users/manage'; ?>"><i class="menu_sprite_ico menu_sprite_ico_usr"></i> Users</a>
+                    </li>
 
                     <?php
                 }

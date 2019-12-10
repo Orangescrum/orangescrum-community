@@ -11,7 +11,7 @@
 	    <div class="dshbd-hed">
 		<div class="fl"><?php echo $value['name'];?></div>
 		<div class="fr active_icn portlet-header">
-		    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+		    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
 		</div>
 		<div class="fr active_icn">
                     
@@ -34,7 +34,7 @@
 	    <div class="dshbd-hed">
 		<div class="fl"><?php echo $value['name'];?></div>
 		<div class="fr active_icn portlet-header">
-		    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+		    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
 		</div>
 		<div class="fr active_icn">
 			<a href="javascript:void(0);" onclick="newProject()" class="" style="color:#5191BD; font-size:13px;" rel="tooltip" title="Create Project">
@@ -56,7 +56,7 @@
             <div class="dshbd-hed">
                 <div class="fl"><?php echo $value['name'];?></div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
 				<div class="fr active_icn">
 					<a href="javascript:void(0);" onclick="newUser()" class="" style="color:#5191BD; font-size:13px;" rel="tooltip" title="Invite User">
@@ -78,7 +78,7 @@
             <div class="dshbd-hed">
                 <div class="fl"><?php echo $value['name'];?></div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
                 <div class="cb"></div>
             </div>
@@ -95,7 +95,7 @@
 	<div class="dshbd-hed">
                 <div class="fl">Summary</div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
                 <div class="cb"></div>
             </div> 
@@ -109,7 +109,7 @@
             <div class="dshbd-hed">
                 <div class="fl"><?php echo $value['name'];?></div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
                 <div class="cb"></div>
             </div> 
@@ -124,7 +124,7 @@
                 <div class="fl"><?php echo $value['name'];?></div>
 				<div class="fl pichart_msg" id="task_progress_msg"></div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
                 <div class="cb"></div>
             </div> 
@@ -146,7 +146,7 @@
 		</div>
 		<div class="fl pichart_msg" id="task_type_msg" style="font-size: 15px;"></div>
 		<div class="fr active_icn portlet-header">
-		    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+		    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
 		</div>
 		<div class="cb"></div>
 	    </div> 
@@ -161,7 +161,7 @@
                 <div class="fl"><?php echo $value['name'];?></div>
 				<div class="fl pichart_msg" id="task_status_msg"></div>
                 <div class="fr active_icn portlet-header">
-                    <img width="16px" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
+                    <img width="" src="<?php echo HTTP_IMAGES; ?>images/active_dboard.png" rel="tooltip" title="Move"/>
                 </div>
                 <div class="cb"></div>
             </div>
