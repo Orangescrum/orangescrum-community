@@ -1,0 +1,833 @@
+2019-12-10 04:59:08 Warning: Warning (2): Use of undefined constant REDIRECT_URI_SIGNUP - assumed 'REDIRECT_URI_SIGNUP' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Layouts\default_outer.ctp, line 23]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Layouts\default_outer.ctp, line 23
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 200
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:01:02 Warning: Warning (2): array_unique() expects parameter 1 to be array, null given in [E:\xampp\htdocs\orangescrum\app\Controller\ProjectsController.php, line 1954]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+array_unique - [internal], line ??
+ProjectsController::member_list() - APP\Controller\ProjectsController.php, line 1954
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 406
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 407
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 408
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 409
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 410
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 411
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 412
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:02 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 413
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:03:04 Error: [SocketException] SMTP Error: 530 5.7.0  https://support.google.com/mail/?p=WantAuthError 17sm1238135pfv.142 - gsmtp
+Request URL: /orangescrum/easycases/ajaxemail
+Stack Trace:
+#0 E:\xampp\htdocs\orangescrum\lib\Cake\Network\Email\SmtpTransport.php(291): SmtpTransport->_smtpSend('MAIL FROM:<noti...')
+#1 E:\xampp\htdocs\orangescrum\lib\Cake\Network\Email\SmtpTransport.php(88): SmtpTransport->_sendRcpt(Object(CakeEmail))
+#2 E:\xampp\htdocs\orangescrum\lib\Cake\Network\Email\CakeEmail.php(1173): SmtpTransport->send(Object(CakeEmail))
+#3 E:\xampp\htdocs\orangescrum\lib\Cake\Controller\Component\EmailComponent.php(346): CakeEmail->send('<div style='fon...')
+#4 E:\xampp\htdocs\orangescrum\app\Controller\Component\SendgridComponent.php(56): EmailComponent->send('<div style='fon...')
+#5 E:\xampp\htdocs\orangescrum\app\Controller\Component\PostcaseComponent.php(779): SendgridComponent->sendGridEmail('notify@mycompan...', 'raj.panda@andol...', '[Orangescrum]:H...', '<div style='fon...', 'New', 'raj.panda')
+#6 E:\xampp\htdocs\orangescrum\app\Controller\Component\PostcaseComponent.php(832): PostcaseComponent->generateMsgAndSendMail('1', '', '1', 'This is first t...', '', '1', '1', '2', '<font color='#7...', 'posted a new Ta...', NULL, 'raj.panda', '3046a571943d74c...', 'New', 'raj.panda@andol...', 'raj.panda', 'http://localhos...')
+#7 E:\xampp\htdocs\orangescrum\app\Controller\EasycasesController.php(4485): PostcaseComponent->mailToUser(Array, Array)
+#8 [internal function]: EasycasesController->ajaxemail()
+#9 E:\xampp\htdocs\orangescrum\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(EasycasesController), Array)
+#10 E:\xampp\htdocs\orangescrum\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#11 E:\xampp\htdocs\orangescrum\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EasycasesController), Object(CakeRequest))
+#12 E:\xampp\htdocs\orangescrum\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2019-12-10 05:17:38 Warning: Warning (2): Use of undefined constant REDIRECT_URI_SIGNUP - assumed 'REDIRECT_URI_SIGNUP' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Layouts\default_outer.ctp, line 23]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Layouts\default_outer.ctp, line 23
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 200
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 05:44:52 Warning: Warning (2): Use of undefined constant REDIRECT_URI_SIGNUP - assumed 'REDIRECT_URI_SIGNUP' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Layouts\default_outer.ctp, line 23]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Layouts\default_outer.ctp, line 23
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 200
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 406
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 407
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 408
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 409
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 410
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 411
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 412
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:34:59 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 413
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 406
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 407
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 408
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 409
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 410
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 411
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 412
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 06:35:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 413
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 406
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 407
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 408
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 409
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 410
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 411
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 412
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:21:13 Warning: Warning (512): You cannot use an empty key for Security::cipher() in [E:\xampp\htdocs\orangescrum\lib\Cake\Utility\Security.php, line 219]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+Security::cipher() - CORE\Cake\Utility\Security.php, line 219
+CookieComponent::_encrypt() - CORE\Cake\Controller\Component\CookieComponent.php, line 485
+CookieComponent::_write() - CORE\Cake\Controller\Component\CookieComponent.php, line 435
+CookieComponent::write() - CORE\Cake\Controller\Component\CookieComponent.php, line 252
+PostcaseComponent::casePosting() - APP\Controller\Component\PostcaseComponent.php, line 413
+EasycasesController::ajaxpostcase() - APP\Controller\EasycasesController.php, line 371
+ReflectionMethod::invokeArgs() - [internal], line ??
+Controller::invokeAction() - CORE\Cake\Controller\Controller.php, line 491
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 193
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+
+2019-12-10 09:56:24 Error: [ParseError] syntax error, unexpected '}', expecting end of file
+Request URL: /orangescrum/easycases/ajax_case_status
+Stack Trace:
+#0 E:\xampp\htdocs\orangescrum\lib\Cake\View\View.php(933): View->_evaluate('E:\\xampp\\htdocs...', Array)
+#1 E:\xampp\htdocs\orangescrum\lib\Cake\View\View.php(473): View->_render('E:\\xampp\\htdocs...')
+#2 E:\xampp\htdocs\orangescrum\lib\Cake\Controller\Controller.php(963): View->render('ajax_status', 'ajax')
+#3 E:\xampp\htdocs\orangescrum\app\Controller\EasycasesController.php(3009): Controller->render('ajax_status', 'ajax')
+#4 [internal function]: EasycasesController->ajax_case_status()
+#5 E:\xampp\htdocs\orangescrum\lib\Cake\Controller\Controller.php(491): ReflectionMethod->invokeArgs(Object(EasycasesController), Array)
+#6 E:\xampp\htdocs\orangescrum\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#7 E:\xampp\htdocs\orangescrum\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EasycasesController), Object(CakeRequest))
+#8 E:\xampp\htdocs\orangescrum\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\header_inner.ctp, line 14]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\header_inner.ctp, line 14
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): Use of undefined constant ACCOUNT_STATUS - assumed 'ACCOUNT_STATUS' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Elements\header_inner.ctp, line 52]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\header_inner.ctp, line 52
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): Use of undefined constant ACCOUNT_STATUS - assumed 'ACCOUNT_STATUS' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Elements\header_inner.ctp, line 278]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\header_inner.ctp, line 278
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): Use of undefined constant ACCOUNT_STATUS - assumed 'ACCOUNT_STATUS' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Elements\header_inner.ctp, line 311]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\header_inner.ctp, line 311
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\new_project.ctp, line 29]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\new_project.ctp, line 29
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\popup.ctp, line 16
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): Invalid argument supplied for foreach() in [E:\xampp\htdocs\orangescrum\app\View\Elements\new_project.ctp, line 40]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\new_project.ctp, line 40
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\popup.ctp, line 16
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\popup.ctp, line 1027]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\popup.ctp, line 1027
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\popup.ctp, line 1054]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\popup.ctp, line 1054
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\popup.ctp, line 1067]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\popup.ctp, line 1067
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): count(): Parameter must be an array or an object that implements Countable in [E:\xampp\htdocs\orangescrum\app\View\Elements\popup.ctp, line 1252]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\popup.ctp, line 1252
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Elements\header_inner.ctp, line 527
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 83
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 09:56:24 Warning: Warning (2): Use of undefined constant DESK_NOTIFY - assumed 'DESK_NOTIFY' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Elements\footer_inner.ctp, line 30]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Elements\footer_inner.ctp, line 30
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::_renderElement() - CORE\Cake\View\View.php, line 1224
+View::element() - CORE\Cake\View\View.php, line 418
+include - APP\View\Layouts\default_inner.ctp, line 90
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+ExceptionRenderer::_outputMessage() - CORE\Cake\Error\ExceptionRenderer.php, line 292
+ExceptionRenderer::error500() - CORE\Cake\Error\ExceptionRenderer.php, line 260
+ExceptionRenderer::render() - CORE\Cake\Error\ExceptionRenderer.php, line 190
+ErrorHandler::handleException() - CORE\Cake\Error\ErrorHandler.php, line 127
+[main] - [internal], line ??
+
+2019-12-10 12:12:29 Warning: Warning (2): Use of undefined constant REDIRECT_URI_SIGNUP - assumed 'REDIRECT_URI_SIGNUP' (this will throw an Error in a future version of PHP) in [E:\xampp\htdocs\orangescrum\app\View\Layouts\default_outer.ctp, line 23]
+Trace:
+ErrorHandler::handleError() - CORE\Cake\Error\ErrorHandler.php, line 230
+include - APP\View\Layouts\default_outer.ctp, line 23
+View::_evaluate() - CORE\Cake\View\View.php, line 971
+View::_render() - CORE\Cake\View\View.php, line 933
+View::renderLayout() - CORE\Cake\View\View.php, line 546
+View::render() - CORE\Cake\View\View.php, line 481
+Controller::render() - CORE\Cake\Controller\Controller.php, line 963
+Dispatcher::_invoke() - CORE\Cake\Routing\Dispatcher.php, line 200
+Dispatcher::dispatch() - CORE\Cake\Routing\Dispatcher.php, line 167
+[main] - APP\webroot\index.php, line 92
+

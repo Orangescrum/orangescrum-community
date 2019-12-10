@@ -93,8 +93,17 @@
 				</span></div>
 				<div class="proj_mng">
 					<div class="fl">
-						<a href="javascript:void(0);" class="icon-edit-temp-task fl" onclick="EditTaskTemp('<?php echo $template['case_templates']['id']; ?>', '<?php echo $template['case_templates']['name']; ?>','<?php echo $casePage; ?>')">Edit</a><br/>
-						<a href="javascript:void(0);" onclick="deltemplate('<?php echo $template['case_templates']['id']; ?>', '<?php echo $template['case_templates']['name']; ?>');" class="icon-delete-usr fl" >Delete</a>
+                                            <?php 
+                                                if($template['case_templates']['is_active'] == 1){
+                                            ?>
+                                                <a href="javascript:void(0);" class="fl" onclick="EditTaskTemp('<?php echo $template['case_templates']['id']; ?>', '<?php echo $template['case_templates']['name']; ?>','<?php echo $casePage; ?>')" style="color:#fff;"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a><br/>
+                                            <?php
+                                                }else{
+                                                    //nothing to do
+                                                }
+                                            ?>
+						
+						<a href="javascript:void(0);" onclick="deltemplate('<?php echo $template['case_templates']['id']; ?>', '<?php echo $template['case_templates']['name']; ?>');" class="fl" style="color:#fff;"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 					</div>
 					<div class="fr">
 						<?php

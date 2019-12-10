@@ -63,3 +63,26 @@
     <input type="hidden" id="mvtask_task_no" value="<?php echo $task_no; ?>" />
     <input type="hidden" id="mvtask_cnt" value="<?php echo $caseCount; ?>" />
 </div>
+<div class="add-mlstn-btn" style="">
+		<center>
+			<span id="tskloader" style="display: none;">
+				<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
+			</span>
+			<span id="mvtask_confirmbtn" style="display:block;">
+                            <?php 
+                                if($caseCount){
+                            ?>
+                                <button class="btn btn_blue" id="mvtask_movebtn" value="Add" type="button" onclick="switchTaskToMilestone(this)"><i class="icon-big-tick"></i>Move Task</button>
+                            <?php
+                                }else{
+                            ?>  
+                                <button class="btn btn_blue" value="Add" type="button" onclick="addEditMilestone(this);" style="margin:0;">+ Create Milestone</button>
+                                <?php
+                                }
+                            ?>
+				
+				<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
+                <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
+			</span>
+			</center>
+	    </div>

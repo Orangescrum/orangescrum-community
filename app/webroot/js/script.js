@@ -2895,6 +2895,7 @@ $(".create_project_temp").click(function () {
 });
 
 $(".create_task_temp").click(function () {
+    
     openPopup();
     $("#task_temp_err").html('');
     $("#tasktemptitle").val('');
@@ -5604,6 +5605,7 @@ function addEditMilestone(obj, mileuniqid, mid, name, cnt, mlstfrom) {
     $(".mlstn").show();
     $('#inner_mlstn').html('');
     $("#addeditMlst").show();
+    $(".movetaskTomlst").hide();
     if (mid === '') {
         $("#icon_mlstn").removeClass("icon-edit-projct");
         $("#icon_mlstn").addClass("icon-create-proj");

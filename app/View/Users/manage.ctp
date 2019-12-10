@@ -138,9 +138,10 @@
               </div>
 	    <div class="nm_prj" id="remain_prj_<?php echo $user['User']['id'];?>">Projects: <?php if(isset($user['User']['all_project']) && trim($user['User']['all_project'])) { ?><span class="fnt13"><?php echo $user['User']['all_project'];?></span><?php } else {?><span class="fnt13 fnt_clr_gry">N/A</span><?php }?></div>
 	     <div class="proj_mng">
-		 <div class="fl">
-		 	<a class="" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" onclick="return edit_user('<?php echo $user['User']['uniq_id']; ?>');" data-usr-name="<?php echo $user['User']['name'];?>">Edit</a>
-		</div>
+		<div class="fl">
+                    
+		 	<!--<a class="" href="javascript:void(0);"    style="color:#fff;"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>-->
+		</div> 
 		<?php if ($user['CompanyUser']['user_type'] == 1) { ?>
 		    <div class="fl">
 			<a class="icon-assign-usr" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>">Assign Project</a>
@@ -175,6 +176,7 @@
 			</div>
 		  <?php } else { ?>
 			<div class="fl">
+                            <a href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" onclick="return edit_user('<?php echo $user['User']['uniq_id']; ?>');" class="icon-edit-temp-task fl" data-usr-name="<?php echo $user['User']['name'];?>"> Edit</a><br>
 			    <a class="icon-assign-usr" href="javascript:void(0);" data-usr-id="<?php echo $user['User']['id'];?>" data-usr-name="<?php echo $user['User']['name'];?>">Assign Project</a>
 			    <input id="rmv_allprj_<?php echo $user['User']['id'];?>" type="hidden" value="<?php echo $user['User']['all_projects'];?>"/>
 				<span id="rmv_prj_<?php echo $user['User']['id'];?>" <?php if($user['User']['all_project'] == ''){ ?> style="display:none;"<?php } ?>>
@@ -195,6 +197,7 @@
 			</div>
 		    <?php }
 		    } ?>
+                        
 	    </div>
         </div>
     </div>

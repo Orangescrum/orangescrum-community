@@ -2,7 +2,7 @@
     <tr>
 	<th>&nbsp;</th>
 	<td rowspan="6" style="text-align: left;"> 
-	    Choose which filters to show in your dashboard tabs.<br/><br/>
+	    
 	    <img src="<?php echo HTTP_ROOT . 'img/images/category_tab.png'; ?>"/>
 	</td>
     </tr>
@@ -25,7 +25,7 @@
 	    <span id="btn_cattype">
 		<button type="button" value="Save" name="addcattab" class="btn btn_blue" onclick="savecategorytab();"><i class="icon-big-tick"></i>Save</button>
 		<!--<button class="btn btn_grey reset_btn" type="button" name="cancel" onclick="closePopup();" ><i class="icon-big-cross"></i>Cancel</button>-->
-        <span class="or_cancel">or<a name="cancel" onclick="closePopup();">Cancel</a></span>
+                <span class="or_cancel"><a name="cancel" class="btn btn-default" onclick="closePopup();">Cancel</a></span>
 	    </span>
 	    <span id="tab_ldr" style="display:none;">
 		<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif">
