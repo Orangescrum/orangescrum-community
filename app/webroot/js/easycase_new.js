@@ -420,8 +420,8 @@ function checkboxStatus(id, typ) {
 	document.getElementById('status_close').checked = false;
 	//document.getElementById('status_start').checked = false;
 	document.getElementById('status_resolve').checked = false;
-	document.getElementById('status_file').checked = false;
-	document.getElementById('status_upd').checked = false;
+	//document.getElementById('status_file').checked = false;
+	//document.getElementById('status_upd').checked = false;
 	var x = "alll";
     }
     else {
@@ -463,12 +463,12 @@ function checkboxStatus(id, typ) {
     if (document.getElementById('status_resolve').checked == true) {
 	x = 5 + "-" + x;
     }
-    if (document.getElementById('status_file').checked == true) {
+    /*if (document.getElementById('status_file').checked == true) {
 	x = "attch-" + x;
-    }
-    if (document.getElementById('status_upd').checked == true) {
+    }*/
+    /*if (document.getElementById('status_upd').checked == true) {
 	x = "upd-" + x;
-    }
+    }*/
     if (x == "") {
 	document.getElementById('status_all').checked = true;
 	x = "alll";

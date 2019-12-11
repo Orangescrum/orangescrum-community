@@ -13,7 +13,7 @@
 		<td>
 			<input id="file<?php echo $count; ?>" value="<?php echo $fil['CaseFile']['id'];?>" type="checkbox" style="cursor: pointer;" class="mglt chkOneArcFile">
 		</td>
-		<td align="right"><a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $fil['Easycase']['uniq_id']?>">#<?php echo $fil['Easycase']['case_no']?></a></td>
+		<td class=""><a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $fil['Easycase']['uniq_id']?>">#<?php echo $fil['Easycase']['case_no']?></a></td>
 		<td></td>
 		<td>
 			<?php 
@@ -30,7 +30,7 @@
 			</div>
 			<div class="cb"></div>
 		</td>
-		<td align="right">
+		<td align="">
 			<div>
 				<?php echo $this->Format->getFileSize($fil['CaseFile']['file_size']);  ?>
 			</div>

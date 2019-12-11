@@ -281,7 +281,7 @@ if(showQuickAct && taskTyp.id != 10){
 					<a href="javascript:void(0);" id="custom<%= csAtId %>"  onclick="changeToRte(<%= '\''+csAtId+'\'' %>,<%= '\''+csUniqId+'\'' %>)" style="display:none;cursor: default;">HTML Editor</a>
 					<a href="javascript:void(0);" id="txt<%= csAtId %>" onclick="changeToRte(<%= '\''+csAtId+'\'' %>,<%= '\''+csUniqId+'\'' %>)" style="display:block;cursor:default;">Text Editor</a>
 					</div>
-					<div class="rep_st_icn"></div>
+					
 				</div>
 				<div class="cb"></div>
 				<div class="col-lg-12 fl">

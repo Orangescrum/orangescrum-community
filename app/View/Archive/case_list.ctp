@@ -18,7 +18,7 @@
 			<input id="case<?php echo $count; ?>" value="<?php echo $lis['Easycase']['uniq_id'];?>" type="checkbox" style="cursor: pointer;" class="mglt chkOneArcCase">
 			<input type="hidden" id="csn<?php echo $count;?>" value="<?php echo $lis['Easycase']['case_no'];?>">
 		</td>
-		<td align="right"><a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $lis['Easycase']['uniq_id']?>">#<?php echo $lis['Easycase']['case_no']?></a></td>
+		<td align=""><a href="<?php echo HTTP_ROOT; ?>dashboard#details/<?php echo $lis['Easycase']['uniq_id']?>">#<?php echo $lis['Easycase']['case_no']?></a></td>
 		<td></td>
 		<td>
 			<div>

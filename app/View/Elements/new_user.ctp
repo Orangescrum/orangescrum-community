@@ -71,7 +71,7 @@
     <input type="hidden" name="data[TimezoneName][id]" value="<?php echo SES_TIMEZONE; ?>" id="txt_loc"/>
 </table>
 </div>
- <div style="padding-left:124px;"> 
+ <div style="padding-left:320px;"> 
 	    <?php
 	    $totUsr = "";
 	    if ((strtolower(trim($user_subscription['user_limit'])) != "unlimited") && $current_active_users >= $user_subscription['user_limit']) {
@@ -96,8 +96,8 @@
 		<input type="hidden" id="uniq_id" value="<?php echo COMP_UID; ?>">
 		<button type="submit" value="Add" name="addMember" class="btn btn_blue"><i class="icon-big-tick"></i>Add</button>
 		<!--<button class="btn btn_grey reset_btn" type="button" name="cancel" onclick="closePopup();" ><i class="icon-big-cross"></i>Cancel</button>-->
-         <span class="or_cancel">or
-            <a onclick="closePopup();">Cancel</a>
+         <span class="or_cancel">
+             <a class="btn btn-default" onclick="closePopup();">Cancel</a>
         </span>
 	    </span>
 		<?php

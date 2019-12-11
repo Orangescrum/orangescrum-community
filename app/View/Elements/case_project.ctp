@@ -255,7 +255,7 @@
             <div id="csStsRep<%= count %>" class="fl tsk_sts"><%= easycase.getStatus(getdata.Easycase.type_id, getdata.Easycase.legend) %></div>
             <% } %>
         </td>
-        <td valign="top" style="padding-right:20px;text-align:center"><%= caseNo %></td>
+        <td valign="top" style="padding-right:20px;text-align:left"><%= caseNo %></td>
         <td class="title_det_wd">
             <div class="fl title_wd">
                 <div id="titlehtml<%= count %>" data-task="<%= caseUniqId %>" class="fl case-title <% if(getdata.Easycase.type_id!=10 && getdata.Easycase.legend==3) { %>closed_tsk<% } %>"> <div class="case_title wrapword task_title_ipad <% if(caseTitle.length>40){%>overme<% }%> " title="<%= formatText(ucfirst(caseTitle)) %>  "><%= formatText(ucfirst(caseTitle)) %></div></div>

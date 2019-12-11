@@ -1215,8 +1215,9 @@ ul#ul_mydashboard li.sortable-li{width:46.2%;margin:0 0 35px 3.1%;}
 /*breadcrumb section starts here*/
 .dropdown.proj_bcrumb{width:250px;}
 /*Filter section starts here*/
+.txt-center{text-align: center;}
 .fl{float:left}
-.fr{float:right}
+.fr{float:right;}
 .cb{clear:both}
 .ttc{text-transform:capitalize}
 .ttu{text-transform:uppercase}
@@ -1360,7 +1361,7 @@ table.tsk_tbl .tab_tr a{color:#555}
 .tr_all td .mglt{margin-left:12px; margin-top:3px;}
 .fnt999{color:#999; font-size:12px;}
 .totalstatus .fnt777{font-weight: normal;color:#777777;}
-.tsk_tbl .label, .task_elements  .label {font-family:'OPENSANS-REGULAR';font-size: 11px; border-radius:0; padding:1px 4px; font-weight:normal; margin-left:10px; margin-top:2px;}
+.tsk_tbl .label, .task_elements  .label {font-family:'OPENSANS-REGULAR';font-size: 11px; border-radius:0; padding:1px 4px; font-weight:normal; margin-left:0px; margin-top:2px;}
 .att_fl{background:url(../img/sprite_osv2.png) no-repeat -170px 0px; height:18px; width:15px;margin-right:20px;margin-top:3px;}
 .fnt12{font-size:12px;}
 .title_wd{width:87%;}
@@ -1776,7 +1777,7 @@ b.pr_low{color:#b4a532;border:0;}
 /* Flash msg */
 .fls-spn{position:relative;width:70%;margin:16px auto 0;}
 .fls-spn-popup{position:relative;width:70%; margin:8px 93px;}
-#topmostdiv{display:block; position:fixed; width:88%; text-align:center;z-index: 2147483647; position:fixed;}
+#topmostdiv{display:block; position:fixed; width:39%; text-align:center;z-index: 2147483647; position:fixed;top:43px;right:-59px;}
 .topalerts{text-align: left;font-size:15px;margin-bottom:18px;padding:15px 35px;background-color:#fcf8e3;border:1px solid #fbeed5;color:#c09853;cursor:pointer;width:auto;}
 .success{width:auto;border:1px solid #79D57B;color:#468847;border-radius:1px;min-height:52px;background:url(../img/images/done.png) no-repeat 16px 15px #DFF0D8;}
 .error{width:auto;border:1px solid #e78a98;color:#b94a48;border-radius:1px;min-height:52px;background:url(../img/images/icon_notification_error.png) no-repeat 14px 18px #f2dede;}
@@ -1836,8 +1837,8 @@ b.pr_low{color:#b4a532;border:0;}
 
 /* Filter Layout css -Starts */
 .case-filter-menu #dropdown_menu_all_filters{top:28px;}
-.case-filter-menu #dropdown_menu_sortby_filters{top:28px;left:8px;}
-.case-filter-menu #dropdown_menu_groupby_filters{top:28px;left:17px;}
+.case-filter-menu #dropdown_menu_sortby_filters{top:31px;left:-1px;}
+.case-filter-menu #dropdown_menu_groupby_filters{top:31px;left:-1px;}
 .case-filter-menu{position: relative;}	
 .case-filter-menu .dropdown-menu{min-width: 118px;position: relative;float: none;top:10px;left:-3px;text-align: left;}
 .case-filter-menu .dropdown-menu > li > a{padding: 3px 10px;}
@@ -2118,7 +2119,7 @@ a.icon-revadmin-usr:hover,a.icon-enable-usr:hover,a.icon-enable-prj:hover,a.icon
 .over-due{color:#D67866; text-decoration:none;position: relative;text-decoration: none;top: -1px;}
 .over-due div{color:#666666; font-size:12px;line-height:0;}
 .task_due_dt .over-due{top: -6px; margin-bottom:-10px;}
-.tsk_desc_icon{background: url("../img/sprite_osv2.png") -360px -421px no-repeat;height:6px;width:11px;right:18px;top:10px;position:absolute;}
+.tsk_desc_icon{/*background: url("../img/sprite_osv2.png") -360px -421px no-repeat*/height:6px;width:11px;right:18px;top:10px;position:absolute;}
 .tsk_asc_icon{background: url("../img/sprite_osv2.png") -360px -412px no-repeat;height:6px;width:11px;right:18px;top:10px;position:absolute;}
 .set-due-dt{color:#A5A5A5; text-decoration:none;}
 /*.active_tab{background:#F7F6F4;border-top:2px solid #495766;border-bottom:none;font-family:'PT Sans',Arial,sans-serif;font-size:13px;font-weight:bold;padding:4px 20px 4px 15px;min-width:163px;width: auto;height: 35px;color:#333;float:left;cursor:pointer;}*/
@@ -2135,6 +2136,7 @@ a.icon-revadmin-usr:hover,a.icon-enable-usr:hover,a.icon-enable-prj:hover,a.icon
     right: -1px;
 	border-bottom: 14px solid #fff;
 	-webkit-box-shadow: 0 5px 12px #333333;
+        min-width:126px;
 }
 li.all-addon-list{
     background: #179af5;
@@ -2272,11 +2274,12 @@ input.customfile-input {background: none repeat scroll 0 0 transparent;border: 0
 .fnt_clr_rd{color: #FF0000;}
 #ul_mydashboard .fnt_clr_rd{color: #9E9E9E; background:url(../img/standy_board_grey2.png) 0px 0px no-repeat;height:200px;width:109px;margin:auto;margin-top:8%;padding-top:15%;text-align:center;}
 .fnt_clr_gry{color: #9E9E9E;}
-.hdr_tr th{font-weight:bold;color:#333333;background-color: #F3F3F3;text-align:center;padding:10px;}
+.hdr_tr th{font-weight:bold;color:#333333;background-color: #F3F3F3;text-align:left;padding:10px;}
 .hdr-cnt{padding:0 10px;}
 .ldr-ad-btn{display:none;/*padding-left: 220px;*/}
 .rmv_prj_usr_tbl{border:1px solid #CFD7DD;}
 .popup_form table.rmv_prj_usr_tbl tr{border-bottom: 1px solid #F2F2F2;}
+.popup_form table.rmv_prj_usr_tbl tr td{text-align:center;}
 .popup_form table.rmv_prj_usr_tbl tr td{padding:5px 20px 5px 10px;text-align:left;}
 .popup_form table.rmv_prj_usr_tbl.inctv tr td{background-color: #F0F0F0;text-align:left;border-bottom: 1px solid #FFFFFF;}
 .w54{width:54px;}
@@ -2393,13 +2396,13 @@ table.col-lg-12.ajx-srch-tbl tr.nohover:hover{background:#fff;color:#333; cursor
 .kanban_section{width:auto;padding-bottom:30px;}
 .kanban-main{width:1355px;height: auto;}
 .kanban-main .kanban-child{margin-right:25px;margin-left: 1px;width:310px;margin-top: 5px; border: 1px solid #dddddd;padding-bottom: 20px;background:#ffffff}
-.kanban-main .kanban_content{height: 500px;width: 100%;overflow-y:auto;overflow-x:hidden;outline:medium none;}
+.kanban-main .kanban_content{height: 280px;width: 100%;overflow-y:auto;overflow-x:hidden;outline:medium none;}
 .kbtask_div{border: 1px solid #ccc;margin:0px 8px 8px 8px;padding: 5px;width:95%;background:#ffffff}
 /*.kbtask_div:hover{background:#E3EAF4}*/
 .pr_low{border-left: 2px solid #B4A532;}
 .pr_medium{border-left: 2px solid #28AF51;}
 .pr_high{border-left: 2px solid #FF0000;}
-.kbhead{background: #F1F1F1;font-weight: bold;font-size: 14px;padding: 10px;margin-bottom:6px;}
+.kbhead{background: #F1F1F1;font-weight: bold;font-size: 14px;padding: 10px;margin-bottom:6px;height:90px;}
 
 
 .kbhead_newTask{color: #AB462A;}
@@ -3213,7 +3216,7 @@ table.tsk_tbl.arc_tbl.arc_tabs tr td.fl_n{width:1%;}
 .kanban-main .round_profile_img{border:2px solid #bbb}
 .kanban-main .pjname-cls{color:#5191BD;padding-left: 3px;font-size:13px;font-weight:bold;}
 .kanban-main .bblecnt{margin:4px 2px 0px  2px}
-.rem_proj_ipad{text-overflow: ellipsis; overflow: hidden; width:140px;}
+.rem_proj_ipad{text-overflow: ellipsis; overflow: hidden; }
  .crt_mlstbtn{padding-left: 10px !important;padding-top:2px !important;padding-bottom: 2px !important;font-size: 18px !important;}
  .mlstlink_new{padding:8px 13px;font-size: 13px;color: #2D678D;text-decoration: underline;}
  .cnew_mlst{color: #2D768D !important;}

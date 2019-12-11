@@ -5,6 +5,7 @@
 </style>
 <div id="detail_section"></div>
 <div class="page-wrapper task_section" style="text-align: center;" id="filter_section">
+    <br>
     <div class="row">
         <div class="col-md-4">
             <div class="fl" id="filtered_items" style="padding-left:10px;" ></div>
@@ -46,14 +47,14 @@
                                                                 </div>
                                                          </div>
                                                 </div>-->
-                <button class="btn btn-default pad-3" style="display:none;"  id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"><img src="<?php echo HTTP_ROOT.'img/icons/reset.png';?>"></button>
+                <div  style="display:none;padding-top:5px;margin-right: 3px;"  id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"><img src="<?php echo HTTP_ROOT.'img/icons/reset.png';?>"></div>
                 <!--<div class="fl db-filter-reset-icon" style="display:none;" id="reset_btn" title="Reset Filters" rel="tooltip" onClick="resetAllFilters('all');"></div>-->
             </div>   
 		<div class="fl task_section case-filter-menu " data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_all_filters');">
 			<button type="button" class="btn tsk-menu-filter-btn flt-txt">
 					<i class="icon_flt_img"></i>
 					Filters
-					<i class="icon-filter-right"></i>
+					<i class="caret"></i>
 			</button>
 			<ul class="dropdown-menu" id="dropdown_menu_all_filters" style="position: absolute;">
 				<li class="pop_arrow_new"></li>
@@ -112,7 +113,7 @@
 		<!-- Filter options ends-->
 			<div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
 			<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt" >
-					<i class="icon_groupby_img"></i>Group by<i class="icon-filter-right"></i>
+					<i class="icon_groupby_img"></i>Group by<i class="caret"></i>
 			</button>
 			<ul class="dropdown-menu" id="dropdown_menu_groupby_filters" style="position: absolute;">
 				<li class="pop_arrow_new"></li>
@@ -135,7 +136,7 @@
 		</div>
 		<div class="fl task_section case-filter-menu tasksortby-div " data-toggle="dropdown" >
 		<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt sortby_btn <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disable-btn<?php }?> " onclick="openfilter_popup(0,'dropdown_menu_sortby_filters');" <?php if(isset($_COOKIE['TASKGROUPBY']) && ($_COOKIE['TASKGROUPBY']!='date')){?>disabled="disabled"<?php }?>>
-				<i class="icon_sortby_img"></i>Sort by<i class="icon-filter-right"></i>
+				<i class="icon_sortby_img"></i>Sort by<i class="caret"></i>
 		</button>
 		<ul class="dropdown-menu" id="dropdown_menu_sortby_filters" style="position: absolute;">
 			<li class="pop_arrow_new"></li>

@@ -378,6 +378,33 @@ class TemplatesController extends AppController {
 		$this->Session->write("SUCCESS","Task template deleted successfully");
 		$this->redirect(HTTP_ROOT."templates/tasks");
 	}
+        
+        /**
+        * Removes any non-alphanumeric characters.
+        *
+        * @param string $string String to sanitize
+        * @param array $allowed An array of additional characters that are not to be removed.
+        * @return string Sanitized string
+        */
+        public function sanitizeString($string, $allowed = array()) {
+		$allow = null;
+		if (!empty($allowed)) {
+			foreach ($allowed as $value) {
+				$allow .= "\\$value";
+			}
+		}
+
+		if (!is_array($string)) {
+			return preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $string);
+		}
+
+		$cleaned = array();
+		foreach ($string as $key => $clean) {
+			$cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $clean);
+		}
+
+		return $cleaned;
+	}
 	
 	function ajax_add_task_template(){
 		$this->layout='ajax';
@@ -391,11 +418,11 @@ class TemplatesController extends AppController {
 			//$this->set('TempalteArray',$res);
 		}else{
 			if($this->request->data && $this->Auth->User('id')){
-				$this->request->data['CaseTemplate']['name'] = htmlentities(strip_tags($this->request->data['title']));
+				$this->request->data['CaseTemplate']['name'] = $this->sanitizeString($this->request->data['title']);
 				$this->request->data['CaseTemplate']['description'] = $this->request->data['tempDesc'];
 				$this->request->data['CaseTemplate']['user_id'] = $this->Auth->User('id');
 				$this->request->data['CaseTemplate']['company_id']=SES_COMP;
-
+                                
 				 //Code for EDIT the task template
 				 if($this->request->data['tasktempId']){
 					if(trim($this->request->data['tasktempId'])) {

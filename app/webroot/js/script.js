@@ -1641,6 +1641,7 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
                     "uniq_id": escape(uniq_id)
                 }, function (data) {
                     if (data == "success") {
+                        
                         document.myform.submit();
                         return true;
                     } else {

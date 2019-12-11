@@ -41,7 +41,7 @@
 					<div class="fr">Task</div>
 				</td>
 				<td width="1%">
-					<div class="fl"></div>
+					<div class="fl"></div       >
 				</td>
 				<td width="33%">
 					<div class="fl">Title</div>
@@ -79,7 +79,7 @@
 				   <div class="fl">File Name</div>
 				</td>       
 				<td class="fl_sz">
-				   <div class="fr">Size</div>
+				   <div class="fl">Size</div>
 				</td>
 				<td class="fl_n">
 				   <div class="fl"></div>

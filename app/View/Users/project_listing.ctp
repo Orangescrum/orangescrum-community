@@ -6,7 +6,8 @@
 <?php if ($project_list) { ?>
 <div class="scrl-ovr">
     <table cellpadding="0" cellspacing="0" class="col-lg-12 rmv_prj_usr_tbl">
-        <tr class="hdr_tr">
+        <thead>
+            <tr class="hdr_tr">
 	    <th><input type="checkbox" class="chkbx_cur" id="checkAllprojects"/></th>
 	    <th>Name</th>
 	    <th>Short Name</th>
@@ -14,6 +15,8 @@
 		<th>Email Notification</th>
 	    <?php } ?>
         </tr>
+        </thead>
+        <tbody>
 	<?php
 	$class = "";
 	$cscount = 0;
@@ -55,6 +58,7 @@
 	    <?php } ?>
 	</tr>
 	<?php } ?>
+        </tbody>    
     </table>
 </div>
 <input type="hidden" id="is_prj"  value="1"/>

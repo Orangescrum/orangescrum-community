@@ -29,7 +29,7 @@
 		<div class="col-lg-4">
 			<div class="col-lg-12 contain new_prjct user_inv text-centre create_task_temp" style="padding: 55px 50px; display: block ! important;">
 			<div class="icon-projct-template"></div>
-				Create Task Template
+                        <button class="btn btn_blue">+ Create Task Template</button>
 			</div>	
 		</div>
 		</a>
