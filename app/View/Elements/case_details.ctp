@@ -288,13 +288,13 @@ if(showQuickAct && taskTyp.id != 10){
 					<div class="fl lbl-font16" id="hidstatus<%= csAtId %>" style="margin:-2px 16px 5px 0">Write your Reply:&nbsp;</div>
 					<div class="col-lg-9 w80p fl">
 				<span id="html<%= csAtId %>" style="display:block;">
-					<span id="hidhtml<%= csAtId %>" style="display:none;">
+					<span id="hidhtml<%= csAtId %>" style="display:block;">
 						<textarea name="data[Easycase][message]" id="<%= 'txa_comments'+csAtId %>" rows="2" class="col-lg-12"></textarea>
 						<span id="htmlloader<%= csAtId %>" style="color:#999999; display: none; float:left;">
 							Loading...
 						</span>
 					</span>
-					<span id="showhtml<%= csAtId %>" data-task="<%= csAtId %>">
+					<span id="showhtml<%= csAtId %>" data-task="<%= csAtId %>" style="display:none;">
 						<textarea name="data[Easycase][message]" id="<%= 'txa_comments'+csAtId %>" rows="2" class="reply_txt_ipad col-lg-12" style="color:#000" autofocus></textarea>
 					</span>
 				</span>

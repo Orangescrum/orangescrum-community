@@ -819,7 +819,7 @@ easycase.ajaxCaseDetails = function(caseUniqId,type,dtls){
 				}*/
 			}
 			
-			//easycase.loadTinyMce(data.csAtId);
+			easycase.loadTinyMce(data.csAtId);
 			$('[rel=tooltip]').tipsy({gravity:'s', fade:true});
 			$("img.lazy").lazyload({ placeholder : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" });
 			//$(".customfile-button").removeClass('button');

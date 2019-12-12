@@ -2120,7 +2120,7 @@ a.icon-revadmin-usr:hover,a.icon-enable-usr:hover,a.icon-enable-prj:hover,a.icon
 .over-due div{color:#666666; font-size:12px;line-height:0;}
 .task_due_dt .over-due{top: -6px; margin-bottom:-10px;}
 .tsk_desc_icon{/*background: url("../img/sprite_osv2.png") -360px -421px no-repeat*/height:6px;width:11px;right:18px;top:10px;position:absolute;}
-.tsk_asc_icon{background: url("../img/sprite_osv2.png") -360px -412px no-repeat;height:6px;width:11px;right:18px;top:10px;position:absolute;}
+.tsk_asc_icon{/*background: url("../img/sprite_osv2.png") -360px -412px no-repeat;*/height:6px;width:11px;right:18px;top:10px;position:absolute;}
 .set-due-dt{color:#A5A5A5; text-decoration:none;}
 /*.active_tab{background:#F7F6F4;border-top:2px solid #495766;border-bottom:none;font-family:'PT Sans',Arial,sans-serif;font-size:13px;font-weight:bold;padding:4px 20px 4px 15px;min-width:163px;width: auto;height: 35px;color:#333;float:left;cursor:pointer;}*/
 .load_srch{display:none;position:absolute;top:10px;right:10px;}
