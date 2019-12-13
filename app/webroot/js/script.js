@@ -1571,14 +1571,27 @@ function validate_contact() {
 }
 
 
-function memberCustomer(txtEmailid, selprj, loader, btn) {
+function memberCustomer(txtEmailid,userName,pwd,selprj, loader, btn) {
     var email_id = document.getElementById(txtEmailid).value;
+    var user_name = document.getElementById(userName).value;
+    var password = document.getElementById(pwd).value;
     var email_arr = email_id.split(',');
     var done = 1;
-    if (email_id == "") {
+    
+    if(user_name == ""){
+        done = 0;
+        msg = "User name cannot be left blank!";
+        document.getElementById('err_name').innerHTML = "";
+        document.getElementById('err_name').style.display = 'block';
+        document.getElementById('err_name').innerHTML = msg;
+        document.getElementById(userName).focus();
+        return false;
+        
+    }else if (email_id == "") {
         done = 0;
         msg = "Email cannot be left blank!";
         document.getElementById('err_email_new').innerHTML = "";
+        document.getElementById('err_name').innerHTML = "";
         document.getElementById('err_email_new').style.display = 'block';
         document.getElementById('err_email_new').innerHTML = msg;
         document.getElementById(txtEmailid).focus();
@@ -1621,6 +1634,28 @@ function memberCustomer(txtEmailid, selprj, loader, btn) {
                 return false;
             }
         }
+        
+        if(password == ""){
+        done = 0;
+        msg = "Password cannot be left blank!";
+        document.getElementById('err_password_new').innerHTML = "";
+        document.getElementById('err_email_new').innerHTML = "";
+        document.getElementById('err_password_new').style.display = 'block';
+        document.getElementById('err_password_new').innerHTML = msg;
+        document.getElementById(pwd).focus();
+        return false;  
+        }
+        
+        if(password.length > 8){
+           done = 0;
+        msg = "Password length can not exceed 8 characters!";
+        document.getElementById('err_password_new').innerHTML = "";
+        document.getElementById('err_password_new').style.display = 'block';
+        document.getElementById('err_password_new').innerHTML = msg;
+        document.getElementById(pwd).focus();
+        return false; 
+        }
+        
         if (done != 0) {
             var type = document.getElementById('sel_Typ').value;
             if (type == 2) {
@@ -3538,6 +3573,7 @@ function filterUserRole(role, user_srch) {
 
 function addProjectToUser() {
     var usr_id = getCookie('LAST_INVITE_USER');
+    
     usr_id = decodeURIComponent(usr_id);
     if (usr_id) {
         var user_id = usr_id.split(",");
@@ -3545,8 +3581,14 @@ function addProjectToUser() {
         for (var i in user_id) {
             usr_name = usr_name + "," + $("div.invite_user_cls[data-usr-id='" + user_id[i] + "']").attr('data-usr-name');
         }
+        
         usr_name = trim(usr_name, ',');
+        if(getCookie('LAST_ASSIGNED_USER') != ""){
+            usr_name = getCookie('LAST_ASSIGNED_USER');
+        }
+        
         createCookie("LAST_INVITE_USER", '', -365, DOMAIN_COOKIE);
+        createCookie("LAST_ASSIGNED_USER", '', -365, DOMAIN_COOKIE);
         if (confirm("Do you want to assign project to '" + usr_name + "' ?")) {
             usr_name = shortLength(usr_name, 50);
             add_project(usr_id, usr_name, 1);

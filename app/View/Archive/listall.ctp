@@ -38,7 +38,7 @@
 					</div>
 				</td>
 				<td width="1%">
-					<div class="fr">Task</div>
+					<div class="fl">Task</div>
 				</td>
 				<td width="1%">
 					<div class="fl"></div       >

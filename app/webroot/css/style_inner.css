@@ -2139,12 +2139,13 @@ a.icon-revadmin-usr:hover,a.icon-enable-usr:hover,a.icon-enable-prj:hover,a.icon
         min-width:126px;
 }
 li.all-addon-list{
-    background: #179af5;
+    
     color: #fff;
 }
 li.all-addon-list a{
-    color:#fff !important;
+    color:#0182f1;
 }
+
 .cattab{cursor: pointer;}
 .user_sett_info, .dropdown ul.user_sett_info{margin:0px 30px;border-bottom: 1px solid #e6e6e6;padding:10px 0 10px;}
 .profile_name ~ ul.dropdown-menu > li > a{color:#fff}

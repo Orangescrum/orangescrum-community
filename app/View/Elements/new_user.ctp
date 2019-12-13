@@ -1,4 +1,4 @@
-<?php echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myform', 'name' => 'myform', 'onsubmit' => 'return memberCustomer(\'txt_email\',\'sel_custprj\',\'loader\',\'btn\')')); ?>
+<?php echo $this->Form->create('User', array('url' => '/users/new_user', 'id' => 'myform', 'name' => 'myform', 'onsubmit' => 'return memberCustomer(\'txt_email\',\'username\',\'password\',\'sel_custprj\',\'loader\',\'btn\')')); ?>
 <div class="data-scroll user_pdt">
 <table cellpadding="0" cellspacing="0" class="col-lg-12 new_auto_tab">
         <?php if (USE_GOOGLE == 1) { ?>

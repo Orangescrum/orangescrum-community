@@ -63,7 +63,7 @@
     <input type="hidden" id="mvtask_task_no" value="<?php echo $task_no; ?>" />
     <input type="hidden" id="mvtask_cnt" value="<?php echo $caseCount; ?>" />
 </div>
-<div class="add-mlstn-btn" style="">
+<div class="add-mlstn-btn fr" style="">
 		<center>
 			<span id="tskloader" style="display: none;">
 				<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="loading..." title="loading..."/> 
@@ -82,7 +82,7 @@
                             ?>
 				
 				<!--<button class="btn btn_grey" type="button" onclick="closePopup();"><i class="icon-big-cross"></i>Cancel</button>-->
-                <span class="or_cancel">or<a onclick="closePopup();">Cancel</a></span>
+                                <span class="or_cancel"><a class="btn btn-default" onclick="closePopup();">Cancel</a></span>
 			</span>
 			</center>
 	    </div>

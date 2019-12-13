@@ -111,7 +111,7 @@
 			</ul>
 		</div>
 		<!-- Filter options ends-->
-			<div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Filter" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
+			<div class="fl task_section case-filter-menu taskgroupby-div" data-toggle="dropdown" title="Task Group By" onclick="openfilter_popup(0,'dropdown_menu_groupby_filters');">
 			<button type="button" class="btn tsk-menu-sortgroup-btn flt-txt" >
 					<i class="icon_groupby_img"></i>Group by<i class="caret"></i>
 			</button>

@@ -130,7 +130,7 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                     if (CONTROLLER == "pages" && $this->params['action'] == 'addons') {
                         echo "active";
                     }
-                    ?>'><i class="menu_sprite_ico all_addon"></i><?php echo __("Addons"); ?>
+                    ?>' style="color:#0182f1;"><i class="menu_sprite_ico all_addon"></i><?php echo __("Addons"); ?>
                         <span class="menu_more_arr"></span>
                         <div class="clearfix"></div>
                     </a>

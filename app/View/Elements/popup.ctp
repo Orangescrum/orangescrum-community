@@ -362,7 +362,7 @@
 	<div class="popup_title pad-10">
 	    <span class="hdr-cnt">Assign Project
 		<span><img src="<?php echo HTTP_IMAGES; ?>html5/icons/icon_breadcrumbs.png"></span>
-		<span id="header_usr_prj_add" class="fnt-nrml"></span>
+		<span id="invite_user_cls" class="fnt-nrml"></span>
 	    </span>
 	    <a href="javascript:jsVoid();" onclick="closePopup();"><div class="fr close_popup">X</div></a>
 	    

@@ -528,8 +528,8 @@ if(showQuickAct && taskTyp.id != 10){
 				<div class="cb"></div>
 				<div class="col-lg-12 m-top-20">
 					<div class="fl lbl-font16 lbl_cs_det_125">&nbsp;</div>
-					<div class="fr mor_toggle tasktoogle" style="float:left" id="mor_toggle<%= csAtId %>" data-csatid="<%= csAtId %>"><a href="javascript:jsVoid();" style="text-decoration:none"><img src="<?php echo HTTP_IMAGES;?>priority.png" title="Priority" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>hours.png" title="Hours Spent and % Completed" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>attachment.png" title="Attachments, Google Drive, Dropbox" rel="tooltip"/>&nbsp;&nbsp;More Options<b class="caret"></b></a></div>
-					<div class="fr less_toggle tasktoogle" id="less_toggle<%= csAtId %>" data-csatid="<%= csAtId %>" style="display:none;float:left"><a href="javascript:jsVoid();" style="text-decoration:none">Less<b class="caret"></b></a></div>
+					<div class="fr mor_toggle tasktoogle" style="float:left" id="mor_toggle<%= csAtId %>" data-csatid="<%= csAtId %>"><a href="javascript:jsVoid();" style="text-decoration:none"><img src="<?php echo HTTP_IMAGES;?>priority.png" title="Priority" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>hours.png" title="Hours Spent and % Completed" rel="tooltip"/>&nbsp;&nbsp;<img src="<?php echo HTTP_IMAGES;?>attachment.png" title="Attachments, Google Drive, Dropbox" rel="tooltip"/>&nbsp;&nbsp;+ More</a></div>
+					<div class="fr less_toggle tasktoogle" id="less_toggle<%= csAtId %>" data-csatid="<%= csAtId %>" style="display:none;float:left"><a href="javascript:jsVoid();" style="text-decoration:none">- Less</a></div>
 				</div>
 				
 				<div class="cb"></div>
@@ -537,8 +537,8 @@ if(showQuickAct && taskTyp.id != 10){
 					<div class="fl lbl-font16 lbl_cs_det"></div>
 					<span id="postcomments<%= csAtId %>">
 						<button class="btn btn_blue" type="button" name="data[Easycase][postdata]" onclick="return validateComments(<%= '\''+csAtId+'\',\''+csUniqId+'\',\''+csLgndRep+'\',\''+SES_TYPE+'\',\''+csProjIdRep+'\'' %>);"><i class="icon-big-tick"></i>Post</button>
-                        <span class="or_cancel">or</span>
-						<button class="task_detail_back or_cancel" type="reset" id="rset"><i class="icon-big-cross"></i>Cancel</button>
+                        <span class="or_cancel"></span>
+						<button class="task_detail_back  btn btn-default" type="reset" id="rset"><i class="icon-big-cross"></i>Cancel</button>
 					</span>
 					<span id="loadcomments<%= csAtId %>" style="display:none;">
 						<img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." style="padding:5px;"/>

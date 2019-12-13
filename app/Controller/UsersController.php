@@ -1299,6 +1299,7 @@ class UsersController extends AppController {
                             if (!$invitation_id && !isset($this->request->data['User']['pid'])) {
 
                                 setcookie('LAST_INVITE_USER', $userid, time() + 3600, '/', DOMAIN_COOKIE, false, false);
+                                setcookie('LAST_ASSIGNED_USER', $name, time() + 3600, '/', DOMAIN_COOKIE, false, false);
                             }
                             $this->Session->write("SUCCESS", "User added successfully.");
                             $this->redirect(HTTP_ROOT . "users/manage/?role=active");
