@@ -17,7 +17,7 @@ if(file_srch.trim()) {
         <td width="27%" class="flnm_td">
             <div class="fl">File Name</div><!--<div class="tsk_sort fl"></div>-->
         </td>        
-        <td width="7%" align="right">
+        <td width="7%" align="">
             Size<!--<div class="tsk_sort fl"></div>-->
         </td>    
 	<td width="5%">&nbsp;</td>
@@ -58,7 +58,7 @@ if(file_srch.trim()) {
 			</div>
 		    </td>
 		    <td style="text-align:right;padding-right:20px">
-			<div class="fr">
+			<div class="fl">
 			    <a href="<%= HTTP_ROOT %>dashboard#details/<%= caseUniqId %>"><%= caseNo %></a></div>
 		    </td>
 		    <td class="file_pdr">
@@ -85,7 +85,7 @@ if(file_srch.trim()) {
 			</div>
 			<div class="cb"></div>
 		    </td>
-		    <td align="right" style="display: block;"><%= obj.file_size %></td>
+		    <td align="" style="display: block;"><%= obj.file_size %></td>
 		    <td>&nbsp;</td>
 		</tr>
 	    <% 
