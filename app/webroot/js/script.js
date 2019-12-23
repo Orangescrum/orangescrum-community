@@ -1179,8 +1179,8 @@ function case_quick(easycase) { // add assignto, user checkboxs,
 
     //default values for create task
     if (parseInt($("#is_default_task_type").val())) {
-        $('#CS_type_id').val(2);
-        $('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/dev.png" alt="type" style="padding-top:3px;"/>&nbsp;Development');
+        $('#CS_type_id').val('0');
+        $('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/dev.png" alt="type" style="padding-top:3px;"/>&nbsp;Select Task Type');
     }
 
     $('#CS_priority').val(1);
