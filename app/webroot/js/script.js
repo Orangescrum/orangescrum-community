@@ -1178,10 +1178,19 @@ function case_quick(easycase) { // add assignto, user checkboxs,
     }
 
     //default values for create task
-    if (parseInt($("#is_default_task_type").val())) {
+    $.each(GLOBALS_TYPE, function(key, value) {
+       
+            $('#CS_type_id').val(value.Type.id);
+            //$('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/'+value.Type.short_name+'.png" alt="type" style="padding-top:3px;"/>' +value.Type.name);
+            $('#ctsk_type').html(value.Type.name);
+            return false;
+            
+        //  continue;
+    });
+  /*  if (parseInt($("#is_default_task_type").val())) {
         $('#CS_type_id').val('0');
         $('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/dev.png" alt="type" style="padding-top:3px;"/>&nbsp;Select Task Type');
-    }
+    } */
 
     $('#CS_priority').val(1);
     $('#priority_mid').prop('checked', true);
@@ -1203,7 +1212,8 @@ function case_quick(easycase) { // add assignto, user checkboxs,
 
             for (typi in GLOBALS_TYPE) {
                 if (easycase.type_id == GLOBALS_TYPE[typi].Type.id) {
-                    $('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/' + GLOBALS_TYPE[typi].Type.short_name + '.png" alt="type" style="padding-top:3px;"/>&nbsp;' + GLOBALS_TYPE[typi].Type.name);
+                  //  $('#ctsk_type').html('<img class="flag" src="' + HTTP_IMAGES + 'images/types/' + GLOBALS_TYPE[typi].Type.short_name + '.png" alt="type" style="padding-top:3px;"/>&nbsp;' + GLOBALS_TYPE[typi].Type.name);
+                    $('#ctsk_type').html(GLOBALS_TYPE[typi].Type.name);
                     break;
                 }
             }
