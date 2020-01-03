@@ -30,6 +30,7 @@
                 <input type="text" class="form-control"  name="data[User][email]" style="width:352px;height:35px;" id="txt_email">
                 <?php //echo $this->Form->input('text', array('id' => 'txt_email', 'class' => 'form-control')); ?>
 	    <input type="hidden" name="data[User][istype]" value="3" id="sel_Typ"/>
+            <input type="hidden" name="data[User][user_id]" value="" id="user_id">
                 <div id="err_email_new" class="err_msg"></div>
                 <!--<div class="user_inst">(Use comma to separate multiple email ids)</div>-->
 		<?php /*?><br/>
@@ -94,8 +95,8 @@
 	    </span>
 	    <span id="btn_addmem">
 		<input type="hidden" id="uniq_id" value="<?php echo COMP_UID; ?>">
-		<button type="submit" value="Add" name="addMember" class="btn btn_blue"><i class="icon-big-tick"></i>Add</button>
-		<!--<button class="btn btn_grey reset_btn" type="button" name="cancel" onclick="closePopup();" ><i class="icon-big-cross"></i>Cancel</button>-->
+		<button type="submit" value="Add" name="addMember" class="btn btn_blue" id="add_user_btn"><i class="icon-big-tick"></i>Add</button>
+		<button type="submit" class="btn btn_blue" type="button" name="Update" value="Update"  id="update_user_btn" style="display: none;">Update</button>
          <span class="or_cancel">
              <a class="btn btn-default" onclick="closePopup();">Cancel</a>
         </span>

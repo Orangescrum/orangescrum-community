@@ -297,15 +297,18 @@
 
 <script>
 function edit_user(id){
-	newUser();	
+	newUser();
+        $("#add_user_btn").hide();
+        $("#update_user_btn").show();
 $.post(HTTP_ROOT + "users/edit_user", {
             "u_id": id
         }, function (data) {
             if (data) {
 			$('#username').val(data.name);
 			$('#user_u_id').val(data.id);
-			$('#useremail').val(data.email);
-			$('#password').val('');
+			$('#txt_email').val(data.email);
+			$('#password').val('*******');
+                        $("#user_id").val(data.id);
             $('#useremail').attr('readonly',true);
 		    $('#select_project').attr('disabled',true);
 			$('#sel_custprj').attr('disabled',true);
@@ -317,4 +320,7 @@ $.post(HTTP_ROOT + "users/edit_user", {
 	
 
 }
+
+
+
 </script>

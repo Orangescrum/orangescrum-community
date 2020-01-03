@@ -91,7 +91,7 @@
         </div>
         <div class="popup_form">
             <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
-            <div id="inner_mvproj" style="display: none;"></div>
+            <div id="inner_mvproj" style="display: none; "></div>
         </div>
     </div>
     <!-- Move project popup ends -->

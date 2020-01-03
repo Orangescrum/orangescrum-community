@@ -904,18 +904,19 @@ class UsersController extends AppController {
     }
 
     function new_user($resend = NULL) {
-
+        
 
         if (!empty($this->request->data['User']['user_id'])) {
-
+            $email = $this->request->data['User']['email'];
             $name = $this->request->data['User']['name'];
             $password = $this->request->data['User']['password'];
             $newMd5Passwrod = md5($password);
             $id = $this->request->data['User']['user_id'];
 
-            $this->User->query("UPDATE users SET name='" . $name . "', password='" . $newMd5Passwrod . "',query_string='' WHERE id=" . $id);
+            $this->User->query("UPDATE users SET email='".$email."', name='" . $name . "', password='" . $newMd5Passwrod . "',query_string='' WHERE id=" . $id);
             $this->Session->write("SUCCESS", " User information updated successfully.");
             $this->redirect(HTTP_ROOT . "users/manage/");
+            exit();
         }
         $Company = ClassRegistry::init('Company');
         //$comp = $Company->find('first',array('fields'=>array('Company.id','Company.name','Company.uniq_id')));
