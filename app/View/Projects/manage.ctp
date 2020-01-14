@@ -136,8 +136,14 @@
 			}
 			?>
 			</div>
-			<?php if($projtype == '') { ?>
-			    <div class="proj_mng">
+                        <?php 
+                        
+                        if($projtype == '') { 
+                            if(@SES_TYPE == 3){
+                                //nothing to display
+                            }else{
+                         ?>
+                         <div class="proj_mng">
 				<div class="fl">
 				    <a href="javascript:void(0);" class="icon-add-usr fl" data-prj-id="<?php echo $prjArr['Project']['id'];?>" data-prj-name="<?php echo $prj_name;?>">Add User</a><br />
 					<span id="remove<?php echo $prjArr['Project']['id'];?>">
@@ -159,6 +165,11 @@
 				<?php } ?>
 				</div>
 			    </div>
+                     <?php
+                                
+                            }
+                       ?>
+			    
 			<?php } else { ?>
 				<div class="proj_mng">
 				    <div class="fl"><a href="javascript:void(0);" class="icon-enable-prj enbl_prj" data-prj-id="<?php echo $prjArr['Project']['id'];?>" data-prj-name="<?php echo $prj_name;?>">Enable</a></div>

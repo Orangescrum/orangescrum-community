@@ -211,6 +211,7 @@ class ProjectsController extends AppController {
     }
 
     function manage($projtype = NULL) {
+		
         $page_limit = 17;
         if ($projtype == 'inactive') {
             $page_limit = 18;
@@ -300,13 +301,30 @@ class ProjectsController extends AppController {
             $pj = $_GET['prj'] . "%";
             $query .= " AND Project.name LIKE '" . addslashes($pj) . "'";
         }
+        
+        $all_assigned_proj = null;
+        $user_cnd = '';
+        if (SES_TYPE == 3) {
+            $all_assigned_proj = $this->Project->query('SELECT project_id FROM project_users WHERE user_id=' . $this->Auth->user('id') . ' AND company_id=' . SES_COMP);
+            if ($all_assigned_proj) {
+                $all_assigned_proj = Hash::extract($all_assigned_proj, '{n}.project_users.project_id');
+                $all_assigned_proj = array_unique($all_assigned_proj);
+                $query .= " AND (Project.user_id=" . $this->Auth->user('id') . " OR Project.id IN(" . implode(',', $all_assigned_proj) . "))";
+                $user_cnd = " AND (Project.user_id=" . $this->Auth->user('id') . " OR Project.id IN(" . implode(',', $all_assigned_proj) . "))";
+            } else {
+                $query .= " AND Project.user_id=" . $this->Auth->user('id');
+                $user_cnd = " AND Project.user_id=" . $this->Auth->user('id');
+            }
+        }
 
         if (SES_TYPE == 3) {
-            $query .= " AND Project.user_id=" . $this->Auth->user('id');
+            //$query .= " AND Project.user_id=" . $this->Auth->user('id');
             if ($pjname) {
+						
                 $prjAllArr = $this->Project->query("SELECT SQL_CALC_FOUND_ROWS Project.id,uniq_id,name,Project.user_id,project_type,short_name,Project.isactive,dt_updated,(select count(easycases.id) as tot from easycases where easycases.project_id=Project.id and easycases.istype='1' and easycases.isactive='1') as totalcase,(select ROUND(SUM(easycases.hours), 1) as hours from easycases where easycases.project_id=Project.id and easycases.reply_type='0' and easycases.isactive='1') as totalhours,(select count(company_users.id) as tot from company_users, project_users where project_users.user_id = company_users.user_id and project_users.company_id = company_users.company_id and company_users.is_active = 1
 	and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.file_size) AS file_size FROM case_files WHERE case_files.project_id=Project.id) AS storage_used FROM projects AS Project WHERE Project.name!='' " . $query . " and name LIKE '%" . addslashes($pjname) . "%' ORDER BY dt_created DESC LIMIT $limit1,$limit2 ");
             } else {
+                
                 $prjAllArr = $this->Project->query("SELECT SQL_CALC_FOUND_ROWS Project.id,uniq_id,name,Project.user_id,project_type,short_name,Project.isactive,dt_updated,(select count(easycases.id) as tot from easycases where easycases.project_id=Project.id and easycases.istype='1' and easycases.isactive='1') as totalcase,(select ROUND(SUM(easycases.hours), 1) as hours from easycases where easycases.project_id=Project.id and easycases.reply_type='0' and easycases.isactive='1') as totalhours,(select count(company_users.id) as tot from company_users, project_users where project_users.user_id = company_users.user_id and project_users.company_id = company_users.company_id and company_users.is_active = 1
 	and project_users.project_id = Project.id) as totusers,(SELECT SUM(case_files.file_size) AS file_size FROM case_files WHERE case_files.project_id=Project.id) AS storage_used FROM projects AS Project WHERE Project.name!='' " . $query . " ORDER BY dt_created DESC LIMIT $limit1,$limit2");
             }
@@ -320,7 +338,7 @@ class ProjectsController extends AppController {
             }
         }
 
-        //pr($prjAllArr);exit;
+       
 
         $tot = $this->Project->query("SELECT FOUND_ROWS() as total");
         $CaseCount = $tot[0][0]['total'];
