@@ -106,7 +106,7 @@
             <div class="loader_dv"><center><img src="<?php echo HTTP_IMAGES; ?>images/case_loader2.gif" alt="Loading..." title="Loading..." /></center></div>
             <div id="inner_user" style="display: none;">
                 <?php
-                if (defined('SMTP_PWORD') && SMTP_PWORD != "******" || (defined('PHPMAILER') && PHPMAILER == 1)) {
+                /**if (defined('SMTP_PWORD') && SMTP_PWORD != "******" || (defined('PHPMAILER') && PHPMAILER == 1)) {
                     echo $this->element('new_user');
                 } else {
                     ?>
@@ -119,7 +119,7 @@
                         </ul>
                     </div>
                     <?php
-                }
+                }**/
                 ?>
             </div>
         </div>
