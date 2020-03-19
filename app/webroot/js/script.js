@@ -3607,6 +3607,7 @@ function addProjectToUser() {
 }
 
 $(".icon-assign-usr").click(function () {
+    
     var usr_id = $(this).attr('data-usr-id');
     var usr_name = $(this).attr('data-usr-name');
     var is_invited_user = $("#is_invited_user").val();
@@ -3614,9 +3615,11 @@ $(".icon-assign-usr").click(function () {
 });
 
 function add_project(usr_id, usr_name, is_invite_user) {
+    $('#user_id').val(usr_id);
     openPopup();
     $("#prjList").html('');
     hdprojectid = new Array();
+    
     $(".add_usr_prj").show();
     $("#header_usr_prj_add").html(usr_name);
     $('#inner_usr_prj_add').hide();
