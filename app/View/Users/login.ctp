@@ -52,12 +52,7 @@ input#txt_Password{font-family: Arial}
                         <ul>
                        	<li>You have write permission (777) to <b>`app/tmp`</b> folders</li>
                         
-                        <?php
-						if(!defined('SMTP_PWORD') || SMTP_PWORD == "******") { ?>
-                        <li>You have provided the details of <b>SMTP</b> email sending options in <b>`app/Config/constants.php`</b></li>
-<?php
-						}
-						?>
+                        
                         </ul>
                         </div>
                         <?php
