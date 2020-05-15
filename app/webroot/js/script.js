@@ -2394,7 +2394,7 @@ function profilePopupCancel() {
 $(function () {
     $('#upldphoto').change(function () {
         profilePopupClose();
-        var ext = this.value.match(/\.(.+)$/)[1].toLowerCase();
+        var ext = this.value.match(/\.([a-z]+)$/)[1].toLowerCase();
         if ($.inArray(ext, ["jpg", "jpeg", "png", "gif", "bmp"]) == -1) {
             alert("Sorry, '" + ext + "' file type is not allowed!");
             this.value = '';
