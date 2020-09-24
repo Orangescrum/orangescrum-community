@@ -180,7 +180,7 @@ input#txt_Password{font-family: Arial}
                                              ?>
                                             <div style="margin-left:20px; margin-top:4px;">
                                                 <input type="checkbox" name="data[User][remember_me]" id="chk_Rem" class="auto" value="1" style="cursor:pointer; border:none"/>
-                                                <span class="rem_posn" style="color:#666;">Remember me</span>
+                                                <label for="chk_Rem" class="rem_posn" style="color:#666;">Remember me</label>
                                             </div>
                                             <div class="gap10"></div>
                                             <div>
