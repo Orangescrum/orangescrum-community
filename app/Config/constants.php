@@ -14,8 +14,8 @@ define("EMAIL_DELIVERY", "smtp");
 //Make sure to enable "php_openssl" in PHP. In WAMP, you need to enable extension=php_openssl.dll on php.ini file 
 
 //Gmail SMTP
-define("SMTP_HOST", "ssl://smtp.gmail.com");
-define("SMTP_PORT", "465");
+define("SMTP_HOST", "smtp.gmail.com");
+define("SMTP_PORT", "587");
 define("SMTP_UNAME", "youremail@gmail.com");
 define("SMTP_PWORD", "******");
 define("IS_SMTP", "0");
