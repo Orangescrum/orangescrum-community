@@ -20,7 +20,7 @@
 									<p>You have got an invitation from <a href="mailto:<?php echo $fromEmail; ?>"><?php echo $fromName; ?></a> to join <?php echo $company_name; ?>  on Orangescrum.</p>
 									<p>Please click the button below to accept the invitation.</p>
 									
-									<a style="font-weight:bold; text-decoration:none;" href="<?php echo HTTP_ROOT.'users/invitation/'.$qstr;?>" target='_blank'><div style="display:block; max-width:100% !important; width:auto !important;margin:auto; height:auto !important;background-color:#0EA426;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;border-radius:10px;color:#ffffff;font-size:16px;text-align:center">Join <?php echo $company_name; ?></div></a>
+									<a style="font-weight:bold; text-decoration:none;" href="<?php echo HTTPS_HOME.'users/invitation/'.$qstr;?>" target='_blank'><div style="display:block; max-width:100% !important; width:auto !important;margin:auto; height:auto !important;background-color:#0EA426;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;border-radius:10px;color:#ffffff;font-size:16px;text-align:center">Join <?php echo $company_name; ?></div></a>
 									
 								<?php
 								}
@@ -29,7 +29,7 @@
 									<p><a href="mailto:<?php echo $fromEmail; ?>"><?php echo $fromName; ?></a> has just setup an account for you on Orangescrum.</p>
 									<p>Please click the button below to get started.</p>
 									
-									<a style="font-weight:bold; text-decoration:none;" href="<?php echo HTTP_ROOT.'users/invitation/'.$qstr;?>" target='_blank'><div style="display:block; max-width:100% !important; width:auto !important;margin:auto; height:auto !important;background-color:#0EA426;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;border-radius:10px;color:#ffffff;font-size:16px;text-align:center">Get started with Orangescrum</div></a>
+									<a style="font-weight:bold; text-decoration:none;" href="<?php echo HTTPS_HOME.'users/invitation/'.$qstr;?>" target='_blank'><div style="display:block; max-width:100% !important; width:auto !important;margin:auto; height:auto !important;background-color:#0EA426;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;border-radius:10px;color:#ffffff;font-size:16px;text-align:center">Get started with Orangescrum</div></a>
 								<?php
 								}
 								?>
