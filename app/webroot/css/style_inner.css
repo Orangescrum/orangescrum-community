@@ -3240,6 +3240,7 @@ box-shadow:0 6px 9px #CCC; -moz-box-shadow:0 6px 9px #CCC; -webkit-box-shadow:0 
 .dshbd-hed{height:40px;font-size:17px;font-family:'helvetica-Neue-bold';-webkit-box-shadow: 0 6px 9px -5px rgb(177, 171, 171);-moz-box-shadow: 0 6px 9px -5px rgb(177, 171, 171);box-shadow: 0 6px 9px -5px rgb(177, 171, 171);color:#5191BD;}
 .dshbd-hed .fl{padding-left:20px; padding-top:8px;}
 .dshbd-hed .active_icn{margin:5px 12px;}
+.dshbd-hed a{display:block;}
 .dboard_cont{padding:20px; font-family:'HelveticaNeue-Regular'; font-size:14px; color:#000000;display:table;width:100%;table-layout:fixed;}
 .pichart_msg{margin-left:10px;color:#333333;padding-left:0 !important;}
 .dboard_cont .proj_ttl{color:#333;}
