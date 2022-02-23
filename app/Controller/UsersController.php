@@ -89,6 +89,10 @@ class UsersController extends AppController {
     function license() {
         
     }
+		
+		function selfhost(){
+						
+		}
 
     function company($img = null) {
         if (SES_TYPE == 3) {

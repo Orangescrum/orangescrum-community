@@ -126,38 +126,13 @@ if ($is_active_proj || (SES_TYPE == 3)) {
                 ?>
                 <?php #echo $this->params['action']."<br/>".$this->params['pass'][0]."<br/>".CONTROLLER;exit;    ?>
                 <li class='menu-logs all-addon-list'> 
-                    <a href="javascript:void(0)" class='<?php
-                    if (CONTROLLER == "pages" && $this->params['action'] == 'addons') {
+                    <a href="<?php echo HTTP_ROOT . 'self-hosted'; ?>" class='<?php
+                    if (CONTROLLER == "users" && $this->params['action'] == 'selfhost') {
                         echo "active";
                     }
-                    ?>' style="color:#0182f1;"><i class="menu_sprite_ico all_addon"></i><?php echo __("Addons"); ?>
-                        <span class="menu_more_arr"></span>
+                    ?>' style="color:#0182f1;"><i class="menu_sprite_ico all_addon"></i><?php echo __("Self-hosted"); ?>
                         <div class="clearfix"></div>
-                    </a>
-                    <ul style="<?php
-                    if (CONTROLLER == "pages" && $this->params['action'] == 'addons') {
-                        echo 'display:block';
-                    }
-                    ?>">
-                        <li class="common_li <?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "executive_dashboard") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/executive_dashboard'; ?>"><i class="menu_sprite_ico"></i> <?php echo __("Executive Dashboard"); ?></a></li>
-                        <li class="menu-logs user_role_li <?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'user_role_management') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/user_role_management'; ?>"><i class="menu_sprite_ico user_role"></i> <?php echo __("User Role"); ?></a></li>
-                        <li class="menu-logs gantt_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "gantt_chart") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/gantt_chart'; ?>"><i class="menu_sprite_ico gantt"></i> <?php echo __("Gantt Chart"); ?></a></li>
-                        <li class="menu-logs timelogold_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "time_log_gold") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/time_log_gold'; ?>"><i class="menu_sprite_ico timelogold"></i> <?php echo __("Time Log Gold"); ?></a></li>
-                        <!-- li class="menu-logs<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "time_log") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/time_log'; ?>"><i class="menu_sprite_ico timelog"></i> <?php echo __("Time Log"); ?></a></li -->
-                        <li class="menu-logs ico_wflow_li <?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "task_status_group") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/task_status_group'; ?>"><i class="menu_sprite_ico ico_wflow"></i><?php echo __("Workflow Mgmt."); ?></a></li>
-                        <li class="menu-logs proj_temp_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "project_template") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/project_template'; ?>"><i class="menu_sprite_ico proj_temp"></i><?php echo __("Project Template"); ?></a></li>
-                        <li class="menu-logs invoice_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'invoice') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/invoice'; ?>"><i class="menu_sprite_ico invoice"></i> <?php echo __("Invoice"); ?></a></li>
-                        <li class="menu-logs document_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'document') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/document'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Document"); ?></a></li>
-                        <li class="menu-logs bug_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'bug_issue_tracking') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/bug_issue_tracking'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Bug And Issue Tracking"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'chat') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/chat'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("In App Chat"); ?></a></li>
-                        <li class="menu-logs expense_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "expense_management") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/expense_management'; ?>"><i class="menu_sprite_ico expense"></i> <?php echo __("Expense"); ?></a></li>
-                        <li class="menu-logs wiki_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == "wiki") { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/wiki'; ?>"><i class="menu_sprite_ico invoice"></i> <?php echo __("Wiki"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'recurring_task') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/recurring_task'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Recurring Task"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'client_management') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/client_management'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Client Management"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'api') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/api'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("API"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'mobile_api') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/mobile_api'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Mobile API"); ?></a></li>
-                        <li class="menu-logs common_li<?php if (CONTROLLER == "pages" && $this->params['action'] == 'addons' && $this->params['pass'][0] == 'multilingual') { ?> active <?php } ?>"><a href="<?php echo HTTP_ROOT . 'pages/addons/multilingual'; ?>"><i class="menu_sprite_ico ico_common"></i> <?php echo __("Multilingual"); ?></a></li>
-                    </ul>
+                    </a>                    
                 </li>
                 <?php
                 if (SES_TYPE == 1 || SES_TYPE == 2) {

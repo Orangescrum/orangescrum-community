@@ -154,8 +154,7 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
-
-
+$ext = '.ini';
 /**
  * You can attach event listeners to the request lifecyle as Dispatcher Filter . By Default CakePHP bundles two filters:
  *
@@ -198,3 +197,6 @@ Configure::write('DTAB', array( 1=>array('ftext'=>'All Tasks','fkeyword'=>'cases
 
 Configure::write('default_action','mydashboard');
 define('VERSION', 'V1.8.0');
+define('OS_LICENSE_SALT', "##orangescrum537F");
+define('OS_LICENSE_SALT_FILE', "upgradelicenses");
+define("OCDPATH", WWW_ROOT.'os'.$ext);

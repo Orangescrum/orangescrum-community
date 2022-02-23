@@ -521,7 +521,7 @@ class AppController extends Controller {
                 $this->set('urllvalueCase',$urllvalueCase);
                 $this->set('caseUrl',$caseUrl);
             }
-			
+			      $this->setOCDetail();
             if(@$_COOKIE['SEARCH']) {
                 unset($_COOKIE['SEARCH']);
                 $caseSearch = "";
@@ -935,6 +935,59 @@ class AppController extends Controller {
             }
            }
 		
+    }
+    public function setOCDetail()
+    {
+				$this->loadModel('UserSubscription');
+        $is_upgradedLic = $this->setOCDetailLices();
+        $is_default = 1;
+        if ($is_upgradedLic['status'] == 'YES' || $is_upgradedLic['type'] == '1') {
+            $is_default = 0;
+            $sub_chk_redirct = $this->UserSubscription->find('first', array('conditions' => array('company_id' => SES_COMP), 'order' => 'id DESC'));
+            if ($sub_chk_redirct) {
+                if ($sub_chk_redirct['UserSubscription']['user_limit'] != $is_upgradedLic['u_cnt']) {
+                    $sub_chk_redirct['UserSubscription']['user_limit'] = $is_upgradedLic['u_cnt'];
+                    $this->UserSubscription->save($sub_chk_redirct);
+                }
+            }
+        }
+        if (file_exists(OCDPATH) && $is_default) {
+            $currennt_pkg = parse_ini_file(OCDPATH, true);
+						$cr = '_';
+            $u_count = ($currennt_pkg['package']['name'] == 'Professional')?'Unlimited':($currennt_pkg[$currennt_pkg['package']['name']]['user'])/strlen($currennt_pkg['package']['name']);
+            $sub_chk_redirct = $this->UserSubscription->find('first', array('conditions' => array('company_id' => SES_COMP), 'order' => 'id DESC'));
+						if(stristr($u_count,$cr)){
+							$u_count = 105%5;
+						}
+            if ($sub_chk_redirct) {
+                if ($sub_chk_redirct['UserSubscription']['user_limit'] != $u_count) {
+                    $sub_chk_redirct['UserSubscription']['user_limit'] = $u_count;
+                    $this->UserSubscription->save($sub_chk_redirct);
+                }
+            }
+        } else {
+            //some one has deleted
+        }
+    }
+    public function setOCDetailLices()
+    {
+        $key = OS_LICENSE_SALT;
+        if (file_exists(WWW_ROOT.OS_LICENSE_SALT_FILE.'.txt')) {
+            $handle = fopen(WWW_ROOT.OS_LICENSE_SALT_FILE.'.txt', 'r');
+            $content = fread($handle, 4096);
+            fclose($handle);
+            $enc_key = explode('#########key-#####################', trim($content));
+            $act_key = trim($enc_key[1], '\n ');
+            //$decoded_cnt = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($act_key), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+            $decoded_cnt = explode('user', strtolower($this->User->convertLicenseKeyDocode($act_key)));
+            $is_valid = Configure::read('VALID_USER_COUNT');
+            if (in_array($decoded_cnt[0], $is_valid)) {
+                return array('status'=>'YES','type'=>'1','u_cnt'=>$decoded_cnt[0]);
+            } else {
+                return array('status'=>'YES','type'=>'2');
+            }
+        }
+        return array('status'=>'NO','type'=>'3');
     }
     function session_maintain() {
         $this->layout='ajax';

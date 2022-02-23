@@ -68,6 +68,9 @@ Router::connect('/installed-addons', array('controller' => 'Install', 'action' =
 // PHPMailer
 Router::connect('/phpmailer/:controller/:action', array('plugin' => 'PhpMailer'));
 Router::connect('/PhpMailer/:controller/:action', array('plugin' => 'PhpMailer'));
+
+Router::connect('/self-hosted/*', array('controller' =>'users', 'action' => 'selfhost'));
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
