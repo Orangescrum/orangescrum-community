@@ -1,0 +1,17 @@
+machine:
+  php:
+    version: 5.5.11
+    
+## Customize dependencies
+dependencies:
+  pre:
+    - pear channel-discover pear.phing.info
+    - pear channel-discover pear.cakephp.org
+    - pear install phing/phing
+    - pear install --alldeps cakephp/Phing_d51PearPkg2Task-alpha
+    
+deployment:
+  dockerhub:
+    branch: master
+    commands:
+      - $DOCKER_HUB_TRIGGER

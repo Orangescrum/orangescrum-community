@@ -1,14 +1,16 @@
 language: php
 
 php:
-  - 5.2
-  - 5.3
-  - 5.4
+  - 5.5
 
 env:
   - DB=mysql
   - DB=pgsql
   - DB=sqlite
+  
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y apache2 php5-common libapache2-mod-php5 php5-cli npm nodejs php5-dev php-pear
 
 before_script:
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE cakephp_test;'; fi"
